@@ -1,0 +1,31 @@
+{
+  "connection_id": "{{CONNECTION_ID_1}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "connector_id": "{{CONNECTOR_ID_1}}",
+  "key": "orders-webhook",
+  "name": "Orders Webhook",
+  "description": "Webhook endpoint for receiving order events from e-commerce platforms. Configure your store to POST order data to the generated webhook URL.",
+  "type": "webhook",
+  "status": "active",
+  "credential_fields": {
+    "api_key": "{{API_KEY_PLACEHOLDER}}"
+  },
+  "configuration": {
+    "endpoint_slug": "demo-orders",
+    "include_event_id": true,
+    "timeout_seconds": 30,
+    "retry_policy": {
+      "max_retries": 3,
+      "backoff_multiplier": 2
+    }
+  },
+  "metadata": {
+    "tags": ["orders", "e-commerce", "webhook"],
+    "source_system": "external-store"
+  },
+  "verified": false,
+  "draft": false,
+  "last_tested": null,
+  "created_at": "2026-01-28T00:00:00Z",
+  "updated_at": "2026-01-28T00:00:00Z"
+}

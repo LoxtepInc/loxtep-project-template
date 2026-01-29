@@ -1,0 +1,66 @@
+{
+  "$schema": "https://loxtep.com/schemas/blueprint/pipeline.json",
+  "blueprint_type": "pipeline",
+  "slug": "file-import",
+  "name": "File Import Pipeline",
+  "description": "Import data from files (CSV, JSON, Parquet) stored in S3 or uploaded via API. Ideal for batch data loads, historical data imports, and data lake ingestion.",
+  "version": "1.0.0",
+  "tags": ["file", "batch", "s3", "import", "csv", "json", "parquet"],
+  "use_cases": [
+    "Historical data migration",
+    "Batch file processing",
+    "Data lake ingestion",
+    "Partner data exchange"
+  ],
+  "entity": {
+    "pipeline_id": "{{PIPELINE_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "name": "{{PIPELINE_NAME}}",
+    "description": "File import pipeline for batch data ingestion",
+    "connection_id": "{{CONNECTION_ID}}",
+    "template_id": "{{TEMPLATE_ID_FILE_IMPORT}}",
+    "configuration": {
+      "schedule": "{{CRON_SCHEDULE}}",
+      "batch_size": 5000,
+      "transformation_ids": [],
+      "validation_ids": []
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "blueprint_slug": "file-import",
+      "ingestion_type": "file_import",
+      "file_config": {
+        "format": "{{FILE_FORMAT}}",
+        "s3_prefix": "{{S3_PREFIX}}",
+        "compression": "{{COMPRESSION}}",
+        "header_row": true
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "dependencies": {
+    "connection": {
+      "type": "file",
+      "required": true,
+      "description": "S3 or file storage connection"
+    }
+  },
+  "placeholders": {
+    "{{PIPELINE_ID}}": "Generated UUID for the pipeline",
+    "{{ORGANIZATION_ID}}": "Organization that owns this pipeline",
+    "{{PROJECT_ID}}": "Project containing this pipeline",
+    "{{PIPELINE_NAME}}": "User-provided name for the pipeline",
+    "{{CONNECTION_ID}}": "Reference to file storage connection",
+    "{{TEMPLATE_ID_FILE_IMPORT}}": "System file import template ID",
+    "{{CRON_SCHEDULE}}": "Cron expression for scheduled imports (optional)",
+    "{{FILE_FORMAT}}": "File format: csv, json, jsonl, or parquet",
+    "{{S3_PREFIX}}": "S3 key prefix for input files",
+    "{{COMPRESSION}}": "Compression type: none, gzip, or snappy",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

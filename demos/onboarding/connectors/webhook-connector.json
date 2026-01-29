@@ -1,0 +1,26 @@
+{
+  "connector_id": "{{CONNECTOR_ID_1}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "connector_type": "webhook",
+  "name": "Webhook Connector",
+  "description": "Generic webhook connector for receiving HTTP POST events from external systems. Supports API key, HMAC, and bearer token authentication.",
+  "category": "custom",
+  "icon_url": null,
+  "documentation_url": "https://docs.loxtep.com/connectors/webhook",
+  "auth_type": "api_key",
+  "oauth_config": null,
+  "supported_directions": ["inbound"],
+  "supported_entities": ["events", "orders", "customers", "products"],
+  "supports_webhooks": true,
+  "supports_polling": false,
+  "required_scopes": null,
+  "required_permissions": null,
+  "version": "1.0.0",
+  "is_beta": false,
+  "metadata": {
+    "tags": ["webhook", "http", "events"],
+    "use_cases": ["order_processing", "event_streaming", "notifications"]
+  },
+  "created_at": "2026-01-28T00:00:00Z",
+  "updated_at": "2026-01-28T00:00:00Z"
+}

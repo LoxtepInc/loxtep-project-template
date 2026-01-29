@@ -1,0 +1,67 @@
+{
+  "$schema": "https://loxtep.com/schemas/blueprint/connector.json",
+  "blueprint_type": "connector",
+  "slug": "postgres",
+  "name": "PostgreSQL Connector",
+  "description": "Connect to PostgreSQL databases for Change Data Capture (CDC), query-based ingestion, or batch data extraction. Supports logical replication for real-time streaming.",
+  "version": "1.0.0",
+  "tags": ["postgres", "postgresql", "database", "cdc", "sql"],
+  "use_cases": [
+    "Real-time CDC replication",
+    "Database migration",
+    "Query-based data extraction",
+    "Audit log streaming"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "connector_type": "postgres",
+    "name": "PostgreSQL",
+    "description": "PostgreSQL database connector with CDC and query-based ingestion support",
+    "category": "database",
+    "icon_url": "https://www.postgresql.org/media/img/about/press/elephant.png",
+    "documentation_url": "https://www.postgresql.org/docs/",
+    "auth_type": "basic",
+    "oauth_config": null,
+    "supported_directions": ["inbound", "outbound"],
+    "supported_entities": [],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "required_permissions": ["SELECT", "REPLICATION"],
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "blueprint_slug": "postgres",
+      "supported_versions": ["12", "13", "14", "15", "16"],
+      "cdc_method": "logical_replication"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "database",
+    "configuration": {
+      "host": "{{DB_HOST}}",
+      "port": 5432,
+      "database": "{{DB_NAME}}",
+      "ssl_mode": "require",
+      "replication_slot": "{{REPLICATION_SLOT}}"
+    },
+    "credential_fields": {
+      "username": "{{DB_USERNAME}}",
+      "password": "{{DB_PASSWORD}}"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{DB_HOST}}": "PostgreSQL host address",
+    "{{DB_NAME}}": "Database name",
+    "{{DB_USERNAME}}": "Database username with SELECT and REPLICATION permissions",
+    "{{DB_PASSWORD}}": "Database password (encrypted)",
+    "{{REPLICATION_SLOT}}": "Logical replication slot name for CDC",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

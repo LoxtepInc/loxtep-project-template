@@ -1,0 +1,25 @@
+{
+  "pipeline_id": "{{PIPELINE_ID_1}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "project_id": "{{PROJECT_ID}}",
+  "name": "Order Processing Pipeline",
+  "description": "Processes incoming orders from the webhook connection. Validates order data, calculates totals, and enriches with timestamps before forwarding to the data product.",
+  "connection_id": "{{CONNECTION_ID_1}}",
+  "template_id": "{{TEMPLATE_ID_WEBHOOK}}",
+  "configuration": {
+    "schedule": null,
+    "batch_size": 100,
+    "transformation_ids": [],
+    "validation_ids": []
+  },
+  "deployment": null,
+  "status": "inactive",
+  "metrics": {},
+  "metadata": {
+    "tags": ["orders", "processing", "e-commerce"],
+    "ingestion_type": "webhook",
+    "expected_volume": "low"
+  },
+  "created_at": "2026-01-28T00:00:00Z",
+  "updated_at": "2026-01-28T00:00:00Z"
+}

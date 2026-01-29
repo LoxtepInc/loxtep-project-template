@@ -1,0 +1,61 @@
+{
+  "$schema": "https://loxtep.com/schemas/blueprint/connector.json",
+  "blueprint_type": "connector",
+  "slug": "shopify",
+  "name": "Shopify Connector",
+  "description": "Connect to Shopify stores to ingest orders, customers, products, and inventory data. Supports both OAuth authentication and private app API keys.",
+  "version": "1.0.0",
+  "tags": ["shopify", "e-commerce", "orders", "products"],
+  "use_cases": [
+    "Order event streaming",
+    "Product catalog sync",
+    "Customer data integration",
+    "Inventory tracking"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "connector_type": "shopify",
+    "name": "Shopify",
+    "description": "Shopify e-commerce platform connector for orders, customers, products, and inventory",
+    "category": "e_commerce",
+    "icon_url": "https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-primary-logo-1.png",
+    "documentation_url": "https://shopify.dev/api",
+    "auth_type": "oauth2",
+    "oauth_config": {
+      "authorization_url": "https://{{SHOP_DOMAIN}}/admin/oauth/authorize",
+      "token_url": "https://{{SHOP_DOMAIN}}/admin/oauth/access_token",
+      "scopes": ["read_orders", "read_customers", "read_products", "read_inventory"],
+      "response_type": "code",
+      "grant_type": "authorization_code"
+    },
+    "supported_directions": ["inbound"],
+    "supported_entities": ["orders", "customers", "products", "inventory", "fulfillments"],
+    "supports_webhooks": true,
+    "supports_polling": true,
+    "required_scopes": ["read_orders", "read_customers"],
+    "required_permissions": null,
+    "version": "2024-01",
+    "is_beta": false,
+    "metadata": {
+      "blueprint_slug": "shopify",
+      "api_version": "2024-01"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "shop_domain": "{{SHOP_DOMAIN}}",
+      "api_version": "2024-01"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{SHOP_DOMAIN}}": "Shopify store domain (e.g., mystore.myshopify.com)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

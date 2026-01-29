@@ -1,0 +1,56 @@
+{
+  "$schema": "https://loxtep.com/schemas/blueprint/pipeline.json",
+  "blueprint_type": "pipeline",
+  "slug": "webhook-ingestion",
+  "name": "Webhook Ingestion Pipeline",
+  "description": "Receive events via HTTP POST webhook. Ideal for e-commerce order events, payment notifications, form submissions, and real-time integrations.",
+  "version": "1.0.0",
+  "tags": ["webhook", "http", "real-time", "events"],
+  "use_cases": [
+    "E-commerce order notifications",
+    "Payment gateway webhooks (Stripe, PayPal)",
+    "Form submission handlers",
+    "Third-party integration events"
+  ],
+  "entity": {
+    "pipeline_id": "{{PIPELINE_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "name": "{{PIPELINE_NAME}}",
+    "description": "Webhook ingestion pipeline for receiving HTTP POST events",
+    "connection_id": "{{CONNECTION_ID}}",
+    "template_id": "{{TEMPLATE_ID_WEBHOOK}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100,
+      "transformation_ids": [],
+      "validation_ids": []
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "blueprint_slug": "webhook-ingestion",
+      "ingestion_type": "webhook"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "dependencies": {
+    "connection": {
+      "type": "webhook",
+      "required": true,
+      "description": "Webhook connection for receiving HTTP POST events"
+    }
+  },
+  "placeholders": {
+    "{{PIPELINE_ID}}": "Generated UUID for the pipeline",
+    "{{ORGANIZATION_ID}}": "Organization that owns this pipeline",
+    "{{PROJECT_ID}}": "Project containing this pipeline",
+    "{{PIPELINE_NAME}}": "User-provided name for the pipeline",
+    "{{CONNECTION_ID}}": "Reference to webhook connection",
+    "{{TEMPLATE_ID_WEBHOOK}}": "System webhook ingestion template ID",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

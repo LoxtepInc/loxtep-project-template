@@ -1,0 +1,69 @@
+{
+  "$schema": "https://loxtep.com/schemas/blueprint/pipeline.json",
+  "blueprint_type": "pipeline",
+  "slug": "streaming-transform",
+  "name": "Streaming Transform Pipeline",
+  "description": "Apply real-time transformations to streaming data. Chain multiple transformations for data enrichment, filtering, aggregation, and format conversion.",
+  "version": "1.0.0",
+  "tags": ["streaming", "transform", "real-time", "enrichment"],
+  "use_cases": [
+    "Real-time data enrichment",
+    "Event filtering and routing",
+    "Data format conversion",
+    "Aggregation and windowing"
+  ],
+  "entity": {
+    "pipeline_id": "{{PIPELINE_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "name": "{{PIPELINE_NAME}}",
+    "description": "Streaming transform pipeline for real-time data processing",
+    "connection_id": "{{CONNECTION_ID}}",
+    "template_id": "{{TEMPLATE_ID_STREAMING_TRANSFORM}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 200,
+      "transformation_ids": "{{TRANSFORMATION_IDS}}",
+      "validation_ids": []
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "blueprint_slug": "streaming-transform",
+      "ingestion_type": "streaming",
+      "transform_config": {
+        "input_queue": "{{INPUT_QUEUE}}",
+        "output_queue": "{{OUTPUT_QUEUE}}",
+        "error_queue": "{{ERROR_QUEUE}}"
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "dependencies": {
+    "connection": {
+      "type": "api",
+      "required": false,
+      "description": "Optional external API for enrichment lookups"
+    },
+    "transformations": {
+      "required": true,
+      "description": "At least one transformation must be defined"
+    }
+  },
+  "placeholders": {
+    "{{PIPELINE_ID}}": "Generated UUID for the pipeline",
+    "{{ORGANIZATION_ID}}": "Organization that owns this pipeline",
+    "{{PROJECT_ID}}": "Project containing this pipeline",
+    "{{PIPELINE_NAME}}": "User-provided name for the pipeline",
+    "{{CONNECTION_ID}}": "Optional reference to external API connection",
+    "{{TEMPLATE_ID_STREAMING_TRANSFORM}}": "System streaming transform template ID",
+    "{{TRANSFORMATION_IDS}}": "Array of transformation IDs to apply in order",
+    "{{INPUT_QUEUE}}": "Source queue name for input events",
+    "{{OUTPUT_QUEUE}}": "Destination queue name for transformed events",
+    "{{ERROR_QUEUE}}": "Queue name for failed transformations",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

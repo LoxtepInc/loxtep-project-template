@@ -1,0 +1,71 @@
+{
+  "$schema": "https://loxtep.com/schemas/blueprint/connector.json",
+  "blueprint_type": "connector",
+  "slug": "s3-source",
+  "name": "S3 Source Connector",
+  "description": "Ingest files from Amazon S3 buckets. Supports CSV, JSON, JSONL, Parquet, and Avro formats with optional compression handling.",
+  "version": "1.0.0",
+  "tags": ["s3", "aws", "file", "batch", "cloud-storage"],
+  "use_cases": [
+    "Data lake ingestion",
+    "File-based data exchange",
+    "Historical data import",
+    "Partner data drops"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "connector_type": "s3-source",
+    "name": "Amazon S3 Source",
+    "description": "Amazon S3 connector for file-based data ingestion with support for multiple formats",
+    "category": "file_storage",
+    "icon_url": "https://d1.awsstatic.com/logos/aws-logo-lockups/poweredbyaws/PB_AWS_logo_RGB_stacked_REV_SQ.91cd4af40773cbfbd15577a3c2b8a346fe3e8fa2.png",
+    "documentation_url": "https://docs.aws.amazon.com/s3/",
+    "auth_type": "custom",
+    "oauth_config": null,
+    "supported_directions": ["inbound"],
+    "supported_entities": ["files"],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "required_permissions": ["s3:GetObject", "s3:ListBucket"],
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "blueprint_slug": "s3-source",
+      "supported_formats": ["csv", "json", "jsonl", "parquet", "avro"],
+      "supported_compression": ["none", "gzip", "snappy", "lz4"]
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "file",
+    "configuration": {
+      "bucket_name": "{{S3_BUCKET}}",
+      "region": "{{AWS_REGION}}",
+      "prefix": "{{S3_PREFIX}}",
+      "file_format": "{{FILE_FORMAT}}",
+      "compression": "{{COMPRESSION}}"
+    },
+    "credential_fields": {
+      "custom_credentials": {
+        "aws_access_key_id": "{{AWS_ACCESS_KEY_ID}}",
+        "aws_secret_access_key": "{{AWS_SECRET_ACCESS_KEY}}"
+      }
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{S3_BUCKET}}": "S3 bucket name",
+    "{{AWS_REGION}}": "AWS region (e.g., us-east-1)",
+    "{{S3_PREFIX}}": "Key prefix for filtering files",
+    "{{FILE_FORMAT}}": "File format: csv, json, jsonl, parquet, or avro",
+    "{{COMPRESSION}}": "Compression: none, gzip, snappy, or lz4",
+    "{{AWS_ACCESS_KEY_ID}}": "AWS access key ID (encrypted)",
+    "{{AWS_SECRET_ACCESS_KEY}}": "AWS secret access key (encrypted)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://loxtep.com/schemas/blueprint/pipeline.json",
+  "blueprint_type": "pipeline",
+  "slug": "api-polling",
+  "name": "API Polling Pipeline",
+  "description": "Poll external REST APIs on a schedule to ingest data. Ideal for APIs without webhook support, data synchronization, and periodic data collection.",
+  "version": "1.0.0",
+  "tags": ["api", "polling", "scheduled", "rest"],
+  "use_cases": [
+    "Pull data from legacy APIs without webhooks",
+    "Sync data from SaaS platforms (CRM, ERP)",
+    "Collect public data (weather, stocks, news)",
+    "Periodic data aggregation"
+  ],
+  "entity": {
+    "pipeline_id": "{{PIPELINE_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "name": "{{PIPELINE_NAME}}",
+    "description": "API polling pipeline for scheduled data ingestion",
+    "connection_id": "{{CONNECTION_ID}}",
+    "template_id": "{{TEMPLATE_ID_API_POLLING}}",
+    "configuration": {
+      "schedule": "{{CRON_SCHEDULE}}",
+      "batch_size": 500,
+      "transformation_ids": [],
+      "validation_ids": []
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "blueprint_slug": "api-polling",
+      "ingestion_type": "api_polling",
+      "polling_config": {
+        "endpoint_path": "{{API_ENDPOINT}}",
+        "method": "GET",
+        "pagination_type": "offset",
+        "page_size": 100
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "dependencies": {
+    "connection": {
+      "type": "api",
+      "required": true,
+      "description": "REST API connection with authentication configured"
+    }
+  },
+  "placeholders": {
+    "{{PIPELINE_ID}}": "Generated UUID for the pipeline",
+    "{{ORGANIZATION_ID}}": "Organization that owns this pipeline",
+    "{{PROJECT_ID}}": "Project containing this pipeline",
+    "{{PIPELINE_NAME}}": "User-provided name for the pipeline",
+    "{{CONNECTION_ID}}": "Reference to API connection",
+    "{{TEMPLATE_ID_API_POLLING}}": "System API polling template ID",
+    "{{CRON_SCHEDULE}}": "Cron expression (e.g., '0 */6 * * *' for every 6 hours)",
+    "{{API_ENDPOINT}}": "API endpoint path to poll",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

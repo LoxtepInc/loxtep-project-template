@@ -1,0 +1,34 @@
+{
+  "data_product_id": "{{DATA_PRODUCT_ID_1}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "pipeline_id": "{{PIPELINE_ID_1}}",
+  "domain_id": "{{DOMAIN_ID_1}}",
+  "name": "Orders",
+  "description": "Sales analytics from order processing. Contains validated and enriched order data including customer information, line items, totals, and fulfillment status. Query via SQL or subscribe to real-time events.",
+  "owner": {
+    "user_id": "{{USER_ID}}"
+  },
+  "status": "draft",
+  "governance": {
+    "classification": "internal",
+    "pii_fields": ["customer_email", "customer_name", "shipping_address"],
+    "compliance_requirements": [],
+    "tags": ["orders", "sales", "analytics", "e-commerce"]
+  },
+  "metadata": {
+    "business_glossary": {
+      "order_id": "Unique identifier for each order",
+      "order_total": "Total amount including tax and shipping",
+      "line_items": "Array of products in the order",
+      "customer_id": "Reference to the customer who placed the order"
+    },
+    "sample_queries": [
+      "SELECT date_trunc('day', created_at) as day, count(*) as orders, sum(order_total) as revenue FROM orders GROUP BY 1 ORDER BY 1",
+      "SELECT customer_id, count(*) as order_count FROM orders GROUP BY 1 ORDER BY 2 DESC LIMIT 10"
+    ],
+    "refresh_frequency": "real-time",
+    "expected_latency_ms": 5000
+  },
+  "created_at": "2026-01-28T00:00:00Z",
+  "updated_at": "2026-01-28T00:00:00Z"
+}
