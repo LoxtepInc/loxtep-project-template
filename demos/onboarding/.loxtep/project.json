@@ -2,12 +2,14 @@
   "project_id": "{{PROJECT_ID}}",
   "organization_id": "{{ORGANIZATION_ID}}",
   "name": "Getting Started",
-  "description": "A minimal project demonstrating core Loxtep concepts including domains, connections, pipelines, and data products.",
+  "description": "A minimal project demonstrating core Loxtep concepts: domains, connections, pipelines, and data products. This demo shows an e-commerce order processing flow from webhook ingestion to data product creation.",
   "version": "1.0.0",
   "template_slug": "onboarding",
   "created_at": "2026-01-28T00:00:00Z",
+  "updated_at": "2026-01-28T00:00:00Z",
   "metadata": {
-    "tags": ["beginner", "tutorial", "demo"],
-    "author": "Loxtep Team"
+    "tags": ["beginner", "tutorial", "demo", "e-commerce"],
+    "author": "Loxtep Team",
+    "industry": "retail_ecommerce"
   }
 }
