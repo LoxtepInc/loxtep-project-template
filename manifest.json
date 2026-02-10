@@ -96,6 +96,14 @@
         "path": "blueprints/connectors/rest-api.json",
         "tags": ["rest", "api", "http", "json"],
         "category": "custom"
+      },
+      {
+        "slug": "spotify",
+        "name": "Spotify Connector",
+        "description": "Connect to Spotify for user profile, playlists, and library data",
+        "path": "blueprints/connectors/spotify.json",
+        "tags": ["spotify", "music", "playlists", "oauth"],
+        "category": "custom"
       }
     ],
     "connections": [],
