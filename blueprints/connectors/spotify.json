@@ -18,7 +18,7 @@
     "name": "Spotify",
     "description": "Spotify music platform connector for user profile, playlists, and library data",
     "category": "custom",
-    "icon_url": "https://developer.spotify.com/assets/branding-guidelines/icon3@2x.png",
+    "icon_url": "https://developer-assets.spotifycdn.com/images/guidelines/design/icon-framed.svg",
     "documentation_url": "https://developer.spotify.com/documentation/web-api",
     "auth_type": "oauth2",
     "oauth_config": {
