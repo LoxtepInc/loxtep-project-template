@@ -1,0 +1,37 @@
+{
+  "blueprint_type": "transform",
+  "slug": "evaluate-data-quality",
+  "name": "Evaluate Data Quality",
+  "description": "Runs quality checks on data",
+  "version": "1.0.0",
+  "tags": ["data-quality", "validation", "rules"],
+  "entity": {
+    "transformation_id": "{{TRANSFORMATION_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "pipeline_id": "{{PIPELINE_ID}}",
+    "name": "{{NAME}}",
+    "transform_type": "evaluate_data_quality",
+    "operation_config": {
+      "rules": [
+        {
+          "name": "completeness",
+          "field": "email",
+          "type": "completeness",
+          "expression": "email != null"
+        }
+      ]
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{TRANSFORMATION_ID}}": "Generated UUID for the transformation",
+    "{{ORGANIZATION_ID}}": "Organization that owns this transformation",
+    "{{PROJECT_ID}}": "Project that contains this transformation",
+    "{{PIPELINE_ID}}": "Pipeline (flow) this transformation belongs to",
+    "{{NAME}}": "User-provided name for the transformation",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "blueprint_type": "transform",
+  "slug": "remove-null-events",
+  "name": "Remove Null Events",
+  "description": "Removes events that are null or empty",
+  "version": "1.0.0",
+  "tags": ["utilities", "null", "filter"],
+  "entity": {
+    "transformation_id": "{{TRANSFORMATION_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "pipeline_id": "{{PIPELINE_ID}}",
+    "name": "{{NAME}}",
+    "transform_type": "remove_null_events",
+    "operation_config": { "all_fields_null": false },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{TRANSFORMATION_ID}}": "Generated UUID for the transformation",
+    "{{ORGANIZATION_ID}}": "Organization that owns this transformation",
+    "{{PROJECT_ID}}": "Project that contains this transformation",
+    "{{PIPELINE_ID}}": "Pipeline (flow) this transformation belongs to",
+    "{{NAME}}": "User-provided name for the transformation",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

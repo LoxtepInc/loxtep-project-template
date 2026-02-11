@@ -1,0 +1,30 @@
+{
+  "blueprint_type": "transform",
+  "slug": "filter",
+  "name": "Filter",
+  "description": "Filters events based on conditions",
+  "version": "1.0.0",
+  "tags": ["flow-control", "filter", "conditions"],
+  "entity": {
+    "transformation_id": "{{TRANSFORMATION_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "pipeline_id": "{{PIPELINE_ID}}",
+    "name": "{{NAME}}",
+    "transform_type": "filter",
+    "operation_config": {
+      "condition": "status === \"active\""
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{TRANSFORMATION_ID}}": "Generated UUID for the transformation",
+    "{{ORGANIZATION_ID}}": "Organization that owns this transformation",
+    "{{PROJECT_ID}}": "Project that contains this transformation",
+    "{{PIPELINE_ID}}": "Pipeline (flow) this transformation belongs to",
+    "{{NAME}}": "User-provided name for the transformation",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}
