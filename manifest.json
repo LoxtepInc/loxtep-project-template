@@ -25,6 +25,13 @@
   "blueprints": {
     "pipelines": [
       {
+        "slug": "blank",
+        "name": "Blank Pipeline",
+        "description": "Empty pipeline. Add a connection, then transformations and data products via the flow canvas.",
+        "path": "blueprints/pipelines/blank.json",
+        "tags": ["blank", "empty", "starter"]
+      },
+      {
         "slug": "webhook-ingestion",
         "name": "Webhook Ingestion Pipeline",
         "description": "Receive events via HTTP POST webhook",
