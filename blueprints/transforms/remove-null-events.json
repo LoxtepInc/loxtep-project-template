@@ -5,6 +5,7 @@
   "description": "Removes events that are null or empty",
   "version": "1.0.0",
   "tags": ["utilities", "null", "filter"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

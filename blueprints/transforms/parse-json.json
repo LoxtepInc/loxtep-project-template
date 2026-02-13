@@ -5,6 +5,7 @@
   "description": "Parses JSON string fields into objects",
   "version": "1.0.0",
   "tags": ["data-transformation", "json", "parse"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

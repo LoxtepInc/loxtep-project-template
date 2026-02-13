@@ -5,6 +5,7 @@
   "description": "Fills null/missing values with defaults",
   "version": "1.0.0",
   "tags": ["data-quality", "null", "defaults"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

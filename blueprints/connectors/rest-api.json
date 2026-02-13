@@ -15,6 +15,7 @@
   "entity": {
     "connector_id": "{{CONNECTOR_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
     "connector_type": "rest-api",
     "name": "REST API",
     "description": "Generic REST API connector for pulling data from HTTP JSON endpoints",
@@ -64,6 +65,7 @@
   "placeholders": {
     "{{CONNECTOR_ID}}": "Generated UUID for the connector",
     "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
     "{{BASE_URL}}": "Base URL for the REST API (e.g., https://api.example.com/v1)",
     "{{AUTH_TYPE}}": "Authentication type: api_key, bearer, oauth2, basic, or none",
     "{{API_KEY}}": "API key for authentication (encrypted, if using api_key auth)",

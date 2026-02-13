@@ -5,6 +5,7 @@
   "description": "Keeps only specified fields, removes all others",
   "version": "1.0.0",
   "tags": ["data-manipulation", "fields", "projection"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

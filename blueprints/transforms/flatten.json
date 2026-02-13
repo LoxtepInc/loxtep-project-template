@@ -5,6 +5,7 @@
   "description": "Flattens nested objects into dot-notation fields",
   "version": "1.0.0",
   "tags": ["data-manipulation", "nested", "structure"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

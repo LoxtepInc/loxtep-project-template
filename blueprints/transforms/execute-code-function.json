@@ -5,6 +5,7 @@
   "description": "Executes custom code (sandboxed)",
   "version": "1.0.0",
   "tags": ["utilities", "custom", "code"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

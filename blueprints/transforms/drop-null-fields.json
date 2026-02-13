@@ -5,6 +5,7 @@
   "description": "Removes fields that have null values",
   "version": "1.0.0",
   "tags": ["data-manipulation", "null", "cleanup"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

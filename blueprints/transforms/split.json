@@ -5,6 +5,7 @@
   "description": "Splits events into multiple outputs",
   "version": "1.0.0",
   "tags": ["flow-control", "routing", "branch"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

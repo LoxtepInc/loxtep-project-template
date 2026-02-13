@@ -5,6 +5,7 @@
   "description": "Removes specified fields from events",
   "version": "1.0.0",
   "tags": ["data-manipulation", "privacy", "fields"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

@@ -5,6 +5,7 @@
   "description": "Renames a field from old name to new name",
   "version": "1.0.0",
   "tags": ["data-manipulation", "rename", "schema"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

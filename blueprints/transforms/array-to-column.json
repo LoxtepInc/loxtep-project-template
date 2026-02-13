@@ -5,6 +5,7 @@
   "description": "Converts array field into column structure",
   "version": "1.0.0",
   "tags": ["data-manipulation", "array", "schema"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

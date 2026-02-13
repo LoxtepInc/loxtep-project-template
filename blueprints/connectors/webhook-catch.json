@@ -15,6 +15,7 @@
   "entity": {
     "connector_id": "{{CONNECTOR_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
     "connector_type": "webhook",
     "name": "Webhook Catch",
     "description": "Generic webhook connector for receiving HTTP POST events with configurable authentication",
@@ -53,6 +54,7 @@
   "placeholders": {
     "{{CONNECTOR_ID}}": "Generated UUID for the connector",
     "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
     "{{ENDPOINT_SLUG}}": "URL slug for the webhook endpoint",
     "{{AUTH_TYPE}}": "Authentication type: api_key, hmac, bearer, basic, or none",
     "{{API_KEY}}": "API key for authentication (encrypted)",

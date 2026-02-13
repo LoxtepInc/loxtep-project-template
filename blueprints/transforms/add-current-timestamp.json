@@ -5,6 +5,7 @@
   "description": "Adds current timestamp to events",
   "version": "1.0.0",
   "tags": ["data-transformation", "timestamp", "enrichment"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

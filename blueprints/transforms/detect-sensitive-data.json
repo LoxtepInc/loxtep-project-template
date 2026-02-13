@@ -5,6 +5,7 @@
   "description": "Identifies PII/sensitive fields",
   "version": "1.0.0",
   "tags": ["data-quality", "pii", "privacy"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

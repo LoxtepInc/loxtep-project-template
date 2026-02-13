@@ -5,6 +5,7 @@
   "description": "Filters events based on conditions",
   "version": "1.0.0",
   "tags": ["flow-control", "filter", "conditions"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

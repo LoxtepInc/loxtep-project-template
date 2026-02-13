@@ -5,6 +5,7 @@
   "description": "Adds delay between events",
   "version": "1.0.0",
   "tags": ["flow-control", "rate-limiting"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

@@ -5,6 +5,7 @@
   "description": "Extracts values using regex pattern",
   "version": "1.0.0",
   "tags": ["data-transformation", "regex", "extract"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

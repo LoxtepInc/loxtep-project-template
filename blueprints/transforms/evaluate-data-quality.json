@@ -5,6 +5,7 @@
   "description": "Runs quality checks on data",
   "version": "1.0.0",
   "tags": ["data-quality", "validation", "rules"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

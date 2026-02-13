@@ -14,6 +14,7 @@
   "entity": {
     "connector_id": "{{CONNECTOR_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
     "connector_type": "spotify",
     "name": "Spotify",
     "description": "Spotify music platform connector for user profile, playlists, and library data",
@@ -59,6 +60,7 @@
   "placeholders": {
     "{{CONNECTOR_ID}}": "Generated UUID for the connector",
     "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
     "{{UPDATED_AT}}": "ISO 8601 timestamp"
   }

@@ -5,6 +5,7 @@
   "description": "Capitalizes string values",
   "version": "1.0.0",
   "tags": ["data-transformation", "string", "case"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

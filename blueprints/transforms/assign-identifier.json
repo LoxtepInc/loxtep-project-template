@@ -5,6 +5,7 @@
   "description": "Adds identifier to each event",
   "version": "1.0.0",
   "tags": ["utilities", "id", "uuid"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

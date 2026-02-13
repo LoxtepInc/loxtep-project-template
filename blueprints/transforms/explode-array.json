@@ -5,6 +5,7 @@
   "description": "Converts array elements into separate events/rows",
   "version": "1.0.0",
   "tags": ["data-manipulation", "array", "expand"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

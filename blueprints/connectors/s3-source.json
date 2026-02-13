@@ -15,6 +15,7 @@
   "entity": {
     "connector_id": "{{CONNECTOR_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
     "connector_type": "s3-source",
     "name": "Amazon S3 Source",
     "description": "Amazon S3 connector for file-based data ingestion with support for multiple formats",
@@ -58,6 +59,7 @@
   "placeholders": {
     "{{CONNECTOR_ID}}": "Generated UUID for the connector",
     "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
     "{{S3_BUCKET}}": "S3 bucket name",
     "{{AWS_REGION}}": "AWS region (e.g., us-east-1)",
     "{{S3_PREFIX}}": "Key prefix for filtering files",

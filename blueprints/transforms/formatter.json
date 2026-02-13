@@ -5,6 +5,7 @@
   "description": "Formats data using templates",
   "version": "1.0.0",
   "tags": ["utilities", "template", "string"],
+  "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
