@@ -1,0 +1,9 @@
+{
+  "blueprint_type": "project",
+  "slug": "onboarding",
+  "name": "Getting Started",
+  "description": "A minimal e-commerce project demonstrating core Loxtep concepts: domains, connectors, connections, pipelines, and data products",
+  "template_slug": "demos/onboarding",
+  "version": "1.0.0",
+  "tags": ["beginner", "tutorial", "e-commerce"]
+}
