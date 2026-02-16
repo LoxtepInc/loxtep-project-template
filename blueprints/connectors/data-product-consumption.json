@@ -1,0 +1,62 @@
+{
+  "$schema": "https://loxtep.com/schemas/blueprint/connector.json",
+  "blueprint_type": "connector",
+  "slug": "data-product-consumption",
+  "name": "Data Product Consumption Connector",
+  "description": "Consume events from a Loxtep data product as the trigger for a flow. Supports on-event (queue) or on-schedule (cron) triggers.",
+  "version": "1.0.0",
+  "tags": ["data-product", "consumption", "events", "trigger", "mesh"],
+  "use_cases": [
+    "Trigger a flow when new events arrive from a data product",
+    "Poll a data product on a schedule and process events",
+    "Downstream flows that react to published data products",
+    "Cross-domain or cross-pipeline event consumption"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "data_product_consumption",
+    "name": "Data Product Consumption",
+    "description": "Connector for consuming a data product as the flow trigger (event or cron)",
+    "category": "custom",
+    "icon_url": null,
+    "documentation_url": "https://docs.loxtep.com/connectors/data-product-consumption",
+    "auth_type": "none",
+    "oauth_config": null,
+    "supported_directions": ["inbound"],
+    "supported_entities": ["events"],
+    "supports_webhooks": true,
+    "supports_polling": true,
+    "required_scopes": null,
+    "required_permissions": null,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "blueprint_slug": "data-product-consumption",
+      "trigger_modes": ["event", "cron"]
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "data_product_consumption",
+    "configuration": {
+      "data_product_id": "{{DATA_PRODUCT_ID}}",
+      "trigger_mode": "{{TRIGGER_MODE}}",
+      "schedule": "{{CRON_SCHEDULE}}",
+      "batch_size": 100
+    },
+    "credential_fields": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{DATA_PRODUCT_ID}}": "UUID of the data product to consume",
+    "{{TRIGGER_MODE}}": "event (on event) or cron (on schedule)",
+    "{{CRON_SCHEDULE}}": "Cron expression when trigger_mode is cron (e.g. 0 */15 * * * * for every 15 min)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

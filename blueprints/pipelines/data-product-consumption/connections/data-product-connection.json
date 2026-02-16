@@ -1,0 +1,21 @@
+{
+  "connection_id": "{{CONNECTION_ID}}",
+  "pipeline_id": "{{PIPELINE_ID}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "project_id": "{{PROJECT_ID}}",
+  "key": "data-product-consumption-{{CONNECTION_ID}}",
+  "name": "Data product consumption connection",
+  "type": "data_product_consumption",
+  "status": "active",
+  "configuration": {
+    "data_product_id": "{{DATA_PRODUCT_ID}}",
+    "trigger_mode": "{{TRIGGER_MODE}}",
+    "schedule": "{{CRON_SCHEDULE}}",
+    "batch_size": 100
+  },
+  "metadata": {
+    "blueprint_slug": "data-product-consumption"
+  },
+  "created_at": "{{CREATED_AT}}",
+  "updated_at": "{{UPDATED_AT}}"
+}

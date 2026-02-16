@@ -103,6 +103,20 @@
           "events",
           "message-driven"
         ]
+      },
+      {
+        "slug": "data-product-consumption",
+        "name": "Data Product Consumption Pipeline",
+        "description": "Trigger a flow from a data product: on event or on a configurable cron schedule",
+        "path": "blueprints/pipelines/data-product-consumption",
+        "tags": [
+          "data-product",
+          "consumption",
+          "trigger",
+          "event",
+          "cron",
+          "mesh"
+        ]
       }
     ],
     "connectors": [
@@ -181,6 +195,20 @@
           "music",
           "playlists",
           "oauth"
+        ],
+        "category": "custom"
+      },
+      {
+        "slug": "data-product-consumption",
+        "name": "Data Product Consumption Connector",
+        "description": "Consume a data product as the flow trigger (on event or cron)",
+        "path": "blueprints/connectors/data-product-consumption.json",
+        "tags": [
+          "data-product",
+          "consumption",
+          "events",
+          "trigger",
+          "mesh"
         ],
         "category": "custom"
       }
