@@ -1,14 +1,14 @@
 {
-  "project_id": "{{PROJECT_ID}}",
-  "organization_id": "{{ORGANIZATION_ID}}",
-  "name": "Getting Started",
-  "description": "A minimal project demonstrating core Loxtep concepts: domains, connections, pipelines, and data products. This demo shows an e-commerce order processing flow from webhook ingestion to data product creation.",
+  "project_id": "00000000-0000-0000-0000-000000000002",
+  "organization_id": "00000000-0000-0000-0000-000000000001",
+  "name": "Full-Mesh Ecommerce Demo",
+  "description": "Ecommerce sample with ingestion (webhook → raw orders), enrichment (raw → enriched orders), and consumption (enriched orders → partner webhook). Demonstrates all three pipeline types.",
   "version": "1.0.0",
-  "template_slug": "onboarding",
-  "created_at": "2026-01-28T00:00:00Z",
-  "updated_at": "2026-01-28T00:00:00Z",
+  "template_slug": "demos/onboarding",
+  "created_at": "2026-02-17T00:00:00Z",
+  "updated_at": "2026-02-17T00:00:00Z",
   "metadata": {
-    "tags": ["beginner", "tutorial", "demo", "e-commerce"],
+    "tags": ["beginner", "tutorial", "demo", "e-commerce", "full-mesh"],
     "author": "Loxtep Team",
     "industry": "retail_ecommerce"
   }

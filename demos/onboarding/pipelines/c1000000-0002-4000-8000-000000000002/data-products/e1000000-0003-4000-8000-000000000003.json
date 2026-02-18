@@ -1,0 +1,16 @@
+{
+  "data_product_id": "e1000000-0003-4000-8000-000000000003",
+  "organization_id": "00000000-0000-0000-0000-000000000001",
+  "pipeline_id": "c1000000-0002-4000-8000-000000000002",
+  "domain_id": "a1000000-0001-4000-8000-000000000001",
+  "upstream_entity_id": null,
+  "upstream_entity_type": null,
+  "name": "Raw Orders (Source)",
+  "description": "Source data product for enrichment — raw orders from ingestion.",
+  "owner": { "user_id": "00000000-0000-0000-0000-000000000001", "team": null },
+  "status": "draft",
+  "governance": { "classification": "internal", "pii_fields": [], "compliance_requirements": [], "tags": ["orders"] },
+  "metadata": {},
+  "created_at": "2026-02-17T00:00:00Z",
+  "updated_at": "2026-02-17T00:00:00Z"
+}

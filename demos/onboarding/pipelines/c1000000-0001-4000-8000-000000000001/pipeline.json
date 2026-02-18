@@ -1,0 +1,19 @@
+{
+  "pipeline_id": "c1000000-0001-4000-8000-000000000001",
+  "organization_id": "00000000-0000-0000-0000-000000000001",
+  "project_id": "00000000-0000-0000-0000-000000000002",
+  "name": "Orders Webhook Ingestion",
+  "description": "Ingest orders from external store via webhook into the Raw Orders data product.",
+  "template_id": "f1000000-0001-4000-8000-000000000001",
+  "pipeline_type": "ingestion",
+  "domain_id": "a1000000-0001-4000-8000-000000000001",
+  "segments": [],
+  "trigger": { "event": "webhook", "schedule": null, "connector": "b1000000-0001-4000-8000-000000000001" },
+  "configuration": { "schedule": null, "batch_size": 100 },
+  "deployment": null,
+  "status": "inactive",
+  "metrics": {},
+  "metadata": { "tags": ["orders", "ingestion", "webhook"] },
+  "created_at": "2026-02-17T00:00:00Z",
+  "updated_at": "2026-02-17T00:00:00Z"
+}
