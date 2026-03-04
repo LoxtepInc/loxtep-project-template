@@ -25,7 +25,7 @@
     "supports_webhooks": false,
     "supports_polling": true,
     "version": "1.0.0",
-    "is_beta": true,
+    "is_beta": false,
     "metadata": {
       "blueprint_slug": "northbeam"
     },
