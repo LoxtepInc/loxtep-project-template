@@ -1,0 +1,47 @@
+{
+  "$schema": "https://loxtep.com/schemas/blueprint/connector.json",
+  "blueprint_type": "connector",
+  "slug": "okendo",
+  "name": "Okendo Connector",
+  "description": "Connect to Okendo for reviews linked to orders and customers. 18k+ Shopify brands. Via Composio.",
+  "version": "1.0.0",
+  "tags": ["okendo", "reviews", "e-commerce", "composio"],
+  "use_cases": [
+    "Review sync",
+    "Review-to-order attribution",
+    "Customer sentiment"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "okendo",
+    "name": "Okendo",
+    "description": "Okendo reviews connector via Composio (reviews linked to orders and customers)",
+    "category": "e_commerce",
+    "auth_type": "api_key",
+    "backend": "composio",
+    "supported_directions": ["inbound"],
+    "supported_entities": ["reviews", "questions", "media_reviews"],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": true,
+    "metadata": {
+      "blueprint_slug": "okendo"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://loxtep.com/schemas/blueprint/connector.json",
+  "blueprint_type": "connector",
+  "slug": "redo",
+  "name": "Re:do Connector",
+  "description": "Connect to Re:do for returns data with disruptive pricing model. Sync returns, exchanges, and refund analytics.",
+  "version": "1.0.0",
+  "tags": ["redo", "returns", "e-commerce", "exchanges"],
+  "use_cases": [
+    "Returns data sync",
+    "Exchange and refund tracking",
+    "Return reason analytics"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "redo",
+    "name": "Re:do",
+    "description": "Re:do returns platform connector for returns, exchanges, and refunds",
+    "category": "e_commerce",
+    "auth_type": "api_key",
+    "supported_directions": ["inbound"],
+    "supported_entities": ["returns", "exchanges", "refunds", "reason_codes"],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": true,
+    "metadata": {
+      "blueprint_slug": "redo"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "api_key": "{{API_KEY}}"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{API_KEY}}": "Re:do API key",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}
