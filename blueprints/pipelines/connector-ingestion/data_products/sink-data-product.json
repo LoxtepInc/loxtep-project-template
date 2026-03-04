@@ -1,0 +1,19 @@
+{
+  "data_product_id": "{{DATA_PRODUCT_ID}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "pipeline_id": "{{PIPELINE_ID}}",
+  "domain_id": "{{DOMAIN_ID}}",
+  "upstream_entity_id": "{{CONNECTION_ID}}",
+  "upstream_entity_type": "connections",
+  "name": "{{DATA_PRODUCT_NAME}}",
+  "description": "{{DATA_PRODUCT_DESCRIPTION}}",
+  "owner": { "user_id": "{{OWNER_USER_ID}}" },
+  "status": "draft",
+  "metadata": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "sync_entity": "{{SYNC_ENTITY}}",
+    "storage_graph": { "enabled": true }
+  },
+  "created_at": "{{CREATED_AT}}",
+  "updated_at": "{{UPDATED_AT}}"
+}

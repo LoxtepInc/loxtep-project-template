@@ -102,6 +102,11 @@ These conventions are enforced by `ls-lint` on every commit.
 | Transform | `transforms/` | Transformation definitions |
 | Data Product | `data-products/` | Data product definitions |
 | Export | `exports/` | Export configurations |
+| Consumption | `consumption/` | Consumption/subscription blueprints (e.g. event-driven webhook delivery) |
+
+### Event-driven webhook delivery (activation)
+
+The **event-driven-webhook-delivery** consumption blueprint is a composable template for Phase 6 activation: when events are produced for a data product, the platform resolves webhook consumptions (subscriptions) and enqueues delivery to the async webhook delivery pipeline (requested → processor → completed/failed). Add this blueprint to a project to enable event-driven webhook delivery for a data product. It composes with the **consumption-webhook** pipeline blueprint.
 
 ## Project Metadata
 
