@@ -1,0 +1,49 @@
+{
+  "$schema": "https://loxtep.com/schemas/blueprint/connector.json",
+  "blueprint_type": "connector",
+  "slug": "attentive",
+  "name": "Attentive Connector",
+  "description": "Connect to Attentive for SMS subscribers, campaigns, and engagement data. SMS-first platform for $50M+ brands (8k+ brands).",
+  "version": "1.0.0",
+  "tags": ["attentive", "sms", "marketing", "subscribers"],
+  "use_cases": [
+    "SMS subscriber sync",
+    "Campaign performance",
+    "Engagement analytics"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "attentive",
+    "name": "Attentive",
+    "description": "Attentive SMS marketing connector for subscribers, campaigns, and engagement",
+    "category": "marketing",
+    "auth_type": "api_key",
+    "supported_directions": ["inbound"],
+    "supported_entities": ["subscribers", "campaigns", "events", "signups"],
+    "supports_webhooks": true,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "blueprint_slug": "attentive"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "api_key": "{{API_KEY}}"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{API_KEY}}": "Attentive API key",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

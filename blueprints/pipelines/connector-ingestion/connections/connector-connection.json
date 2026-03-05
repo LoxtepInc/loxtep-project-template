@@ -1,0 +1,23 @@
+{
+  "connection_id": "{{CONNECTION_ID}}",
+  "pipeline_id": "{{PIPELINE_ID}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "project_id": "{{PROJECT_ID}}",
+  "key": "{{CONNECTION_KEY}}",
+  "name": "{{CONNECTION_NAME}}",
+  "type": "api",
+  "status": "active",
+  "connector_id": "{{CONNECTOR_ID}}",
+  "sync_entity": "{{SYNC_ENTITY}}",
+  "configuration": {},
+  "metadata": {
+    "blueprint_slug": "connector-ingestion",
+    "connector_type": "{{CONNECTOR_TYPE}}"
+  },
+  "ingestion_config": {
+    "schedule": "0 */6 * * *",
+    "batch_size": 500
+  },
+  "created_at": "{{CREATED_AT}}",
+  "updated_at": "{{UPDATED_AT}}"
+}

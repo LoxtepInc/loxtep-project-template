@@ -44,6 +44,20 @@
         ]
       },
       {
+        "slug": "connector-ingestion",
+        "name": "Connector Ingestion Pipeline",
+        "description": "Auto-provisioned ingestion for connector entities (orders, products, customers). Enables graph storage for entity context.",
+        "path": "blueprints/pipelines/connector-ingestion",
+        "tags": [
+          "connector",
+          "api",
+          "polling",
+          "ingestion",
+          "graph",
+          "auto-provision"
+        ]
+      },
+      {
         "slug": "api-polling",
         "name": "API Polling Pipeline",
         "description": "Poll external REST APIs on a schedule",
@@ -116,6 +130,19 @@
           "event",
           "cron",
           "mesh"
+        ]
+      },
+      {
+        "slug": "consumption-webhook",
+        "name": "Consumption Webhook Pipeline",
+        "description": "Expose data product events via HTTP webhook delivery. Composes with event-driven-webhook-delivery activation blueprint.",
+        "path": "blueprints/pipelines/consumption-webhook",
+        "tags": [
+          "consumption",
+          "webhook",
+          "delivery",
+          "real-time",
+          "activation"
         ]
       }
     ],
@@ -211,6 +238,70 @@
           "mesh"
         ],
         "category": "custom"
+      },
+      {
+        "slug": "bigcommerce",
+        "name": "BigCommerce Connector",
+        "description": "Connect to BigCommerce stores for orders, customers, and products. Non-Shopify DTC brands.",
+        "path": "blueprints/connectors/bigcommerce.json",
+        "tags": ["bigcommerce", "e-commerce", "orders", "products"],
+        "category": "e_commerce"
+      },
+      {
+        "slug": "paypal",
+        "name": "PayPal / Braintree Connector",
+        "description": "Connect to PayPal and Braintree for transactions, refunds, and payment data.",
+        "path": "blueprints/connectors/paypal.json",
+        "tags": ["paypal", "braintree", "payments", "finance"],
+        "category": "finance"
+      },
+      {
+        "slug": "attentive",
+        "name": "Attentive Connector",
+        "description": "Connect to Attentive for SMS subscribers, campaigns, and engagement. $50M+ brands.",
+        "path": "blueprints/connectors/attentive.json",
+        "tags": ["attentive", "sms", "marketing", "subscribers"],
+        "category": "marketing"
+      },
+      {
+        "slug": "shipstation",
+        "name": "ShipStation Connector",
+        "description": "Connect to ShipStation for shipments, orders, and fulfillment. Multi-channel brands.",
+        "path": "blueprints/connectors/shipstation.json",
+        "tags": ["shipstation", "fulfillment", "shipping", "multi-channel"],
+        "category": "fulfillment"
+      },
+      {
+        "slug": "redo",
+        "name": "Re:do Connector",
+        "description": "Connect to Re:do for returns data with disruptive pricing model.",
+        "path": "blueprints/connectors/redo.json",
+        "tags": ["redo", "returns", "e-commerce", "exchanges"],
+        "category": "e_commerce"
+      },
+      {
+        "slug": "northbeam",
+        "name": "Northbeam Connector",
+        "description": "Connect to Northbeam for multi-touch attribution. $250k+/mo ad spend brands.",
+        "path": "blueprints/connectors/northbeam.json",
+        "tags": ["northbeam", "attribution", "analytics", "marketing"],
+        "category": "analytics"
+      },
+      {
+        "slug": "okendo",
+        "name": "Okendo Connector",
+        "description": "Connect to Okendo for reviews linked to orders and customers. 18k+ brands.",
+        "path": "blueprints/connectors/okendo.json",
+        "tags": ["okendo", "reviews", "e-commerce", "composio"],
+        "category": "e_commerce"
+      },
+      {
+        "slug": "fairing",
+        "name": "Fairing Connector",
+        "description": "Connect to Fairing for post-purchase surveys attributed to orders.",
+        "path": "blueprints/connectors/fairing.json",
+        "tags": ["fairing", "surveys", "post-purchase", "zero-party"],
+        "category": "analytics"
       }
     ],
     "connections": [],
@@ -246,6 +337,14 @@
       {"slug": "split", "name": "Split", "description": "Splits events into multiple outputs", "path": "blueprints/transforms/split.json", "tags": ["flow-control", "routing", "branch"]},
       {"slug": "xml-to-json", "name": "XML to JSON", "description": "Converts XML string to JSON", "path": "blueprints/transforms/xml-to-json.json", "tags": ["data-transformation", "xml", "json"]}
     ],
-    "consumption": []
+    "consumption": [
+      {
+        "slug": "event-driven-webhook-delivery",
+        "name": "Event-Driven Webhook Delivery (Activation)",
+        "description": "When data product events land, resolve webhook consumptions and enqueue delivery. Composable activation template for Phase 6.",
+        "path": "blueprints/consumption/event-driven-webhook-delivery.json",
+        "tags": ["consumption", "webhook", "activation", "event-driven", "async"]
+      }
+    ]
   }
 }
