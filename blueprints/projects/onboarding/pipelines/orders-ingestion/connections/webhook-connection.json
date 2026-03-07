@@ -1,0 +1,13 @@
+{
+  "connection_id": "{{CONNECTION_ID}}",
+  "pipeline_id": "{{PIPELINE_ID}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "project_id": "{{PROJECT_ID}}",
+  "name": "Webhook connection",
+  "type": "webhook",
+  "status": "active",
+  "configuration": {},
+  "metadata": {},
+  "created_at": "{{CREATED_AT}}",
+  "updated_at": "{{UPDATED_AT}}"
+}
