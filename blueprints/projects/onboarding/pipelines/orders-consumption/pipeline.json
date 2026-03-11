@@ -15,6 +15,7 @@
     "name": "{{PIPELINE_NAME}}",
     "description": "Consumption pipeline delivering enriched orders via webhook",
     "pipeline_type": "consumption",
+    "upstream_flow_id": "{{UPSTREAM_FLOW_ID}}",
     "template_id": "{{TEMPLATE_ID}}",
     "configuration": { "schedule": null, "batch_size": 100 },
     "deployment": null,

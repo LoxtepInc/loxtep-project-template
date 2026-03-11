@@ -10,6 +10,8 @@
     "pipeline_id": "{{PIPELINE_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
     "project_id": "{{PROJECT_ID}}",
+    "pipeline_type": "ingestion",
+    "upstream_flow_id": null,
     "name": "{{PIPELINE_NAME}}",
     "description": "Webhook ingestion pipeline for order events",
     "template_id": "{{TEMPLATE_ID}}",

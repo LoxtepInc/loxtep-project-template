@@ -3,7 +3,7 @@
   "pipeline_id": "{{PIPELINE_ID}}",
   "organization_id": "{{ORGANIZATION_ID}}",
   "project_id": "{{PROJECT_ID}}",
-  "key": "orders-consumption-{{CONNECTION_ID}}",
+  "key": "webhook-delivery",
   "name": "Webhook delivery",
   "description": "Deliver enriched order events to partner webhook URLs",
   "type": "webhook",

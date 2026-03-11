@@ -15,6 +15,7 @@
     "name": "{{PIPELINE_NAME}}",
     "description": "Enrichment pipeline for raw orders to enriched orders",
     "pipeline_type": "enrichment",
+    "upstream_flow_id": "{{UPSTREAM_FLOW_ID}}",
     "template_id": "{{TEMPLATE_ID}}",
     "configuration": { "schedule": null, "batch_size": 100 },
     "deployment": null,
