@@ -32,6 +32,9 @@
     "required_permissions": ["SELECT", "REPLICATION"],
     "version": "1.0.0",
     "is_beta": false,
+    "custom_settings_schema": {
+      "ssl_mode": ["disable", "prefer", "require"]
+    },
     "metadata": {
       "blueprint_slug": "postgres",
       "supported_versions": ["12", "13", "14", "15", "16"],
