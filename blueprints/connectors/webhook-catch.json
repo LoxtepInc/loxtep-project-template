@@ -20,7 +20,7 @@
     "name": "Webhook Catch",
     "description": "Generic webhook connector for receiving HTTP POST events with configurable authentication",
     "category": "custom",
-    "icon_url": null,
+    "icon_url": "https://cdn-icons-png.flaticon.com/512/1356/1356479.png",
     "documentation_url": "https://docs.loxtep.com/connectors/webhook-catch",
     "auth_type": "custom",
     "oauth_config": null,
