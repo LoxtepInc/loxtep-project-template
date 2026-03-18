@@ -16,7 +16,7 @@
     "connector_id": "{{CONNECTOR_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
     "project_id": "{{PROJECT_ID}}",
-    "connector_type": "webhook",
+    "connector_type": "webhook-catch",
     "name": "Webhook Catch",
     "description": "Generic webhook connector for receiving HTTP POST events with configurable authentication",
     "category": "custom",
