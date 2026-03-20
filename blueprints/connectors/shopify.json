@@ -34,7 +34,7 @@
     "supported_entities": ["orders", "customers", "products", "inventory", "fulfillments"],
     "supports_webhooks": true,
     "supports_polling": true,
-    "required_scopes": ["read_orders", "read_customers"],
+    "required_scopes": ["read_orders", "read_customers", "read_products", "read_inventory"],
     "required_permissions": null,
     "version": "2024-01",
     "is_beta": false,
