@@ -1,0 +1,36 @@
+{
+  "template_type": "export",
+  "slug": "webhook-export",
+  "name": "Webhook Export",
+  "description": "Sends pipeline events to an external HTTP endpoint (webhook). Use for real-time notifications, third-party integrations, or event-driven downstream systems.",
+  "version": "1.0.0",
+  "tags": ["export", "webhook", "http", "real-time", "integration"],
+  "use_cases": ["Real-time notifications", "Third-party integrations", "Event-driven downstream"],
+  "entity": {
+    "export_id": "{{EXPORT_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "pipeline_id": "{{PIPELINE_ID}}",
+    "name": "{{NAME}}",
+    "export_type": "webhook",
+    "operation_config": {
+      "endpoint_url": "{{ENDPOINT_URL}}",
+      "method": "POST",
+      "auth_type": "{{AUTH_TYPE}}",
+      "batch_mode": false
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{EXPORT_ID}}": "Generated UUID for the export",
+    "{{ORGANIZATION_ID}}": "Organization that owns this export",
+    "{{PROJECT_ID}}": "Project containing this export",
+    "{{PIPELINE_ID}}": "Pipeline this export reads from",
+    "{{NAME}}": "User-provided name for the export",
+    "{{ENDPOINT_URL}}": "Webhook URL",
+    "{{AUTH_TYPE}}": "Authentication type: none, bearer, api_key",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

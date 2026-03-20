@@ -60,16 +60,16 @@ jobs:
             exit 1
           fi
 
-          # Check blueprints directory exists
-          if [ ! -d "blueprints" ]; then
-            echo "❌ Missing blueprints/ directory"
+          # Check catalog templates directory exists
+          if [ ! -d "templates" ]; then
+            echo "❌ Missing templates/ directory"
             exit 1
           fi
 
-          # Check blueprint subdirectories
-          for dir in pipelines connectors connections transforms consumption; do
-            if [ ! -d "blueprints/$dir" ]; then
-              echo "❌ Missing blueprints/$dir/ directory"
+          # Required catalog subtrees (see platform templateCatalogConfig)
+          for dir in pipelines connectors transforms projects consumption; do
+            if [ ! -d "templates/$dir" ]; then
+              echo "❌ Missing templates/$dir/ directory"
               exit 1
             fi
           done
@@ -95,17 +95,14 @@ jobs:
             fi
           done
 
-      - name: Validate placeholder usage in blueprints
+      - name: Validate placeholder usage in templates
         run: |
-          echo "Checking blueprint placeholder usage..."
+          echo "Checking template JSON placeholder usage..."
 
-          # Check that blueprints use ID placeholders, not hardcoded UUIDs
-          find blueprints -name "*.json" | while read file; do
-            # Check for UUID pattern that should be a placeholder
+          find templates -name "*.json" | while read file; do
             if grep -qE '"[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"' "$file"; then
-              # Allow UUIDs in certain contexts, but warn
               echo "⚠️  Warning: $file contains hardcoded UUIDs - consider using placeholders"
             fi
           done
 
-          echo "✅ Blueprint placeholder check complete"
+          echo "✅ Template placeholder check complete"

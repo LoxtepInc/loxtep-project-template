@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "description": "Loxtep project templates and component blueprints",
+  "description": "Loxtep project demos and reusable catalog templates for the data mesh platform.",
   "demos": [
     {
       "slug": "onboarding",
@@ -22,20 +22,24 @@
       }
     }
   ],
-  "blueprints": {
+  "templates": {
     "pipelines": [
       {
         "slug": "blank",
         "name": "Blank Pipeline",
         "description": "Empty pipeline. Add a connection, then transformations and data products via the flow canvas.",
-        "path": "blueprints/pipelines/blank.json",
-        "tags": ["blank", "empty", "starter"]
+        "path": "templates/pipelines/blank",
+        "tags": [
+          "blank",
+          "empty",
+          "starter"
+        ]
       },
       {
         "slug": "webhook-ingestion",
         "name": "Webhook Ingestion Pipeline",
         "description": "Receive events via HTTP POST webhook",
-        "path": "blueprints/pipelines/webhook-ingestion.json",
+        "path": "templates/pipelines/webhook-ingestion",
         "tags": [
           "webhook",
           "http",
@@ -47,7 +51,7 @@
         "slug": "connector-ingestion",
         "name": "Connector Ingestion Pipeline",
         "description": "Auto-provisioned ingestion for connector entities (orders, products, customers). Enables graph storage for entity context.",
-        "path": "blueprints/pipelines/connector-ingestion",
+        "path": "templates/pipelines/connector-ingestion",
         "tags": [
           "connector",
           "api",
@@ -61,7 +65,7 @@
         "slug": "api-polling",
         "name": "API Polling Pipeline",
         "description": "Poll external REST APIs on a schedule",
-        "path": "blueprints/pipelines/api-polling.json",
+        "path": "templates/pipelines/api-polling",
         "tags": [
           "api",
           "polling",
@@ -73,7 +77,7 @@
         "slug": "database-cdc",
         "name": "Database CDC Pipeline",
         "description": "Capture database changes using Change Data Capture",
-        "path": "blueprints/pipelines/database-cdc.json",
+        "path": "templates/pipelines/database-cdc.json",
         "tags": [
           "database",
           "cdc",
@@ -85,7 +89,7 @@
         "slug": "file-import",
         "name": "File Import Pipeline",
         "description": "Import data from files (CSV, JSON, Parquet)",
-        "path": "blueprints/pipelines/file-import.json",
+        "path": "templates/pipelines/file-import",
         "tags": [
           "file",
           "batch",
@@ -97,7 +101,7 @@
         "slug": "streaming-transform",
         "name": "Streaming Transform Pipeline",
         "description": "Apply real-time transformations to streaming data",
-        "path": "blueprints/pipelines/streaming-transform.json",
+        "path": "templates/pipelines/streaming-transform",
         "tags": [
           "streaming",
           "transform",
@@ -109,7 +113,7 @@
         "slug": "asyncapi-import",
         "name": "Import from AsyncAPI",
         "description": "Paste an AsyncAPI 2.x or 3.x YAML spec and create data products from its channels",
-        "path": "blueprints/pipelines/asyncapi-import.json",
+        "path": "templates/pipelines/asyncapi-import",
         "tags": [
           "asyncapi",
           "import",
@@ -122,7 +126,7 @@
         "slug": "data-product-consumption",
         "name": "Data Product Consumption Pipeline",
         "description": "Trigger a flow from a data product: on event or on a configurable cron schedule",
-        "path": "blueprints/pipelines/data-product-consumption",
+        "path": "templates/pipelines/data-product-consumption",
         "tags": [
           "data-product",
           "consumption",
@@ -135,8 +139,8 @@
       {
         "slug": "consumption-webhook",
         "name": "Consumption Webhook Pipeline",
-        "description": "Expose data product events via HTTP webhook delivery. Composes with event-driven-webhook-delivery activation blueprint.",
-        "path": "blueprints/pipelines/consumption-webhook",
+        "description": "Expose data product events via HTTP webhook delivery. Composes with event-driven-webhook-delivery activation template.",
+        "path": "templates/pipelines/consumption-webhook",
         "tags": [
           "consumption",
           "webhook",
@@ -151,7 +155,7 @@
         "slug": "shopify",
         "name": "Shopify Connector",
         "description": "Connect to Shopify stores for orders, customers, products",
-        "path": "blueprints/connectors/shopify.json",
+        "path": "templates/connectors/shopify.json",
         "tags": [
           "shopify",
           "e-commerce",
@@ -164,7 +168,7 @@
         "slug": "postgres",
         "name": "PostgreSQL Connector",
         "description": "PostgreSQL database with CDC and query support",
-        "path": "blueprints/connectors/postgres.json",
+        "path": "templates/connectors/postgres.json",
         "tags": [
           "postgres",
           "database",
@@ -177,7 +181,7 @@
         "slug": "webhook-catch",
         "name": "Webhook Catch Connector",
         "description": "Generic webhook endpoint for HTTP POST events",
-        "path": "blueprints/connectors/webhook-catch.json",
+        "path": "templates/connectors/webhook-catch.json",
         "tags": [
           "webhook",
           "http",
@@ -190,7 +194,7 @@
         "slug": "s3-source",
         "name": "S3 Source Connector",
         "description": "Ingest files from Amazon S3 buckets",
-        "path": "blueprints/connectors/s3-source.json",
+        "path": "templates/connectors/s3-source.json",
         "tags": [
           "s3",
           "aws",
@@ -203,7 +207,7 @@
         "slug": "rest-api",
         "name": "REST API Connector",
         "description": "Generic REST API connector for any HTTP JSON API",
-        "path": "blueprints/connectors/rest-api.json",
+        "path": "templates/connectors/rest-api.json",
         "tags": [
           "rest",
           "api",
@@ -216,7 +220,7 @@
         "slug": "spotify",
         "name": "Spotify Connector",
         "description": "Connect to Spotify for user profile, playlists, and library data",
-        "path": "blueprints/connectors/spotify.json",
+        "path": "templates/connectors/spotify.json",
         "tags": [
           "spotify",
           "music",
@@ -229,7 +233,7 @@
         "slug": "data-product-consumption",
         "name": "Data Product Consumption Connector",
         "description": "Consume a data product as the flow trigger (on event or cron)",
-        "path": "blueprints/connectors/data-product-consumption.json",
+        "path": "templates/connectors/data-product-consumption.json",
         "tags": [
           "data-product",
           "consumption",
@@ -243,107 +247,451 @@
         "slug": "bigcommerce",
         "name": "BigCommerce Connector",
         "description": "Connect to BigCommerce stores for orders, customers, and products. Non-Shopify DTC brands.",
-        "path": "blueprints/connectors/bigcommerce.json",
-        "tags": ["bigcommerce", "e-commerce", "orders", "products"],
+        "path": "templates/connectors/bigcommerce.json",
+        "tags": [
+          "bigcommerce",
+          "e-commerce",
+          "orders",
+          "products"
+        ],
         "category": "e_commerce"
       },
       {
         "slug": "paypal",
         "name": "PayPal / Braintree Connector",
         "description": "Connect to PayPal and Braintree for transactions, refunds, and payment data.",
-        "path": "blueprints/connectors/paypal.json",
-        "tags": ["paypal", "braintree", "payments", "finance"],
+        "path": "templates/connectors/paypal.json",
+        "tags": [
+          "paypal",
+          "braintree",
+          "payments",
+          "finance"
+        ],
         "category": "finance"
       },
       {
         "slug": "attentive",
         "name": "Attentive Connector",
         "description": "Connect to Attentive for SMS subscribers, campaigns, and engagement. $50M+ brands.",
-        "path": "blueprints/connectors/attentive.json",
-        "tags": ["attentive", "sms", "marketing", "subscribers"],
+        "path": "templates/connectors/attentive.json",
+        "tags": [
+          "attentive",
+          "sms",
+          "marketing",
+          "subscribers"
+        ],
         "category": "marketing"
       },
       {
         "slug": "shipstation",
         "name": "ShipStation Connector",
         "description": "Connect to ShipStation for shipments, orders, and fulfillment. Multi-channel brands.",
-        "path": "blueprints/connectors/shipstation.json",
-        "tags": ["shipstation", "fulfillment", "shipping", "multi-channel"],
+        "path": "templates/connectors/shipstation.json",
+        "tags": [
+          "shipstation",
+          "fulfillment",
+          "shipping",
+          "multi-channel"
+        ],
         "category": "fulfillment"
       },
       {
         "slug": "redo",
         "name": "Re:do Connector",
         "description": "Connect to Re:do for returns data with disruptive pricing model.",
-        "path": "blueprints/connectors/redo.json",
-        "tags": ["redo", "returns", "e-commerce", "exchanges"],
+        "path": "templates/connectors/redo.json",
+        "tags": [
+          "redo",
+          "returns",
+          "e-commerce",
+          "exchanges"
+        ],
         "category": "e_commerce"
       },
       {
         "slug": "northbeam",
         "name": "Northbeam Connector",
         "description": "Connect to Northbeam for multi-touch attribution. $250k+/mo ad spend brands.",
-        "path": "blueprints/connectors/northbeam.json",
-        "tags": ["northbeam", "attribution", "analytics", "marketing"],
+        "path": "templates/connectors/northbeam.json",
+        "tags": [
+          "northbeam",
+          "attribution",
+          "analytics",
+          "marketing"
+        ],
         "category": "analytics"
       },
       {
         "slug": "okendo",
         "name": "Okendo Connector",
         "description": "Connect to Okendo for reviews linked to orders and customers. 18k+ brands.",
-        "path": "blueprints/connectors/okendo.json",
-        "tags": ["okendo", "reviews", "e-commerce", "composio"],
+        "path": "templates/connectors/okendo.json",
+        "tags": [
+          "okendo",
+          "reviews",
+          "e-commerce",
+          "composio"
+        ],
         "category": "e_commerce"
       },
       {
         "slug": "fairing",
         "name": "Fairing Connector",
         "description": "Connect to Fairing for post-purchase surveys attributed to orders.",
-        "path": "blueprints/connectors/fairing.json",
-        "tags": ["fairing", "surveys", "post-purchase", "zero-party"],
+        "path": "templates/connectors/fairing.json",
+        "tags": [
+          "fairing",
+          "surveys",
+          "post-purchase",
+          "zero-party"
+        ],
         "category": "analytics"
       }
     ],
     "connections": [],
     "transforms": [
-      {"slug": "add-current-timestamp", "name": "Add Current Timestamp", "description": "Adds current timestamp to events", "path": "blueprints/transforms/add-current-timestamp.json", "tags": ["data-transformation", "timestamp", "enrichment"]},
-      {"slug": "array-to-column", "name": "Array to Column", "description": "Converts array field into column structure", "path": "blueprints/transforms/array-to-column.json", "tags": ["data-manipulation", "array", "schema"]},
-      {"slug": "assign-identifier", "name": "Assign Identifier", "description": "Adds identifier to each event", "path": "blueprints/transforms/assign-identifier.json", "tags": ["utilities", "id", "uuid"]},
-      {"slug": "batch", "name": "Batch", "description": "Groups events into batches", "path": "blueprints/transforms/batch.json", "tags": ["flow-control", "batch", "throughput"]},
-      {"slug": "capitalize", "name": "Capitalize", "description": "Capitalizes string values", "path": "blueprints/transforms/capitalize.json", "tags": ["data-transformation", "string", "case"]},
-      {"slug": "change-schema", "name": "Change Schema", "description": "Transforms schema structure", "path": "blueprints/transforms/change-schema.json", "tags": ["data-quality", "schema", "mapping"]},
-      {"slug": "concatenate-columns", "name": "Concatenate Columns", "description": "Combines multiple columns into one", "path": "blueprints/transforms/concatenate-columns.json", "tags": ["data-transformation", "concat", "string"]},
-      {"slug": "crypto", "name": "Crypto", "description": "Encrypts/decrypts fields", "path": "blueprints/transforms/crypto.json", "tags": ["utilities", "encryption", "security"]},
-      {"slug": "delay", "name": "Delay", "description": "Adds delay between events", "path": "blueprints/transforms/delay.json", "tags": ["flow-control", "rate-limiting"]},
-      {"slug": "derived-columns", "name": "Derived Columns", "description": "Creates new columns from expressions", "path": "blueprints/transforms/derived-columns.json", "tags": ["data-transformation", "expression", "compute"]},
-      {"slug": "detect-sensitive-data", "name": "Detect Sensitive Data", "description": "Identifies PII/sensitive fields", "path": "blueprints/transforms/detect-sensitive-data.json", "tags": ["data-quality", "pii", "privacy"]},
-      {"slug": "drop-duplicates", "name": "Drop Duplicates", "description": "Removes duplicate events based on specified fields", "path": "blueprints/transforms/drop-duplicates.json", "tags": ["data-manipulation", "deduplication"]},
-      {"slug": "drop-fields", "name": "Drop Fields", "description": "Removes specified fields from events", "path": "blueprints/transforms/drop-fields.json", "tags": ["data-manipulation", "privacy", "fields"]},
-      {"slug": "drop-null-fields", "name": "Drop Null Fields", "description": "Removes fields that have null values", "path": "blueprints/transforms/drop-null-fields.json", "tags": ["data-manipulation", "null", "cleanup"]},
-      {"slug": "evaluate-data-quality", "name": "Evaluate Data Quality", "description": "Runs quality checks on data", "path": "blueprints/transforms/evaluate-data-quality.json", "tags": ["data-quality", "validation", "rules"]},
-      {"slug": "execute-code-function", "name": "Execute Code Function", "description": "Executes custom code (sandboxed)", "path": "blueprints/transforms/execute-code-function.json", "tags": ["utilities", "custom", "code"]},
-      {"slug": "explode-array", "name": "Explode Array", "description": "Converts array elements into separate events/rows", "path": "blueprints/transforms/explode-array.json", "tags": ["data-manipulation", "array", "expand"]},
-      {"slug": "extract-json-path", "name": "Extract JSON Path", "description": "Extracts value from JSON using path expression", "path": "blueprints/transforms/extract-json-path.json", "tags": ["data-transformation", "json", "path"]},
-      {"slug": "fill-missing-values", "name": "Fill Missing Values", "description": "Fills null/missing values with defaults", "path": "blueprints/transforms/fill-missing-values.json", "tags": ["data-quality", "null", "defaults"]},
-      {"slug": "filter", "name": "Filter", "description": "Filters events based on conditions", "path": "blueprints/transforms/filter.json", "tags": ["flow-control", "filter", "conditions"]},
-      {"slug": "flatten", "name": "Flatten", "description": "Flattens nested objects into dot-notation fields", "path": "blueprints/transforms/flatten.json", "tags": ["data-manipulation", "nested", "structure"]},
-      {"slug": "format-timestamp", "name": "Format Timestamp", "description": "Formats timestamp fields", "path": "blueprints/transforms/format-timestamp.json", "tags": ["data-transformation", "timestamp", "date"]},
-      {"slug": "formatter", "name": "Formatter", "description": "Formats data using templates", "path": "blueprints/transforms/formatter.json", "tags": ["utilities", "template", "string"]},
-      {"slug": "parse-json", "name": "Parse JSON", "description": "Parses JSON string fields into objects", "path": "blueprints/transforms/parse-json.json", "tags": ["data-transformation", "json", "parse"]},
-      {"slug": "regex-extractor", "name": "Regex Extractor", "description": "Extracts values using regex pattern", "path": "blueprints/transforms/regex-extractor.json", "tags": ["data-transformation", "regex", "extract"]},
-      {"slug": "remove-null-events", "name": "Remove Null Events", "description": "Removes events that are null or empty", "path": "blueprints/transforms/remove-null-events.json", "tags": ["utilities", "null", "filter"]},
-      {"slug": "rename-field", "name": "Rename Field", "description": "Renames a field from old name to new name", "path": "blueprints/transforms/rename-field.json", "tags": ["data-manipulation", "rename", "schema"]},
-      {"slug": "select-fields", "name": "Select Fields", "description": "Keeps only specified fields, removes all others", "path": "blueprints/transforms/select-fields.json", "tags": ["data-manipulation", "fields", "projection"]},
-      {"slug": "split", "name": "Split", "description": "Splits events into multiple outputs", "path": "blueprints/transforms/split.json", "tags": ["flow-control", "routing", "branch"]},
-      {"slug": "xml-to-json", "name": "XML to JSON", "description": "Converts XML string to JSON", "path": "blueprints/transforms/xml-to-json.json", "tags": ["data-transformation", "xml", "json"]}
+      {
+        "slug": "add-current-timestamp",
+        "name": "Add Current Timestamp",
+        "description": "Adds current timestamp to events",
+        "path": "templates/transforms/add-current-timestamp.json",
+        "tags": [
+          "data-transformation",
+          "timestamp",
+          "enrichment"
+        ]
+      },
+      {
+        "slug": "array-to-column",
+        "name": "Array to Column",
+        "description": "Converts array field into column structure",
+        "path": "templates/transforms/array-to-column.json",
+        "tags": [
+          "data-manipulation",
+          "array",
+          "schema"
+        ]
+      },
+      {
+        "slug": "assign-identifier",
+        "name": "Assign Identifier",
+        "description": "Adds identifier to each event",
+        "path": "templates/transforms/assign-identifier.json",
+        "tags": [
+          "utilities",
+          "id",
+          "uuid"
+        ]
+      },
+      {
+        "slug": "batch",
+        "name": "Batch",
+        "description": "Groups events into batches",
+        "path": "templates/transforms/batch.json",
+        "tags": [
+          "flow-control",
+          "batch",
+          "throughput"
+        ]
+      },
+      {
+        "slug": "capitalize",
+        "name": "Capitalize",
+        "description": "Capitalizes string values",
+        "path": "templates/transforms/capitalize.json",
+        "tags": [
+          "data-transformation",
+          "string",
+          "case"
+        ]
+      },
+      {
+        "slug": "change-schema",
+        "name": "Change Schema",
+        "description": "Transforms schema structure",
+        "path": "templates/transforms/change-schema.json",
+        "tags": [
+          "data-quality",
+          "schema",
+          "mapping"
+        ]
+      },
+      {
+        "slug": "concatenate-columns",
+        "name": "Concatenate Columns",
+        "description": "Combines multiple columns into one",
+        "path": "templates/transforms/concatenate-columns.json",
+        "tags": [
+          "data-transformation",
+          "concat",
+          "string"
+        ]
+      },
+      {
+        "slug": "crypto",
+        "name": "Crypto",
+        "description": "Encrypts/decrypts fields",
+        "path": "templates/transforms/crypto.json",
+        "tags": [
+          "utilities",
+          "encryption",
+          "security"
+        ]
+      },
+      {
+        "slug": "delay",
+        "name": "Delay",
+        "description": "Adds delay between events",
+        "path": "templates/transforms/delay.json",
+        "tags": [
+          "flow-control",
+          "rate-limiting"
+        ]
+      },
+      {
+        "slug": "derived-columns",
+        "name": "Derived Columns",
+        "description": "Creates new columns from expressions",
+        "path": "templates/transforms/derived-columns.json",
+        "tags": [
+          "data-transformation",
+          "expression",
+          "compute"
+        ]
+      },
+      {
+        "slug": "detect-sensitive-data",
+        "name": "Detect Sensitive Data",
+        "description": "Identifies PII/sensitive fields",
+        "path": "templates/transforms/detect-sensitive-data.json",
+        "tags": [
+          "data-quality",
+          "pii",
+          "privacy"
+        ]
+      },
+      {
+        "slug": "drop-duplicates",
+        "name": "Drop Duplicates",
+        "description": "Removes duplicate events based on specified fields",
+        "path": "templates/transforms/drop-duplicates.json",
+        "tags": [
+          "data-manipulation",
+          "deduplication"
+        ]
+      },
+      {
+        "slug": "drop-fields",
+        "name": "Drop Fields",
+        "description": "Removes specified fields from events",
+        "path": "templates/transforms/drop-fields.json",
+        "tags": [
+          "data-manipulation",
+          "privacy",
+          "fields"
+        ]
+      },
+      {
+        "slug": "drop-null-fields",
+        "name": "Drop Null Fields",
+        "description": "Removes fields that have null values",
+        "path": "templates/transforms/drop-null-fields.json",
+        "tags": [
+          "data-manipulation",
+          "null",
+          "cleanup"
+        ]
+      },
+      {
+        "slug": "evaluate-data-quality",
+        "name": "Evaluate Data Quality",
+        "description": "Runs quality checks on data",
+        "path": "templates/transforms/evaluate-data-quality.json",
+        "tags": [
+          "data-quality",
+          "validation",
+          "rules"
+        ]
+      },
+      {
+        "slug": "execute-code-function",
+        "name": "Execute Code Function",
+        "description": "Executes custom code (sandboxed)",
+        "path": "templates/transforms/execute-code-function.json",
+        "tags": [
+          "utilities",
+          "custom",
+          "code"
+        ]
+      },
+      {
+        "slug": "explode-array",
+        "name": "Explode Array",
+        "description": "Converts array elements into separate events/rows",
+        "path": "templates/transforms/explode-array.json",
+        "tags": [
+          "data-manipulation",
+          "array",
+          "expand"
+        ]
+      },
+      {
+        "slug": "extract-json-path",
+        "name": "Extract JSON Path",
+        "description": "Extracts value from JSON using path expression",
+        "path": "templates/transforms/extract-json-path.json",
+        "tags": [
+          "data-transformation",
+          "json",
+          "path"
+        ]
+      },
+      {
+        "slug": "fill-missing-values",
+        "name": "Fill Missing Values",
+        "description": "Fills null/missing values with defaults",
+        "path": "templates/transforms/fill-missing-values.json",
+        "tags": [
+          "data-quality",
+          "null",
+          "defaults"
+        ]
+      },
+      {
+        "slug": "filter",
+        "name": "Filter",
+        "description": "Filters events based on conditions",
+        "path": "templates/transforms/filter.json",
+        "tags": [
+          "flow-control",
+          "filter",
+          "conditions"
+        ]
+      },
+      {
+        "slug": "flatten",
+        "name": "Flatten",
+        "description": "Flattens nested objects into dot-notation fields",
+        "path": "templates/transforms/flatten.json",
+        "tags": [
+          "data-manipulation",
+          "nested",
+          "structure"
+        ]
+      },
+      {
+        "slug": "format-timestamp",
+        "name": "Format Timestamp",
+        "description": "Formats timestamp fields",
+        "path": "templates/transforms/format-timestamp.json",
+        "tags": [
+          "data-transformation",
+          "timestamp",
+          "date"
+        ]
+      },
+      {
+        "slug": "formatter",
+        "name": "Formatter",
+        "description": "Formats data using templates",
+        "path": "templates/transforms/formatter.json",
+        "tags": [
+          "utilities",
+          "template",
+          "string"
+        ]
+      },
+      {
+        "slug": "parse-json",
+        "name": "Parse JSON",
+        "description": "Parses JSON string fields into objects",
+        "path": "templates/transforms/parse-json.json",
+        "tags": [
+          "data-transformation",
+          "json",
+          "parse"
+        ]
+      },
+      {
+        "slug": "regex-extractor",
+        "name": "Regex Extractor",
+        "description": "Extracts values using regex pattern",
+        "path": "templates/transforms/regex-extractor.json",
+        "tags": [
+          "data-transformation",
+          "regex",
+          "extract"
+        ]
+      },
+      {
+        "slug": "remove-null-events",
+        "name": "Remove Null Events",
+        "description": "Removes events that are null or empty",
+        "path": "templates/transforms/remove-null-events.json",
+        "tags": [
+          "utilities",
+          "null",
+          "filter"
+        ]
+      },
+      {
+        "slug": "rename-field",
+        "name": "Rename Field",
+        "description": "Renames a field from old name to new name",
+        "path": "templates/transforms/rename-field.json",
+        "tags": [
+          "data-manipulation",
+          "rename",
+          "schema"
+        ]
+      },
+      {
+        "slug": "select-fields",
+        "name": "Select Fields",
+        "description": "Keeps only specified fields, removes all others",
+        "path": "templates/transforms/select-fields.json",
+        "tags": [
+          "data-manipulation",
+          "fields",
+          "projection"
+        ]
+      },
+      {
+        "slug": "split",
+        "name": "Split",
+        "description": "Splits events into multiple outputs",
+        "path": "templates/transforms/split.json",
+        "tags": [
+          "flow-control",
+          "routing",
+          "branch"
+        ]
+      },
+      {
+        "slug": "xml-to-json",
+        "name": "XML to JSON",
+        "description": "Converts XML string to JSON",
+        "path": "templates/transforms/xml-to-json.json",
+        "tags": [
+          "data-transformation",
+          "xml",
+          "json"
+        ]
+      }
     ],
     "consumption": [
       {
         "slug": "event-driven-webhook-delivery",
         "name": "Event-Driven Webhook Delivery (Activation)",
         "description": "When data product events land, resolve webhook consumptions and enqueue delivery. Composable activation template for Phase 6.",
-        "path": "blueprints/consumption/event-driven-webhook-delivery.json",
-        "tags": ["consumption", "webhook", "activation", "event-driven", "async"]
+        "path": "templates/consumption/event-driven-webhook-delivery.json",
+        "tags": [
+          "consumption",
+          "webhook",
+          "activation",
+          "event-driven",
+          "async"
+        ]
       }
     ]
   }

@@ -1,13 +1,13 @@
 # Loxtep Project Template
 
-This repository contains project templates, demo projects, and reusable component blueprints for the Loxtep data mesh platform.
+This repository contains **project demos**, **catalog templates** (pipelines, connectors, transforms, projects, etc.), and metadata consumed by the Loxtep platform. JSON uses `template_type` / `template_slug` and lives under the **`templates/`** tree (synced to S3 for the template catalog).
 
 ## Structure
 
 ```
 loxtep-project-template/
 ├── demos/                      # Full project demos (complete working examples)
-│   └── onboarding/            # Getting started demo project
+│   └── onboarding/             # Getting started demo project
 │       ├── .loxtep/           # Project metadata
 │       │   └── project.json
 │       ├── domains/           # Domain definitions
@@ -15,33 +15,35 @@ loxtep-project-template/
 │       ├── pipelines/         # Pipeline definitions
 │       └── data-products/     # Data product definitions
 │
-├── blueprints/                 # Reusable component blueprints
-│   ├── pipelines/             # Pipeline component blueprints
-│   ├── connectors/            # Connector blueprints
-│   ├── connections/           # Connection blueprints
-│   ├── transforms/            # Transformation blueprints
-│   └── consumption/           # Export/consumption blueprints
+├── templates/                  # Catalog templates (platform-synced)
+│   ├── pipelines/             # Pipeline templates (often `{slug}/pipeline.json` + optional `connections/`)
+│   ├── connectors/            # Connector templates (`{slug}.json`)
+│   ├── transforms/            # Transform templates
+│   ├── projects/              # Multi-pipeline project templates
+│   ├── data-products/         # Data product templates
+│   ├── domains/               # Domain templates
+│   ├── validations/           # Validation rule templates
+│   ├── exports/               # Export templates
+│   └── consumption/           # Consumption / activation templates
 │
-└── manifest.json              # Index of all demos and blueprints
+└── manifest.json              # Index of demos and catalog templates
 ```
 
-## Blueprint Types
+## Template types
 
-### Project Demos (`demos/`)
+### Project demos (`demos/`)
 
-Full project templates that can be cloned as a starting point. Each demo is a complete, working project with all entity types configured.
+Full project trees that can be cloned as a starting point. Each demo is a complete, working project with entity folders configured.
 
-**Usage**: When creating a new project, select a demo template to clone the entire structure.
+**Usage:** When creating a new project, select a demo to clone the entire structure.
 
-### Component Blueprints (`blueprints/`)
+### Catalog templates (`templates/`)
 
-Individual component templates that can be inserted into existing projects. These use ID placeholders that are replaced with project-specific UUIDs when applied.
+Reusable JSON definitions the platform lists in the **template catalog** and applies via `POST /projects/{project_id}/templates` (`template_type`, `template_slug`). Placeholders are replaced with project-specific IDs when applied.
 
-#### ID Placeholders
+#### ID placeholders
 
-Blueprints use the following placeholder patterns:
-
-| Placeholder | Description | Example Replacement |
+| Placeholder | Description | Example replacement |
 |-------------|-------------|---------------------|
 | `{{PIPELINE_ID}}` | Pipeline identifier | `proj-abc-550e8400-e29b-41d4-a716-446655440000` |
 | `{{CONNECTION_ID}}` | Connection identifier | `proj-abc-660e8400-e29b-41d4-a716-446655440000` |
@@ -50,65 +52,35 @@ Blueprints use the following placeholder patterns:
 | `{{DOMAIN_ID}}` | Domain identifier | `proj-abc-990e8400-e29b-41d4-a716-446655440000` |
 | `{{PROJECT_ID_PREFIX}}` | Project ID prefix for namespacing | `proj-abc` |
 
-**Example blueprint file** (`blueprints/pipelines/webhook-ingestion.json`):
+**Example:** a pipeline template lives at `templates/pipelines/webhook-ingestion/pipeline.json` (see that file for the full `template_type` / `entity` shape).
 
-```json
-{
-  "pipeline_id": "{{PIPELINE_ID}}",
-  "name": "Webhook Ingestion",
-  "type": "ingestion",
-  "connection_id": "{{CONNECTION_ID}}",
-  "configuration": {
-    "source_type": "webhook",
-    "batch_size": 100
-  }
-}
-```
+## File naming conventions
 
-When applied to a project, placeholders are replaced with project-prefixed UUIDs:
-
-```json
-{
-  "pipeline_id": "proj-abc-550e8400-e29b-41d4-a716-446655440000",
-  "name": "Webhook Ingestion",
-  "type": "ingestion",
-  "connection_id": "proj-abc-660e8400-e29b-41d4-a716-446655440000",
-  "configuration": {
-    "source_type": "webhook",
-    "batch_size": 100
-  }
-}
-```
-
-## File Naming Conventions
-
-All files in this repository follow these conventions:
-
-- **Entity files**: `{kebab-case-name}.json`
-- **Directory names**: `kebab-case` (lowercase with hyphens)
+- **Entity files:** `{kebab-case-name}.json`
+- **Directory names:** `kebab-case` (lowercase with hyphens)
 - **No spaces** in file or directory names
-- **JSON files only** for entity definitions
+- **JSON** for catalog entity definitions
 
 These conventions are enforced by `ls-lint` on every commit.
 
-## Entity Types
+## Entity types (under `templates/`)
 
-| Entity Type | Directory | Description |
+| Entity type | Directory | Description |
 |-------------|-----------|-------------|
-| Domain | `domains/` | Business domain definitions |
-| Connector | `connectors/` | Connector type definitions |
-| Connection | `connections/` | Connection configurations |
-| Pipeline | `pipelines/` | Pipeline definitions |
-| Transform | `transforms/` | Transformation definitions |
-| Data Product | `data-products/` | Data product definitions |
-| Export | `exports/` | Export configurations |
-| Consumption | `consumption/` | Consumption/subscription blueprints (e.g. event-driven webhook delivery) |
+| Domain | `templates/domains/` | Business domain definitions |
+| Connector | `templates/connectors/` | Connector type definitions |
+| Connection | *(under a pipeline folder)* | Connection JSON next to `pipeline.json` |
+| Pipeline | `templates/pipelines/` | Pipeline definitions |
+| Transform | `templates/transforms/` | Transformation definitions |
+| Data product | `templates/data-products/` | Data product definitions |
+| Export | `templates/exports/` | Export configurations |
+| Consumption | `templates/consumption/` | Consumption / activation templates (e.g. event-driven webhook delivery) |
 
 ### Event-driven webhook delivery (activation)
 
-The **event-driven-webhook-delivery** consumption blueprint is a composable template for Phase 6 activation: when events are produced for a data product, the platform resolves webhook consumptions (subscriptions) and enqueues delivery to the async webhook delivery pipeline (requested → processor → completed/failed). Add this blueprint to a project to enable event-driven webhook delivery for a data product. It composes with the **consumption-webhook** pipeline blueprint.
+The **event-driven-webhook-delivery** consumption template is composable activation: when events are produced for a data product, the platform resolves webhook consumptions and enqueues delivery. It composes with the **consumption-webhook** pipeline template.
 
-## Project Metadata
+## Project metadata
 
 Each project/demo includes a `.loxtep/project.json` file:
 
@@ -125,36 +97,29 @@ Each project/demo includes a `.loxtep/project.json` file:
 
 ## Contributing
 
-### Adding a New Demo
+### Adding a new demo
 
 1. Create a new directory under `demos/` with a descriptive name
 2. Add `.loxtep/project.json` with project metadata
 3. Add entity files in the appropriate subdirectories
-4. Update `manifest.json` to include the new demo
+4. Update `manifest.json` under `demos`
 5. Run `pnpm lint` to validate structure
 
-### Adding a New Blueprint
+### Adding a new catalog template
 
-1. Create a JSON file in the appropriate `blueprints/` subdirectory
-2. Use ID placeholders for all entity references
-3. Update `manifest.json` to include the new blueprint
-4. Add documentation in this README if the blueprint has special requirements
+1. Add JSON under the correct `templates/<category>/` path (see platform `templateCatalogConfig` for layout)
+2. Use `template_type` at the top level where applicable; use ID placeholders for entity references
+3. Update `manifest.json` under `templates` if the manifest indexes that entry
+4. Document any special requirements in this README
 
 ## Validation
 
-This repository uses:
-
-- **ls-lint**: Enforces file naming conventions
-- **JSON Schema**: Validates entity structure
-- **GitHub Actions**: Runs validation on every PR
-
-Run locally:
+- **ls-lint:** file naming
+- **JSON syntax:** GitHub Actions
+- **Structure:** required `templates/` subtrees (see `.github/workflows/validate.yml`)
 
 ```bash
-# Validate file naming
 pnpm lint
-
-# Validate JSON files
 pnpm validate
 ```
 

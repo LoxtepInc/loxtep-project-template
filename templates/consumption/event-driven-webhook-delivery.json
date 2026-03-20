@@ -1,0 +1,61 @@
+{
+  "$schema": "https://loxtep.com/schemas/template/consumption.json",
+  "template_type": "consumption",
+  "slug": "event-driven-webhook-delivery",
+  "name": "Event-Driven Webhook Delivery (Activation)",
+  "description": "When events are produced for a data product, resolve webhook consumptions (subscriptions) and enqueue delivery to the async webhook delivery pipeline. Composable activation template for Phase 6: event → consumption resolution → webhook-delivery-requested.",
+  "version": "1.0.0",
+  "tags": ["consumption", "webhook", "activation", "event-driven", "delivery", "async"],
+  "use_cases": [
+    "Real-time webhook delivery to subscribers when data product events land",
+    "Event-driven activation: resolve consumptions and enqueue delivery",
+    "Composable template for webhook delivery pipeline (requested → processor → completed/failed)"
+  ],
+  "entity": {
+    "consumption_id": "{{CONSUMPTION_ID}}",
+    "data_product_id": "{{DATA_PRODUCT_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "name": "{{NAME}}",
+    "description": "Webhook delivery subscription for this data product",
+    "delivery_method": "webhook",
+    "status": "active",
+    "configuration": {
+      "endpoint_url": "{{ENDPOINT_URL}}",
+      "method": "POST",
+      "auth_type": "{{AUTH_TYPE}}",
+      "batch_mode": false,
+      "headers": "{{HEADERS}}"
+    },
+    "metadata": {
+      "template_slug": "event-driven-webhook-delivery",
+      "activation": true,
+      "trigger": "on_data_product_event",
+      "run_type": "webhook_delivery"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "dependencies": {
+    "data_product": {
+      "required": true,
+      "description": "Data product whose events trigger webhook delivery"
+    },
+    "async_pipeline": {
+      "required": true,
+      "description": "Platform webhook delivery pipeline: requested → processor → completed/failed"
+    }
+  },
+  "placeholders": {
+    "{{CONSUMPTION_ID}}": "Generated UUID for the consumption",
+    "{{DATA_PRODUCT_ID}}": "UUID of the data product to subscribe to",
+    "{{ORGANIZATION_ID}}": "Organization that owns this consumption",
+    "{{PROJECT_ID}}": "Project containing this consumption",
+    "{{NAME}}": "User-provided name for the webhook subscription",
+    "{{ENDPOINT_URL}}": "Subscriber webhook URL",
+    "{{AUTH_TYPE}}": "Authentication type: none, bearer, api_key",
+    "{{HEADERS}}": "Optional JSON object of custom headers",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

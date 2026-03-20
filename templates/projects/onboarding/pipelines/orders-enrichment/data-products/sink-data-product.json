@@ -1,0 +1,15 @@
+{
+  "data_product_id": "{{DATA_PRODUCT_SINK_ID}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "pipeline_id": "{{PIPELINE_ID}}",
+  "domain_id": "{{DOMAIN_ID}}",
+  "name": "Enriched Orders",
+  "description": "Enriched order data product output",
+  "upstream_entity_id": "{{DATA_PRODUCT_SOURCE_ID}}",
+  "upstream_entity_type": "data-products",
+  "status": "draft",
+  "governance": { "classification": "internal", "pii_fields": [], "compliance_requirements": [], "tags": [] },
+  "metadata": { "template_slug": "orders-enrichment" },
+  "created_at": "{{CREATED_AT}}",
+  "updated_at": "{{UPDATED_AT}}"
+}

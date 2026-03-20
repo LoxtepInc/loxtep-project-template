@@ -1,9 +1,0 @@
-{
-  "blueprint_type": "project",
-  "slug": "blank",
-  "name": "Blank Project",
-  "description": "Create from scratch with no pre-loaded content.",
-  "template_slug": "blueprints/projects/blank",
-  "version": "1.0.0",
-  "tags": ["blank", "starter"]
-}

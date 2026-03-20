@@ -1,0 +1,38 @@
+{
+  "$schema": "https://loxtep.com/schemas/template/pipeline.json",
+  "template_type": "pipeline",
+  "slug": "consumption-webhook",
+  "name": "Consumption Webhook Pipeline",
+  "description": "Expose pipeline or data product events via HTTP webhook delivery. Consumers register a URL and receive events in real time. Ideal for notifications and third-party integrations.",
+  "version": "1.0.0",
+  "tags": ["consumption", "webhook", "http", "real-time", "delivery"],
+  "use_cases": ["Webhook delivery to subscribers", "Real-time event push", "Third-party integration"],
+  "entity": {
+    "pipeline_id": "{{PIPELINE_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "{{PIPELINE_NAME}}",
+    "description": "Consumption pipeline delivering events via webhook",
+    "pipeline_type": "consumption",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": { "schedule": null, "batch_size": 100 },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": { "template_slug": "consumption-webhook", "pipeline_type": "consumption", "delivery_method": "webhook" },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "dependencies": {},
+  "placeholders": {
+    "{{PIPELINE_ID}}": "Generated UUID for the pipeline",
+    "{{ORGANIZATION_ID}}": "Organization that owns this pipeline",
+    "{{PROJECT_ID}}": "Project containing this pipeline",
+    "{{DOMAIN_ID}}": "Domain this pipeline belongs to",
+    "{{PIPELINE_NAME}}": "User-provided name for the pipeline",
+    "{{TEMPLATE_ID}}": "Stable template ID from catalog",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

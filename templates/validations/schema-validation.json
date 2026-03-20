@@ -1,0 +1,34 @@
+{
+  "template_type": "validation",
+  "slug": "schema-validation",
+  "name": "Schema Validation",
+  "description": "Validates incoming events against a JSON Schema. Rejects or quarantines events that do not conform. Use for contract enforcement and data quality at ingestion.",
+  "version": "1.0.0",
+  "tags": ["validation", "schema", "json-schema", "contract", "quality"],
+  "use_cases": ["Contract enforcement", "Ingestion data quality", "Schema drift detection"],
+  "entity": {
+    "validation_id": "{{VALIDATION_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "pipeline_id": "{{PIPELINE_ID}}",
+    "name": "{{NAME}}",
+    "validation_type": "schema",
+    "operation_config": {
+      "schema_ref": "{{SCHEMA_REF}}",
+      "strict": true,
+      "on_failure": "reject"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{VALIDATION_ID}}": "Generated UUID for the validation",
+    "{{ORGANIZATION_ID}}": "Organization that owns this validation",
+    "{{PROJECT_ID}}": "Project containing this validation",
+    "{{PIPELINE_ID}}": "Pipeline this validation belongs to",
+    "{{NAME}}": "User-provided name for the validation",
+    "{{SCHEMA_REF}}": "Reference to JSON Schema (URL or inline)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

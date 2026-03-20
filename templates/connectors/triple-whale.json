@@ -1,0 +1,52 @@
+{
+  "$schema": "https://loxtep.com/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "triple-whale",
+  "name": "Triple Whale Connector",
+  "description": "Connect to Triple Whale for ad attribution, blended ROAS, cohort LTV, and creative stats. Read-only. 10k+ customers, $5M-$50M attribution sweet spot.",
+  "version": "1.0.0",
+  "tags": ["triple-whale", "analytics", "attribution", "marketing"],
+  "use_cases": [
+    "Ad attribution sync",
+    "Blended ROAS metrics",
+    "Cohort LTV analysis",
+    "Creative performance stats"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "triple-whale",
+    "name": "Triple Whale",
+    "description": "Triple Whale marketing analytics (ad attribution, ROAS, cohort LTV, creative stats)",
+    "category": "analytics",
+    "auth_type": "api_key",
+    "supported_directions": ["inbound"],
+    "supported_entities": ["ad_attribution", "blended_roas", "cohort_ltv", "creative_stats"],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "template_slug": "triple-whale"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "api_key": "{{API_KEY}}",
+      "shop_domain": "{{SHOP_DOMAIN}}"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{API_KEY}}": "Triple Whale API key (Settings > API Keys)",
+    "{{SHOP_DOMAIN}}": "Shopify store domain (e.g., mystore.myshopify.com)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

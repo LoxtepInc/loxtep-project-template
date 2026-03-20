@@ -1,0 +1,34 @@
+{
+  "template_type": "validation",
+  "slug": "required-fields",
+  "name": "Required Fields Validation",
+  "description": "Ensures required fields are present and non-empty. Use for mandatory attributes such as IDs, timestamps, or business keys.",
+  "version": "1.0.0",
+  "tags": ["validation", "required", "completeness", "quality"],
+  "use_cases": ["Completeness checks", "Mandatory field enforcement", "Data quality gates"],
+  "entity": {
+    "validation_id": "{{VALIDATION_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "pipeline_id": "{{PIPELINE_ID}}",
+    "name": "{{NAME}}",
+    "validation_type": "required_fields",
+    "operation_config": {
+      "required_fields": ["{{FIELD_1}}", "{{FIELD_2}}"],
+      "on_failure": "reject"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{VALIDATION_ID}}": "Generated UUID for the validation",
+    "{{ORGANIZATION_ID}}": "Organization that owns this validation",
+    "{{PROJECT_ID}}": "Project containing this validation",
+    "{{PIPELINE_ID}}": "Pipeline this validation belongs to",
+    "{{NAME}}": "User-provided name for the validation",
+    "{{FIELD_1}}": "First required field path",
+    "{{FIELD_2}}": "Second required field path",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

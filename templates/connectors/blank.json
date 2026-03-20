@@ -1,0 +1,51 @@
+{
+  "$schema": "https://loxtep.com/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "blank",
+  "name": "Blank Connector",
+  "description": "Create from scratch. Empty connector for custom configuration.",
+  "version": "1.0.0",
+  "tags": ["blank", "starter"],
+  "use_cases": ["Start from scratch", "Custom connector"],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "custom",
+    "name": "{{CONNECTOR_NAME}}",
+    "description": "",
+    "category": "custom",
+    "icon_url": null,
+    "documentation_url": null,
+    "auth_type": "{{AUTH_TYPE}}",
+    "oauth_config": {
+      "authorization_url": "",
+      "token_url": "",
+      "scopes": [],
+      "response_type": "code",
+      "grant_type": "authorization_code"
+    },
+    "supported_directions": ["inbound"],
+    "supported_entities": [],
+    "supports_webhooks": false,
+    "supports_polling": false,
+    "required_scopes": null,
+    "required_permissions": null,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "template_slug": "blank"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CONNECTOR_NAME}}": "User-provided name for the connector",
+    "{{AUTH_TYPE}}": "Authentication type: api_key, bearer, oauth2, basic, or none",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

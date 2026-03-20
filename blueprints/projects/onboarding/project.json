@@ -1,9 +1,0 @@
-{
-  "blueprint_type": "project",
-  "slug": "onboarding",
-  "name": "Full-Mesh Ecommerce Demo",
-  "description": "Ecommerce sample with ingestion (webhook → raw orders), enrichment (raw → enriched orders), and consumption (enriched orders → partner webhook). Demonstrates all three pipeline types.",
-  "template_slug": "blueprints/projects/onboarding",
-  "version": "1.0.0",
-  "tags": ["beginner", "tutorial", "e-commerce", "full-mesh", "ingestion", "enrichment", "consumption"]
-}
