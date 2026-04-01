@@ -1,0 +1,53 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/workflow.json",
+  "template_type": "workflow",
+  "slug": "enrichment-basic",
+  "name": "Basic Enrichment Pipeline",
+  "description": "Enrich events from an upstream source (queue or data product) with transforms and validations. Starts from an internal trigger; add connector, transforms, and optional data product output.",
+  "version": "1.0.0",
+  "tags": [
+    "enrichment",
+    "transform",
+    "internal",
+    "mesh"
+  ],
+  "use_cases": [
+    "Enrich ingested data",
+    "Add derived fields",
+    "Join with reference data"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "Basic enrichment pipeline with internal trigger",
+    "workflow_type": "enrichment",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "enrichment-basic",
+      "workflow_type": "enrichment"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "dependencies": {},
+  "placeholders": {
+    "{{WORKFLOW_ID}}": "Generated UUID for the pipeline",
+    "{{ORGANIZATION_ID}}": "Organization that owns this pipeline",
+    "{{PROJECT_ID}}": "Project containing this pipeline",
+    "{{DOMAIN_ID}}": "Domain this pipeline belongs to",
+    "{{WORKFLOW_NAME}}": "User-provided name for the pipeline",
+    "{{TEMPLATE_ID}}": "Stable template ID from catalog",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

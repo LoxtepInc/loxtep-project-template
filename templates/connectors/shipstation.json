@@ -1,5 +1,5 @@
 {
-  "$schema": "https://loxtep.com/schemas/template/connector.json",
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
   "slug": "shipstation",
   "name": "ShipStation Connector",

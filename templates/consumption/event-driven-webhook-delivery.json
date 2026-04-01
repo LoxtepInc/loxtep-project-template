@@ -1,5 +1,5 @@
 {
-  "$schema": "https://loxtep.com/schemas/template/consumption.json",
+  "$schema": "https://loxtep.io/schemas/template/consumption.json",
   "template_type": "consumption",
   "slug": "event-driven-webhook-delivery",
   "name": "Event-Driven Webhook Delivery (Activation)",

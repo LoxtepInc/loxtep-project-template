@@ -1,6 +1,6 @@
 # Loxtep Project Template
 
-This repository contains **project demos**, **catalog templates** (pipelines, connectors, transforms, projects, etc.), and metadata consumed by the Loxtep platform. JSON uses `template_type` / `template_slug` and lives under the **`templates/`** tree (synced to S3 for the template catalog).
+This repository contains **project demos**, **catalog templates** (workflows, connectors, transforms, projects, etc.), and metadata consumed by the Loxtep platform. JSON uses `template_type` / `template_slug` and lives under the **`templates/`** tree (synced to S3 for the template catalog).
 
 ## Structure
 
@@ -12,14 +12,14 @@ loxtep-project-template/
 │       │   └── project.json
 │       ├── domains/           # Domain definitions
 │       ├── connections/       # Connection configurations
-│       ├── pipelines/         # Pipeline definitions
+│       ├── workflows/         # Workflow definitions (Studio / flow graph)
 │       └── data-products/     # Data product definitions
 │
 ├── templates/                  # Catalog templates (platform-synced)
-│   ├── pipelines/             # Pipeline templates (often `{slug}/pipeline.json` + optional `connections/`)
+│   ├── workflows/             # Workflow templates (`{slug}/workflow.json` + optional `connections/`, etc.)
 │   ├── connectors/            # Connector templates (`{slug}.json`)
 │   ├── transforms/            # Transform templates
-│   ├── projects/              # Multi-pipeline project templates
+│   ├── projects/              # Multi-workflow project templates
 │   ├── data-products/         # Data product templates
 │   ├── domains/               # Domain templates
 │   ├── validations/           # Validation rule templates
@@ -45,14 +45,14 @@ Reusable JSON definitions the platform lists in the **template catalog** and app
 
 | Placeholder | Description | Example replacement |
 |-------------|-------------|---------------------|
-| `{{PIPELINE_ID}}` | Pipeline identifier | `proj-abc-550e8400-e29b-41d4-a716-446655440000` |
+| `{{WORKFLOW_ID}}` | Workflow identifier | `550e8400-e29b-41d4-a716-446655440000` |
 | `{{CONNECTION_ID}}` | Connection identifier | `proj-abc-660e8400-e29b-41d4-a716-446655440000` |
 | `{{CONNECTOR_ID}}` | Connector identifier | `proj-abc-770e8400-e29b-41d4-a716-446655440000` |
 | `{{DATA_PRODUCT_ID}}` | Data product identifier | `proj-abc-880e8400-e29b-41d4-a716-446655440000` |
 | `{{DOMAIN_ID}}` | Domain identifier | `proj-abc-990e8400-e29b-41d4-a716-446655440000` |
 | `{{PROJECT_ID_PREFIX}}` | Project ID prefix for namespacing | `proj-abc` |
 
-**Example:** a pipeline template lives at `templates/pipelines/webhook-ingestion/pipeline.json` (see that file for the full `template_type` / `entity` shape).
+**Example:** a workflow template lives at `templates/workflows/webhook-ingestion/workflow.json` (see that file for the full `template_type` / `entity` shape).
 
 ## File naming conventions
 
@@ -69,8 +69,8 @@ These conventions are enforced by `ls-lint` on every commit.
 |-------------|-----------|-------------|
 | Domain | `templates/domains/` | Business domain definitions |
 | Connector | `templates/connectors/` | Connector type definitions |
-| Connection | *(under a pipeline folder)* | Connection JSON next to `pipeline.json` |
-| Pipeline | `templates/pipelines/` | Pipeline definitions |
+| Connection | *(under a workflow template folder)* | Connection JSON alongside `workflow.json` |
+| Workflow | `templates/workflows/` | Workflow definitions |
 | Transform | `templates/transforms/` | Transformation definitions |
 | Data product | `templates/data-products/` | Data product definitions |
 | Export | `templates/exports/` | Export configurations |
@@ -78,7 +78,7 @@ These conventions are enforced by `ls-lint` on every commit.
 
 ### Event-driven webhook delivery (activation)
 
-The **event-driven-webhook-delivery** consumption template is composable activation: when events are produced for a data product, the platform resolves webhook consumptions and enqueues delivery. It composes with the **consumption-webhook** pipeline template.
+The **event-driven-webhook-delivery** consumption template is composable activation: when events are produced for a data product, the platform resolves webhook consumptions and enqueues delivery. It composes with the **consumption-webhook** workflow template.
 
 ## Project metadata
 

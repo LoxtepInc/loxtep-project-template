@@ -1,0 +1,73 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/workflow.json",
+  "template_type": "workflow",
+  "slug": "file-import",
+  "name": "File Import Pipeline",
+  "description": "Import data from files (CSV, JSON, Parquet) stored in S3 or uploaded via API. Ideal for batch data loads, historical data imports, and data lake ingestion.",
+  "version": "1.0.0",
+  "tags": [
+    "file",
+    "batch",
+    "s3",
+    "import",
+    "csv",
+    "json",
+    "parquet"
+  ],
+  "use_cases": [
+    "Historical data migration",
+    "Batch file processing",
+    "Data lake ingestion",
+    "Partner data exchange"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "File import pipeline for batch data ingestion",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": "{{CRON_SCHEDULE}}",
+      "batch_size": 5000
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "file-import",
+      "ingestion_type": "file_import",
+      "connection_ref": "Reference to file storage connection (add via flow canvas)",
+      "file_config": {
+        "format": "{{FILE_FORMAT}}",
+        "s3_prefix": "{{S3_PREFIX}}",
+        "compression": "{{COMPRESSION}}",
+        "header_row": true
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "workflow_type": "ingestion",
+    "domain_id": "{{DOMAIN_ID}}"
+  },
+  "dependencies": {
+    "connection": {
+      "type": "file",
+      "required": true,
+      "description": "S3 or file storage connection"
+    }
+  },
+  "placeholders": {
+    "{{WORKFLOW_ID}}": "Generated UUID for the pipeline",
+    "{{ORGANIZATION_ID}}": "Organization that owns this pipeline",
+    "{{PROJECT_ID}}": "Project containing this pipeline",
+    "{{WORKFLOW_NAME}}": "User-provided name for the pipeline",
+    "{{TEMPLATE_ID}}": "System file import template ID",
+    "{{CRON_SCHEDULE}}": "Cron expression for scheduled imports (optional)",
+    "{{FILE_FORMAT}}": "File format: csv, json, jsonl, or parquet",
+    "{{S3_PREFIX}}": "S3 key prefix for input files",
+    "{{COMPRESSION}}": "Compression type: none, gzip, or snappy",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

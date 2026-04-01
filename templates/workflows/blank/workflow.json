@@ -1,0 +1,49 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/workflow.json",
+  "template_type": "workflow",
+  "slug": "blank",
+  "name": "Blank Pipeline",
+  "description": "Empty pipeline. Add a connection, then transformations and data products via the flow canvas.",
+  "version": "1.0.0",
+  "tags": [
+    "blank",
+    "empty",
+    "starter"
+  ],
+  "use_cases": [
+    "Start from scratch",
+    "Custom flow design"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "blank"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "workflow_type": "ingestion",
+    "domain_id": "{{DOMAIN_ID}}"
+  },
+  "dependencies": {},
+  "placeholders": {
+    "{{WORKFLOW_ID}}": "Generated UUID for the pipeline",
+    "{{ORGANIZATION_ID}}": "Organization that owns this pipeline",
+    "{{PROJECT_ID}}": "Project containing this pipeline",
+    "{{WORKFLOW_NAME}}": "User-provided name for the pipeline",
+    "{{TEMPLATE_ID}}": "Stable template ID from catalog (same as getTemplateById)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

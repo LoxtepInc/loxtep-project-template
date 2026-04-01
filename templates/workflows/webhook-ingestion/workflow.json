@@ -1,0 +1,37 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/workflow.json",
+  "template_type": "workflow",
+  "slug": "webhook-ingestion",
+  "name": "Webhook Ingestion Pipeline",
+  "description": "Receive events via HTTP POST webhook. Ideal for e-commerce order events, payment notifications, form submissions, and real-time integrations.",
+  "version": "1.0.0",
+  "tags": [
+    "webhook",
+    "http",
+    "real-time",
+    "events"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "Webhook ingestion pipeline for receiving HTTP POST events",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "webhook-ingestion",
+      "ingestion_type": "webhook"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "workflow_type": "ingestion",
+    "domain_id": "{{DOMAIN_ID}}"
+  }
+}

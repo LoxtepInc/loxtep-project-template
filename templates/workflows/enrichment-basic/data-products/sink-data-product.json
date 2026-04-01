@@ -1,0 +1,15 @@
+{
+  "data_product_id": "{{DATA_PRODUCT_SINK_ID}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "workflow_id": "{{WORKFLOW_ID}}",
+  "domain_id": "{{DOMAIN_ID}}",
+  "name": "Enriched output",
+  "description": "Enriched data product output (configure in studio)",
+  "upstream_entity_id": "{{DATA_PRODUCT_SOURCE_ID}}",
+  "upstream_entity_type": "data-products",
+  "status": "draft",
+  "governance": { "classification": "internal", "pii_fields": [], "compliance_requirements": [], "tags": [] },
+  "metadata": { "template_slug": "enrichment-basic" },
+  "created_at": "{{CREATED_AT}}",
+  "updated_at": "{{UPDATED_AT}}"
+}

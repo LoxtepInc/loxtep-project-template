@@ -1,0 +1,17 @@
+{
+  "connection_id": "{{CONNECTION_ID}}",
+  "workflow_id": "{{WORKFLOW_ID}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "project_id": "{{PROJECT_ID}}",
+  "key": "consumption-api-{{CONNECTION_ID}}",
+  "name": "API delivery",
+  "description": "Expose data product events via REST API",
+  "type": "api",
+  "status": "active",
+  "upstream_entity_id": "{{DATA_PRODUCT_ID}}",
+  "upstream_entity_type": "data-products",
+  "configuration": {},
+  "metadata": { "template_slug": "consumption-api" },
+  "created_at": "{{CREATED_AT}}",
+  "updated_at": "{{UPDATED_AT}}"
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/workflow.json",
+  "template_type": "asyncapi",
+  "slug": "asyncapi-import",
+  "name": "Import from AsyncAPI",
+  "description": "Paste an AsyncAPI 2.x or 3.x YAML spec and create data products from its channels. You will choose project, template, and which channels to import in the next step.",
+  "version": "1.0.0",
+  "tags": [
+    "asyncapi",
+    "import",
+    "yaml",
+    "events",
+    "message-driven"
+  ],
+  "use_cases": [
+    "Event API ingestion",
+    "Message-driven integrations",
+    "AsyncAPI spec adoption"
+  ],
+  "entity": {
+    "workflow_type": "ingestion",
+    "domain_id": "{{DOMAIN_ID}}"
+  },
+  "dependencies": {},
+  "placeholders": {}
+}

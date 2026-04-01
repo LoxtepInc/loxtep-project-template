@@ -1,0 +1,1 @@
+{"connection_id":"{{CONNECTION_ID}}","workflow_id":"{{WORKFLOW_ID}}","organization_id":"{{ORGANIZATION_ID}}","project_id":"{{PROJECT_ID}}","name":"Streaming API connection","type":"api","status":"active","configuration":{},"metadata":{},"created_at":"{{CREATED_AT}}","updated_at":"{{UPDATED_AT}}"}

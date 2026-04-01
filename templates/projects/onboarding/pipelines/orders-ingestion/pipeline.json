@@ -1,5 +1,5 @@
 {
-  "$schema": "https://loxtep.com/schemas/template/pipeline.json",
+  "$schema": "https://loxtep.io/schemas/template/pipeline.json",
   "template_type": "pipeline",
   "slug": "orders-ingestion",
   "name": "Orders Webhook Ingestion",

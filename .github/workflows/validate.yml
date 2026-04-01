@@ -67,7 +67,7 @@ jobs:
           fi
 
           # Required catalog subtrees (see platform templateCatalogConfig)
-          for dir in pipelines connectors transforms projects consumption; do
+          for dir in workflows connectors transforms projects consumption; do
             if [ ! -d "templates/$dir" ]; then
               echo "❌ Missing templates/$dir/ directory"
               exit 1

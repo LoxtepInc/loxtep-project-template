@@ -5,7 +5,7 @@
     {
       "slug": "onboarding",
       "name": "Getting Started",
-      "description": "A minimal e-commerce project demonstrating core Loxtep concepts: domains, connectors, connections, pipelines, and data products",
+      "description": "A minimal e-commerce project demonstrating core Loxtep concepts: domains, connectors, connections, workflows, and data products",
       "path": "demos/onboarding",
       "industry": "retail_ecommerce",
       "tags": [
@@ -17,18 +17,18 @@
         "domains": 1,
         "connectors": 1,
         "connections": 1,
-        "pipelines": 1,
+        "workflows": 1,
         "data_products": 1
       }
     }
   ],
   "templates": {
-    "pipelines": [
+    "workflows": [
       {
         "slug": "blank",
-        "name": "Blank Pipeline",
-        "description": "Empty pipeline. Add a connection, then transformations and data products via the flow canvas.",
-        "path": "templates/pipelines/blank",
+        "name": "Blank Workflow",
+        "description": "Empty workflow. Add a connection, then transformations and data products via the flow canvas.",
+        "path": "templates/workflows/blank",
         "tags": [
           "blank",
           "empty",
@@ -37,9 +37,9 @@
       },
       {
         "slug": "webhook-ingestion",
-        "name": "Webhook Ingestion Pipeline",
+        "name": "Webhook Ingestion Workflow",
         "description": "Receive events via HTTP POST webhook",
-        "path": "templates/pipelines/webhook-ingestion",
+        "path": "templates/workflows/webhook-ingestion",
         "tags": [
           "webhook",
           "http",
@@ -49,9 +49,9 @@
       },
       {
         "slug": "connector-ingestion",
-        "name": "Connector Ingestion Pipeline",
+        "name": "Connector Ingestion Workflow",
         "description": "Auto-provisioned ingestion for connector entities (orders, products, customers). Enables graph storage for entity context.",
-        "path": "templates/pipelines/connector-ingestion",
+        "path": "templates/workflows/connector-ingestion",
         "tags": [
           "connector",
           "api",
@@ -63,9 +63,9 @@
       },
       {
         "slug": "api-polling",
-        "name": "API Polling Pipeline",
+        "name": "API Polling Workflow",
         "description": "Poll external REST APIs on a schedule",
-        "path": "templates/pipelines/api-polling",
+        "path": "templates/workflows/api-polling",
         "tags": [
           "api",
           "polling",
@@ -75,9 +75,9 @@
       },
       {
         "slug": "database-cdc",
-        "name": "Database CDC Pipeline",
+        "name": "Database CDC Workflow",
         "description": "Capture database changes using Change Data Capture",
-        "path": "templates/pipelines/database-cdc.json",
+        "path": "templates/workflows/database-cdc",
         "tags": [
           "database",
           "cdc",
@@ -87,9 +87,9 @@
       },
       {
         "slug": "file-import",
-        "name": "File Import Pipeline",
+        "name": "File Import Workflow",
         "description": "Import data from files (CSV, JSON, Parquet)",
-        "path": "templates/pipelines/file-import",
+        "path": "templates/workflows/file-import",
         "tags": [
           "file",
           "batch",
@@ -99,9 +99,9 @@
       },
       {
         "slug": "streaming-transform",
-        "name": "Streaming Transform Pipeline",
+        "name": "Streaming Transform Workflow",
         "description": "Apply real-time transformations to streaming data",
-        "path": "templates/pipelines/streaming-transform",
+        "path": "templates/workflows/streaming-transform",
         "tags": [
           "streaming",
           "transform",
@@ -113,7 +113,7 @@
         "slug": "asyncapi-import",
         "name": "Import from AsyncAPI",
         "description": "Paste an AsyncAPI 2.x or 3.x YAML spec and create data products from its channels",
-        "path": "templates/pipelines/asyncapi-import",
+        "path": "templates/workflows/asyncapi-import",
         "tags": [
           "asyncapi",
           "import",
@@ -124,9 +124,9 @@
       },
       {
         "slug": "data-product-consumption",
-        "name": "Data Product Consumption Pipeline",
+        "name": "Data Product Consumption Workflow",
         "description": "Trigger a flow from a data product: on event or on a configurable cron schedule",
-        "path": "templates/pipelines/data-product-consumption",
+        "path": "templates/workflows/data-product-consumption",
         "tags": [
           "data-product",
           "consumption",
@@ -138,15 +138,40 @@
       },
       {
         "slug": "consumption-webhook",
-        "name": "Consumption Webhook Pipeline",
+        "name": "Consumption Webhook Workflow",
         "description": "Expose data product events via HTTP webhook delivery. Composes with event-driven-webhook-delivery activation template.",
-        "path": "templates/pipelines/consumption-webhook",
+        "path": "templates/workflows/consumption-webhook",
         "tags": [
           "consumption",
           "webhook",
           "delivery",
           "real-time",
           "activation"
+        ]
+      },
+      {
+        "slug": "enrichment-basic",
+        "name": "Basic Enrichment Workflow",
+        "description": "Enrich events from an upstream source with transforms and validations (enrichment workflow type)",
+        "path": "templates/workflows/enrichment-basic",
+        "tags": [
+          "enrichment",
+          "transform",
+          "internal",
+          "mesh"
+        ]
+      },
+      {
+        "slug": "consumption-api",
+        "name": "Consumption API Workflow",
+        "description": "Expose workflow or data product events via REST API for pull-based integrations",
+        "path": "templates/workflows/consumption-api",
+        "tags": [
+          "consumption",
+          "api",
+          "rest",
+          "query",
+          "pull"
         ]
       }
     ],
