@@ -2,8 +2,8 @@
   "$schema": "https://loxtep.io/schemas/template/workflow.json",
   "template_type": "workflow",
   "slug": "blank",
-  "name": "Blank Pipeline",
-  "description": "Empty pipeline. Add a connection, then transformations and data products via the flow canvas.",
+  "name": "Blank Workflow",
+  "description": "Empty workflow. Add a connection, then transformations and data products via the flow canvas.",
   "version": "1.0.0",
   "tags": [
     "blank",
