@@ -1,24 +1,24 @@
 {
-  "data_product_id": "{{DATA_PRODUCT_SINK_ID}}",
+  "data_product_id": "{{DATA_PRODUCT_ID}}",
   "organization_id": "{{ORGANIZATION_ID}}",
-  "pipeline_id": "{{PIPELINE_ID}}",
+  "workflow_id": "{{WORKFLOW_ID}}",
   "domain_id": "{{DOMAIN_ID}}",
-  "upstream_entity_id": "{{CONNECTION_ID}}",
-  "upstream_entity_type": "connections",
-  "name": "Raw Orders",
-  "description": "Raw order events from webhook ingestion",
+  "name": "Enriched Orders",
+  "description": "Data product to consume and deliver via webhook (select in studio)",
+  "upstream_entity_id": null,
+  "upstream_entity_type": null,
   "owner": { "user_id": "{{OWNER_USER_ID}}" },
   "status": "draft",
   "governance": { "classification": "internal", "pii_fields": [], "compliance_requirements": [], "tags": [] },
-  "metadata": { "template_slug": "orders-ingestion" },
+  "metadata": { "template_slug": "orders-consumption" },
   "created_at": "{{CREATED_AT}}",
   "updated_at": "{{UPDATED_AT}}",
   "odps_document": {
     "product": {
       "details": {
         "en": {
-          "name": "Raw Orders",
-          "description": "Raw order events from webhook ingestion",
+          "name": "Enriched Orders",
+          "description": "Data product to consume and deliver via webhook (select in studio)",
           "status": "draft",
           "tags": [],
           "governanceProfile": "internal"
@@ -32,7 +32,8 @@
         "loxtep": {
           "organization_id": "{{ORGANIZATION_ID}}",
           "domain_id": "{{DOMAIN_ID}}",
-          "pipeline_id": "{{PIPELINE_ID}}"
+          "project_id": "{{PROJECT_ID}}",
+          "workflow_id": "{{WORKFLOW_ID}}"
         }
       }
     }

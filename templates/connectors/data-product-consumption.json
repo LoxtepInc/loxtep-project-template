@@ -10,7 +10,7 @@
     "Trigger a flow when new events arrive from a data product",
     "Poll a data product on a schedule and process events",
     "Downstream flows that react to published data products",
-    "Cross-domain or cross-pipeline event consumption"
+    "Cross-domain or cross-workflow event consumption"
   ],
   "entity": {
     "connector_id": "{{CONNECTOR_ID}}",

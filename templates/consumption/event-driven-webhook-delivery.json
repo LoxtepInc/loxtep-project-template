@@ -3,13 +3,13 @@
   "template_type": "consumption",
   "slug": "event-driven-webhook-delivery",
   "name": "Event-Driven Webhook Delivery (Activation)",
-  "description": "When events are produced for a data product, resolve webhook consumptions (subscriptions) and enqueue delivery to the async webhook delivery pipeline. Composable activation template for Phase 6: event → consumption resolution → webhook-delivery-requested.",
+  "description": "When events are produced for a data product, resolve webhook consumptions (subscriptions) and enqueue delivery to the async webhook delivery workflow. Composable activation template for Phase 6: event → consumption resolution → webhook-delivery-requested.",
   "version": "1.0.0",
   "tags": ["consumption", "webhook", "activation", "event-driven", "delivery", "async"],
   "use_cases": [
     "Real-time webhook delivery to subscribers when data product events land",
     "Event-driven activation: resolve consumptions and enqueue delivery",
-    "Composable template for webhook delivery pipeline (requested → processor → completed/failed)"
+    "Composable template for webhook delivery workflow (requested → processor → completed/failed)"
   ],
   "entity": {
     "consumption_id": "{{CONSUMPTION_ID}}",
@@ -41,9 +41,9 @@
       "required": true,
       "description": "Data product whose events trigger webhook delivery"
     },
-    "async_pipeline": {
+    "async_workflow": {
       "required": true,
-      "description": "Platform webhook delivery pipeline: requested → processor → completed/failed"
+      "description": "Platform webhook delivery workflow: requested → processor → completed/failed"
     }
   },
   "placeholders": {

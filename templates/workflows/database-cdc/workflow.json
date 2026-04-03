@@ -2,7 +2,7 @@
   "$schema": "https://loxtep.io/schemas/template/workflow.json",
   "template_type": "workflow",
   "slug": "database-cdc",
-  "name": "Database CDC Pipeline",
+  "name": "Database CDC Workflow",
   "description": "Capture database changes using Change Data Capture (CDC). Ideal for real-time data replication, event sourcing, and keeping data products in sync with operational databases.",
   "version": "1.0.0",
   "tags": [
@@ -22,7 +22,7 @@
     "organization_id": "{{ORGANIZATION_ID}}",
     "project_id": "{{PROJECT_ID}}",
     "name": "{{WORKFLOW_NAME}}",
-    "description": "Database CDC pipeline for capturing database changes",
+    "description": "Database CDC workflow for capturing database changes",
     "template_id": "{{TEMPLATE_ID}}",
     "configuration": {
       "schedule": null,
@@ -54,10 +54,10 @@
     }
   },
   "placeholders": {
-    "{{WORKFLOW_ID}}": "Generated UUID for the pipeline",
-    "{{ORGANIZATION_ID}}": "Organization that owns this pipeline",
-    "{{PROJECT_ID}}": "Project containing this pipeline",
-    "{{WORKFLOW_NAME}}": "User-provided name for the pipeline",
+    "{{WORKFLOW_ID}}": "Generated UUID for the workflow",
+    "{{ORGANIZATION_ID}}": "Organization that owns this workflow",
+    "{{PROJECT_ID}}": "Project containing this workflow",
+    "{{WORKFLOW_NAME}}": "User-provided name for the workflow",
     "{{TEMPLATE_ID}}": "System database CDC template ID",
     "{{CDC_TABLES}}": "Comma-separated list of tables to track (e.g., 'orders,customers')",
     "{{CREATED_AT}}": "ISO 8601 timestamp",

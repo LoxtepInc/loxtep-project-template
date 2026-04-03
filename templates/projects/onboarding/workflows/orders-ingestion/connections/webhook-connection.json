@@ -1,6 +1,6 @@
 {
   "connection_id": "{{CONNECTION_ID}}",
-  "pipeline_id": "{{PIPELINE_ID}}",
+  "workflow_id": "{{WORKFLOW_ID}}",
   "organization_id": "{{ORGANIZATION_ID}}",
   "project_id": "{{PROJECT_ID}}",
   "upstream_entity_id": null,

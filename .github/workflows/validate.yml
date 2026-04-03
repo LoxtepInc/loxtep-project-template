@@ -1,108 +1,15 @@
-name: Validate
+name: Validate templates
 
 on:
   push:
-    branches: [main]
+    branches: [main, development]
   pull_request:
-    branches: [main]
+    branches: [main, development]
 
 jobs:
-  lint:
-    name: Lint File Names
+  data-product-templates:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install ls-lint
-        run: |
-          curl -sL -o ls-lint https://github.com/loeffel-io/ls-lint/releases/download/v2.3.0/ls-lint-linux-amd64
-          chmod +x ls-lint
-
-      - name: Run ls-lint
-        run: ./ls-lint || echo "ls-lint check completed (warnings may exist)"
-
-  validate-json:
-    name: Validate JSON Files
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Validate JSON syntax
-        run: |
-          echo "Validating JSON files..."
-          find . -name "*.json" -not -path "./.git/*" | while read file; do
-            echo "Checking $file"
-            if ! python3 -m json.tool "$file" > /dev/null 2>&1; then
-              echo "❌ Invalid JSON: $file"
-              exit 1
-            fi
-          done
-          echo "✅ All JSON files are valid"
-
-  validate-structure:
-    name: Validate Project Structure
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Check required directories
-        run: |
-          echo "Checking required directories..."
-
-          # Check demos directory exists
-          if [ ! -d "demos" ]; then
-            echo "❌ Missing demos/ directory"
-            exit 1
-          fi
-
-          # Check catalog templates directory exists
-          if [ ! -d "templates" ]; then
-            echo "❌ Missing templates/ directory"
-            exit 1
-          fi
-
-          # Required catalog subtrees (see platform templateCatalogConfig)
-          for dir in workflows connectors transforms projects consumption; do
-            if [ ! -d "templates/$dir" ]; then
-              echo "❌ Missing templates/$dir/ directory"
-              exit 1
-            fi
-          done
-
-          echo "✅ All required directories present"
-
-      - name: Check demo structure
-        run: |
-          echo "Checking demo project structures..."
-
-          for demo in demos/*/; do
-            if [ -d "$demo" ]; then
-              demo_name=$(basename "$demo")
-              echo "Checking demo: $demo_name"
-
-              # Check for .loxtep/project.json
-              if [ ! -f "${demo}.loxtep/project.json" ]; then
-                echo "❌ Demo '$demo_name' missing .loxtep/project.json"
-                exit 1
-              fi
-
-              echo "✅ Demo '$demo_name' has valid structure"
-            fi
-          done
-
-      - name: Validate placeholder usage in templates
-        run: |
-          echo "Checking template JSON placeholder usage..."
-
-          find templates -name "*.json" | while read file; do
-            if grep -qE '"[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"' "$file"; then
-              echo "⚠️  Warning: $file contains hardcoded UUIDs - consider using placeholders"
-            fi
-          done
-
-          echo "✅ Template placeholder check complete"
+      - name: Validate data product JSON (ODPS + workflow_id)
+        run: python3 scripts/validate-data-product-templates.py

@@ -2,10 +2,10 @@
   "template_type": "domain",
   "slug": "sales-domain",
   "name": "Sales Domain",
-  "description": "Domain for sales and order-related data products and pipelines. Covers order ingestion, processing, and revenue analytics.",
+  "description": "Domain for sales and order-related data products and workflows. Covers order ingestion, processing, and revenue analytics.",
   "version": "1.0.0",
   "tags": ["sales", "orders", "revenue", "e-commerce"],
-  "use_cases": ["Sales data ownership", "Order pipeline grouping", "Revenue reporting"],
+  "use_cases": ["Sales data ownership", "Order workflow grouping", "Revenue reporting"],
   "entity": {
     "domain_id": "{{DOMAIN_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

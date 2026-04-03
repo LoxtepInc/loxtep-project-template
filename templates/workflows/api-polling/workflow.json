@@ -2,7 +2,7 @@
   "$schema": "https://loxtep.io/schemas/template/workflow.json",
   "template_type": "workflow",
   "slug": "api-polling",
-  "name": "API Polling Pipeline",
+  "name": "API Polling Workflow",
   "description": "Poll external REST APIs on a schedule to ingest data. Ideal for APIs without webhook support, data synchronization, and periodic data collection.",
   "version": "1.0.0",
   "tags": [
@@ -22,7 +22,7 @@
     "organization_id": "{{ORGANIZATION_ID}}",
     "project_id": "{{PROJECT_ID}}",
     "name": "{{WORKFLOW_NAME}}",
-    "description": "API polling pipeline for scheduled data ingestion",
+    "description": "API polling workflow for scheduled data ingestion",
     "template_id": "{{TEMPLATE_ID}}",
     "configuration": {
       "schedule": "{{CRON_SCHEDULE}}",
@@ -55,10 +55,10 @@
     }
   },
   "placeholders": {
-    "{{WORKFLOW_ID}}": "Generated UUID for the pipeline",
-    "{{ORGANIZATION_ID}}": "Organization that owns this pipeline",
-    "{{PROJECT_ID}}": "Project containing this pipeline",
-    "{{WORKFLOW_NAME}}": "User-provided name for the pipeline",
+    "{{WORKFLOW_ID}}": "Generated UUID for the workflow",
+    "{{ORGANIZATION_ID}}": "Organization that owns this workflow",
+    "{{PROJECT_ID}}": "Project containing this workflow",
+    "{{WORKFLOW_NAME}}": "User-provided name for the workflow",
     "{{TEMPLATE_ID}}": "System API polling template ID",
     "{{CRON_SCHEDULE}}": "Cron expression (e.g., '0 */6 * * *' for every 6 hours)",
     "{{API_ENDPOINT}}": "API endpoint path to poll",

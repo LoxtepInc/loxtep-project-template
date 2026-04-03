@@ -2,7 +2,7 @@
   "$schema": "https://loxtep.io/schemas/template/workflow.json",
   "template_type": "workflow",
   "slug": "data-product-consumption",
-  "name": "Data Product Consumption Pipeline",
+  "name": "Data Product Consumption Workflow",
   "description": "Trigger a flow from a data product: on event (when new events arrive) or on a configurable cron schedule. Same trigger semantics as queue-driven or cron-driven flows.",
   "version": "1.0.0",
   "tags": [
@@ -51,10 +51,10 @@
     }
   },
   "placeholders": {
-    "{{WORKFLOW_ID}}": "Generated UUID for the pipeline",
-    "{{ORGANIZATION_ID}}": "Organization that owns this pipeline",
-    "{{PROJECT_ID}}": "Project containing this pipeline",
-    "{{WORKFLOW_NAME}}": "User-provided name for the pipeline",
+    "{{WORKFLOW_ID}}": "Generated UUID for the workflow",
+    "{{ORGANIZATION_ID}}": "Organization that owns this workflow",
+    "{{PROJECT_ID}}": "Project containing this workflow",
+    "{{WORKFLOW_NAME}}": "User-provided name for the workflow",
     "{{TEMPLATE_ID}}": "System template ID for data product consumption",
     "{{CRON_SCHEDULE}}": "Cron expression when trigger is cron (null for event trigger)",
     "{{TRIGGER_TYPE}}": "event or cron",
