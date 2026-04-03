@@ -7,9 +7,35 @@
   "description": "Upstream data product for enrichment (select or create in studio)",
   "upstream_entity_id": null,
   "upstream_entity_type": null,
+  "owner": { "user_id": "{{OWNER_USER_ID}}" },
   "status": "draft",
   "governance": { "classification": "internal", "pii_fields": [], "compliance_requirements": [], "tags": [] },
   "metadata": { "template_slug": "enrichment-basic" },
   "created_at": "{{CREATED_AT}}",
-  "updated_at": "{{UPDATED_AT}}"
+  "updated_at": "{{UPDATED_AT}}",
+  "odps_document": {
+    "product": {
+      "details": {
+        "en": {
+          "name": "Source data product",
+          "description": "Upstream data product for enrichment (select or create in studio)",
+          "status": "draft",
+          "tags": [],
+          "governanceProfile": "internal"
+        }
+      },
+      "dataHolder": {
+        "businessDomain": "{{DOMAIN_ID}}",
+        "dataProductOwner": "{{OWNER_USER_ID}}"
+      },
+      "custom": {
+        "loxtep": {
+          "organization_id": "{{ORGANIZATION_ID}}",
+          "domain_id": "{{DOMAIN_ID}}",
+          "project_id": "{{PROJECT_ID}}",
+          "workflow_id": "{{WORKFLOW_ID}}"
+        }
+      }
+    }
+  }
 }

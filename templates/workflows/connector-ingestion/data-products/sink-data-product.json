@@ -15,5 +15,37 @@
     "storage_graph": { "enabled": true }
   },
   "created_at": "{{CREATED_AT}}",
-  "updated_at": "{{UPDATED_AT}}"
+  "updated_at": "{{UPDATED_AT}}",
+  "odps_document": {
+    "product": {
+      "details": {
+        "en": {
+          "name": "{{DATA_PRODUCT_NAME}}",
+          "description": "{{DATA_PRODUCT_DESCRIPTION}}",
+          "status": "draft",
+          "tags": [],
+          "governanceProfile": "internal"
+        }
+      },
+      "dataHolder": {
+        "businessDomain": "{{DOMAIN_ID}}",
+        "dataProductOwner": "{{OWNER_USER_ID}}"
+      },
+      "custom": {
+        "loxtep": {
+          "organization_id": "{{ORGANIZATION_ID}}",
+          "domain_id": "{{DOMAIN_ID}}",
+          "project_id": "{{PROJECT_ID}}",
+          "workflow_id": "{{WORKFLOW_ID}}",
+          "storage": {
+            "graph": { "enabled": true }
+          },
+          "ingestion": {
+            "connector_id": "{{CONNECTOR_ID}}",
+            "sync_entity": "{{SYNC_ENTITY}}"
+          }
+        }
+      }
+    }
+  }
 }

@@ -41,6 +41,10 @@ Full project trees that can be cloned as a starting point. Each demo is a comple
 
 Reusable JSON definitions the platform lists in the **template catalog** and applies via `POST /projects/{project_id}/templates` (`template_type`, `template_slug`). Placeholders are replaced with project-specific IDs when applied.
 
+#### ODPS (Open Data Products Standard v4.1)
+
+Catalog and workflow data product JSON under this repo includes an **`odps_document`** field: the canonical `{ "product": { ... } }` shape from [ODPS v4.1](https://opendataproducts.org/v4.1/schema/odps.json). Platform-specific fields (organization, domain, project, workflow, medallion, storage, ingestion) live under `product.custom.loxtep`, as described in the Loxtep spec at `.kiro/specs/odps-data-product-standard` (in the main `loxtep` repo). Public JSON Schema for Studio/workspace entities: `https://loxtep.io/schemas/entity/odps-product.json` (marketing site).
+
 #### ID placeholders
 
 | Placeholder | Description | Example replacement |
@@ -49,6 +53,7 @@ Reusable JSON definitions the platform lists in the **template catalog** and app
 | `{{CONNECTION_ID}}` | Connection identifier | `proj-abc-660e8400-e29b-41d4-a716-446655440000` |
 | `{{CONNECTOR_ID}}` | Connector identifier | `proj-abc-770e8400-e29b-41d4-a716-446655440000` |
 | `{{DATA_PRODUCT_ID}}` | Data product identifier | `proj-abc-880e8400-e29b-41d4-a716-446655440000` |
+| `{{OWNER_USER_ID}}` | Owner user UUID (legacy `owner.user_id` and ODPS `dataHolder.dataProductOwner`) | User applying the template |
 | `{{DOMAIN_ID}}` | Domain identifier | `proj-abc-990e8400-e29b-41d4-a716-446655440000` |
 | `{{PROJECT_ID_PREFIX}}` | Project ID prefix for namespacing | `proj-abc` |
 
@@ -72,7 +77,7 @@ These conventions are enforced by `ls-lint` on every commit.
 | Connection | *(under a workflow template folder)* | Connection JSON alongside `workflow.json` |
 | Workflow | `templates/workflows/` | Workflow definitions |
 | Transform | `templates/transforms/` | Transformation definitions |
-| Data product | `templates/data-products/` | Data product definitions |
+| Data product | `templates/data-products/` | Data product definitions (include `odps_document` — ODPS v4.1; see below) |
 | Export | `templates/exports/` | Export configurations |
 | Consumption | `templates/consumption/` | Consumption / activation templates (e.g. event-driven webhook delivery) |
 

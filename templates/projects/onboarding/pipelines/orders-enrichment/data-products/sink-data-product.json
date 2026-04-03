@@ -8,8 +8,33 @@
   "upstream_entity_id": "{{DATA_PRODUCT_SOURCE_ID}}",
   "upstream_entity_type": "data-products",
   "status": "draft",
+  "owner": { "user_id": "{{OWNER_USER_ID}}" },
   "governance": { "classification": "internal", "pii_fields": [], "compliance_requirements": [], "tags": [] },
   "metadata": { "template_slug": "orders-enrichment" },
   "created_at": "{{CREATED_AT}}",
-  "updated_at": "{{UPDATED_AT}}"
+  "updated_at": "{{UPDATED_AT}}",
+  "odps_document": {
+    "product": {
+      "details": {
+        "en": {
+          "name": "Enriched Orders",
+          "description": "Enriched order data product output",
+          "status": "draft",
+          "tags": [],
+          "governanceProfile": "internal"
+        }
+      },
+      "dataHolder": {
+        "businessDomain": "{{DOMAIN_ID}}",
+        "dataProductOwner": "{{OWNER_USER_ID}}"
+      },
+      "custom": {
+        "loxtep": {
+          "organization_id": "{{ORGANIZATION_ID}}",
+          "domain_id": "{{DOMAIN_ID}}",
+          "pipeline_id": "{{PIPELINE_ID}}"
+        }
+      }
+    }
+  }
 }

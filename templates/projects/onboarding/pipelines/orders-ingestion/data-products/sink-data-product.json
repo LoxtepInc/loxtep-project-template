@@ -7,9 +7,34 @@
   "upstream_entity_type": "connections",
   "name": "Raw Orders",
   "description": "Raw order events from webhook ingestion",
+  "owner": { "user_id": "{{OWNER_USER_ID}}" },
   "status": "draft",
   "governance": { "classification": "internal", "pii_fields": [], "compliance_requirements": [], "tags": [] },
   "metadata": { "template_slug": "orders-ingestion" },
   "created_at": "{{CREATED_AT}}",
-  "updated_at": "{{UPDATED_AT}}"
+  "updated_at": "{{UPDATED_AT}}",
+  "odps_document": {
+    "product": {
+      "details": {
+        "en": {
+          "name": "Raw Orders",
+          "description": "Raw order events from webhook ingestion",
+          "status": "draft",
+          "tags": [],
+          "governanceProfile": "internal"
+        }
+      },
+      "dataHolder": {
+        "businessDomain": "{{DOMAIN_ID}}",
+        "dataProductOwner": "{{OWNER_USER_ID}}"
+      },
+      "custom": {
+        "loxtep": {
+          "organization_id": "{{ORGANIZATION_ID}}",
+          "domain_id": "{{DOMAIN_ID}}",
+          "pipeline_id": "{{PIPELINE_ID}}"
+        }
+      }
+    }
+  }
 }

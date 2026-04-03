@@ -27,7 +27,32 @@
       "expected_latency_ms": 5000
     },
     "created_at": "{{CREATED_AT}}",
-    "updated_at": "{{UPDATED_AT}}"
+    "updated_at": "{{UPDATED_AT}}",
+    "odps_document": {
+      "product": {
+        "details": {
+          "en": {
+            "name": "{{DATA_PRODUCT_NAME}}",
+            "description": "Unified customer 360 profile with identity, orders, and engagement data.",
+            "status": "draft",
+            "tags": ["customer-360", "profile", "crm"],
+            "type": "customer-360",
+            "governanceProfile": "internal"
+          }
+        },
+        "dataHolder": {
+          "businessDomain": "{{DOMAIN_ID}}",
+          "dataProductOwner": "{{USER_ID}}"
+        },
+        "custom": {
+          "loxtep": {
+            "organization_id": "{{ORGANIZATION_ID}}",
+            "domain_id": "{{DOMAIN_ID}}",
+            "pipeline_id": "{{PIPELINE_ID}}"
+          }
+        }
+      }
+    }
   },
   "placeholders": {
     "{{DATA_PRODUCT_ID}}": "Generated UUID for the data product",
