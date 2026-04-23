@@ -1,0 +1,177 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "s3-destination",
+  "name": "S3 Destination Connector",
+  "description": "Connection to Amazon S3 or S3-compatible storage for outbound writes (mesh / batch data).",
+  "version": "1.0.0",
+  "tags": [
+    "s3-destination"
+  ],
+  "use_cases": [
+    "Write mesh data to Amazon S3.",
+    "S3-compatible object storage (MinIO, etc.) via endpoint_url."
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "s3-destination",
+    "name": "Amazon S3 Destination",
+    "description": "Write data to Amazon S3 or S3-compatible storage in multiple formats with partitioning support.",
+    "category": "file_storage",
+    "auth_type": "api_key",
+    "oauth_config": null,
+    "icon_url": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/amazons3.svg",
+    "documentation_url": "https://docs.loxtep.com/connectors/s3-destination",
+    "supported_directions": [
+      "outbound"
+    ],
+    "supported_entities": [
+      "*"
+    ],
+    "supports_webhooks": false,
+    "supports_polling": false,
+    "required_scopes": null,
+    "version": "1.0.0",
+    "is_beta": false,
+    "custom_settings_schema": {
+      "bucket": {
+        "type": "string",
+        "help": "Required. S3 bucket name (3–63 chars); mirrors S3DestinationConfigSchema."
+      },
+      "prefix": {
+        "type": "string",
+        "help": "Object key prefix inside the bucket; default \"\"."
+      },
+      "region": {
+        "type": "string",
+        "help": "AWS region; default us-east-1."
+      },
+      "format": {
+        "type": "string",
+        "enum": [
+          "jsonl",
+          "json",
+          "csv",
+          "parquet"
+        ],
+        "help": "Output file format."
+      },
+      "compression": {
+        "type": "string",
+        "enum": [
+          "none",
+          "gzip",
+          "snappy"
+        ],
+        "help": "Compression; snappy applies to parquet path."
+      },
+      "partitioning": {
+        "type": "string",
+        "enum": [
+          "none",
+          "daily",
+          "monthly",
+          "yearly",
+          "hourly",
+          "custom"
+        ],
+        "help": "Partition layout under prefix."
+      },
+      "partition_columns": {
+        "type": "string",
+        "help": "For partitioning=custom: array of column names in JSON (see runtime schema)."
+      },
+      "access_key_id": {
+        "type": "string",
+        "sensitive": true,
+        "help": "Optional if using IAM role on the worker; else often supplied via connector api_key."
+      },
+      "secret_access_key": {
+        "type": "string",
+        "sensitive": true,
+        "help": "Optional; often supplied via connector api_secret."
+      },
+      "role_arn": {
+        "type": "string",
+        "help": "Optional assume-role ARN."
+      },
+      "endpoint_url": {
+        "type": "string",
+        "format": "uri",
+        "help": "S3-compatible API base URL (MinIO, etc.)."
+      },
+      "force_path_style": {
+        "type": "string",
+        "help": "Boolean in JSON for path-style addressing."
+      },
+      "max_file_size": {
+        "type": "string",
+        "help": "Integer bytes; 0 = unlimited."
+      },
+      "max_records_per_file": {
+        "type": "string",
+        "help": "Integer cap per file; 0 = unlimited."
+      },
+      "file_name_pattern": {
+        "type": "string",
+        "help": "Pattern with placeholders {entity}, {timestamp}, {uuid}, {partition}."
+      },
+      "csv_options": {
+        "type": "string",
+        "help": "Object: delimiter, quote, header, escape, null_value (JSON)."
+      },
+      "json_options": {
+        "type": "string",
+        "help": "Object: pretty, array_wrapper (JSON)."
+      },
+      "parquet_options": {
+        "type": "string",
+        "help": "Object: row_group_size, page_size (JSON)."
+      }
+    },
+    "metadata": {
+      "template_slug": "s3-destination",
+      "connection_config_spec": {
+        "resolution": "flexible",
+        "help": "Credentials via api_key/api_secret or IAM-capable deployment; bucket/region/prefix and optional endpoint_url in custom_settings. Runtime uses AWS SDK in platform-backend.",
+        "allow_driver_passthrough": false
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "platform_native_provider": "s3-destination",
+    "description": "Connector = connection to object storage; outbound write behavior is implemented in the platform native provider (AWS SDK). Entity, auth, and custom_settings_schema are the declarative contract from this repo.",
+    "follow_up_notes": [
+      "Runtime: S3DestinationConnector — not CatalogRuntimeConnector; write/streaming logic stays in platform-backend until a native recipe runner exists.",
+      "custom_settings_schema mirrors S3DestinationConfigSchema for UX/docs; zod in platform-backend remains the runtime validator.",
+      "actions/*.json document platform_native operations (not catalog_http_*); dispatcher wiring is future work."
+    ],
+    "actions": [
+      {
+        "key": "s3_destination_test_connection",
+        "definition_path": "actions/test-connection/definition.json"
+      },
+      {
+        "key": "s3_destination_push_records",
+        "definition_path": "actions/push-records/definition.json"
+      }
+    ]
+  }
+}

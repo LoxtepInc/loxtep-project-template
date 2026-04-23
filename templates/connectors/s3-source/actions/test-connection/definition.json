@@ -1,0 +1,26 @@
+{
+  "key": "s3_source_test_connection",
+  "name": "Test S3 source connection",
+  "description": "HeadBucket against the configured bucket (IAM or static keys). Implemented by S3SourceConnector.testConnection.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "s3-source",
+    "operation": "test_connection",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {},
+    "description": "Uses connector instance config only; no extra inputs."
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "s3-source",
+    "operation": "test_connection"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "key": "triple_whale_post_attribution_orders",
+  "name": "Post attribution orders with journeys",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number" },
+      "page": { "type": "number" },
+      "since_iso": { "type": "string" },
+      "now_iso": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_post",
+    "method": "POST",
+    "base_url_template": "https://api.triplewhale.com/api/v2",
+    "path": "/attribution/get-orders-with-journeys-v2",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "bearer_prefix": true
+    },
+    "query_mapping": {},
+    "omit_empty_query": true,
+    "json_coerce_int_fields": ["page", "pageSize"],
+    "json_body": {
+      "shop": "{{connection.custom_settings.shop_domain}}",
+      "startDate": "{{input.since_iso}}",
+      "endDate": "{{input.now_iso}}",
+      "page": "{{input.page}}",
+      "pageSize": "{{input.limit}}"
+    }
+  }
+}

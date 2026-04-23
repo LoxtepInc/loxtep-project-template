@@ -1,0 +1,253 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "shopify",
+  "name": "Shopify Connector",
+  "description": "Connect to Shopify stores to ingest orders, customers, products, and inventory data. Supports both OAuth authentication and private app API keys. Catalog-defined actions run via the platform declarative executor.",
+  "version": "1.0.0",
+  "tags": ["shopify", "e-commerce", "orders", "products"],
+  "use_cases": [
+    "Order event streaming",
+    "Product catalog sync",
+    "Customer data integration",
+    "Inventory tracking"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "shopify",
+    "name": "Shopify",
+    "description": "Shopify e-commerce platform connector for orders, customers, products, and inventory",
+    "category": "e_commerce",
+    "icon_url": "https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-shopping-bag-full-color-66166b2e55d67988b56b4bd28b63c271e2b9713358cb723070a92bde17ad7d63.svg",
+    "documentation_url": "https://shopify.dev/api",
+    "auth_type": "oauth2",
+    "oauth_config": {
+      "authorization_url": "https://{{SHOP_DOMAIN}}/admin/oauth/authorize",
+      "token_url": "https://{{SHOP_DOMAIN}}/admin/oauth/access_token",
+      "scopes": ["read_orders", "read_customers", "read_products", "read_inventory"],
+      "response_type": "code",
+      "grant_type": "authorization_code",
+      "token_exchange_params": {
+        "expiring": "1"
+      }
+    },
+    "supported_directions": ["inbound"],
+    "supported_entities": ["orders", "customers", "products", "inventory", "fulfillments"],
+    "supports_webhooks": true,
+    "supports_polling": true,
+    "required_scopes": ["read_orders", "read_customers", "read_products", "read_inventory"],
+    "required_permissions": null,
+    "version": "2024-01",
+    "is_beta": false,
+    "metadata": {
+      "template_slug": "shopify",
+      "oauth_shop_field_label": "Shop domain",
+      "oauth_shop_placeholder": "mystore (for mystore.myshopify.com)",
+      "oauth_shop_help": "Enter your store subdomain only, e.g. mystore",
+      "api_version": "2024-01",
+      "oauth_urls_use_runtime_shop": true,
+      "oauth_account_display_name_field": "shop_name",
+      "oauth_runtime_urls": {
+        "shop_connection_config_key": "shop",
+        "strip_suffix": ".myshopify.com",
+        "host_suffix": ".myshopify.com",
+        "authorization_url_template": "https://{{shop}}.myshopify.com/admin/oauth/authorize",
+        "token_url_template": "https://{{shop}}.myshopify.com/admin/oauth/access_token"
+      },
+      "oauth_post_token_probe": {
+        "url_template": "https://{{shop_domain}}/admin/api/{{api_version}}/shop.json",
+        "auth_header": "X-Shopify-Access-Token",
+        "response_mappings": {
+          "shop_name": "shop.name",
+          "shop_domain": "shop.domain",
+          "myshopify_domain": "shop.myshopify_domain",
+          "currency": "shop.currency",
+          "timezone": "shop.timezone",
+          "iana_timezone": "shop.iana_timezone"
+        },
+        "persist_to_custom_settings": {
+          "shop_domain": "myshopify_domain"
+        }
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "shop_domain": "{{SHOP_DOMAIN}}",
+      "api_version": "2024-01"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{SHOP_DOMAIN}}": "Shopify store domain (e.g., mystore.myshopify.com)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Open connector package (Pipedream-style layout). Actions, sync, and probes are JSON-driven; runtime is CatalogRuntimeConnector in the platform.",
+    "platform_dependencies": [
+      {
+        "id": "shopify_oauth_custom_app",
+        "kind": "oauth_client",
+        "severity": "required",
+        "title": "Shopify custom app (OAuth client credentials)",
+        "description": "Each Loxtep environment must register a Shopify custom app (or use an approved internal app) and supply OAuth client id, client secret, and OAuth state signing secret. End users only provide their shop subdomain during connect; they do not bring Loxtep's client credentials.",
+        "documentation_url": "https://shopify.dev/docs/apps/auth/oauth/getting-started",
+        "fulfilled_by": {
+          "type": "platform_config_oauth",
+          "config_path": "connectors.oauth.shopify",
+          "config_key": "shopify",
+          "expected_credential_keys": ["client_id", "client_secret"],
+          "expected_secret_refs": ["client_id:::secret", "client_secret:::secret", "state_signing_secret:::secret"],
+          "notes": "CDK / platform-config typically map these to AWS Secrets Manager. Webhook HMAC verification for Admin API webhooks may reuse client_secret or a separate app secret — see platform webhook handler for this connector_type."
+        }
+      },
+      {
+        "id": "shopify_webhook_verification",
+        "kind": "webhook_signing_secret",
+        "severity": "required_for_webhooks",
+        "title": "Webhook signing material",
+        "description": "Inbound Shopify webhooks are verified with HMAC. The platform must have access to the app client secret (or dedicated webhook secret) configured for the connectors service.",
+        "documentation_url": "https://shopify.dev/docs/apps/webhooks/configuration/https",
+        "fulfilled_by": {
+          "type": "platform_config_oauth",
+          "config_path": "connectors.oauth.shopify",
+          "config_key": "shopify",
+          "expected_credential_keys": ["client_secret"],
+          "notes": "Implementation-specific: see connectors webhook route for env/config key used at runtime."
+        }
+      }
+    ],
+    "execution_policy": {
+      "allowed_host_suffixes": ["myshopify.com"],
+      "allowed_path_patterns": [
+        "^/shop\\.json$",
+        "^/orders\\.json$",
+        "^/orders/count\\.json$",
+        "^/products\\.json$",
+        "^/products/count\\.json$",
+        "^/customers\\.json$",
+        "^/customers/count\\.json$"
+      ]
+    },
+    "oauth_refresh": {
+      "token_url_template": "https://{{connection.custom_settings.shop_domain}}/admin/oauth/access_token",
+      "client_id_env": "SHOPIFY_CLIENT_ID",
+      "client_secret_env": "SHOPIFY_CLIENT_SECRET"
+    },
+    "connection_probe": {
+      "action_key": "shopify_get_shop",
+      "records_path": "shop",
+      "required_field": "id",
+      "account_info_mapping": {
+        "shop_name": "name",
+        "shop_domain": "domain",
+        "myshopify_domain": "myshopify_domain",
+        "currency": "currency",
+        "timezone": "iana_timezone"
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "orders": {
+          "fetch_action_key": "shopify_get_orders",
+          "records_path": "orders",
+          "pagination": "page_info_link",
+          "since_query_param": "updated_at_min",
+          "cursor_query_param": "page_info"
+        },
+        "products": {
+          "fetch_action_key": "shopify_get_products",
+          "records_path": "products",
+          "pagination": "since_id",
+          "since_query_param": "updated_at_min",
+          "cursor_query_param": "since_id",
+          "id_field": "id"
+        },
+        "customers": {
+          "fetch_action_key": "shopify_get_customers",
+          "records_path": "customers",
+          "pagination": "since_id",
+          "since_query_param": "updated_at_min",
+          "cursor_query_param": "since_id",
+          "id_field": "id"
+        }
+      }
+    },
+    "entity_catalog": {
+      "orders": {
+        "name": "Orders",
+        "record_schema_path": "schemas/entities/admin-rest-resource.schema.json",
+        "description": "Shopify orders with line items, fulfillments, and refunds",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 5,
+        "max_batch_size": 250
+      },
+      "products": {
+        "name": "Products",
+        "record_schema_path": "schemas/entities/admin-rest-resource.schema.json",
+        "description": "Shopify products with variants, options, and images",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 250
+      },
+      "customers": {
+        "name": "Customers",
+        "record_schema_path": "schemas/entities/admin-rest-resource.schema.json",
+        "description": "Shopify customers with addresses",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 250
+      }
+    },
+    "webhook_routing": {
+      "routes": [
+        { "topic_prefix": "orders/", "entity_type": "orders" },
+        { "topic_prefix": "products/", "entity_type": "products" },
+        { "topic_prefix": "customers/", "entity_type": "customers" }
+      ]
+    },
+    "entity_counts": {
+      "orders": {
+        "action_key": "shopify_get_orders_count",
+        "count_field": "count",
+        "input_mapping": { "status": "any" }
+      },
+      "products": {
+        "action_key": "shopify_get_products_count",
+        "count_field": "count",
+        "input_mapping": {}
+      },
+      "customers": {
+        "action_key": "shopify_get_customers_count",
+        "count_field": "count",
+        "input_mapping": {}
+      }
+    },
+    "actions": [
+      { "key": "shopify_get_shop", "definition_path": "actions/get-shop/definition.json" },
+      { "key": "shopify_get_orders", "definition_path": "actions/get-orders/definition.json" },
+      { "key": "shopify_get_products", "definition_path": "actions/get-products/definition.json" },
+      { "key": "shopify_get_customers", "definition_path": "actions/get-customers/definition.json" },
+      { "key": "shopify_get_orders_count", "definition_path": "actions/get-orders-count/definition.json" },
+      { "key": "shopify_get_products_count", "definition_path": "actions/get-products-count/definition.json" },
+      { "key": "shopify_get_customers_count", "definition_path": "actions/get-customers-count/definition.json" }
+    ]
+  }
+}

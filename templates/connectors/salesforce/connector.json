@@ -1,0 +1,90 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "salesforce",
+  "name": "Salesforce Connector",
+  "description": "Salesforce CRM via Composio-backed connector (toolkit configuration in platform).",
+  "version": "1.0.0",
+  "tags": [
+    "salesforce"
+  ],
+  "use_cases": [
+    "Salesforce CRM via Composio-backed connector (toolkit configuration in platform)."
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "salesforce",
+    "name": "Salesforce",
+    "description": "Salesforce CRM via Composio-backed connector (toolkit configuration in platform).",
+    "category": "crm",
+    "auth_type": "oauth2",
+    "oauth_config": {
+      "authorization_url": "https://login.salesforce.com/services/oauth2/authorize",
+      "token_url": "https://login.salesforce.com/services/oauth2/token",
+      "scopes": [
+        "api",
+        "refresh_token"
+      ],
+      "response_type": "code",
+      "grant_type": "authorization_code"
+    },
+    "supported_directions": [
+      "inbound"
+    ],
+    "supported_entities": [
+      "contacts",
+      "accounts",
+      "opportunities",
+      "leads"
+    ],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": [
+      "api",
+      "refresh_token"
+    ],
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "template_slug": "salesforce",
+      "backend": "composio"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "description": "Composio toolkit wiring for Salesforce CRM.",
+    "follow_up_notes": [
+      "Runtime: ComposioAdapter — not CatalogRuntimeConnector; SOQL-heavy or custom objects belong in Composio tool mappings.",
+      "Optional: expand entity_mappings with explicit tool_slug inventory as new Salesforce objects are onboarded."
+    ],
+    "composio_adapter": {
+      "connector_type": "salesforce",
+      "toolkit_name": "salesforce",
+      "name": "Salesforce",
+      "description": "Salesforce CRM via Composio (contacts, accounts, opportunities, leads)",
+      "entity_mappings": [
+        { "entity_type": "contacts", "tool_slug": "SALESFORCE_LIST_CONTACTS" },
+        { "entity_type": "accounts", "tool_slug": "SALESFORCE_LIST_ACCOUNTS" },
+        { "entity_type": "opportunities", "tool_slug": "SALESFORCE_LIST_OPPORTUNITIES" },
+        { "entity_type": "leads", "tool_slug": "SALESFORCE_LIST_LEADS" }
+      ]
+    },
+    "actions": []
+  }
+}

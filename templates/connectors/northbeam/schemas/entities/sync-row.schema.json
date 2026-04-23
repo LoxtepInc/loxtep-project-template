@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:northbeam:entity:sync-row",
+  "title": "Northbeam API result row",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": ["string", "number", "integer"] }
+  },
+  "additionalProperties": true
+}

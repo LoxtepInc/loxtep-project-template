@@ -1,0 +1,32 @@
+{
+  "key": "bigcommerce_list_orders",
+  "name": "List orders",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number" },
+      "page": { "type": "number" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.bigcommerce.com",
+    "path": "/stores/{{connection.custom_settings.store_hash}}/v3/orders",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "X-Auth-Token",
+      "value_from": "connection.oauth_access_token"
+    },
+    "query_mapping": {
+      "limit": "input.limit",
+      "page": "input.page"
+    },
+    "omit_empty_query": true
+  }
+}

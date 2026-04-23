@@ -1,0 +1,134 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "northbeam",
+  "name": "Northbeam Connector",
+  "description": "Connect to Northbeam for multi-touch attribution.",
+  "version": "1.0.0",
+  "tags": ["northbeam", "attribution", "analytics", "marketing"],
+  "use_cases": ["Multi-touch attribution", "Ad spend and ROAS", "Channel performance"],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "northbeam",
+    "name": "Northbeam",
+    "description": "Northbeam attribution connector for multi-touch attribution and ad analytics",
+    "category": "analytics",
+    "auth_type": "api_key",
+    "supported_directions": ["inbound"],
+    "supported_entities": ["attribution", "ad_spend", "conversions", "channels"],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": { "template_slug": "northbeam" },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": { "api_key": "{{API_KEY}}" }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{API_KEY}}": "Northbeam API key",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Northbeam REST lists via CatalogRuntimeConnector.",
+    "execution_policy": {
+      "allowed_host_suffixes": ["api.northbeam.io"],
+      "allowed_path_patterns": [
+        "^/attribution$",
+        "^/ad-spend$",
+        "^/conversions$",
+        "^/channels$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "northbeam_list_attribution",
+      "records_path": "results",
+      "required_field": "id",
+      "probe_input": { "limit": 1 }
+    },
+    "sync_plan": {
+      "entities": {
+        "attribution": {
+          "fetch_action_key": "northbeam_list_attribution",
+          "records_path": "results",
+          "pagination": "since_id",
+          "id_field": "id"
+        },
+        "ad_spend": {
+          "fetch_action_key": "northbeam_list_ad_spend",
+          "records_path": "results",
+          "pagination": "since_id",
+          "id_field": "id"
+        },
+        "conversions": {
+          "fetch_action_key": "northbeam_list_conversions",
+          "records_path": "results",
+          "pagination": "since_id",
+          "id_field": "id"
+        },
+        "channels": {
+          "fetch_action_key": "northbeam_list_channels",
+          "records_path": "results",
+          "pagination": "since_id",
+          "id_field": "id"
+        }
+      }
+    },
+    "entity_catalog": {
+      "attribution": {
+        "name": "Attribution",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "ad_spend": {
+        "name": "Ad spend",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "conversions": {
+        "name": "Conversions",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "channels": {
+        "name": "Channels",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      { "key": "northbeam_list_attribution", "definition_path": "actions/list-attribution/definition.json" },
+      { "key": "northbeam_list_ad_spend", "definition_path": "actions/list-ad-spend/definition.json" },
+      { "key": "northbeam_list_conversions", "definition_path": "actions/list-conversions/definition.json" },
+      { "key": "northbeam_list_channels", "definition_path": "actions/list-channels/definition.json" }
+    ]
+  }
+}

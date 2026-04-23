@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:gorgias:entity:tickets:record",
+  "title": "Gorgias ticket",
+  "description": "One element of GET /api/tickets `data[]`. Mirrors GorgiasTicketSchema in platform-backend/connectors/providers/gorgias/schemas/index.ts.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "number" },
+    "uri": { "type": ["string", "null"] },
+    "external_id": { "type": ["string", "null"] },
+    "status": { "type": ["string", "null"] },
+    "priority": { "type": ["string", "null"] },
+    "channel": { "type": ["string", "null"] },
+    "subject": { "type": ["string", "null"] },
+    "customer": { "type": ["object", "null"], "additionalProperties": true },
+    "assignee_user": { "type": ["object", "null"], "additionalProperties": true },
+    "assignee_team": { "type": ["object", "null"], "additionalProperties": true },
+    "tags": {
+      "type": ["array", "null"],
+      "items": { "type": "object", "additionalProperties": true }
+    },
+    "messages": {
+      "type": ["array", "null"],
+      "items": { "type": "object", "additionalProperties": true }
+    },
+    "created_datetime": { "type": ["string", "null"] },
+    "updated_datetime": { "type": ["string", "null"] },
+    "meta": { "type": ["object", "null"], "additionalProperties": true }
+  },
+  "additionalProperties": true
+}

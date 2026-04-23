@@ -1,0 +1,25 @@
+{
+  "key": "webhook_catch_test_connection",
+  "name": "Validate webhook auth configuration",
+  "description": "Checks that webhook_auth settings parse and match supported_auth_types. Platform WebhookCatchConnector.testConnection.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "webhook-catch",
+    "operation": "test_connection",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "webhook-catch",
+    "operation": "test_connection"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "key": "klaviyo_list_profiles",
+  "name": "List profiles",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number" },
+      "page[cursor]": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://a.klaviyo.com",
+    "path": "/api/profiles",
+    "static_headers": {
+      "revision": "2023-09-15",
+      "Accept": "application/json"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "prefix": "Klaviyo-API-Key "
+    },
+    "query_mapping": {
+      "page[size]": "input.limit",
+      "page[cursor]": "input.page[cursor]"
+    },
+    "omit_empty_query": true
+  }
+}

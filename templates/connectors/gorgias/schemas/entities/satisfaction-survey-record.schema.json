@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:gorgias:entity:satisfaction_surveys:record",
+  "title": "Gorgias satisfaction survey",
+  "description": "One element of GET /api/satisfaction-surveys `data[]`. Mirrors GorgiasSatisfactionSurveySchema in platform-backend/connectors/providers/gorgias/schemas/index.ts.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "number" },
+    "uri": { "type": ["string", "null"] },
+    "ticket_id": { "type": ["number", "null"] },
+    "customer_id": { "type": ["number", "null"] },
+    "score": { "type": ["number", "null"] },
+    "body_text": { "type": ["string", "null"] },
+    "created_datetime": { "type": ["string", "null"] },
+    "sent_datetime": { "type": ["string", "null"] },
+    "scored_datetime": { "type": ["string", "null"] },
+    "meta": { "type": ["object", "null"], "additionalProperties": true }
+  },
+  "additionalProperties": true
+}

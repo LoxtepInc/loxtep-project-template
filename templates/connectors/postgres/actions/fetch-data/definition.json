@@ -1,0 +1,31 @@
+{
+  "key": "postgres_fetch_data",
+  "name": "Fetch entity data",
+  "description": "Incremental or full table/query fetch for an entity (inbound). Platform PostgresConnector.fetchData.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "postgres",
+    "operation": "fetch_data",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "entity_type": { "type": "string", "description": "Table or entity identifier." },
+      "cursor": { "type": "string", "description": "Optional incremental cursor." },
+      "limit": { "type": "integer", "minimum": 1 },
+      "full_sync": { "type": "boolean" }
+    },
+    "required": ["entity_type"]
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "postgres",
+    "operation": "fetch_data"
+  }
+}

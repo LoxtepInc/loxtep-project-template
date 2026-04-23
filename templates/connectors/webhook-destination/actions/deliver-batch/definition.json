@@ -1,0 +1,31 @@
+{
+  "key": "webhook_destination_deliver_batch",
+  "name": "Deliver record batch",
+  "description": "Sends a batch of records to the configured HTTP endpoint with auth, retries, and body shaping from custom_settings. Implemented by platform WebhookDestinationConnector push path (not catalog HTTP).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "webhook-destination",
+    "operation": "push_data",
+    "read_only": false,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "records": {
+        "type": "array",
+        "description": "Records to deliver; serialized per content_type and batch_size."
+      }
+    },
+    "required": ["records"]
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "webhook-destination",
+    "operation": "push_data"
+  }
+}

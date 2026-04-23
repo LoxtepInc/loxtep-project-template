@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:shopify:entity:admin-rest-resource",
+  "title": "Shopify Admin REST resource",
+  "description": "Typical row from Admin REST JSON (orders, products, customers). IDs are often numeric in JSON but represented as strings in URLs.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": ["number", "string", "integer"] }
+  },
+  "additionalProperties": true
+}

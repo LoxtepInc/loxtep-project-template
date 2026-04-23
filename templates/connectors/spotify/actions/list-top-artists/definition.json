@@ -1,0 +1,35 @@
+{
+  "key": "spotify_list_top_artists",
+  "name": "List top artists",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number" },
+      "offset": { "type": "number" },
+      "time_range": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.spotify.com/v1",
+    "path": "/me/top/artists",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "limit": "input.limit",
+      "offset": "input.offset",
+      "time_range": "input.time_range"
+    },
+    "omit_empty_query": true
+  }
+}

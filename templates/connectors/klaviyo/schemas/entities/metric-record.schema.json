@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:klaviyo:entity:metrics:record",
+  "title": "Klaviyo metric (JSON:API resource)",
+  "description": "One element of GET /api/metrics `data[]`. Mirrors KlaviyoMetricSchema in platform-backend/connectors/providers/klaviyo/schemas/index.ts.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "type": { "type": "string" },
+    "attributes": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "name": { "type": ["string", "null"] },
+        "service": { "type": ["string", "null"] },
+        "created": { "type": ["string", "null"] },
+        "updated": { "type": ["string", "null"] }
+      }
+    },
+    "links": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": true
+}

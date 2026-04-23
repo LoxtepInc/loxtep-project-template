@@ -1,0 +1,29 @@
+{
+  "key": "postgres_push_data",
+  "name": "Push records to PostgreSQL",
+  "description": "Outbound batch write when custom_settings.table and write_mode are configured. Platform PostgresConnector.pushData.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "postgres",
+    "operation": "push_data",
+    "read_only": false,
+    "destructive": true
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "entity_type": { "type": "string" },
+      "records": { "type": "array" }
+    },
+    "required": ["entity_type", "records"]
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "postgres",
+    "operation": "push_data"
+  }
+}

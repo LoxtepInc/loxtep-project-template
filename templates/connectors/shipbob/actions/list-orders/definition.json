@@ -1,0 +1,35 @@
+{
+  "key": "shipbob_list_orders",
+  "name": "List orders",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number" },
+      "Page": { "type": "number" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.shipbob.com",
+    "path": "/1.0/order",
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "bearer_prefix": true
+    },
+    "static_headers": {
+      "shipbob_channel_id": "{{connection.custom_settings.channel_id}}"
+    },
+    "query_mapping": {
+      "Page": "input.Page",
+      "Limit": "input.limit"
+    },
+    "omit_empty_query": true
+  }
+}

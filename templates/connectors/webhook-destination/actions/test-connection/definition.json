@@ -1,0 +1,25 @@
+{
+  "key": "webhook_destination_test_connection",
+  "name": "Test webhook endpoint",
+  "description": "Probes the configured URL (e.g. OPTIONS/HEAD/GET strategy depends on runtime). Implemented by platform WebhookDestinationConnector.testConnection (not catalog HTTP).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "webhook-destination",
+    "operation": "test_connection",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "webhook-destination",
+    "operation": "test_connection"
+  }
+}

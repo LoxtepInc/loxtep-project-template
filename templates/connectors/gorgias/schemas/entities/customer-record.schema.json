@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:gorgias:entity:customers:record",
+  "title": "Gorgias customer",
+  "description": "One element of GET /api/customers `data[]`. Mirrors GorgiasCustomerSchema in platform-backend/connectors/providers/gorgias/schemas/index.ts.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "number" },
+    "uri": { "type": ["string", "null"] },
+    "email": { "type": ["string", "null"] },
+    "name": { "type": ["string", "null"] },
+    "firstname": { "type": ["string", "null"] },
+    "lastname": { "type": ["string", "null"] },
+    "active": { "type": ["boolean", "null"] },
+    "channels": {
+      "type": ["array", "null"],
+      "items": { "type": "object", "additionalProperties": true }
+    },
+    "created_datetime": { "type": ["string", "null"] },
+    "updated_datetime": { "type": ["string", "null"] },
+    "meta": { "type": ["object", "null"], "additionalProperties": true }
+  },
+  "additionalProperties": true
+}

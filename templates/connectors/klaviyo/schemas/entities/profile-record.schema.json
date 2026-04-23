@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:klaviyo:entity:profiles:record",
+  "title": "Klaviyo profile (JSON:API resource)",
+  "description": "Contract for one element of GET /api/profiles `data[]`. Mirrors platform-backend/connectors/providers/klaviyo/schemas/index.ts KlaviyoProfileSchema (lossy JSON Schema for open packages).",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "type": { "type": "string" },
+    "attributes": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "email": { "type": ["string", "null"] },
+        "phone_number": { "type": ["string", "null"] },
+        "first_name": { "type": ["string", "null"] },
+        "last_name": { "type": ["string", "null"] },
+        "created": { "type": ["string", "null"] },
+        "updated": { "type": ["string", "null"] },
+        "last_event_date": { "type": ["string", "null"] },
+        "location": { "type": ["object", "null"], "additionalProperties": true },
+        "properties": { "type": ["object", "null"], "additionalProperties": true },
+        "subscriptions": { "type": ["object", "null"], "additionalProperties": true }
+      }
+    },
+    "links": { "type": "object", "additionalProperties": true },
+    "relationships": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": true
+}

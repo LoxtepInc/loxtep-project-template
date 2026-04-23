@@ -1,0 +1,68 @@
+{
+  "key": "hubspot_search_companies",
+  "name": "Search HubSpot companies (incremental)",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "since_epoch_ms": { "type": "number" },
+      "after": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_post",
+    "method": "POST",
+    "base_url_template": "https://api.hubapi.com",
+    "path": "/crm/v3/objects/companies/search",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {},
+    "omit_empty_query": true,
+    "omit_empty_json_strings": true,
+    "json_body": {
+      "filterGroups": [
+        {
+          "filters": [
+            {
+              "propertyName": "hs_lastmodifieddate",
+              "operator": "GTE",
+              "value": "{{input.since_epoch_ms}}"
+            }
+          ]
+        }
+      ],
+      "sorts": [
+        { "propertyName": "hs_lastmodifieddate", "direction": "ASCENDING" }
+      ],
+      "properties": [
+        "name",
+        "domain",
+        "industry",
+        "description",
+        "numberofemployees",
+        "annualrevenue",
+        "phone",
+        "city",
+        "state",
+        "country",
+        "zip",
+        "address",
+        "website",
+        "lifecyclestage",
+        "hs_lead_status",
+        "createdate",
+        "hs_lastmodifieddate"
+      ],
+      "limit": 100,
+      "after": "{{input.after}}"
+    }
+  }
+}

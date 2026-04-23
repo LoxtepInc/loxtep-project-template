@@ -1,0 +1,81 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "netsuite",
+  "name": "NetSuite Connector",
+  "description": "Connect to NetSuite ERP via Composio to sync invoices, payments, customers, and GL entries. Uses OAuth 2.0 for authorization.",
+  "version": "1.0.0",
+  "tags": [
+    "netsuite",
+    "composio",
+    "erp",
+    "finance"
+  ],
+  "use_cases": [
+    "Invoice and payment sync",
+    "Customer data integration",
+    "General ledger entries"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "netsuite",
+    "name": "NetSuite",
+    "description": "NetSuite ERP via Composio (invoices, payments, customers, GL entries)",
+    "category": "finance",
+    "auth_type": "oauth2",
+    "backend": "composio",
+    "supported_directions": [
+      "inbound"
+    ],
+    "supported_entities": [
+      "invoices",
+      "payments",
+      "customers",
+      "gl_entries"
+    ],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "template_slug": "netsuite"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "description": "Composio toolkit wiring for NetSuite ERP.",
+    "follow_up_notes": [
+      "Runtime: ComposioAdapter — not CatalogRuntimeConnector; NetSuite complexity stays in Composio tool mappings.",
+      "Optional: document which ERP record types are intentionally omitted from entity_mappings."
+    ],
+    "composio_adapter": {
+      "connector_type": "netsuite",
+      "toolkit_name": "netsuite",
+      "name": "NetSuite",
+      "description": "NetSuite ERP via Composio (invoices, payments, customers, GL entries)",
+      "entity_mappings": [
+        { "entity_type": "invoices", "tool_slug": "NETSUITE_LIST_INVOICES" },
+        { "entity_type": "payments", "tool_slug": "NETSUITE_LIST_CUSTOMER_PAYMENTS" },
+        { "entity_type": "customers", "tool_slug": "NETSUITE_LIST_RECORDS" },
+        { "entity_type": "gl_entries", "tool_slug": "NETSUITE_LIST_JOURNAL_ENTRIES" }
+      ]
+    },
+    "actions": []
+  }
+}
