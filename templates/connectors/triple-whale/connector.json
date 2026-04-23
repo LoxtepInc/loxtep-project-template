@@ -1,0 +1,152 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "triple-whale",
+  "name": "Triple Whale Connector",
+  "description": "Triple Whale marketing analytics (ad attribution, ROAS summary, cohort LTV, creative stats).",
+  "version": "1.0.0",
+  "tags": ["triple-whale", "analytics", "attribution", "marketing"],
+  "use_cases": [
+    "Ad attribution sync",
+    "Blended ROAS metrics",
+    "Cohort LTV analysis",
+    "Creative performance stats"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "triple-whale",
+    "name": "Triple Whale",
+    "description": "Triple Whale marketing analytics (ad attribution, ROAS, cohort LTV, creative stats)",
+    "category": "analytics",
+    "auth_type": "api_key",
+    "supported_directions": ["inbound"],
+    "supported_entities": ["ad_attribution", "blended_roas", "cohort_ltv", "creative_stats"],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": { "template_slug": "triple-whale" },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "api_key": "{{API_KEY}}",
+      "custom_settings": { "shop_domain": "{{SHOP_DOMAIN}}" }
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{API_KEY}}": "Triple Whale API key (Settings > API Keys)",
+    "{{SHOP_DOMAIN}}": "Shopify store domain (e.g., mystore.myshopify.com)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Triple Whale API v2 via CatalogRuntimeConnector. ad_attribution uses paged POST; summary metrics share the same summary endpoint per entity type.",
+    "follow_up_notes": [
+      "connection_probe: required_field and records_path assume GET /users/api-keys/me returns a single object with a stable id-like field — confirm with live API and tune probe or account_info_mapping.",
+      "cohort_ltv / creative_stats: legacy wrapped summary JSON with an entity label; catalog returns the raw summary object per sync entity — align downstream expectations or add a thin transform spec later.",
+      "ad_attribution pagination uses generic query_page + length===limit heuristic; confirm Triple Whale response metadata for true has_more if the API provides it."
+    ],
+    "execution_policy": {
+      "allowed_host_suffixes": ["triplewhale.com"],
+      "allowed_path_patterns": [
+        "^/users/api-keys/me$",
+        "^/attribution/get-orders-with-journeys-v2$",
+        "^/summary-page/get-data$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "triple_whale_get_api_keys_me",
+      "records_path": "",
+      "required_field": "id"
+    },
+    "sync_plan": {
+      "entities": {
+        "ad_attribution": {
+          "fetch_action_key": "triple_whale_post_attribution_orders",
+          "records_path": "orders",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "id_field": "id",
+          "fetch_limit_cap": 100
+        },
+        "blended_roas": {
+          "fetch_action_key": "triple_whale_post_summary_page",
+          "records_path": "",
+          "pagination": "none",
+          "id_field": "id"
+        },
+        "cohort_ltv": {
+          "fetch_action_key": "triple_whale_post_summary_page",
+          "records_path": "",
+          "pagination": "none",
+          "id_field": "id"
+        },
+        "creative_stats": {
+          "fetch_action_key": "triple_whale_post_summary_page",
+          "records_path": "",
+          "pagination": "none",
+          "id_field": "id"
+        }
+      }
+    },
+    "entity_catalog": {
+      "ad_attribution": {
+        "name": "Ad attribution",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "blended_roas": {
+        "name": "Blended ROAS",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "cohort_ltv": {
+        "name": "Cohort LTV",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "creative_stats": {
+        "name": "Creative stats",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      {
+        "key": "triple_whale_get_api_keys_me",
+        "definition_path": "actions/get-api-keys-me/definition.json"
+      },
+      {
+        "key": "triple_whale_post_attribution_orders",
+        "definition_path": "actions/post-attribution-orders/definition.json"
+      },
+      {
+        "key": "triple_whale_post_summary_page",
+        "definition_path": "actions/post-summary-page/definition.json"
+      }
+    ]
+  }
+}

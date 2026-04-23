@@ -1,0 +1,7 @@
+{
+  "$comment": "Shopify REST cursor pagination via page_info (see Admin REST pagination).",
+  "style": "shopify_page_info",
+  "query_param_next": "page_info",
+  "default_limit_param": "limit",
+  "max_limit": 250
+}

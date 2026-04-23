@@ -1,0 +1,137 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "shipbob",
+  "name": "ShipBob Connector",
+  "description": "ShipBob fulfillment and inventory.",
+  "version": "1.0.0",
+  "tags": ["shipbob", "fulfillment", "3pl"],
+  "use_cases": ["ShipBob fulfillment and inventory."],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "shipbob",
+    "name": "ShipBob",
+    "description": "ShipBob fulfillment and inventory.",
+    "category": "e_commerce",
+    "auth_type": "api_key",
+    "oauth_config": null,
+    "supported_directions": ["inbound"],
+    "supported_entities": ["orders", "inventory", "shipments"],
+    "supports_webhooks": true,
+    "supports_polling": true,
+    "required_scopes": null,
+    "version": "1.0.0",
+    "is_beta": true,
+    "metadata": { "template_slug": "shipbob" },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "api_key": "{{API_KEY}}",
+      "channel_id": "{{CHANNEL_ID}}"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{API_KEY}}": "ShipBob Personal Access Token",
+    "{{CHANNEL_ID}}": "Optional ShipBob channel ID for multi-channel merchants",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "ShipBob REST lists and channel probe via CatalogRuntimeConnector.",
+    "execution_policy": {
+      "allowed_host_suffixes": ["api.shipbob.com"],
+      "allowed_path_patterns": [
+        "^/1\\.0/channel$",
+        "^/1\\.0/order$",
+        "^/1\\.0/shipment$",
+        "^/1\\.0/inventory$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "shipbob_get_channel",
+      "records_path": "",
+      "required_field": "id",
+      "account_info_mapping": {
+        "channel_id": "id",
+        "channel_name": "name"
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "orders": {
+          "fetch_action_key": "shipbob_list_orders",
+          "records_path": "",
+          "pagination": "query_page",
+          "page_query_param": "Page",
+          "id_field": "id"
+        },
+        "shipments": {
+          "fetch_action_key": "shipbob_list_shipments",
+          "records_path": "",
+          "pagination": "query_page",
+          "page_query_param": "Page",
+          "id_field": "id"
+        },
+        "inventory": {
+          "fetch_action_key": "shipbob_list_inventory",
+          "records_path": "",
+          "pagination": "query_page",
+          "page_query_param": "Page",
+          "id_field": "id"
+        }
+      }
+    },
+    "entity_catalog": {
+      "orders": {
+        "name": "Orders",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 250
+      },
+      "shipments": {
+        "name": "Shipments",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 250
+      },
+      "inventory": {
+        "name": "Inventory",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 250
+      }
+    },
+    "webhook_routing": {
+      "routes": [
+        { "topic_prefix": "order_", "entity_type": "orders" },
+        { "topic_prefix": "shipment_", "entity_type": "shipments" }
+      ]
+    },
+    "actions": [
+      { "key": "shipbob_get_channel", "definition_path": "actions/get-channel/definition.json" },
+      { "key": "shipbob_list_orders", "definition_path": "actions/list-orders/definition.json" },
+      { "key": "shipbob_list_shipments", "definition_path": "actions/list-shipments/definition.json" },
+      { "key": "shipbob_list_inventory", "definition_path": "actions/list-inventory/definition.json" }
+    ]
+  }
+}

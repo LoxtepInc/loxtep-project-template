@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://loxtep.io/schemas/connector-package-v1.json",
+  "title": "Loxtep connector package (v1)",
+  "type": "object",
+  "required": ["schema_version", "package_version", "actions"],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 1 },
+    "package_version": { "type": "string" },
+    "description": { "type": "string" },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "definition_path"],
+        "properties": {
+          "key": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "definition_path": { "type": "string" }
+        }
+      }
+    },
+    "execution_policy": {
+      "type": "object",
+      "properties": {
+        "allowed_host_suffixes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "allowed_path_patterns": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "oauth_refresh": { "type": "object" },
+    "connection_probe": {
+      "type": "object",
+      "description": "Declarative connection test: run an action and validate a record at records_path.",
+      "properties": {
+        "action_key": { "type": "string" },
+        "records_path": { "type": "string" },
+        "required_field": { "type": "string" },
+        "account_info_mapping": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Map account_info keys to dot paths relative to the probe record (e.g. shop_name → name)."
+        }
+      }
+    },
+    "sync_plan": { "type": "object" },
+    "entity_catalog": { "type": "object" },
+    "entity_counts": { "type": "object" },
+    "webhook_routing": { "type": "object" },
+    "platform_dependencies": {
+      "type": "array",
+      "description": "Capabilities Loxtep (operators / CDK / config) must provide outside the connector JSON — e.g. OAuth client from a partner developer program.",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "title", "fulfilled_by"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$",
+            "description": "Stable id for docs and tooling (e.g. shopify_oauth_custom_app)."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "oauth_client",
+              "webhook_signing_secret",
+              "api_key_vault",
+              "infrastructure_binding",
+              "custom"
+            ],
+            "description": "Category of platform obligation."
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["required", "required_for_webhooks", "optional"],
+            "default": "required"
+          },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "documentation_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Partner or Loxtep runbook for fulfilling this dependency."
+          },
+          "fulfilled_by": {
+            "type": "object",
+            "description": "How the platform satisfies this dependency (for operators and CDK).",
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "platform_config_oauth",
+                  "platform_config_block",
+                  "environment_variables",
+                  "secrets_manager_binding",
+                  "custom"
+                ]
+              },
+              "config_path": {
+                "type": "string",
+                "description": "Logical path in service config, e.g. connectors.oauth.shopify"
+              },
+              "config_key": {
+                "type": "string",
+                "description": "Key under connectors.oauth used by getClientCredentials (often connector_type)."
+              },
+              "expected_credential_keys": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Keys expected after secret resolution, e.g. client_id, client_secret."
+              },
+              "expected_secret_refs": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Secret / parameter names in platform-config (:::secret) or CDK outputs."
+              },
+              "notes": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

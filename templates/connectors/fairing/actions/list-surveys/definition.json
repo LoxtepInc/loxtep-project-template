@@ -1,0 +1,26 @@
+{
+  "key": "fairing_list_surveys",
+  "name": "List surveys",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": { "limit": { "type": "number" } }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.fairing.co/v1",
+    "path": "/surveys",
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "bearer_prefix": true
+    },
+    "query_mapping": { "limit": "input.limit" },
+    "omit_empty_query": true
+  }
+}

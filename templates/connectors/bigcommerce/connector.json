@@ -1,0 +1,126 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "bigcommerce",
+  "name": "BigCommerce Connector",
+  "description": "BigCommerce Store API v3 orders, customers, and catalog products via catalog runtime.",
+  "version": "1.0.0",
+  "tags": ["bigcommerce", "e-commerce", "orders", "products"],
+  "use_cases": ["Order event streaming", "Product catalog sync", "Customer data integration"],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "bigcommerce",
+    "name": "BigCommerce",
+    "description": "BigCommerce e-commerce connector (orders, customers, products)",
+    "category": "e_commerce",
+    "auth_type": "oauth2",
+    "supported_directions": ["inbound"],
+    "supported_entities": ["orders", "customers", "products"],
+    "supports_webhooks": true,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": true,
+    "metadata": { "template_slug": "bigcommerce" },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "custom_settings": {
+        "store_hash": "{{STORE_HASH}}"
+      }
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{STORE_HASH}}": "BigCommerce store hash from Store API URL",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "BigCommerce V3 REST via CatalogRuntimeConnector (meta.pagination pages). Inventory flattening is not in this package.",
+    "execution_policy": {
+      "allowed_host_suffixes": ["api.bigcommerce.com"],
+      "allowed_path_patterns": ["^/stores/[^/]+/v3/orders$", "^/stores/[^/]+/v3/customers$", "^/stores/[^/]+/v3/catalog/products$"]
+    },
+    "connection_probe": {
+      "action_key": "bigcommerce_list_orders",
+      "records_path": "data",
+      "required_field": "id",
+      "probe_input": { "limit": 1, "page": 1 }
+    },
+    "sync_plan": {
+      "entities": {
+        "orders": {
+          "fetch_action_key": "bigcommerce_list_orders",
+          "records_path": "data",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "page_meta_current_path": "meta.pagination.current_page",
+          "page_meta_total_pages_path": "meta.pagination.total_pages",
+          "id_field": "id"
+        },
+        "customers": {
+          "fetch_action_key": "bigcommerce_list_customers",
+          "records_path": "data",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "page_meta_current_path": "meta.pagination.current_page",
+          "page_meta_total_pages_path": "meta.pagination.total_pages",
+          "id_field": "id"
+        },
+        "products": {
+          "fetch_action_key": "bigcommerce_list_products",
+          "records_path": "data",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "page_meta_current_path": "meta.pagination.current_page",
+          "page_meta_total_pages_path": "meta.pagination.total_pages",
+          "id_field": "id"
+        }
+      }
+    },
+    "entity_catalog": {
+      "orders": {
+        "name": "Orders",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      },
+      "customers": {
+        "name": "Customers",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      },
+      "products": {
+        "name": "Products",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      { "key": "bigcommerce_list_orders", "definition_path": "actions/list-orders/definition.json" },
+      { "key": "bigcommerce_list_customers", "definition_path": "actions/list-customers/definition.json" },
+      { "key": "bigcommerce_list_products", "definition_path": "actions/list-products/definition.json" }
+    ]
+  }
+}

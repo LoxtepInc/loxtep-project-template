@@ -1,0 +1,25 @@
+{
+  "key": "postgres_test_connection",
+  "name": "Test PostgreSQL connection",
+  "description": "Opens a short-lived connection using configured credentials. Platform PostgresConnector.testConnection.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "postgres",
+    "operation": "test_connection",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "postgres",
+    "operation": "test_connection"
+  }
+}

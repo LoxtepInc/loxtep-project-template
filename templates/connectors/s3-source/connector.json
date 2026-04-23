@@ -1,0 +1,129 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "s3-source",
+  "name": "S3 Source Connector",
+  "description": "Ingest from Amazon S3 or S3-compatible storage: list objects under a prefix (ListObjectsV2). Full file parsing is a separate concern; this connector exposes listing as the native mesh primitive.",
+  "version": "1.0.0",
+  "tags": [
+    "s3",
+    "aws",
+    "file",
+    "batch",
+    "cloud-storage",
+    "s3-source"
+  ],
+  "use_cases": [
+    "Data lake ingestion",
+    "File-based data exchange",
+    "Historical data import",
+    "Partner data drops"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "s3-source",
+    "name": "Amazon S3 Source",
+    "description": "List and read metadata for objects in an S3 bucket; credentials via IAM role or static keys.",
+    "category": "file_storage",
+    "icon_url": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/amazons3.svg",
+    "documentation_url": "https://docs.aws.amazon.com/s3/",
+    "auth_type": "api_key",
+    "oauth_config": null,
+    "supported_directions": [
+      "inbound"
+    ],
+    "supported_entities": [
+      "files"
+    ],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "required_permissions": [
+      "s3:GetObject",
+      "s3:ListBucket"
+    ],
+    "version": "1.0.0",
+    "is_beta": false,
+    "custom_settings_schema": {
+      "bucket": {
+        "type": "string",
+        "help": "Required. S3 bucket name (3–63 chars); mirrors S3SourceConfigSchema."
+      },
+      "prefix": {
+        "type": "string",
+        "help": "Key prefix filter; default \"\"."
+      },
+      "region": {
+        "type": "string",
+        "help": "AWS region; default us-east-1."
+      },
+      "max_keys_per_page": {
+        "type": "string",
+        "help": "Integer 1–1000 for ListObjectsV2 MaxKeys; default 500."
+      },
+      "access_key_id": {
+        "type": "string",
+        "sensitive": true,
+        "help": "Optional if using IAM role on the worker; often supplied via connector api_key."
+      },
+      "secret_access_key": {
+        "type": "string",
+        "sensitive": true,
+        "help": "Optional; often supplied via connector api_secret."
+      },
+      "endpoint_url": {
+        "type": "string",
+        "format": "uri",
+        "help": "S3-compatible API base URL (MinIO, etc.)."
+      },
+      "force_path_style": {
+        "type": "string",
+        "help": "Boolean in JSON for path-style addressing when using custom endpoints."
+      }
+    },
+    "metadata": {
+      "template_slug": "s3-source",
+      "connection_config_spec": {
+        "resolution": "flexible",
+        "help": "Credentials via api_key/api_secret or IAM-capable deployment; bucket/region/prefix in custom_settings. Runtime uses AWS SDK in platform-backend.",
+        "allow_driver_passthrough": false
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "platform_native_provider": "s3-source",
+    "description": "Connector = connection to object storage; inbound listing is implemented in the platform native provider (AWS SDK). Entity, auth, and custom_settings_schema are the declarative contract from this repo.",
+    "follow_up_notes": [
+      "Runtime: S3SourceConnector under providers/s3-source/ — not CatalogRuntimeConnector.",
+      "custom_settings_schema mirrors S3SourceConfigSchema for UX/docs; zod in platform-backend remains the runtime validator.",
+      "Object body download / format decode can be added as further native operations or mesh steps after listing."
+    ],
+    "actions": [
+      {
+        "key": "s3_source_test_connection",
+        "definition_path": "actions/test-connection/definition.json"
+      },
+      {
+        "key": "s3_source_fetch_files",
+        "definition_path": "actions/fetch-files/definition.json"
+      }
+    ]
+  }
+}

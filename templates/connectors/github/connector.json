@@ -1,0 +1,146 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "github",
+  "name": "GitHub Connector",
+  "description": "Connect GitHub for repositories, issues, pull requests, and workflows.",
+  "version": "1.0.0",
+  "tags": ["github"],
+  "use_cases": ["Connect GitHub for repositories, issues, pull requests, and workflows."],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "github",
+    "name": "GitHub",
+    "description": "Connect GitHub for repositories, issues, pull requests, and workflows.",
+    "category": "productivity",
+    "auth_type": "oauth2",
+    "oauth_config": {
+      "authorization_url": "https://github.com/login/oauth/authorize",
+      "token_url": "https://github.com/login/oauth/access_token",
+      "scopes": ["read:user", "read:org", "repo"],
+      "response_type": "code",
+      "grant_type": "authorization_code"
+    },
+    "supported_directions": ["inbound"],
+    "supported_entities": ["repositories", "issues", "pull_requests"],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": ["read:user", "read:org", "repo"],
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": { "template_slug": "github" },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "GitHub REST via CatalogRuntimeConnector. Repositories and issues use /user/* list APIs; pull requests require custom_settings.owner + custom_settings.repository.",
+    "follow_up_notes": [
+      "Optional parity: org/user-scoped list routes from legacy connector (/users/{owner}/repos, /orgs/{org}/issues, repo-scoped issues) when custom_settings.owner / repository are present.",
+      "Not in catalog yet: commits, users, organizations entities; richer webhook payload paths; static getRecommendedWebhookEvents-style metadata if product needs it.",
+      "Optional: entity_catalog.record_schema_path + schemas/entities/*.schema.json for CI-enforced row contracts (see verify-catalog-runtime-templates)."
+    ],
+    "execution_policy": {
+      "allowed_host_suffixes": ["api.github.com"],
+      "allowed_path_patterns": [
+        "^/user$",
+        "^/user/repos$",
+        "^/user/issues$",
+        "^/repos/[^/]+/[^/]+/pulls$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "github_get_user",
+      "records_path": "",
+      "required_field": "id",
+      "account_info_mapping": {
+        "login": "login",
+        "user_id": "id",
+        "name": "name",
+        "email": "email",
+        "type": "type"
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "repositories": {
+          "fetch_action_key": "github_list_user_repos",
+          "records_path": "",
+          "pagination": "query_page_link_next",
+          "page_query_param": "page",
+          "id_field": "id",
+          "fetch_limit_cap": 100,
+          "sync_input_defaults": { "sort": "updated", "direction": "asc" }
+        },
+        "issues": {
+          "fetch_action_key": "github_list_user_issues",
+          "records_path": "",
+          "pagination": "query_page_link_next",
+          "page_query_param": "page",
+          "id_field": "id",
+          "fetch_limit_cap": 100,
+          "sync_input_defaults": { "state": "all", "sort": "updated", "direction": "asc" }
+        },
+        "pull_requests": {
+          "fetch_action_key": "github_list_repo_pull_requests",
+          "records_path": "",
+          "pagination": "query_page_link_next",
+          "page_query_param": "page",
+          "id_field": "id",
+          "fetch_limit_cap": 100,
+          "sync_input_defaults": { "state": "all", "sort": "updated", "direction": "asc" }
+        }
+      }
+    },
+    "entity_catalog": {
+      "repositories": {
+        "name": "Repositories",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "issues": {
+        "name": "Issues",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      },
+      "pull_requests": {
+        "name": "Pull requests",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      { "key": "github_get_user", "definition_path": "actions/get-user/definition.json" },
+      { "key": "github_list_user_repos", "definition_path": "actions/list-user-repos/definition.json" },
+      { "key": "github_list_user_issues", "definition_path": "actions/list-user-issues/definition.json" },
+      {
+        "key": "github_list_repo_pull_requests",
+        "definition_path": "actions/list-repo-pull-requests/definition.json"
+      }
+    ]
+  }
+}

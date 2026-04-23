@@ -1,0 +1,28 @@
+{
+  "key": "webhook_catch_receive",
+  "name": "Receive webhook event",
+  "description": "Inbound POST to the connector webhook URL; auth per webhook_auth in custom_settings. Implemented by workflows + WebhookCatchConnector (platform_native ingress, not catalog_http).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "webhook-catch",
+    "operation": "receive_webhook",
+    "read_only": false,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "headers": { "type": "object", "description": "HTTP headers from caller." },
+      "body": { "description": "Raw JSON or bytes per Content-Type." }
+    }
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "webhook-catch",
+    "operation": "receive_webhook"
+  }
+}

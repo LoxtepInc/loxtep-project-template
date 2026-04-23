@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:stripe:entity:stripe-object",
+  "title": "Stripe API object (list row)",
+  "description": "Typical element of Stripe list `data[]` (customer, charge, subscription, etc.). Vendor fields vary by object type.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "object": { "type": "string" }
+  },
+  "additionalProperties": true
+}

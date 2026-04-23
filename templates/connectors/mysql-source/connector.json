@@ -1,0 +1,108 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "mysql-source",
+  "name": "MySQL Source Connector",
+  "description": "MySQL database source connector.",
+  "version": "1.0.0",
+  "tags": [
+    "mysql-source"
+  ],
+  "use_cases": [
+    "MySQL database source connector."
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "mysql-source",
+    "name": "MySQL Source",
+    "description": "MySQL database source connector.",
+    "category": "database",
+    "auth_type": "basic",
+    "oauth_config": null,
+    "supported_directions": [
+      "inbound"
+    ],
+    "supported_entities": [
+      "*"
+    ],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "documentation_url": "https://docs.loxtep.com/connectors/mysql-source",
+    "icon_url": "https://www.mysql.com/common/logos/logo-mysql-170x115.png",
+    "custom_settings_schema": {
+      "connection_string": {
+        "type": "string",
+        "format": "multiline",
+        "sensitive": true,
+        "help": "Optional mysql:// URL; with resolution flexible, mysql2 pool uses uri=…"
+      },
+      "host": { "type": "string", "help": "Discrete host when not using connection_string." },
+      "port": { "type": "string", "help": "Integer; default 3306." },
+      "database": { "type": "string", "help": "Database name." },
+      "username": {
+        "type": "string",
+        "help": "Also on connector credentials; required for discrete mode."
+      },
+      "password": { "type": "string", "sensitive": true, "help": "Also on connector credentials." },
+      "connectTimeout": { "type": "string", "help": "Ms; default 10000." },
+      "ssl": {
+        "type": "string",
+        "help": "JSON object: rejectUnauthorized, ca, cert, key (see MySQLSourceConfig)."
+      },
+      "cdc": {
+        "type": "string",
+        "help": "JSON: enabled, server_id, binlog_file, binlog_position for binlog CDC."
+      },
+      "tables": { "type": "string", "help": "JSON string array allow-list." },
+      "exclude_tables": { "type": "string", "help": "JSON string array deny-list." },
+      "batch_size": { "type": "string", "help": "Integer cursor batch; default 1000." },
+      "pool_size": { "type": "string", "help": "Integer connectionLimit; default 5." },
+      "mysql_pool_options": {
+        "type": "object",
+        "help": "Optional pool keys safelisted in runtime (connectionLimit, connectTimeout, maxIdle, …)."
+      }
+    },
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "template_slug": "mysql-source",
+      "connection_config_spec": {
+        "resolution": "flexible",
+        "help": "Discrete credentials or a mysql:// connection_string; optional mysql_pool_options for pool tuning.",
+        "allow_driver_passthrough": true,
+        "driver_options_key": "mysql_pool_options"
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "platform_native_provider": "mysql-source",
+    "description": "A connector is a connection to a third party (here: your MySQL); actions describe operations once a native action runner exists.",
+    "follow_up_notes": [
+      "Runtime: platform MySQLSourceConnector (native) — not a catalog HTTP package; keep use_catalog_runtime false unless a DB-specific runtime is introduced.",
+      "custom_settings_schema mirrors MySQLSourceConfig fields for UX/docs; zod/runtime validation in platform TypeScript.",
+      "connector_package.actions use execution.protocol platform_native; dispatcher TBD."
+    ],
+    "actions": [
+      { "key": "mysql_source_test_connection", "definition_path": "actions/test-connection/definition.json" },
+      { "key": "mysql_source_fetch_data", "definition_path": "actions/fetch-data/definition.json" }
+    ]
+  }
+}

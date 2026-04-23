@@ -1,0 +1,33 @@
+{
+  "key": "loop_returns_list",
+  "name": "List returns",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "from": { "type": "string" },
+      "to": { "type": "string" },
+      "filter": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.loopreturns.com",
+    "path": "/api/v1/warehouse/return/list",
+    "header_auth": {
+      "header": "X-Authorization",
+      "value_from": "connection.api_key"
+    },
+    "query_mapping": {
+      "from": "input.from",
+      "to": "input.now_iso",
+      "filter": "input.filter"
+    },
+    "omit_empty_query": true
+  }
+}

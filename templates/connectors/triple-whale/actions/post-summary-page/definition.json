@@ -1,0 +1,37 @@
+{
+  "key": "triple_whale_post_summary_page",
+  "name": "Post summary page metrics",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "since_iso": { "type": "string" },
+      "now_iso": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_post",
+    "method": "POST",
+    "base_url_template": "https://api.triplewhale.com/api/v2",
+    "path": "/summary-page/get-data",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "bearer_prefix": true
+    },
+    "query_mapping": {},
+    "omit_empty_query": true,
+    "json_body": {
+      "shopDomain": "{{connection.custom_settings.shop_domain}}",
+      "period": {
+        "start": "{{input.since_iso}}",
+        "end": "{{input.now_iso}}"
+      }
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "gorgias",
+  "name": "Gorgias Connector",
+  "description": "Gorgias helpdesk tickets and customers.",
+  "version": "1.0.0",
+  "tags": ["gorgias"],
+  "use_cases": ["Gorgias helpdesk tickets and customers."],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "gorgias",
+    "name": "Gorgias",
+    "description": "Gorgias helpdesk tickets and customers.",
+    "category": "communication",
+    "auth_type": "api_key",
+    "oauth_config": null,
+    "supported_directions": ["inbound"],
+    "supported_entities": ["tickets", "customers", "satisfaction_surveys"],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": { "template_slug": "gorgias" },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "api_key": "{{API_KEY}}",
+      "custom_settings": {
+        "email": "{{EMAIL}}",
+        "subdomain": "{{SUBDOMAIN}}"
+      }
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{API_KEY}}": "Gorgias API key",
+    "{{EMAIL}}": "Gorgias user email (HTTP Basic user)",
+    "{{SUBDOMAIN}}": "Gorgias subdomain (e.g. mystore for mystore.gorgias.com)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Gorgias REST via CatalogRuntimeConnector (Basic auth + subdomain host). Row contracts under schemas/entities/; lineage from platform-backend/connectors/providers/gorgias/schemas.",
+    "execution_policy": {
+      "allowed_host_suffixes": [".gorgias.com"],
+      "allowed_path_patterns": [
+        "^/api/account$",
+        "^/api/tickets$",
+        "^/api/customers$",
+        "^/api/satisfaction-surveys$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "gorgias_get_account",
+      "records_path": "data",
+      "required_field": "id"
+    },
+    "sync_plan": {
+      "entities": {
+        "tickets": {
+          "fetch_action_key": "gorgias_list_tickets",
+          "records_path": "data",
+          "pagination": "meta_cursor",
+          "cursor_query_param": "cursor",
+          "next_cursor_path": "meta.next_cursor",
+          "id_field": "id"
+        },
+        "customers": {
+          "fetch_action_key": "gorgias_list_customers",
+          "records_path": "data",
+          "pagination": "meta_cursor",
+          "cursor_query_param": "cursor",
+          "next_cursor_path": "meta.next_cursor",
+          "id_field": "id"
+        },
+        "satisfaction_surveys": {
+          "fetch_action_key": "gorgias_list_satisfaction_surveys",
+          "records_path": "data",
+          "pagination": "meta_cursor",
+          "cursor_query_param": "cursor",
+          "next_cursor_path": "meta.next_cursor",
+          "id_field": "id"
+        }
+      }
+    },
+    "entity_catalog": {
+      "tickets": {
+        "name": "Tickets",
+        "record_schema_path": "schemas/entities/ticket-record.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      },
+      "customers": {
+        "name": "Customers",
+        "record_schema_path": "schemas/entities/customer-record.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      },
+      "satisfaction_surveys": {
+        "name": "Satisfaction surveys",
+        "record_schema_path": "schemas/entities/satisfaction-survey-record.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      { "key": "gorgias_get_account", "definition_path": "actions/get-account/definition.json" },
+      { "key": "gorgias_list_tickets", "definition_path": "actions/list-tickets/definition.json" },
+      { "key": "gorgias_list_customers", "definition_path": "actions/list-customers/definition.json" },
+      {
+        "key": "gorgias_list_satisfaction_surveys",
+        "definition_path": "actions/list-satisfaction-surveys/definition.json"
+      }
+    ]
+  }
+}

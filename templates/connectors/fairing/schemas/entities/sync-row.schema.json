@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:fairing:entity:sync-row",
+  "title": "Fairing API list row",
+  "description": "Documented list item with stable id; additional vendor fields allowed.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": ["string", "number", "integer"] }
+  },
+  "additionalProperties": true
+}

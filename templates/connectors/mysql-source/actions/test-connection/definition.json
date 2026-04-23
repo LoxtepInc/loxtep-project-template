@@ -1,0 +1,25 @@
+{
+  "key": "mysql_source_test_connection",
+  "name": "Test MySQL connection",
+  "description": "Runs a lightweight query against the configured database. Platform MySQLSourceConnector.testConnection.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "mysql-source",
+    "operation": "test_connection",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "mysql-source",
+    "operation": "test_connection"
+  }
+}

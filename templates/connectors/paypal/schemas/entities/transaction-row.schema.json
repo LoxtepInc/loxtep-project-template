@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:paypal:entity:transactions:record",
+  "title": "PayPal reporting transaction_detail",
+  "description": "Element of GET /v1/reporting/transactions `transaction_details[]`.",
+  "type": "object",
+  "properties": {
+    "transaction_info": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "transaction_id": { "type": "string" }
+      }
+    },
+    "payer_info": { "type": ["object", "null"], "additionalProperties": true },
+    "cart_info": { "type": ["object", "null"], "additionalProperties": true }
+  },
+  "additionalProperties": true
+}

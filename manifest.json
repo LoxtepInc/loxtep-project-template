@@ -180,7 +180,7 @@
         "slug": "shopify",
         "name": "Shopify Connector",
         "description": "Connect to Shopify stores for orders, customers, products",
-        "path": "templates/connectors/shopify.json",
+        "path": "templates/connectors/shopify/connector.json",
         "tags": [
           "shopify",
           "e-commerce",

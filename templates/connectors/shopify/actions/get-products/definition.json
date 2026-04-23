@@ -1,0 +1,40 @@
+{
+  "key": "shopify_get_products",
+  "name": "Get products",
+  "description": "List products (GET /products.json). Cursor uses since_id; incremental uses updated_at_min.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "required_scopes": ["read_products"],
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 250,
+        "default": 50
+      },
+      "updated_at_min": { "type": "string", "format": "date-time" },
+      "since_id": { "type": "string", "description": "Cursor: last product id from previous page." }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://{{connection.custom_settings.shop_domain}}/admin/api/{{connection.custom_settings.api_version}}",
+    "path": "/products.json",
+    "header_auth": {
+      "header": "X-Shopify-Access-Token",
+      "value_from": "connection.oauth_access_token"
+    },
+    "query_mapping": {
+      "limit": "input.limit",
+      "updated_at_min": "input.updated_at_min",
+      "since_id": "input.since_id"
+    },
+    "omit_empty_query": true
+  }
+}

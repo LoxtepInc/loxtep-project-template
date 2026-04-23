@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:bigcommerce:entity:sync-row",
+  "title": "BigCommerce V3 list row",
+  "description": "Element of `data[]` from Store API v3 list endpoints (orders, customers, products).",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": ["number", "integer"] }
+  },
+  "additionalProperties": true
+}

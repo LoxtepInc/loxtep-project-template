@@ -1,0 +1,62 @@
+{
+  "key": "shopify_get_orders",
+  "name": "Get orders",
+  "description": "List orders from the Shopify Admin REST API (GET /orders.json). Supports limit, status, and incremental filter updated_at_min.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "read_only": true,
+    "destructive": false
+  },
+  "required_scopes": ["read_orders"],
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 250,
+        "default": 50,
+        "description": "Max orders per page (Shopify caps at 250)."
+      },
+      "status": {
+        "type": "string",
+        "enum": ["open", "closed", "cancelled", "any"],
+        "default": "any",
+        "description": "Order financial status filter."
+      },
+      "updated_at_min": {
+        "type": "string",
+        "format": "date-time",
+        "description": "ISO 8601 lower bound on updated_at (incremental reads)."
+      },
+      "page_info": {
+        "type": "string",
+        "description": "Opaque cursor from a previous response (Link rel=next page_info)."
+      }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://{{connection.custom_settings.shop_domain}}/admin/api/{{connection.custom_settings.api_version}}",
+    "path": "/orders.json",
+    "header_auth": {
+      "header": "X-Shopify-Access-Token",
+      "value_from": "connection.oauth_access_token"
+    },
+    "query_mapping": {
+      "limit": "input.limit",
+      "status": "input.status",
+      "updated_at_min": "input.updated_at_min",
+      "page_info": "input.page_info"
+    },
+    "omit_empty_query": true
+  },
+  "references": {
+    "constants": "../../common/constants.json",
+    "pagination": "../../common/pagination/rest-page-info.json"
+  }
+}
