@@ -1,0 +1,118 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "klaviyo",
+  "name": "Klaviyo Connector",
+  "description": "Klaviyo profiles, lists, and events.",
+  "version": "1.0.0",
+  "tags": ["klaviyo"],
+  "use_cases": ["Klaviyo profiles, lists, and events."],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "klaviyo",
+    "name": "Klaviyo",
+    "description": "Klaviyo profiles, lists, and events.",
+    "category": "marketing",
+    "auth_type": "api_key",
+    "oauth_config": null,
+    "supported_directions": ["inbound"],
+    "supported_entities": ["profiles", "events", "metrics"],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": { "template_slug": "klaviyo" },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": { "api_key": "{{API_KEY}}" }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{API_KEY}}": "Klaviyo private API key",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Klaviyo REST (JSON:API) via CatalogRuntimeConnector. Synced row shapes are documented under schemas/entities/*.schema.json (see entity_catalog.record_schema_path); lineage from legacy Zod in platform-backend/connectors/providers/klaviyo/schemas.",
+    "execution_policy": {
+      "allowed_host_suffixes": ["a.klaviyo.com"],
+      "allowed_path_patterns": ["^/api/profiles$", "^/api/events$", "^/api/metrics$"]
+    },
+    "connection_probe": {
+      "action_key": "klaviyo_list_profiles",
+      "records_path": "data",
+      "required_field": "id",
+      "probe_input": { "limit": 1 }
+    },
+    "sync_plan": {
+      "entities": {
+        "profiles": {
+          "fetch_action_key": "klaviyo_list_profiles",
+          "records_path": "data",
+          "pagination": "links_next_query",
+          "cursor_query_param": "page[cursor]",
+          "id_field": "id"
+        },
+        "events": {
+          "fetch_action_key": "klaviyo_list_events",
+          "records_path": "data",
+          "pagination": "links_next_query",
+          "cursor_query_param": "page[cursor]",
+          "id_field": "id"
+        },
+        "metrics": {
+          "fetch_action_key": "klaviyo_list_metrics",
+          "records_path": "data",
+          "pagination": "links_next_query",
+          "cursor_query_param": "page[cursor]",
+          "id_field": "id"
+        }
+      }
+    },
+    "entity_catalog": {
+      "profiles": {
+        "name": "Profiles",
+        "record_schema_path": "schemas/entities/profile-record.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      },
+      "events": {
+        "name": "Events",
+        "record_schema_path": "schemas/entities/event-record.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      },
+      "metrics": {
+        "name": "Metrics",
+        "record_schema_path": "schemas/entities/metric-record.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      { "key": "klaviyo_list_profiles", "definition_path": "actions/list-profiles/definition.json" },
+      { "key": "klaviyo_list_events", "definition_path": "actions/list-events/definition.json" },
+      { "key": "klaviyo_list_metrics", "definition_path": "actions/list-metrics/definition.json" }
+    ]
+  }
+}

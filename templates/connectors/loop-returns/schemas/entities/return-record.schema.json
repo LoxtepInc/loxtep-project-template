@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:loop-returns:entity:returns:record",
+  "title": "Loop Returns warehouse return row",
+  "description": "Element of GET /api/v1/warehouse/return/list array response.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": ["string", "number", "integer"] },
+    "order_id": { "type": ["string", "null"] },
+    "status": { "type": ["string", "null"] },
+    "created_at": { "type": ["string", "null"] },
+    "line_items": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": true } },
+    "exchanges": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": true } }
+  },
+  "additionalProperties": true
+}

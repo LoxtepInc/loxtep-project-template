@@ -1,0 +1,116 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "fairing",
+  "name": "Fairing Connector",
+  "description": "Connect to Fairing for post-purchase surveys attributed to orders. Zero-party data enrichment.",
+  "version": "1.0.0",
+  "tags": ["fairing", "surveys", "post-purchase", "zero-party"],
+  "use_cases": [
+    "Post-purchase survey data",
+    "Order-attributed feedback",
+    "Zero-party data sync"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "fairing",
+    "name": "Fairing",
+    "description": "Fairing post-purchase survey connector attributed to orders",
+    "category": "analytics",
+    "auth_type": "api_key",
+    "supported_directions": ["inbound"],
+    "supported_entities": ["surveys", "responses", "attributed_orders"],
+    "supports_webhooks": true,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": { "template_slug": "fairing" },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": { "api_key": "{{API_KEY}}" }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{API_KEY}}": "Fairing API key",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Fairing REST lists via CatalogRuntimeConnector.",
+    "execution_policy": {
+      "allowed_host_suffixes": ["api.fairing.co"],
+      "allowed_path_patterns": ["^/surveys$", "^/responses$"]
+    },
+    "connection_probe": {
+      "action_key": "fairing_list_surveys",
+      "records_path": "data",
+      "required_field": "id",
+      "probe_input": { "limit": 1 }
+    },
+    "sync_plan": {
+      "entities": {
+        "surveys": {
+          "fetch_action_key": "fairing_list_surveys",
+          "records_path": "data",
+          "pagination": "since_id",
+          "id_field": "id"
+        },
+        "responses": {
+          "fetch_action_key": "fairing_list_responses",
+          "records_path": "data",
+          "pagination": "since_id",
+          "id_field": "id"
+        },
+        "attributed_orders": {
+          "fetch_action_key": "fairing_list_responses",
+          "records_path": "data",
+          "pagination": "since_id",
+          "id_field": "id"
+        }
+      }
+    },
+    "entity_catalog": {
+      "surveys": {
+        "name": "Surveys",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "responses": {
+        "name": "Responses",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "attributed_orders": {
+        "name": "Attributed orders",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      { "key": "fairing_list_surveys", "definition_path": "actions/list-surveys/definition.json" },
+      { "key": "fairing_list_responses", "definition_path": "actions/list-responses/definition.json" }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "key": "spotify_list_recently_played",
+  "name": "List recently played tracks",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number" },
+      "after": { "type": "string" },
+      "before": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.spotify.com/v1",
+    "path": "/me/player/recently-played",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "limit": "input.limit",
+      "after": "input.after",
+      "before": "input.before"
+    },
+    "omit_empty_query": true
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "key": "stripe_get_account",
+  "name": "Retrieve account",
+  "description": "GET /v1/account — connection probe and account metadata.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.stripe.com",
+    "path": "/v1/account",
+    "static_headers": {
+      "Stripe-Version": "2023-10-16"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "bearer_prefix": true
+    },
+    "query_mapping": {},
+    "omit_empty_query": true
+  }
+}

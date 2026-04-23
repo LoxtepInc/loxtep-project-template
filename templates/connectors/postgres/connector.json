@@ -1,0 +1,182 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "postgres",
+  "name": "PostgreSQL Connector",
+  "description": "Connect to PostgreSQL databases for Change Data Capture (CDC), query-based ingestion, or batch data extraction. Supports logical replication for real-time streaming.",
+  "version": "1.0.0",
+  "tags": [
+    "postgres",
+    "postgresql",
+    "database",
+    "cdc",
+    "sql"
+  ],
+  "use_cases": [
+    "Real-time CDC replication",
+    "Database migration",
+    "Query-based data extraction",
+    "Audit log streaming"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "postgres",
+    "name": "PostgreSQL",
+    "description": "PostgreSQL database connector with CDC and query-based ingestion support",
+    "category": "database",
+    "icon_url": "https://www.postgresql.org/media/img/about/press/elephant.png",
+    "documentation_url": "https://www.postgresql.org/docs/",
+    "auth_type": "basic",
+    "oauth_config": null,
+    "supported_directions": [
+      "inbound",
+      "outbound"
+    ],
+    "supported_entities": [],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "required_permissions": [
+      "SELECT",
+      "REPLICATION"
+    ],
+    "version": "1.0.0",
+    "is_beta": false,
+    "custom_settings_schema": {
+      "connection_string": {
+        "type": "string",
+        "format": "multiline",
+        "sensitive": true,
+        "help": "Optional postgres:// URL; with resolution flexible, passed to pg as connectionString when set."
+      },
+      "host": { "type": "string", "help": "Discrete host when not using connection_string." },
+      "port": { "type": "string", "help": "Integer port; default 5432." },
+      "database": { "type": "string", "help": "Database name." },
+      "username": {
+        "type": "string",
+        "help": "Also accepted on connector credentials; required for non-localhost discrete mode."
+      },
+      "password": {
+        "type": "string",
+        "sensitive": true,
+        "help": "Also accepted on connector credentials."
+      },
+      "schema": { "type": "string", "help": "Default search_path schema; default public." },
+      "ssl_mode": [
+        "disable",
+        "allow",
+        "prefer",
+        "require",
+        "verify-ca",
+        "verify-full"
+      ],
+      "ssl_ca": { "type": "string", "help": "CA PEM for verify-* modes." },
+      "cdc": {
+        "type": "string",
+        "help": "JSON object: enabled, replication_slot, publication, plugin (pgoutput|test_decoding|wal2json)."
+      },
+      "tables": {
+        "type": "string",
+        "help": "JSON string array of table names to include (inbound filter)."
+      },
+      "exclude_tables": {
+        "type": "string",
+        "help": "JSON string array to exclude."
+      },
+      "batch_size": { "type": "string", "help": "Integer fetch batch; default 1000." },
+      "pool_size": { "type": "string", "help": "Integer pool size; default 5." },
+      "pg_pool_options": {
+        "type": "object",
+        "help": "Optional pg Pool keys safelisted in runtime (max, connectionTimeoutMillis, application_name, …)."
+      },
+      "table": {
+        "type": "string",
+        "help": "Outbound: destination table name for pushData when set with other dest fields."
+      },
+      "write_mode": {
+        "type": "string",
+        "enum": ["append", "upsert", "replace"],
+        "help": "Outbound write mode."
+      },
+      "primary_key": {
+        "type": "string",
+        "help": "JSON string array of PK columns for upsert."
+      },
+      "update_columns": {
+        "type": "string",
+        "help": "JSON string array of columns to update on upsert."
+      },
+      "statement_timeout": { "type": "string", "help": "Outbound statement timeout ms." },
+      "auto_create_table": { "type": "string", "help": "Boolean JSON." },
+      "column_mapping": {
+        "type": "string",
+        "help": "JSON object map source→dest column names."
+      },
+      "exclude_columns": { "type": "string", "help": "JSON string array." },
+      "truncate_before_write": { "type": "string", "help": "Boolean JSON." }
+    },
+    "metadata": {
+      "template_slug": "postgres",
+      "supported_versions": [
+        "12",
+        "13",
+        "14",
+        "15",
+        "16"
+      ],
+      "cdc_method": "logical_replication",
+      "connection_config_spec": {
+        "resolution": "flexible",
+        "help": "Use either a single connection_string for the driver or discrete host/database/credentials; optional pg_pool_options merges into the pg Pool (safelisted keys only).",
+        "allow_driver_passthrough": true,
+        "driver_options_key": "pg_pool_options"
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "database",
+    "configuration": {
+      "host": "{{DB_HOST}}",
+      "port": 5432,
+      "database": "{{DB_NAME}}",
+      "ssl_mode": "require",
+      "replication_slot": "{{REPLICATION_SLOT}}"
+    },
+    "credential_fields": {
+      "username": "{{DB_USERNAME}}",
+      "password": "{{DB_PASSWORD}}"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{DB_HOST}}": "PostgreSQL host address",
+    "{{DB_NAME}}": "Database name",
+    "{{DB_USERNAME}}": "Database username with SELECT and REPLICATION permissions",
+    "{{DB_PASSWORD}}": "Database password (encrypted)",
+    "{{REPLICATION_SLOT}}": "Logical replication slot name for CDC",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "platform_native_provider": "postgres",
+    "description": "A connector is a connection to a third party (here: your Postgres); actions describe operations once a native action runner exists.",
+    "follow_up_notes": [
+      "Runtime: platform PostgresConnector (native) — CDC, replication, and SQL paths are not expressible as catalog_http_*; do not set use_catalog_runtime for this connector until a dedicated DB runtime exists.",
+      "custom_settings_schema documents PostgresConnectorCustomSettings for UX/docs; runtime validation is in platform TypeScript.",
+      "connector_package.actions use execution.protocol platform_native (not catalog_http_*); dispatcher TBD."
+    ],
+    "actions": [
+      { "key": "postgres_test_connection", "definition_path": "actions/test-connection/definition.json" },
+      { "key": "postgres_fetch_data", "definition_path": "actions/fetch-data/definition.json" },
+      { "key": "postgres_push_data", "definition_path": "actions/push-data/definition.json" }
+    ]
+  }
+}

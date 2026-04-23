@@ -1,0 +1,238 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "stripe",
+  "name": "Stripe Connector",
+  "description": "Sync Stripe customers, charges, payment intents, subscriptions, invoices, products, and prices.",
+  "version": "1.0.0",
+  "tags": ["stripe"],
+  "use_cases": [
+    "Sync Stripe customers, charges, subscriptions, invoices, products, and prices."
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "stripe",
+    "name": "Stripe",
+    "description": "Sync Stripe customers, charges, payment intents, subscriptions, invoices, products, and prices.",
+    "category": "finance",
+    "auth_type": "api_key",
+    "oauth_config": null,
+    "supported_directions": ["inbound"],
+    "supported_entities": [
+      "customers",
+      "charges",
+      "payment_intents",
+      "subscriptions",
+      "invoices",
+      "products",
+      "prices"
+    ],
+    "supports_webhooks": true,
+    "supports_polling": true,
+    "required_scopes": null,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "template_slug": "stripe"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Stripe REST package for CatalogRuntimeConnector (list + account probe + webhook routing).",
+    "execution_policy": {
+      "allowed_host_suffixes": ["api.stripe.com"],
+      "allowed_path_patterns": [
+        "^/v1/account$",
+        "^/v1/customers$",
+        "^/v1/charges$",
+        "^/v1/payment_intents$",
+        "^/v1/subscriptions$",
+        "^/v1/invoices$",
+        "^/v1/products$",
+        "^/v1/prices$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "stripe_get_account",
+      "records_path": "",
+      "required_field": "id",
+      "account_info_mapping": {
+        "account_id": "id",
+        "account_name": "email",
+        "country": "country",
+        "default_currency": "default_currency"
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "customers": {
+          "fetch_action_key": "stripe_list_customers",
+          "records_path": "data",
+          "pagination": "since_id",
+          "cursor_query_param": "starting_after",
+          "id_field": "id",
+          "has_more_path": "has_more"
+        },
+        "charges": {
+          "fetch_action_key": "stripe_list_charges",
+          "records_path": "data",
+          "pagination": "since_id",
+          "cursor_query_param": "starting_after",
+          "id_field": "id",
+          "has_more_path": "has_more"
+        },
+        "payment_intents": {
+          "fetch_action_key": "stripe_list_payment_intents",
+          "records_path": "data",
+          "pagination": "since_id",
+          "cursor_query_param": "starting_after",
+          "id_field": "id",
+          "has_more_path": "has_more"
+        },
+        "subscriptions": {
+          "fetch_action_key": "stripe_list_subscriptions",
+          "records_path": "data",
+          "pagination": "since_id",
+          "cursor_query_param": "starting_after",
+          "id_field": "id",
+          "has_more_path": "has_more"
+        },
+        "invoices": {
+          "fetch_action_key": "stripe_list_invoices",
+          "records_path": "data",
+          "pagination": "since_id",
+          "cursor_query_param": "starting_after",
+          "id_field": "id",
+          "has_more_path": "has_more"
+        },
+        "products": {
+          "fetch_action_key": "stripe_list_products",
+          "records_path": "data",
+          "pagination": "since_id",
+          "cursor_query_param": "starting_after",
+          "id_field": "id",
+          "has_more_path": "has_more"
+        },
+        "prices": {
+          "fetch_action_key": "stripe_list_prices",
+          "records_path": "data",
+          "pagination": "since_id",
+          "cursor_query_param": "starting_after",
+          "id_field": "id",
+          "has_more_path": "has_more"
+        }
+      }
+    },
+    "entity_catalog": {
+      "customers": {
+        "name": "Customers",
+        "record_schema_path": "schemas/entities/stripe-object.schema.json",
+        "description": "Stripe customers",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      },
+      "charges": {
+        "name": "Charges",
+        "record_schema_path": "schemas/entities/stripe-object.schema.json",
+        "description": "Stripe charges",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      },
+      "payment_intents": {
+        "name": "Payment intents",
+        "record_schema_path": "schemas/entities/stripe-object.schema.json",
+        "description": "Stripe payment intents",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      },
+      "subscriptions": {
+        "name": "Subscriptions",
+        "record_schema_path": "schemas/entities/stripe-object.schema.json",
+        "description": "Stripe subscriptions",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      },
+      "invoices": {
+        "name": "Invoices",
+        "record_schema_path": "schemas/entities/stripe-object.schema.json",
+        "description": "Stripe invoices",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      },
+      "products": {
+        "name": "Products",
+        "record_schema_path": "schemas/entities/stripe-object.schema.json",
+        "description": "Stripe products",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "prices": {
+        "name": "Prices",
+        "record_schema_path": "schemas/entities/stripe-object.schema.json",
+        "description": "Stripe prices",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      }
+    },
+    "webhook_routing": {
+      "payload_record_path": "data.object",
+      "routes": [
+        { "topic_prefix": "customer.subscription.", "entity_type": "subscriptions" },
+        { "topic_prefix": "charge.", "entity_type": "charges" },
+        { "topic_prefix": "payment_intent.", "entity_type": "payment_intents" },
+        { "topic_prefix": "invoice.", "entity_type": "invoices" },
+        { "topic_prefix": "product.", "entity_type": "products" },
+        { "topic_prefix": "price.", "entity_type": "prices" },
+        { "topic_prefix": "customer.", "entity_type": "customers" }
+      ]
+    },
+    "actions": [
+      { "key": "stripe_get_account", "definition_path": "actions/get-account/definition.json" },
+      { "key": "stripe_list_customers", "definition_path": "actions/list-customers/definition.json" },
+      { "key": "stripe_list_charges", "definition_path": "actions/list-charges/definition.json" },
+      { "key": "stripe_list_payment_intents", "definition_path": "actions/list-payment-intents/definition.json" },
+      { "key": "stripe_list_subscriptions", "definition_path": "actions/list-subscriptions/definition.json" },
+      { "key": "stripe_list_invoices", "definition_path": "actions/list-invoices/definition.json" },
+      { "key": "stripe_list_products", "definition_path": "actions/list-products/definition.json" },
+      { "key": "stripe_list_prices", "definition_path": "actions/list-prices/definition.json" }
+    ]
+  }
+}

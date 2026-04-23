@@ -1,0 +1,134 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "attentive",
+  "name": "Attentive Connector",
+  "description": "Connect to Attentive for SMS subscribers, campaigns, and engagement data.",
+  "version": "1.0.0",
+  "tags": ["attentive", "sms", "marketing", "subscribers"],
+  "use_cases": ["SMS subscriber sync", "Campaign performance", "Engagement analytics"],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "attentive",
+    "name": "Attentive",
+    "description": "Attentive SMS marketing connector for subscribers, campaigns, and engagement",
+    "category": "marketing",
+    "auth_type": "api_key",
+    "supported_directions": ["inbound"],
+    "supported_entities": ["subscribers", "campaigns", "events", "signups"],
+    "supports_webhooks": true,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": { "template_slug": "attentive" },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": { "api_key": "{{API_KEY}}" }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{API_KEY}}": "Attentive API key",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Attentive REST lists via CatalogRuntimeConnector.",
+    "execution_policy": {
+      "allowed_host_suffixes": ["api.attentivemobile.com"],
+      "allowed_path_patterns": [
+        "^/subscribers$",
+        "^/campaigns$",
+        "^/events$",
+        "^/signups$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "attentive_list_subscribers",
+      "records_path": "data",
+      "required_field": "id",
+      "probe_input": { "limit": 1 }
+    },
+    "sync_plan": {
+      "entities": {
+        "subscribers": {
+          "fetch_action_key": "attentive_list_subscribers",
+          "records_path": "data",
+          "pagination": "since_id",
+          "id_field": "id"
+        },
+        "campaigns": {
+          "fetch_action_key": "attentive_list_campaigns",
+          "records_path": "data",
+          "pagination": "since_id",
+          "id_field": "id"
+        },
+        "events": {
+          "fetch_action_key": "attentive_list_events",
+          "records_path": "data",
+          "pagination": "since_id",
+          "id_field": "id"
+        },
+        "signups": {
+          "fetch_action_key": "attentive_list_signups",
+          "records_path": "data",
+          "pagination": "since_id",
+          "id_field": "id"
+        }
+      }
+    },
+    "entity_catalog": {
+      "subscribers": {
+        "name": "Subscribers",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "campaigns": {
+        "name": "Campaigns",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "events": {
+        "name": "Events",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "signups": {
+        "name": "Signups",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      { "key": "attentive_list_subscribers", "definition_path": "actions/list-subscribers/definition.json" },
+      { "key": "attentive_list_campaigns", "definition_path": "actions/list-campaigns/definition.json" },
+      { "key": "attentive_list_events", "definition_path": "actions/list-events/definition.json" },
+      { "key": "attentive_list_signups", "definition_path": "actions/list-signups/definition.json" }
+    ]
+  }
+}

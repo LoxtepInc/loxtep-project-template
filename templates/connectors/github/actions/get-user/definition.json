@@ -1,0 +1,29 @@
+{
+  "key": "github_get_user",
+  "name": "Get authenticated user",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.github.com",
+    "path": "/user",
+    "static_headers": {
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {},
+    "omit_empty_query": true
+  }
+}

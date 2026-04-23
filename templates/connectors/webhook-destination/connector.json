@@ -1,0 +1,193 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "webhook-destination",
+  "name": "Webhook Destination Connector",
+  "description": "Connection to an HTTPS endpoint for outbound delivery of records (push / destination).",
+  "version": "1.0.0",
+  "tags": [
+    "webhook-destination"
+  ],
+  "use_cases": [
+    "Push events to an HTTPS webhook endpoint.",
+    "Outbound HTTP with retries and auth."
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "webhook-destination",
+    "name": "Webhook Destination",
+    "description": "Send data to any HTTP endpoint with configurable authentication, batching, and retry.",
+    "category": "custom",
+    "auth_type": "custom",
+    "oauth_config": null,
+    "icon_url": "https://cdn-icons-png.flaticon.com/512/1356/1356479.png",
+    "documentation_url": "https://docs.loxtep.com/connectors/webhook-destination",
+    "supported_directions": [
+      "outbound"
+    ],
+    "supported_entities": [
+      "*"
+    ],
+    "supports_webhooks": false,
+    "supports_polling": false,
+    "required_scopes": null,
+    "version": "1.0.0",
+    "is_beta": false,
+    "custom_settings_schema": {
+      "url": {
+        "type": "string",
+        "format": "uri",
+        "help": "Required. Target URL; mirrors WebhookDestinationConfigSchema."
+      },
+      "method": {
+        "type": "string",
+        "enum": [
+          "POST",
+          "PUT",
+          "PATCH"
+        ],
+        "help": "HTTP method; default POST."
+      },
+      "content_type": {
+        "type": "string",
+        "enum": [
+          "application/json",
+          "application/x-www-form-urlencoded",
+          "text/plain"
+        ],
+        "help": "Request body content type."
+      },
+      "auth_method": {
+        "type": "string",
+        "enum": [
+          "none",
+          "bearer",
+          "basic",
+          "api_key",
+          "custom_header"
+        ],
+        "help": "Outbound auth style."
+      },
+      "bearer_token": {
+        "type": "string",
+        "sensitive": true,
+        "help": "When auth_method=bearer."
+      },
+      "basic_username": {
+        "type": "string",
+        "help": "When auth_method=basic."
+      },
+      "basic_password": {
+        "type": "string",
+        "sensitive": true,
+        "help": "When auth_method=basic."
+      },
+      "api_key_header": {
+        "type": "string",
+        "help": "Header name when auth_method=api_key."
+      },
+      "api_key_value": {
+        "type": "string",
+        "sensitive": true,
+        "help": "Header value when auth_method=api_key."
+      },
+      "custom_header_name": {
+        "type": "string",
+        "help": "When auth_method=custom_header."
+      },
+      "custom_header_value": {
+        "type": "string",
+        "sensitive": true,
+        "help": "When auth_method=custom_header."
+      },
+      "headers": {
+        "type": "string",
+        "help": "Extra headers as JSON object string→string."
+      },
+      "timeout_ms": {
+        "type": "string",
+        "help": "Request timeout ms (1000–300000); default 30000."
+      },
+      "batch_size": {
+        "type": "string",
+        "help": "Records per HTTP request (1–1000); default 1."
+      },
+      "wrap_single_record": {
+        "type": "string",
+        "help": "Boolean JSON when batching single record as array."
+      },
+      "max_retries": {
+        "type": "string",
+        "help": "0–10; default 3."
+      },
+      "retry_delay_ms": {
+        "type": "string",
+        "help": "Initial backoff ms; default 1000."
+      },
+      "max_retry_delay_ms": {
+        "type": "string",
+        "help": "Backoff cap ms; default 30000."
+      },
+      "retry_on_status": {
+        "type": "string",
+        "help": "JSON array of HTTP status codes to retry (default 429,5xx subset in runtime)."
+      },
+      "body_template": {
+        "type": "string",
+        "help": "Optional template; use {{records}} placeholder per runtime."
+      },
+      "verify_ssl": {
+        "type": "string",
+        "help": "Boolean JSON; default true."
+      },
+      "success_status_codes": {
+        "type": "string",
+        "help": "Optional JSON array of ints; default 200–299."
+      }
+    },
+    "metadata": {
+      "template_slug": "webhook-destination",
+      "connection_config_spec": {
+        "resolution": "flexible",
+        "help": "All delivery settings live in custom_settings (url, auth, batching, retries). Runtime uses axios in platform-backend.",
+        "allow_driver_passthrough": false
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "platform_native_provider": "webhook-destination",
+    "description": "Connector = connection to a user-controlled HTTP endpoint; outbound delivery is implemented in the platform native provider.",
+    "follow_up_notes": [
+      "Runtime: WebhookDestinationConnector — not CatalogRuntimeConnector; retries and signing stay in platform-backend until a declarative outbound HTTP runner ships.",
+      "custom_settings_schema mirrors WebhookDestinationConfigSchema for UX/docs; zod in platform-backend remains the runtime validator.",
+      "actions/*.json document platform_native operations; execution.protocol platform_native is not executed by CatalogRuntimeConnector."
+    ],
+    "actions": [
+      {
+        "key": "webhook_destination_test_connection",
+        "definition_path": "actions/test-connection/definition.json"
+      },
+      {
+        "key": "webhook_destination_deliver_batch",
+        "definition_path": "actions/deliver-batch/definition.json"
+      }
+    ]
+  }
+}

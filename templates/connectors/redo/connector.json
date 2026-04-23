@@ -1,0 +1,90 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "redo",
+  "name": "Re:do Connector",
+  "description": "Re:do returns platform: list returns by store (API v2.2).",
+  "version": "1.0.0",
+  "tags": ["redo", "returns", "e-commerce", "exchanges"],
+  "use_cases": ["Returns data sync"],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "redo",
+    "name": "Re:do",
+    "description": "Re:do returns platform connector (returns list sync)",
+    "category": "e_commerce",
+    "auth_type": "api_key",
+    "supported_directions": ["inbound"],
+    "supported_entities": ["returns"],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": true,
+    "metadata": { "template_slug": "redo" },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "api_key": "{{API_KEY}}",
+      "custom_settings": { "store_id": "{{STORE_ID}}" }
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{API_KEY}}": "Re:do API secret (Bearer token)",
+    "{{STORE_ID}}": "Re:do store ID",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Re:do REST v2.2 via CatalogRuntimeConnector. Syncs return rows from GET /stores/{store_id}/returns (exchanges/refunds/reason_codes aggregations are not included in this catalog package).",
+    "follow_up_notes": [
+      "Template supported_entities lists returns only; legacy also had exchanges, refunds, reason_codes via client-side transforms on the same list — re-add only after catalog supports response transforms or split actions.",
+      "Validate list response JSON shape (returns vs data vs items) and pagination fields (has_more, next_page, meta.page) against current Re:do API; adjust records_path / page_meta_has_more_path if the API differs.",
+      "Optional: record_schema_path for return rows."
+    ],
+    "execution_policy": {
+      "allowed_host_suffixes": ["getredo.com"],
+      "allowed_path_patterns": ["^/stores/[^/]+/returns$"]
+    },
+    "connection_probe": {
+      "action_key": "redo_list_returns",
+      "records_path": "returns",
+      "required_field": "id",
+      "probe_input": { "limit": 1, "page": 1 }
+    },
+    "sync_plan": {
+      "entities": {
+        "returns": {
+          "fetch_action_key": "redo_list_returns",
+          "records_path": "returns",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "page_meta_has_more_path": "has_more",
+          "id_field": "id",
+          "fetch_limit_cap": 50
+        }
+      }
+    },
+    "entity_catalog": {
+      "returns": {
+        "name": "Returns",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 50
+      }
+    },
+    "actions": [{ "key": "redo_list_returns", "definition_path": "actions/list-returns/definition.json" }]
+  }
+}

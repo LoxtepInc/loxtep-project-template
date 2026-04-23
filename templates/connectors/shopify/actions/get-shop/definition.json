@@ -1,0 +1,27 @@
+{
+  "key": "shopify_get_shop",
+  "name": "Get shop",
+  "description": "GET /shop.json — connection probe and account metadata.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "required_scopes": ["read_products"],
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://{{connection.custom_settings.shop_domain}}/admin/api/{{connection.custom_settings.api_version}}",
+    "path": "/shop.json",
+    "header_auth": {
+      "header": "X-Shopify-Access-Token",
+      "value_from": "connection.oauth_access_token"
+    },
+    "query_mapping": {},
+    "omit_empty_query": true
+  }
+}

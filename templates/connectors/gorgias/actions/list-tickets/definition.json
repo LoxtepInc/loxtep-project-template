@@ -1,0 +1,33 @@
+{
+  "key": "gorgias_list_tickets",
+  "name": "List tickets",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number" },
+      "cursor": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://{{connection.custom_settings.subdomain}}.gorgias.com",
+    "path": "/api/tickets",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "basic": true,
+      "basic_user_from": "custom_settings.email"
+    },
+    "query_mapping": {
+      "limit": "input.limit",
+      "cursor": "input.cursor"
+    },
+    "omit_empty_query": true
+  }
+}

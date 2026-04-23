@@ -1,0 +1,7 @@
+{
+  "$comment": "Shared constants for Shopify Admin REST actions (data-only; Pipedream-style common/).",
+  "admin_api_path_prefix_template": "/admin/api/{{api_version}}",
+  "default_api_version": "2024-01",
+  "max_orders_per_request": 250,
+  "allowed_path_prefixes": ["/admin/api/"]
+}

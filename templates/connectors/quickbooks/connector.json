@@ -1,0 +1,88 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "quickbooks",
+  "name": "QuickBooks Connector",
+  "description": "QuickBooks Online accounting data.",
+  "version": "1.0.0",
+  "tags": [
+    "quickbooks"
+  ],
+  "use_cases": [
+    "QuickBooks Online accounting data."
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "quickbooks",
+    "name": "QuickBooks",
+    "description": "QuickBooks Online accounting data.",
+    "category": "finance",
+    "auth_type": "oauth2",
+    "oauth_config": {
+      "authorization_url": "https://appcenter.intuit.com/connect/oauth2",
+      "token_url": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer",
+      "scopes": [
+        "com.intuit.quickbooks.accounting"
+      ],
+      "response_type": "code",
+      "grant_type": "authorization_code"
+    },
+    "supported_directions": [
+      "inbound"
+    ],
+    "supported_entities": [
+      "customers",
+      "invoices",
+      "items",
+      "payments"
+    ],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": [
+      "com.intuit.quickbooks.accounting"
+    ],
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "template_slug": "quickbooks",
+      "backend": "composio"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "description": "Composio toolkit wiring for QuickBooks Online.",
+    "follow_up_notes": [
+      "Runtime: ComposioAdapter — not CatalogRuntimeConnector; OAuth and QBO entities flow through Composio.",
+      "Optional: add record_schema_path for exported row shapes when consumers need JSON Schema validation."
+    ],
+    "composio_adapter": {
+      "connector_type": "quickbooks",
+      "toolkit_name": "quickbooks",
+      "name": "QuickBooks",
+      "description": "QuickBooks via Composio (invoices, customers, items, payments)",
+      "entity_mappings": [
+        { "entity_type": "invoices", "tool_slug": "QUICKBOOKS_LIST_INVOICES" },
+        { "entity_type": "customers", "tool_slug": "QUICKBOOKS_LIST_CUSTOMERS" },
+        { "entity_type": "items", "tool_slug": "QUICKBOOKS_LIST_ITEMS" },
+        { "entity_type": "payments", "tool_slug": "QUICKBOOKS_LIST_PAYMENTS" }
+      ]
+    },
+    "actions": []
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:shipbob:entity:sync-row",
+  "title": "ShipBob API resource (list item)",
+  "description": "Minimal contract for ShipBob list rows (orders, shipments, inventory). The legacy TS provider did not ship per-entity Zod; this documents stable id and allows vendor fields.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": ["string", "number", "integer"] }
+  },
+  "additionalProperties": true
+}

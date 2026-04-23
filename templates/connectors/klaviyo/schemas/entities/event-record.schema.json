@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:klaviyo:entity:events:record",
+  "title": "Klaviyo event (JSON:API resource)",
+  "description": "One element of GET /api/events `data[]`. Mirrors KlaviyoEventSchema in platform-backend/connectors/providers/klaviyo/schemas/index.ts.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "type": { "type": "string" },
+    "attributes": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "timestamp": { "type": ["string", "null"] },
+        "datetime": { "type": ["string", "null"] },
+        "uuid": { "type": ["string", "null"] },
+        "event_properties": { "type": ["object", "null"], "additionalProperties": true }
+      }
+    },
+    "links": { "type": "object", "additionalProperties": true },
+    "relationships": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": true
+}

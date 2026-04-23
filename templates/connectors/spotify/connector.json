@@ -1,0 +1,320 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "spotify",
+  "name": "Spotify Connector",
+  "description": "Spotify user profile, playlists, library, top content, followed artists, and recently played via OAuth.",
+  "version": "1.0.0",
+  "tags": ["spotify", "music", "playlists", "user-library", "listening-history"],
+  "use_cases": [
+    "User profile and preferences sync",
+    "Playlist and library ingestion",
+    "Listening history and analytics"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "spotify",
+    "name": "Spotify",
+    "description": "Spotify music platform connector for user profile, playlists, library, and listening data",
+    "category": "custom",
+    "icon_url": "https://developer-assets.spotifycdn.com/images/guidelines/design/icon-framed.svg",
+    "documentation_url": "https://developer.spotify.com/documentation/web-api",
+    "auth_type": "oauth2",
+    "oauth_config": {
+      "authorization_url": "https://accounts.spotify.com/authorize",
+      "token_url": "https://accounts.spotify.com/api/token",
+      "scopes": [
+        "user-read-email",
+        "user-read-private",
+        "playlist-read-private",
+        "playlist-read-collaborative",
+        "user-library-read",
+        "user-top-read",
+        "user-follow-read",
+        "user-read-recently-played"
+      ],
+      "response_type": "code",
+      "grant_type": "authorization_code"
+    },
+    "supported_directions": ["inbound"],
+    "supported_entities": [
+      "user_profile",
+      "playlists",
+      "saved_tracks",
+      "saved_albums",
+      "saved_episodes",
+      "saved_audiobooks",
+      "top_artists",
+      "top_tracks",
+      "followed_artists",
+      "recently_played"
+    ],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": ["user-read-email", "user-read-private"],
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": { "template_slug": "spotify", "api_version": "v1" },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": { "api_base_url": "https://api.spotify.com/v1" }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Spotify Web API v1 via CatalogRuntimeConnector. Offset and link-based pagination follow Spotify list conventions (max 50 per page).",
+    "follow_up_notes": [
+      "Library endpoints return wrapped items (e.g. saved tracks { added_at, track }) — legacy sometimes exposed flatter shapes; add transforms or document canonical payloads for consumers.",
+      "recently_played: reverse pagination (before: cursors) from legacy connector is not modeled; forward after-cursor only.",
+      "Optional: entity_catalog.record_schema_path + schemas for each entity."
+    ],
+    "oauth_refresh": {
+      "token_url_template": "https://accounts.spotify.com/api/token",
+      "client_id_env": "SPOTIFY_CLIENT_ID",
+      "client_secret_env": "SPOTIFY_CLIENT_SECRET"
+    },
+    "execution_policy": {
+      "allowed_host_suffixes": ["spotify.com"],
+      "allowed_path_patterns": [
+        "^/v1/me$",
+        "^/v1/me/playlists$",
+        "^/v1/me/tracks$",
+        "^/v1/me/albums$",
+        "^/v1/me/episodes$",
+        "^/v1/me/audiobooks$",
+        "^/v1/me/top/artists$",
+        "^/v1/me/top/tracks$",
+        "^/v1/me/following$",
+        "^/v1/me/player/recently-played$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "spotify_get_me",
+      "records_path": "",
+      "required_field": "id",
+      "account_info_mapping": {
+        "display_name": "display_name",
+        "spotify_user_id": "id"
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "user_profile": {
+          "fetch_action_key": "spotify_get_me",
+          "records_path": "",
+          "pagination": "none",
+          "id_field": "id",
+          "fetch_limit_cap": 50
+        },
+        "playlists": {
+          "fetch_action_key": "spotify_list_playlists",
+          "records_path": "items",
+          "pagination": "links_next_query",
+          "links_next_path": "next",
+          "links_next_cursor_param": "offset",
+          "cursor_query_param": "offset",
+          "id_field": "id",
+          "fetch_limit_cap": 50
+        },
+        "saved_tracks": {
+          "fetch_action_key": "spotify_list_saved_tracks",
+          "records_path": "items",
+          "pagination": "links_next_query",
+          "links_next_path": "next",
+          "links_next_cursor_param": "offset",
+          "cursor_query_param": "offset",
+          "id_field": "track.id",
+          "fetch_limit_cap": 50
+        },
+        "saved_albums": {
+          "fetch_action_key": "spotify_list_saved_albums",
+          "records_path": "items",
+          "pagination": "links_next_query",
+          "links_next_path": "next",
+          "links_next_cursor_param": "offset",
+          "cursor_query_param": "offset",
+          "id_field": "album.id",
+          "fetch_limit_cap": 50
+        },
+        "saved_episodes": {
+          "fetch_action_key": "spotify_list_saved_episodes",
+          "records_path": "items",
+          "pagination": "links_next_query",
+          "links_next_path": "next",
+          "links_next_cursor_param": "offset",
+          "cursor_query_param": "offset",
+          "id_field": "episode.id",
+          "fetch_limit_cap": 50
+        },
+        "saved_audiobooks": {
+          "fetch_action_key": "spotify_list_saved_audiobooks",
+          "records_path": "items",
+          "pagination": "links_next_query",
+          "links_next_path": "next",
+          "links_next_cursor_param": "offset",
+          "cursor_query_param": "offset",
+          "id_field": "id",
+          "fetch_limit_cap": 50
+        },
+        "top_artists": {
+          "fetch_action_key": "spotify_list_top_artists",
+          "records_path": "items",
+          "pagination": "links_next_query",
+          "links_next_path": "next",
+          "links_next_cursor_param": "offset",
+          "cursor_query_param": "offset",
+          "id_field": "id",
+          "fetch_limit_cap": 50,
+          "sync_input_defaults": { "time_range": "medium_term" }
+        },
+        "top_tracks": {
+          "fetch_action_key": "spotify_list_top_tracks",
+          "records_path": "items",
+          "pagination": "links_next_query",
+          "links_next_path": "next",
+          "links_next_cursor_param": "offset",
+          "cursor_query_param": "offset",
+          "id_field": "id",
+          "fetch_limit_cap": 50,
+          "sync_input_defaults": { "time_range": "medium_term" }
+        },
+        "followed_artists": {
+          "fetch_action_key": "spotify_list_followed_artists",
+          "records_path": "artists.items",
+          "pagination": "links_next_query",
+          "links_next_path": "artists.next",
+          "links_next_cursor_param": "after",
+          "cursor_query_param": "after",
+          "id_field": "id",
+          "fetch_limit_cap": 50,
+          "sync_input_defaults": { "type": "artist" }
+        },
+        "recently_played": {
+          "fetch_action_key": "spotify_list_recently_played",
+          "records_path": "items",
+          "pagination": "meta_cursor",
+          "next_cursor_path": "cursors.after",
+          "cursor_query_param": "after",
+          "id_field": "track.id",
+          "fetch_limit_cap": 50
+        }
+      }
+    },
+    "entity_catalog": {
+      "user_profile": {
+        "name": "User profile",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 1440,
+        "max_batch_size": 50
+      },
+      "playlists": {
+        "name": "Playlists",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 50
+      },
+      "saved_tracks": {
+        "name": "Saved tracks",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 50
+      },
+      "saved_albums": {
+        "name": "Saved albums",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 50
+      },
+      "saved_episodes": {
+        "name": "Saved episodes",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 50
+      },
+      "saved_audiobooks": {
+        "name": "Saved audiobooks",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 50
+      },
+      "top_artists": {
+        "name": "Top artists",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 1440,
+        "max_batch_size": 50
+      },
+      "top_tracks": {
+        "name": "Top tracks",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 1440,
+        "max_batch_size": 50
+      },
+      "followed_artists": {
+        "name": "Followed artists",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 50
+      },
+      "recently_played": {
+        "name": "Recently played",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 50
+      }
+    },
+    "actions": [
+      { "key": "spotify_get_me", "definition_path": "actions/get-me/definition.json" },
+      { "key": "spotify_list_playlists", "definition_path": "actions/list-playlists/definition.json" },
+      { "key": "spotify_list_saved_tracks", "definition_path": "actions/list-saved-tracks/definition.json" },
+      { "key": "spotify_list_saved_albums", "definition_path": "actions/list-saved-albums/definition.json" },
+      { "key": "spotify_list_saved_episodes", "definition_path": "actions/list-saved-episodes/definition.json" },
+      {
+        "key": "spotify_list_saved_audiobooks",
+        "definition_path": "actions/list-saved-audiobooks/definition.json"
+      },
+      { "key": "spotify_list_top_artists", "definition_path": "actions/list-top-artists/definition.json" },
+      { "key": "spotify_list_top_tracks", "definition_path": "actions/list-top-tracks/definition.json" },
+      {
+        "key": "spotify_list_followed_artists",
+        "definition_path": "actions/list-followed-artists/definition.json"
+      },
+      {
+        "key": "spotify_list_recently_played",
+        "definition_path": "actions/list-recently-played/definition.json"
+      }
+    ]
+  }
+}

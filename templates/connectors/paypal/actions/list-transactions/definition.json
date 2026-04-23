@@ -1,0 +1,36 @@
+{
+  "key": "paypal_list_transactions",
+  "name": "List reporting transactions",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number" },
+      "page": { "type": "number" },
+      "start_date": { "type": "string" },
+      "end_date": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.paypal.com",
+    "path": "/v1/reporting/transactions",
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "start_date": "input.since_iso",
+      "end_date": "input.now_iso",
+      "page_size": "input.limit",
+      "page": "input.page"
+    },
+    "omit_empty_query": true
+  }
+}

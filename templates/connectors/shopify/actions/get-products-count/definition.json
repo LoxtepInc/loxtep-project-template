@@ -1,0 +1,31 @@
+{
+  "key": "shopify_get_products_count",
+  "name": "Count products",
+  "description": "GET /products/count.json",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "required_scopes": ["read_products"],
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "updated_at_min": { "type": "string", "format": "date-time" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://{{connection.custom_settings.shop_domain}}/admin/api/{{connection.custom_settings.api_version}}",
+    "path": "/products/count.json",
+    "header_auth": {
+      "header": "X-Shopify-Access-Token",
+      "value_from": "connection.oauth_access_token"
+    },
+    "query_mapping": {
+      "updated_at_min": "input.updated_at_min"
+    },
+    "omit_empty_query": true
+  }
+}

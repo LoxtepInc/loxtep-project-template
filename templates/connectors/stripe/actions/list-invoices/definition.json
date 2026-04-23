@@ -1,0 +1,34 @@
+{
+  "key": "stripe_list_invoices",
+  "name": "List invoices",
+  "description": "GET /v1/invoices (Stripe list object).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number" },
+      "starting_after": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.stripe.com",
+    "path": "/v1/invoices",
+    "static_headers": { "Stripe-Version": "2023-10-16" },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "limit": "input.limit",
+      "starting_after": "input.starting_after"
+    },
+    "omit_empty_query": true
+  }
+}

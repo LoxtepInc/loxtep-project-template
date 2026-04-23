@@ -1,0 +1,35 @@
+{
+  "key": "s3_destination_push_records",
+  "name": "Push records to S3",
+  "description": "Writes outbound entity batches to S3 using format/compression/partitioning from custom_settings. Implemented by platform S3DestinationConnector.pushData (not catalog HTTP).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "s3-destination",
+    "operation": "push_data",
+    "read_only": false,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "entity_type": {
+        "type": "string",
+        "description": "Logical entity name used in paths / file naming."
+      },
+      "records": {
+        "type": "array",
+        "description": "Records to serialize and upload (shape depends on sync pipeline)."
+      }
+    },
+    "required": ["entity_type", "records"]
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "s3-destination",
+    "operation": "push_data"
+  }
+}

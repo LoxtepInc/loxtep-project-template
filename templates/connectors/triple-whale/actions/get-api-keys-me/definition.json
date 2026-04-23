@@ -1,0 +1,26 @@
+{
+  "key": "triple_whale_get_api_keys_me",
+  "name": "Verify API key (current user)",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.triplewhale.com/api/v2",
+    "path": "/users/api-keys/me",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "bearer_prefix": true
+    },
+    "query_mapping": {},
+    "omit_empty_query": true
+  }
+}
