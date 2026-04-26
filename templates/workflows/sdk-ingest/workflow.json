@@ -1,0 +1,67 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/workflow.json",
+  "template_type": "workflow",
+  "slug": "sdk-ingest",
+  "name": "SDK Ingest Workflow",
+  "description": "Streaming ingestion workflow for SDK-based data ingestion. Receives events via Loxtep SDK and writes to a data product queue.",
+  "version": "1.0.0",
+  "tags": [
+    "sdk",
+    "streaming",
+    "ingestion",
+    "rstreams"
+  ],
+  "use_cases": [
+    "Ingest seed data from dbt projects via SDK",
+    "Stream events from applications directly to data products",
+    "Programmatic event ingestion without connectors"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "SDK ingestion workflow for {{DATA_PRODUCT_NAME}}",
+    "template_id": "{{TEMPLATE_ID}}",
+    "workflow_type": "ingestion",
+    "domain_id": "{{DOMAIN_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100,
+      "sync_mode": "streaming",
+      "ingestion_method": "sdk"
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "sdk-ingest",
+      "ingestion_type": "sdk_streaming",
+      "connector_id": "{{CONNECTOR_ID}}",
+      "data_product_id": "{{DATA_PRODUCT_ID}}",
+      "data_product_name": "{{DATA_PRODUCT_NAME}}",
+      "output_queue_name": "{{OUTPUT_QUEUE_NAME}}"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "dependencies": {
+    "connector": "{{CONNECTOR_ID}}",
+    "data_product": "{{DATA_PRODUCT_ID}}"
+  },
+  "placeholders": {
+    "{{WORKFLOW_ID}}": "Generated UUID for the workflow",
+    "{{ORGANIZATION_ID}}": "Organization ID",
+    "{{PROJECT_ID}}": "Project ID",
+    "{{WORKFLOW_NAME}}": "User-provided name (e.g., shopify-customers-ingest)",
+    "{{WORKFLOW_DESCRIPTION}}": "SDK ingestion workflow for data product",
+    "{{TEMPLATE_ID}}": "Stable template ID for sdk-ingest",
+    "{{DOMAIN_ID}}": "Domain UUID",
+    "{{CONNECTOR_ID}}": "SDK connector UUID (or null if connector not required)",
+    "{{DATA_PRODUCT_ID}}": "Target data product UUID",
+    "{{DATA_PRODUCT_NAME}}": "Target data product name (e.g., shopify-customers)",
+    "{{OUTPUT_QUEUE_NAME}}": "rstreams queue name for this data product",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}
