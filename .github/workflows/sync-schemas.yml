@@ -1,0 +1,73 @@
+name: Sync schemas to marketing site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "schemas/**"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout loxtep-project-template
+        uses: actions/checkout@v4
+        with:
+          path: project-template
+
+      - name: Checkout loxtep-marketing-site
+        uses: actions/checkout@v4
+        with:
+          repository: Symmatiq/loxtep-marketing-site
+          token: ${{ secrets.SCHEMA_SYNC_TOKEN }}
+          path: marketing-site
+          ref: development
+
+      - name: Copy schemas to marketing site
+        run: |
+          TSRC="project-template/schemas"
+          MDST="marketing-site/public/schemas"
+
+          # entity/ schemas
+          for f in connector.json container.json contract.json data-product.json \
+                   domain.json export.json odps-product.json quality-rule.json \
+                   schema.json transformation.json validation.json workflow.json; do
+            cp "$TSRC/$f" "$MDST/entity/$f"
+            echo "Copied entity/$f"
+          done
+
+          # root-level schemas
+          cp "$TSRC/workflow-graph.json"               "$MDST/workflow-graph.json"
+          cp "$TSRC/connector-package-v1.schema.json"  "$MDST/connector-package-v1.json"
+          cp "$TSRC/trigger-package-v1.schema.json"    "$MDST/trigger-package-v1.json"
+          echo "Copied root-level schemas"
+
+      - name: Check for changes
+        id: diff
+        working-directory: marketing-site
+        run: |
+          git diff --quiet && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Open PR on marketing site
+        if: steps.diff.outputs.changed == 'true'
+        working-directory: marketing-site
+        env:
+          GH_TOKEN: ${{ secrets.SCHEMA_SYNC_TOKEN }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          BRANCH="chore/sync-schemas-${{ github.sha }}"
+          git checkout -b "$BRANCH"
+          git add public/schemas/
+          git commit -m "chore: sync schemas from loxtep-project-template@${{ github.sha }}"
+          git push origin "$BRANCH"
+
+          gh pr create \
+            --repo Symmatiq/loxtep-marketing-site \
+            --base development \
+            --head "$BRANCH" \
+            --title "chore: sync schemas from project-template" \
+            --body "Automated schema sync from [loxtep-project-template@\`${{ github.sha }}\`](https://github.com/Symmatiq/loxtep-project-template/commit/${{ github.sha }}).
+
+          Merge this PR to publish updated schemas to https://loxtep.io/schemas/."
