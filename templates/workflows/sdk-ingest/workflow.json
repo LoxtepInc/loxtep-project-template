@@ -27,9 +27,7 @@
     "domain_id": "{{DOMAIN_ID}}",
     "configuration": {
       "schedule": null,
-      "batch_size": 100,
-      "sync_mode": "streaming",
-      "ingestion_method": "sdk"
+      "batch_size": 100
     },
     "deployment": null,
     "status": "inactive",
@@ -40,7 +38,9 @@
       "connector_id": "{{CONNECTOR_ID}}",
       "data_product_id": "{{DATA_PRODUCT_ID}}",
       "data_product_name": "{{DATA_PRODUCT_NAME}}",
-      "output_queue_name": "{{OUTPUT_QUEUE_NAME}}"
+      "output_queue_name": "{{OUTPUT_QUEUE_NAME}}",
+      "sync_mode": "streaming",
+      "ingestion_method": "sdk"
     },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
