@@ -1,11 +1,11 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loxtep.io/schemas/entity/connection.json",
-  "title": "Connection Entity",
-  "description": "JSON Schema for Connection entity in customer workspace. Connections are configured instances of connectors with credentials and settings.",
+  "$id": "https://loxtep.io/schemas/trigger-package-v1.json",
+  "title": "Trigger Package v1",
+  "description": "JSON Schema for Trigger package (v1) in customer workspace. Triggers are configured instances of connectors with credentials and settings.",
   "type": "object",
   "required": [
-    "connection_id",
+    "trigger_id",
     "organization_id",
     "project_id",
     "key",
@@ -14,67 +14,67 @@
     "status"
   ],
   "properties": {
-    "connection_id": {
+    "trigger_id": {
       "type": "string",
       "format": "uuid",
-      "description": "Unique identifier for the connection"
+      "description": "Unique identifier for the trigger"
     },
     "organization_id": {
       "type": "string",
       "format": "uuid",
-      "description": "Organization that owns this connection"
+      "description": "Organization that owns this trigger"
     },
     "project_id": {
       "type": "string",
       "format": "uuid",
-      "description": "Project that contains this connection"
+      "description": "Project that contains this trigger"
     },
     "workflow_id": {
       "type": ["string", "null"],
       "format": "uuid",
-      "description": "Workflow this connection belongs to; null for project-level/draft connections"
+      "description": "Workflow this trigger belongs to; null for project-level/draft connections"
     },
     "connector_id": {
       "type": ["string", "null"],
       "format": "uuid",
-      "description": "Reference to the connector definition this connection uses; null for project-level/draft connections"
+      "description": "Reference to the connector definition this trigger uses; null for project-level/draft connections"
     },
     "sync_entity": {
       "type": ["string", "null"],
       "pattern": "^[a-z0-9-_]+$",
-      "description": "For API poll connectors: which entity (e.g. orders, customers) this connection syncs. Must match connector supported_entities when present."
+      "description": "For API poll connectors: which entity (e.g. orders, customers) this trigger syncs. Must match connector supported_entities when present."
     },
     "key": {
       "type": "string",
       "minLength": 1,
       "maxLength": 255,
       "pattern": "^[a-z0-9-_]+$",
-      "description": "Unique key for the connection within the organization"
+      "description": "Unique key for the trigger within the organization"
     },
     "name": {
       "type": "string",
       "minLength": 1,
       "maxLength": 255,
-      "description": "Display name for the connection"
+      "description": "Display name for the trigger"
     },
     "description": {
       "type": ["string", "null"],
       "maxLength": 1000,
-      "description": "Connection description"
+      "description": "Trigger description"
     },
     "type": {
       "type": "string",
       "minLength": 1,
-      "description": "Connection type: database, api, webhook, file, or connector type (e.g. spotify, shopify)"
+      "description": "Trigger type: database, api, webhook, file, or connector type (e.g. spotify, shopify)"
     },
     "status": {
       "type": "string",
       "enum": ["active", "inactive", "error"],
-      "description": "Connection status"
+      "description": "Trigger status"
     },
     "credential_fields": {
       "type": "object",
-      "description": "Encrypted credential fields for the connection (structure depends on connector auth_type)",
+      "description": "Encrypted credential fields for the trigger (structure depends on connector auth_type)",
       "properties": {
         "api_key": {
           "type": ["string", "null"],
@@ -130,57 +130,57 @@
       "type": "object",
       "additionalProperties": true,
       "default": {},
-      "description": "Connection configuration (non-sensitive settings)"
+      "description": "Trigger configuration (non-sensitive settings)"
     },
     "metadata": {
       "type": "object",
       "additionalProperties": true,
       "default": {},
-      "description": "Additional metadata for the connection"
+      "description": "Additional metadata for the trigger"
     },
     "verified": {
       "type": "boolean",
       "default": false,
-      "description": "Whether the connection has been verified/tested"
+      "description": "Whether the trigger has been verified/tested"
     },
     "draft": {
       "type": "boolean",
       "default": true,
-      "description": "Whether this connection is still in draft state"
+      "description": "Whether this trigger is still in draft state"
     },
     "last_tested": {
       "type": ["string", "null"],
       "format": "date-time",
-      "description": "ISO 8601 timestamp when connection was last tested"
+      "description": "ISO 8601 timestamp when trigger was last tested"
     },
     "created_by": {
       "type": ["string", "null"],
       "format": "uuid",
-      "description": "User ID who created the connection"
+      "description": "User ID who created the trigger"
     },
     "updated_by": {
       "type": ["string", "null"],
       "format": "uuid",
-      "description": "User ID who last updated the connection"
+      "description": "User ID who last updated the trigger"
     },
     "created_at": {
       "type": "string",
       "format": "date-time",
-      "description": "ISO 8601 timestamp when connection was created"
+      "description": "ISO 8601 timestamp when trigger was created"
     },
     "updated_at": {
       "type": "string",
       "format": "date-time",
-      "description": "ISO 8601 timestamp when connection was last updated"
+      "description": "ISO 8601 timestamp when trigger was last updated"
     },
     "deleted_at": {
       "type": ["string", "null"],
       "format": "date-time",
-      "description": "ISO 8601 timestamp when connection was deleted (soft delete)"
+      "description": "ISO 8601 timestamp when trigger was deleted (soft delete)"
     },
     "ingestion_config": {
       "type": ["object", "null"],
-      "description": "Structured ingestion settings (schedule, batch, polling). Extensible per connection type.",
+      "description": "Structured ingestion settings (schedule, batch, polling). Extensible per trigger type.",
       "properties": {
         "schedule": {
           "type": ["string", "null"],
@@ -208,7 +208,7 @@
     "runtime_status": {
       "type": ["string", "null"],
       "enum": ["not_deployed", "deploying", "running", "paused", "error", null],
-      "description": "Deployment state of the connection's bot (written at deploy time)"
+      "description": "Deployment state of the trigger's bot (written at deploy time)"
     },
     "auth_type": {
       "type": ["string", "null"],
@@ -220,7 +220,7 @@
         "none",
         null
       ],
-      "description": "Authentication type for the connection (optional, backwards compat)."
+      "description": "Authentication type for the trigger (optional, backwards compat)."
     },
     "ingestion_type": {
       "type": ["string", "null"],
@@ -276,13 +276,13 @@
     "connector_mode": {
       "type": ["string", "null"],
       "enum": ["inbound", "outbound", "bidirectional", null],
-      "description": "For enrichment workflows: mid-flow connection must be 'bidirectional'. For ingestion head use 'inbound'; for consumption tail use 'outbound'. Must match connector supported_directions."
+      "description": "For enrichment workflows: mid-flow trigger must be 'bidirectional'. For ingestion head use 'inbound'; for consumption tail use 'outbound'. Must match connector supported_directions."
     }
   },
   "upstream_entity_id": {
     "type": ["string", "null"],
     "format": "uuid",
-    "description": "Upstream entity in the flow graph (e.g. data-product in consumption flows). Null for source connections."
+    "description": "Upstream entity in the flow graph (e.g. data-product in consumption flows). Null for source triggers."
   },
   "upstream_entity_type": {
     "type": ["string", "null"],
