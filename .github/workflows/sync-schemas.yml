@@ -28,18 +28,19 @@ jobs:
           TSRC="project-template/schemas"
           MDST="marketing-site/public/schemas"
 
-          # entity/ schemas
+          # entity/ schemas (files whose $id contains /schemas/entity/)
           for f in connector.json container.json contract.json data-product.json \
                    domain.json export.json odps-product.json quality-rule.json \
-                   schema.json transformation.json validation.json workflow.json; do
+                   schema.json transformation.json validation.json; do
             cp "$TSRC/$f" "$MDST/entity/$f"
             echo "Copied entity/$f"
           done
 
-          # root-level schemas
+          # root-level package schemas (named *-package-v*.schema.json -> *.json)
           cp "$TSRC/workflow-graph.json"               "$MDST/workflow-graph.json"
           cp "$TSRC/connector-package-v1.schema.json"  "$MDST/connector-package-v1.json"
           cp "$TSRC/trigger-package-v1.schema.json"    "$MDST/trigger-package-v1.json"
+          cp "$TSRC/workflow-package-v1.schema.json"   "$MDST/workflow-package-v1.json"
           echo "Copied root-level schemas"
 
       - name: Check for changes

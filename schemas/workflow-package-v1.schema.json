@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loxtep.io/schemas/entity/workflow.json",
+  "$id": "https://loxtep.io/schemas/workflow-package-v1.json",
   "title": "Workflow Entity",
   "description": "JSON Schema for the root workflow entity in customer workspace. A workflow is a flow. Flow nodes (connection, transformation, validation, data product) reference the workflow via workflow_id and point upstream via upstream_entity_id; the workflow does not store node IDs. template_id identifies the flow starter template used to create this flow (e.g. blank, webhook-ingestion), distinct from connector catalog templates.",
   "type": "object",
@@ -39,7 +39,10 @@
       "description": "Workflow display name"
     },
     "description": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "maxLength": 1000,
       "description": "Workflow description"
     },
@@ -50,7 +53,11 @@
     },
     "workflow_type": {
       "type": "string",
-      "enum": ["ingestion", "enrichment", "consumption"],
+      "enum": [
+        "ingestion",
+        "enrichment",
+        "consumption"
+      ],
       "description": "Type of flow: ingestion (ingest from external sources), enrichment (transform/join data), consumption (expose or consume data products)."
     },
     "domain_id": {
@@ -69,18 +76,29 @@
             "type": "string",
             "description": "Unique identifier for the segment"
           },
-          "name": { "type": "string", "description": "Display name" },
+          "name": {
+            "type": "string",
+            "description": "Display name"
+          },
           "description": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Optional description"
           },
           "node_ids": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "description": "Entity IDs of nodes in this segment"
           },
           "color": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "description": "Optional color for UI"
           }
         },
@@ -88,19 +106,31 @@
       }
     },
     "trigger": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Workflow trigger configuration (event, schedule, or connector).",
       "properties": {
         "event": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Event-based trigger (e.g. webhook, queue)"
         },
         "schedule": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Cron or interval for scheduled execution"
         },
         "connector": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "uuid",
           "description": "Connector ID for connector-driven triggers"
         }
@@ -112,11 +142,17 @@
       "description": "Workflow configuration (schedule, batch_size, etc.). Flow nodes are discovered by workflow_id and upstream_entity_id; the workflow does not store connection_id or transformation_ids.",
       "properties": {
         "schedule": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Cron expression for scheduled execution (optional)"
         },
         "batch_size": {
-          "type": ["integer", "null"],
+          "type": [
+            "integer",
+            "null"
+          ],
           "minimum": 1,
           "description": "Number of events to process per batch"
         }
@@ -124,7 +160,10 @@
       "additionalProperties": false
     },
     "deployment": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Deployment information (set when workflow is deployed)",
       "properties": {
         "instance_id": {
@@ -148,7 +187,13 @@
     },
     "status": {
       "type": "string",
-      "enum": ["active", "paused", "error", "pending", "inactive"],
+      "enum": [
+        "active",
+        "paused",
+        "error",
+        "pending",
+        "inactive"
+      ],
       "description": "Workflow status"
     },
     "metrics": {
@@ -164,12 +209,18 @@
       "description": "Additional metadata for the workflow"
     },
     "created_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who created the workflow"
     },
     "updated_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who last updated the workflow"
     },
@@ -184,7 +235,10 @@
       "description": "ISO 8601 timestamp when workflow was last updated"
     },
     "deleted_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when workflow was deleted (soft delete)"
     }
