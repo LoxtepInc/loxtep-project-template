@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loxtep.io/schemas/trigger-package-v1.json",
+  "$id": "https://loxtep.io/schemas/trigger-v1.json",
   "title": "Trigger Package v1",
   "description": "JSON Schema for Trigger package (v1) in customer workspace. Triggers are configured instances of connectors with credentials and settings.",
   "type": "object",
@@ -30,17 +30,26 @@
       "description": "Project that contains this trigger"
     },
     "workflow_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "Workflow this trigger belongs to; null for project-level/draft connections"
     },
     "connector_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "Reference to the connector definition this trigger uses; null for project-level/draft connections"
     },
     "sync_entity": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "pattern": "^[a-z0-9-_]+$",
       "description": "For API poll connectors: which entity (e.g. orders, customers) this trigger syncs. Must match connector supported_entities when present."
     },
@@ -58,7 +67,10 @@
       "description": "Display name for the trigger"
     },
     "description": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "maxLength": 1000,
       "description": "Trigger description"
     },
@@ -69,7 +81,11 @@
     },
     "status": {
       "type": "string",
-      "enum": ["active", "inactive", "error"],
+      "enum": [
+        "active",
+        "inactive",
+        "error"
+      ],
       "description": "Trigger status"
     },
     "credential_fields": {
@@ -77,40 +93,67 @@
       "description": "Encrypted credential fields for the trigger (structure depends on connector auth_type)",
       "properties": {
         "api_key": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "API key (encrypted)"
         },
         "api_secret": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "API secret (encrypted)"
         },
         "oauth_access_token": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "OAuth access token (encrypted)"
         },
         "oauth_refresh_token": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "OAuth refresh token (encrypted)"
         },
         "oauth_expires_at": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "date-time",
           "description": "OAuth token expiration time"
         },
         "username": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Username for basic auth (encrypted)"
         },
         "password": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Password for basic auth (encrypted)"
         },
         "bearer_token": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Bearer token (encrypted)"
         },
         "custom_credentials": {
-          "type": ["object", "null"],
+          "type": [
+            "object",
+            "null"
+          ],
           "additionalProperties": {
             "type": "string"
           },
@@ -149,17 +192,26 @@
       "description": "Whether this trigger is still in draft state"
     },
     "last_tested": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when trigger was last tested"
     },
     "created_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who created the trigger"
     },
     "updated_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who last updated the trigger"
     },
@@ -174,44 +226,78 @@
       "description": "ISO 8601 timestamp when trigger was last updated"
     },
     "deleted_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when trigger was deleted (soft delete)"
     },
     "ingestion_config": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Structured ingestion settings (schedule, batch, polling). Extensible per trigger type.",
       "properties": {
         "schedule": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Cron expression or interval e.g. every 5m"
         },
         "batch_size": {
-          "type": ["integer", "null"],
+          "type": [
+            "integer",
+            "null"
+          ],
           "description": "Batch size for polling (default 100)"
         },
         "polling_interval_ms": {
-          "type": ["integer", "null"],
+          "type": [
+            "integer",
+            "null"
+          ],
           "description": "Polling interval in milliseconds"
         },
         "max_retries": {
-          "type": ["integer", "null"],
+          "type": [
+            "integer",
+            "null"
+          ],
           "description": "Max retries on failure"
         },
         "timeout_ms": {
-          "type": ["integer", "null"],
+          "type": [
+            "integer",
+            "null"
+          ],
           "description": "Request/timeout in milliseconds"
         }
       },
       "additionalProperties": true
     },
     "runtime_status": {
-      "type": ["string", "null"],
-      "enum": ["not_deployed", "deploying", "running", "paused", "error", null],
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "not_deployed",
+        "deploying",
+        "running",
+        "paused",
+        "error",
+        null
+      ],
       "description": "Deployment state of the trigger's bot (written at deploy time)"
     },
     "auth_type": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "enum": [
         "oauth2",
         "api_key",
@@ -223,7 +309,10 @@
       "description": "Authentication type for the trigger (optional, backwards compat)."
     },
     "ingestion_type": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "enum": [
         "polling",
         "webhook",
@@ -238,54 +327,106 @@
       "description": "How data is ingested (optional)."
     },
     "export_type": {
-      "type": ["string", "null"],
-      "enum": ["file", "database", "stream", "api_sdk", "other", null],
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "file",
+        "database",
+        "stream",
+        "api_sdk",
+        "other",
+        null
+      ],
       "description": "How data is exported (optional)."
     },
     "source_schema": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Source schema reference (optional)."
     },
     "destination_schema": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Destination schema reference (optional)."
     },
     "retry_policy": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Retry policy (max_retries, backoff, etc.).",
       "properties": {
-        "max_retries": { "type": ["integer", "null"] },
-        "backoff_ms": { "type": ["integer", "null"] }
+        "max_retries": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "backoff_ms": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
       },
       "additionalProperties": true
     },
     "timeout": {
-      "type": ["integer", "null"],
+      "type": [
+        "integer",
+        "null"
+      ],
       "description": "Timeout in milliseconds (optional)."
     },
     "concurrency": {
-      "type": ["integer", "null"],
+      "type": [
+        "integer",
+        "null"
+      ],
       "minimum": 1,
       "description": "Concurrency limit (optional)."
     },
     "batch_size": {
-      "type": ["integer", "null"],
+      "type": [
+        "integer",
+        "null"
+      ],
       "minimum": 1,
       "description": "Batch size for sync (optional)."
     },
     "connector_mode": {
-      "type": ["string", "null"],
-      "enum": ["inbound", "outbound", "bidirectional", null],
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "inbound",
+        "outbound",
+        "bidirectional",
+        null
+      ],
       "description": "For enrichment workflows: mid-flow trigger must be 'bidirectional'. For ingestion head use 'inbound'; for consumption tail use 'outbound'. Must match connector supported_directions."
     }
   },
   "upstream_entity_id": {
-    "type": ["string", "null"],
+    "type": [
+      "string",
+      "null"
+    ],
     "format": "uuid",
     "description": "Upstream entity in the flow graph (e.g. data-product in consumption flows). Null for source triggers."
   },
   "upstream_entity_type": {
-    "type": ["string", "null"],
+    "type": [
+      "string",
+      "null"
+    ],
     "enum": [
       "connections",
       "transformations",
