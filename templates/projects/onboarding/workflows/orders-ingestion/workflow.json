@@ -1,11 +1,16 @@
 {
-  "$schema": "https://loxtep.io/schemas/template/workflow.json",
+  "$schema": "https://loxtep.io/schemas/workflow-package-v1.json",
   "template_type": "workflow",
   "slug": "orders-ingestion",
   "name": "Orders Webhook Ingestion",
   "description": "Ingest orders from external store via webhook into the Raw Orders data product.",
   "version": "1.0.0",
-  "tags": ["webhook", "orders", "ingestion", "e-commerce"],
+  "tags": [
+    "webhook",
+    "orders",
+    "ingestion",
+    "e-commerce"
+  ],
   "entity": {
     "workflow_id": "{{WORKFLOW_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
@@ -15,11 +20,17 @@
     "description": "Webhook ingestion flow for order events",
     "workflow_type": "ingestion",
     "template_id": "{{TEMPLATE_ID}}",
-    "configuration": { "schedule": null, "batch_size": 100 },
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
     "deployment": null,
     "status": "inactive",
     "metrics": {},
-    "metadata": { "template_slug": "orders-ingestion", "ingestion_type": "webhook" },
+    "metadata": {
+      "template_slug": "orders-ingestion",
+      "ingestion_type": "webhook"
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   }

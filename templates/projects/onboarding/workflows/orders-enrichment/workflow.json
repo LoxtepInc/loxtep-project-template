@@ -1,12 +1,19 @@
 {
-  "$schema": "https://loxtep.io/schemas/template/workflow.json",
+  "$schema": "https://loxtep.io/schemas/workflow-package-v1.json",
   "template_type": "workflow",
   "slug": "orders-enrichment",
   "name": "Orders Enrichment",
   "description": "Enrich raw orders (e.g. add computed fields, normalize) into Enriched Orders data product.",
   "version": "1.0.0",
-  "tags": ["enrichment", "orders", "e-commerce"],
-  "use_cases": ["Enrich ingested data", "Add derived fields"],
+  "tags": [
+    "enrichment",
+    "orders",
+    "e-commerce"
+  ],
+  "use_cases": [
+    "Enrich ingested data",
+    "Add derived fields"
+  ],
   "entity": {
     "workflow_id": "{{WORKFLOW_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
@@ -16,11 +23,17 @@
     "description": "Enrichment flow for raw orders to enriched orders",
     "workflow_type": "enrichment",
     "template_id": "{{TEMPLATE_ID}}",
-    "configuration": { "schedule": null, "batch_size": 100 },
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
     "deployment": null,
     "status": "inactive",
     "metrics": {},
-    "metadata": { "template_slug": "orders-enrichment", "workflow_type": "enrichment" },
+    "metadata": {
+      "template_slug": "orders-enrichment",
+      "workflow_type": "enrichment"
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   }
