@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "explode-array",
   "name": "Explode Array",
   "description": "Converts array elements into separate events/rows",
   "version": "1.0.0",
-  "tags": ["data-manipulation", "array", "expand"],
+  "tags": [
+    "data-manipulation",
+    "array",
+    "expand"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,10 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "explode_array",
-    "operation_config": { "field": "items", "include_original": true },
+    "operation_config": {
+      "field": "items",
+      "include_original": true
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

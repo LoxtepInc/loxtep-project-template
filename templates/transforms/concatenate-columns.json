@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "concatenate-columns",
   "name": "Concatenate Columns",
   "description": "Combines multiple columns into one",
   "version": "1.0.0",
-  "tags": ["data-transformation", "concat", "string"],
+  "tags": [
+    "data-transformation",
+    "concat",
+    "string"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -14,7 +19,10 @@
     "name": "{{NAME}}",
     "transform_type": "concatenate_columns",
     "operation_config": {
-      "fields": ["first_name", "last_name"],
+      "fields": [
+        "first_name",
+        "last_name"
+      ],
       "output_field": "full_name",
       "separator": " "
     },

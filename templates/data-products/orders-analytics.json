@@ -1,11 +1,22 @@
 {
+  "$schema": "https://loxtep.io/schemas/data-product-package-v1.json",
   "template_type": "data_product",
   "slug": "orders-analytics",
   "name": "Orders Analytics Data Product",
   "description": "Order and transaction data product for sales analytics, reporting, and downstream consumption. Includes validated order events with line items and totals.",
   "version": "1.0.0",
-  "tags": ["orders", "sales", "analytics", "e-commerce", "transactions"],
-  "use_cases": ["Sales reporting", "Revenue analytics", "Order lifecycle tracking"],
+  "tags": [
+    "orders",
+    "sales",
+    "analytics",
+    "e-commerce",
+    "transactions"
+  ],
+  "use_cases": [
+    "Sales reporting",
+    "Revenue analytics",
+    "Order lifecycle tracking"
+  ],
   "entity": {
     "data_product_id": "{{DATA_PRODUCT_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
@@ -13,13 +24,22 @@
     "domain_id": "{{DOMAIN_ID}}",
     "name": "{{DATA_PRODUCT_NAME}}",
     "description": "Order and transaction data for sales analytics and reporting.",
-    "owner": { "user_id": "{{USER_ID}}" },
+    "owner": {
+      "user_id": "{{USER_ID}}"
+    },
     "status": "draft",
     "governance": {
       "classification": "internal",
-      "pii_fields": ["customer_email", "shipping_address"],
+      "pii_fields": [
+        "customer_email",
+        "shipping_address"
+      ],
       "compliance_requirements": [],
-      "tags": ["orders", "sales", "analytics"]
+      "tags": [
+        "orders",
+        "sales",
+        "analytics"
+      ]
     },
     "metadata": {
       "business_glossary": {},
@@ -35,7 +55,11 @@
             "name": "{{DATA_PRODUCT_NAME}}",
             "description": "Order and transaction data for sales analytics and reporting.",
             "status": "draft",
-            "tags": ["orders", "sales", "analytics"],
+            "tags": [
+              "orders",
+              "sales",
+              "analytics"
+            ],
             "type": "orders-analytics",
             "governanceProfile": "internal"
           }

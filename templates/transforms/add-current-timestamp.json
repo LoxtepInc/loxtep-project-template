@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "add-current-timestamp",
   "name": "Add Current Timestamp",
   "description": "Adds current timestamp to events",
   "version": "1.0.0",
-  "tags": ["data-transformation", "timestamp", "enrichment"],
+  "tags": [
+    "data-transformation",
+    "timestamp",
+    "enrichment"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,10 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "add_current_timestamp",
-    "operation_config": { "field": "processed_at", "format": "ISO 8601" },
+    "operation_config": {
+      "field": "processed_at",
+      "format": "ISO 8601"
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

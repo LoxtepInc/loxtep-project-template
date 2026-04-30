@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "parse-json",
   "name": "Parse JSON",
   "description": "Parses JSON string fields into objects",
   "version": "1.0.0",
-  "tags": ["data-transformation", "json", "parse"],
+  "tags": [
+    "data-transformation",
+    "json",
+    "parse"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

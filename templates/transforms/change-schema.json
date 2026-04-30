@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "change-schema",
   "name": "Change Schema",
   "description": "Transforms schema structure",
   "version": "1.0.0",
-  "tags": ["data-quality", "schema", "mapping"],
+  "tags": [
+    "data-quality",
+    "schema",
+    "mapping"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -15,7 +20,11 @@
     "transform_type": "change_schema",
     "operation_config": {
       "transformations": [
-        { "source": "old_field", "target": "new_field", "type": "move" }
+        {
+          "source": "old_field",
+          "target": "new_field",
+          "type": "move"
+        }
       ]
     },
     "created_at": "{{CREATED_AT}}",

@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "fill-missing-values",
   "name": "Fill Missing Values",
   "description": "Fills null/missing values with defaults",
   "version": "1.0.0",
-  "tags": ["data-quality", "null", "defaults"],
+  "tags": [
+    "data-quality",
+    "null",
+    "defaults"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -14,7 +19,13 @@
     "name": "{{NAME}}",
     "transform_type": "fill_missing_values",
     "operation_config": {
-      "fields": [{ "field": "status", "strategy": "default", "default_value": "unknown" }]
+      "fields": [
+        {
+          "field": "status",
+          "strategy": "default",
+          "default_value": "unknown"
+        }
+      ]
     },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"

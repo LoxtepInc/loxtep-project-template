@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "split",
   "name": "Split",
   "description": "Splits events into multiple outputs",
   "version": "1.0.0",
-  "tags": ["flow-control", "routing", "branch"],
+  "tags": [
+    "flow-control",
+    "routing",
+    "branch"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "array-to-column",
   "name": "Array to Column",
   "description": "Converts array field into column structure",
   "version": "1.0.0",
-  "tags": ["data-manipulation", "array", "schema"],
+  "tags": [
+    "data-manipulation",
+    "array",
+    "schema"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,10 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "array_to_column",
-    "operation_config": { "field": "tags", "output_field": "tag_columns" },
+    "operation_config": {
+      "field": "tags",
+      "output_field": "tag_columns"
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

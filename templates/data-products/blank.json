@@ -1,11 +1,18 @@
 {
+  "$schema": "https://loxtep.io/schemas/data-product-package-v1.json",
   "template_type": "data_product",
   "slug": "blank",
   "name": "Blank Data Product",
   "description": "Create from scratch. Empty data product for custom configuration.",
   "version": "1.0.0",
-  "tags": ["blank", "starter"],
-  "use_cases": ["Start from scratch", "Custom data product"],
+  "tags": [
+    "blank",
+    "starter"
+  ],
+  "use_cases": [
+    "Start from scratch",
+    "Custom data product"
+  ],
   "entity": {
     "data_product_id": "{{DATA_PRODUCT_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
@@ -13,7 +20,9 @@
     "domain_id": "{{DOMAIN_ID}}",
     "name": "{{DATA_PRODUCT_NAME}}",
     "description": "",
-    "owner": { "user_id": "{{USER_ID}}" },
+    "owner": {
+      "user_id": "{{USER_ID}}"
+    },
     "status": "draft",
     "governance": {
       "classification": "internal",

@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "drop-null-fields",
   "name": "Drop Null Fields",
   "description": "Removes fields that have null values",
   "version": "1.0.0",
-  "tags": ["data-manipulation", "null", "cleanup"],
+  "tags": [
+    "data-manipulation",
+    "null",
+    "cleanup"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,9 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "drop_null_fields",
-    "operation_config": { "include_empty": false },
+    "operation_config": {
+      "include_empty": false
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

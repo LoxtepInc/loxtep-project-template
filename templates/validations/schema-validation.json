@@ -1,11 +1,22 @@
 {
+  "$schema": "https://loxtep.io/schemas/validation-package-v1.json",
   "template_type": "validation",
   "slug": "schema-validation",
   "name": "Schema Validation",
   "description": "Validates incoming events against a JSON Schema. Rejects or quarantines events that do not conform. Use for contract enforcement and data quality at ingestion.",
   "version": "1.0.0",
-  "tags": ["validation", "schema", "json-schema", "contract", "quality"],
-  "use_cases": ["Contract enforcement", "Ingestion data quality", "Schema drift detection"],
+  "tags": [
+    "validation",
+    "schema",
+    "json-schema",
+    "contract",
+    "quality"
+  ],
+  "use_cases": [
+    "Contract enforcement",
+    "Ingestion data quality",
+    "Schema drift detection"
+  ],
   "entity": {
     "validation_id": "{{VALIDATION_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

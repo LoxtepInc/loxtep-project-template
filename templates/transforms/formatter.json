@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "formatter",
   "name": "Formatter",
   "description": "Formats data using templates",
   "version": "1.0.0",
-  "tags": ["utilities", "template", "string"],
+  "tags": [
+    "utilities",
+    "template",
+    "string"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,10 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "formatter",
-    "operation_config": { "template": "Hello {{name}}", "output_field": "greeting" },
+    "operation_config": {
+      "template": "Hello {{name}}",
+      "output_field": "greeting"
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

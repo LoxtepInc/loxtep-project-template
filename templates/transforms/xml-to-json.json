@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "xml-to-json",
   "name": "XML to JSON",
   "description": "Converts XML string to JSON",
   "version": "1.0.0",
-  "tags": ["data-transformation", "xml", "json"],
+  "tags": [
+    "data-transformation",
+    "xml",
+    "json"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,10 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "xml_to_json",
-    "operation_config": { "field": "xml_data", "output_field": "json_data" },
+    "operation_config": {
+      "field": "xml_data",
+      "output_field": "json_data"
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

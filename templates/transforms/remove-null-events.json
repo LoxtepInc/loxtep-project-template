@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "remove-null-events",
   "name": "Remove Null Events",
   "description": "Removes events that are null or empty",
   "version": "1.0.0",
-  "tags": ["utilities", "null", "filter"],
+  "tags": [
+    "utilities",
+    "null",
+    "filter"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,9 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "remove_null_events",
-    "operation_config": { "all_fields_null": false },
+    "operation_config": {
+      "all_fields_null": false
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "extract-json-path",
   "name": "Extract JSON Path",
   "description": "Extracts value from JSON using path expression",
   "version": "1.0.0",
-  "tags": ["data-transformation", "json", "path"],
+  "tags": [
+    "data-transformation",
+    "json",
+    "path"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,11 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "extract_json_path",
-    "operation_config": { "field": "data", "path": "$.user.name", "output_field": "user_name" },
+    "operation_config": {
+      "field": "data",
+      "path": "$.user.name",
+      "output_field": "user_name"
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "drop-fields",
   "name": "Drop Fields",
   "description": "Removes specified fields from events",
   "version": "1.0.0",
-  "tags": ["data-manipulation", "privacy", "fields"],
+  "tags": [
+    "data-manipulation",
+    "privacy",
+    "fields"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -14,7 +19,10 @@
     "name": "{{NAME}}",
     "transform_type": "drop_fields",
     "operation_config": {
-      "fields": ["sensitive_field", "internal_id"]
+      "fields": [
+        "sensitive_field",
+        "internal_id"
+      ]
     },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"

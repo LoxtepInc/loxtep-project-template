@@ -1,10 +1,14 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "delay",
   "name": "Delay",
   "description": "Adds delay between events",
   "version": "1.0.0",
-  "tags": ["flow-control", "rate-limiting"],
+  "tags": [
+    "flow-control",
+    "rate-limiting"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +17,10 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "delay",
-    "operation_config": { "delay_ms": 1000, "per_event": true },
+    "operation_config": {
+      "delay_ms": 1000,
+      "per_event": true
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

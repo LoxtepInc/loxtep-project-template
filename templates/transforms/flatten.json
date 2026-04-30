@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "flatten",
   "name": "Flatten",
   "description": "Flattens nested objects into dot-notation fields",
   "version": "1.0.0",
-  "tags": ["data-manipulation", "nested", "structure"],
+  "tags": [
+    "data-manipulation",
+    "nested",
+    "structure"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,10 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "flatten",
-    "operation_config": { "separator": ".", "max_depth": 5 },
+    "operation_config": {
+      "separator": ".",
+      "max_depth": 5
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

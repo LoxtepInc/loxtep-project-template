@@ -1,10 +1,14 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "drop-duplicates",
   "name": "Drop Duplicates",
   "description": "Removes duplicate events based on specified fields",
   "version": "1.0.0",
-  "tags": ["data-manipulation", "deduplication"],
+  "tags": [
+    "data-manipulation",
+    "deduplication"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +17,12 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "drop_duplicates",
-    "operation_config": { "fields": ["id"], "keep": "first" },
+    "operation_config": {
+      "fields": [
+        "id"
+      ],
+      "keep": "first"
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

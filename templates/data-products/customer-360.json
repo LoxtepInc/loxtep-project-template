@@ -1,11 +1,22 @@
 {
+  "$schema": "https://loxtep.io/schemas/data-product-package-v1.json",
   "template_type": "data_product",
   "slug": "customer-360",
   "name": "Customer 360 Data Product",
   "description": "Unified customer profile data product aggregating identity, orders, and engagement. Use for segmentation, analytics, and real-time personalization.",
   "version": "1.0.0",
-  "tags": ["customer", "profile", "360", "analytics", "crm"],
-  "use_cases": ["Unified customer view", "Segmentation and targeting", "Real-time personalization"],
+  "tags": [
+    "customer",
+    "profile",
+    "360",
+    "analytics",
+    "crm"
+  ],
+  "use_cases": [
+    "Unified customer view",
+    "Segmentation and targeting",
+    "Real-time personalization"
+  ],
   "entity": {
     "data_product_id": "{{DATA_PRODUCT_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
@@ -13,13 +24,23 @@
     "domain_id": "{{DOMAIN_ID}}",
     "name": "{{DATA_PRODUCT_NAME}}",
     "description": "Unified customer 360 profile with identity, orders, and engagement data.",
-    "owner": { "user_id": "{{USER_ID}}" },
+    "owner": {
+      "user_id": "{{USER_ID}}"
+    },
     "status": "draft",
     "governance": {
       "classification": "internal",
-      "pii_fields": ["email", "name", "phone"],
+      "pii_fields": [
+        "email",
+        "name",
+        "phone"
+      ],
       "compliance_requirements": [],
-      "tags": ["customer-360", "profile", "crm"]
+      "tags": [
+        "customer-360",
+        "profile",
+        "crm"
+      ]
     },
     "metadata": {
       "business_glossary": {},
@@ -35,7 +56,11 @@
             "name": "{{DATA_PRODUCT_NAME}}",
             "description": "Unified customer 360 profile with identity, orders, and engagement data.",
             "status": "draft",
-            "tags": ["customer-360", "profile", "crm"],
+            "tags": [
+              "customer-360",
+              "profile",
+              "crm"
+            ],
             "type": "customer-360",
             "governanceProfile": "internal"
           }

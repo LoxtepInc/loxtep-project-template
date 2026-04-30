@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "batch",
   "name": "Batch",
   "description": "Groups events into batches",
   "version": "1.0.0",
-  "tags": ["flow-control", "batch", "throughput"],
+  "tags": [
+    "flow-control",
+    "batch",
+    "throughput"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,10 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "batch",
-    "operation_config": { "size": 100, "timeout_ms": 5000 },
+    "operation_config": {
+      "size": 100,
+      "timeout_ms": 5000
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

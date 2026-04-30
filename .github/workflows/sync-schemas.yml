@@ -28,10 +28,13 @@ jobs:
           TSRC="project-template/schemas"
           MDST="marketing-site/public/schemas"
 
-          cp "$TSRC/connector-package-v1.schema.json"  "$MDST/connector-package-v1.json"
-          cp "$TSRC/trigger-package-v1.schema.json"    "$MDST/trigger-package-v1.json"
-          cp "$TSRC/workflow-package-v1.schema.json"   "$MDST/workflow-package-v1.json"
-          cp "$TSRC/workflow-graph-v1.schema.json"     "$MDST/workflow-graph-v1.json"
+          cp "$TSRC/connector-package-v1.schema.json"      "$MDST/connector-package-v1.json"
+          cp "$TSRC/trigger-package-v1.schema.json"        "$MDST/trigger-package-v1.json"
+          cp "$TSRC/workflow-package-v1.schema.json"       "$MDST/workflow-package-v1.json"
+          cp "$TSRC/workflow-graph-v1.schema.json"         "$MDST/workflow-graph-v1.json"
+          cp "$TSRC/transformation-package-v1.schema.json" "$MDST/transformation-package-v1.json"
+          cp "$TSRC/validation-package-v1.schema.json"     "$MDST/validation-package-v1.json"
+          cp "$TSRC/data-product-package-v1.schema.json"   "$MDST/data-product-package-v1.json"
           echo "Copied all schemas"
 
       - name: Check for changes

@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "filter",
   "name": "Filter",
   "description": "Filters events based on conditions",
   "version": "1.0.0",
-  "tags": ["flow-control", "filter", "conditions"],
+  "tags": [
+    "flow-control",
+    "filter",
+    "conditions"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

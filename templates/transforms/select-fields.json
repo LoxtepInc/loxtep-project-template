@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "select-fields",
   "name": "Select Fields",
   "description": "Keeps only specified fields, removes all others",
   "version": "1.0.0",
-  "tags": ["data-manipulation", "fields", "projection"],
+  "tags": [
+    "data-manipulation",
+    "fields",
+    "projection"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -14,7 +19,11 @@
     "name": "{{NAME}}",
     "transform_type": "select_fields",
     "operation_config": {
-      "fields": ["id", "name", "email"]
+      "fields": [
+        "id",
+        "name",
+        "email"
+      ]
     },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"

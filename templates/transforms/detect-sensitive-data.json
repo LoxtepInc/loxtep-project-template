@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "detect-sensitive-data",
   "name": "Detect Sensitive Data",
   "description": "Identifies PII/sensitive fields",
   "version": "1.0.0",
-  "tags": ["data-quality", "pii", "privacy"],
+  "tags": [
+    "data-quality",
+    "pii",
+    "privacy"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,13 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "detect_sensitive_data",
-    "operation_config": { "types": ["email", "phone", "ssn"] },
+    "operation_config": {
+      "types": [
+        "email",
+        "phone",
+        "ssn"
+      ]
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

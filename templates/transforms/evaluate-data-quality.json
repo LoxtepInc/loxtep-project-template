@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "evaluate-data-quality",
   "name": "Evaluate Data Quality",
   "description": "Runs quality checks on data",
   "version": "1.0.0",
-  "tags": ["data-quality", "validation", "rules"],
+  "tags": [
+    "data-quality",
+    "validation",
+    "rules"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

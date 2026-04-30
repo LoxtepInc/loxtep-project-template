@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "crypto",
   "name": "Crypto",
   "description": "Encrypts/decrypts fields",
   "version": "1.0.0",
-  "tags": ["utilities", "encryption", "security"],
+  "tags": [
+    "utilities",
+    "encryption",
+    "security"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

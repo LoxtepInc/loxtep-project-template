@@ -1,10 +1,14 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "blank",
   "name": "Blank Transform",
   "description": "Create from scratch. Empty transformation for custom configuration.",
   "version": "1.0.0",
-  "tags": ["blank", "starter"],
+  "tags": [
+    "blank",
+    "starter"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +17,9 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "select_fields",
-    "operation_config": { "fields": [] },
+    "operation_config": {
+      "fields": []
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

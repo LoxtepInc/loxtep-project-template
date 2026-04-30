@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "execute-code-function",
   "name": "Execute Code Function",
   "description": "Executes custom code (sandboxed)",
   "version": "1.0.0",
-  "tags": ["utilities", "custom", "code"],
+  "tags": [
+    "utilities",
+    "custom",
+    "code"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,9 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "execute_code_function",
-    "operation_config": { "code": "(event) => ({ ...event, processed: true })" },
+    "operation_config": {
+      "code": "(event) => ({ ...event, processed: true })"
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "regex-extractor",
   "name": "Regex Extractor",
   "description": "Extracts values using regex pattern",
   "version": "1.0.0",
-  "tags": ["data-transformation", "regex", "extract"],
+  "tags": [
+    "data-transformation",
+    "regex",
+    "extract"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,11 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "regex_extractor",
-    "operation_config": { "field": "text", "pattern": "\\d+", "output_field": "numbers" },
+    "operation_config": {
+      "field": "text",
+      "pattern": "\\d+",
+      "output_field": "numbers"
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },

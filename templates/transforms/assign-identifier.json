@@ -1,10 +1,15 @@
 {
+  "$schema": "https://loxtep.io/schemas/transformation-package-v1.json",
   "template_type": "transform",
   "slug": "assign-identifier",
   "name": "Assign Identifier",
   "description": "Adds identifier to each event",
   "version": "1.0.0",
-  "tags": ["utilities", "id", "uuid"],
+  "tags": [
+    "utilities",
+    "id",
+    "uuid"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
@@ -13,7 +18,10 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "name": "{{NAME}}",
     "transform_type": "assign_identifier",
-    "operation_config": { "field": "event_id", "type": "uuid" },
+    "operation_config": {
+      "field": "event_id",
+      "type": "uuid"
+    },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },
