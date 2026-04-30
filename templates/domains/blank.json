@@ -1,11 +1,18 @@
 {
+  "$schema": "https://loxtep.io/schemas/domain-package-v1.json",
   "template_type": "domain",
   "slug": "blank",
   "name": "Blank Domain",
   "description": "Create from scratch. Empty domain for custom configuration.",
   "version": "1.0.0",
-  "tags": ["blank", "starter"],
-  "use_cases": ["Start from scratch", "Custom domain"],
+  "tags": [
+    "blank",
+    "starter"
+  ],
+  "use_cases": [
+    "Start from scratch",
+    "Custom domain"
+  ],
   "entity": {
     "domain_id": "{{DOMAIN_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

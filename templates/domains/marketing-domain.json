@@ -1,11 +1,21 @@
 {
+  "$schema": "https://loxtep.io/schemas/domain-package-v1.json",
   "template_type": "domain",
   "slug": "marketing-domain",
   "name": "Marketing Domain",
   "description": "Domain for marketing and campaign data products. Covers campaigns, attribution, and audience segments.",
   "version": "1.0.0",
-  "tags": ["marketing", "campaigns", "attribution", "audience"],
-  "use_cases": ["Campaign analytics", "Attribution modeling", "Audience segmentation"],
+  "tags": [
+    "marketing",
+    "campaigns",
+    "attribution",
+    "audience"
+  ],
+  "use_cases": [
+    "Campaign analytics",
+    "Attribution modeling",
+    "Audience segmentation"
+  ],
   "entity": {
     "domain_id": "{{DOMAIN_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
@@ -15,7 +25,11 @@
     "parent_domain_id": null,
     "is_council": false,
     "metadata": {
-      "tags": ["marketing", "campaigns", "attribution"],
+      "tags": [
+        "marketing",
+        "campaigns",
+        "attribution"
+      ],
       "business_unit": "Marketing"
     },
     "created_at": "{{CREATED_AT}}",

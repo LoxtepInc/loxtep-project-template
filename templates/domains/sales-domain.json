@@ -1,11 +1,21 @@
 {
+  "$schema": "https://loxtep.io/schemas/domain-package-v1.json",
   "template_type": "domain",
   "slug": "sales-domain",
   "name": "Sales Domain",
   "description": "Domain for sales and order-related data products and workflows. Covers order ingestion, processing, and revenue analytics.",
   "version": "1.0.0",
-  "tags": ["sales", "orders", "revenue", "e-commerce"],
-  "use_cases": ["Sales data ownership", "Order workflow grouping", "Revenue reporting"],
+  "tags": [
+    "sales",
+    "orders",
+    "revenue",
+    "e-commerce"
+  ],
+  "use_cases": [
+    "Sales data ownership",
+    "Order workflow grouping",
+    "Revenue reporting"
+  ],
   "entity": {
     "domain_id": "{{DOMAIN_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
@@ -15,7 +25,11 @@
     "parent_domain_id": null,
     "is_council": false,
     "metadata": {
-      "tags": ["sales", "orders", "revenue"],
+      "tags": [
+        "sales",
+        "orders",
+        "revenue"
+      ],
       "business_unit": "Commerce"
     },
     "created_at": "{{CREATED_AT}}",

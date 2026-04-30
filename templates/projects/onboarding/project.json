@@ -1,9 +1,18 @@
 {
+  "$schema": "https://loxtep.io/schemas/project-package-v1.json",
   "template_type": "project",
   "slug": "onboarding",
   "name": "Full-Mesh Ecommerce Demo",
-  "description": "Ecommerce sample with ingestion (webhook → raw orders), enrichment (raw → enriched orders), and consumption (enriched orders → partner webhook). Demonstrates all three workflow types.",
+  "description": "Ecommerce sample with ingestion (webhook \u2192 raw orders), enrichment (raw \u2192 enriched orders), and consumption (enriched orders \u2192 partner webhook). Demonstrates all three workflow types.",
   "template_slug": "templates/projects/onboarding",
   "version": "1.0.0",
-  "tags": ["beginner", "tutorial", "e-commerce", "full-mesh", "ingestion", "enrichment", "consumption"]
+  "tags": [
+    "beginner",
+    "tutorial",
+    "e-commerce",
+    "full-mesh",
+    "ingestion",
+    "enrichment",
+    "consumption"
+  ]
 }

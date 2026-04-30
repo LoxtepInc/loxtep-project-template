@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://loxtep.io/schemas/project-package-v1.json",
+  "title": "Loxtep project package (v1)",
+  "description": "Schema for a project template. Projects are top-level containers that group workflows, domains, and data products. A project template declares the slug and metadata; the actual workflows and nodes are defined in subdirectories.",
+  "type": "object",
+  "required": ["template_type", "slug", "name", "version"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "template_type": { "type": "string", "const": "project" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "template_slug": {
+      "type": "string",
+      "description": "Relative path to this template's directory (e.g. templates/projects/blank)"
+    },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "use_cases": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

@@ -1,11 +1,22 @@
 {
+  "$schema": "https://loxtep.io/schemas/export-package-v1.json",
   "template_type": "export",
   "slug": "webhook-export",
   "name": "Webhook Export",
   "description": "Sends workflow events to an external HTTP endpoint (webhook). Use for real-time notifications, third-party integrations, or event-driven downstream systems.",
   "version": "1.0.0",
-  "tags": ["export", "webhook", "http", "real-time", "integration"],
-  "use_cases": ["Real-time notifications", "Third-party integrations", "Event-driven downstream"],
+  "tags": [
+    "export",
+    "webhook",
+    "http",
+    "real-time",
+    "integration"
+  ],
+  "use_cases": [
+    "Real-time notifications",
+    "Third-party integrations",
+    "Event-driven downstream"
+  ],
   "entity": {
     "export_id": "{{EXPORT_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

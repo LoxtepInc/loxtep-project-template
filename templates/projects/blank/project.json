@@ -1,9 +1,13 @@
 {
+  "$schema": "https://loxtep.io/schemas/project-package-v1.json",
   "template_type": "project",
   "slug": "blank",
   "name": "Blank Project",
   "description": "Create from scratch with no pre-loaded content.",
   "template_slug": "templates/projects/blank",
   "version": "1.0.0",
-  "tags": ["blank", "starter"]
+  "tags": [
+    "blank",
+    "starter"
+  ]
 }

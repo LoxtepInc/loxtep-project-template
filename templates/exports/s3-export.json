@@ -1,11 +1,22 @@
 {
+  "$schema": "https://loxtep.io/schemas/export-package-v1.json",
   "template_type": "export",
   "slug": "s3-export",
   "name": "S3 Export",
   "description": "Exports workflow events to an S3 bucket in batch (e.g. Parquet, JSON, or CSV). Use for data lakes, archival, or downstream batch consumers.",
   "version": "1.0.0",
-  "tags": ["export", "s3", "batch", "data-lake", "parquet"],
-  "use_cases": ["Data lake landing", "Batch archival", "Downstream batch processing"],
+  "tags": [
+    "export",
+    "s3",
+    "batch",
+    "data-lake",
+    "parquet"
+  ],
+  "use_cases": [
+    "Data lake landing",
+    "Batch archival",
+    "Downstream batch processing"
+  ],
   "entity": {
     "export_id": "{{EXPORT_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

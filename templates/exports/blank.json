@@ -1,11 +1,18 @@
 {
+  "$schema": "https://loxtep.io/schemas/export-package-v1.json",
   "template_type": "export",
   "slug": "blank",
   "name": "Blank Export",
   "description": "Create from scratch. Empty export for custom configuration.",
   "version": "1.0.0",
-  "tags": ["blank", "starter"],
-  "use_cases": ["Start from scratch", "Custom export"],
+  "tags": [
+    "blank",
+    "starter"
+  ],
+  "use_cases": [
+    "Start from scratch",
+    "Custom export"
+  ],
   "entity": {
     "export_id": "{{EXPORT_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
