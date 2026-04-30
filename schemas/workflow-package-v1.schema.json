@@ -24,7 +24,7 @@
         "name": { "type": "string" },
         "description": { "type": ["string", "null"] },
         "template_id": { "type": "string" },
-        "workflow_type": { "type": "string", "enum": ["ingestion", "enrichment", "consumption"] },
+        "workflow_type": { "type": "string", "enum": ["ingestion", "enrichment"] },
         "domain_id": { "type": "string" },
         "segments": { "type": "array", "default": [] },
         "trigger": { "type": ["object", "null"] },
