@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loxtep.io/schemas/entity/quality-rule.json",
+  "$id": "https://loxtep.io/schemas/entity/quality-rule-v1.json",
   "title": "Quality Rule Entity",
   "description": "JSON Schema for Quality Rule entity in customer workspace. Quality rules are reusable assertions that measure data quality metrics.",
   "type": "object",
@@ -27,7 +27,10 @@
       "description": "Organization that owns this quality rule"
     },
     "data_product_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "Reference to data product this rule applies to (null for reusable rules)"
     },
@@ -38,7 +41,10 @@
       "description": "Quality rule name"
     },
     "description": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "maxLength": 1000,
       "description": "Quality rule description"
     },
@@ -66,7 +72,12 @@
     },
     "severity": {
       "type": "string",
-      "enum": ["critical", "high", "medium", "low"],
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ],
       "description": "Severity level when rule fails"
     },
     "enabled": {
@@ -75,7 +86,10 @@
       "description": "Whether this rule is enabled"
     },
     "error_message": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "maxLength": 500,
       "description": "Custom error message when rule fails"
     },
@@ -86,12 +100,18 @@
       "description": "Additional metadata for the quality rule"
     },
     "created_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who created the quality rule"
     },
     "updated_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who last updated the quality rule"
     },
@@ -106,7 +126,10 @@
       "description": "ISO 8601 timestamp when quality rule was last updated"
     },
     "deleted_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when quality rule was deleted (soft delete)"
     }

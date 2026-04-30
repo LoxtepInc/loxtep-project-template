@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loxtep.io/schemas/entity/container.json",
+  "$id": "https://loxtep.io/schemas/entity/container-v1.json",
   "title": "Container Entity",
   "description": "JSON Schema for Container entity in customer workspace. A container represents one logical node that maps to one or more bots/queues at runtime. It wraps another project entity (connection, transformation, validation, data-product, export).",
   "type": "object",
@@ -57,12 +57,16 @@
       "properties": {
         "bot_ids": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "rstreams bot IDs registered for this container"
         },
         "queue_ids": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "rstreams queue names for this container"
         }
       }

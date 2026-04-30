@@ -1,16 +1,20 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loxtep.io/schemas/entity/odps-product.json",
+  "$id": "https://loxtep.io/schemas/entity/odps-product-v1.json",
   "title": "ODPS v4.1 Data Product Document",
   "x-canonical-json-schema": "https://opendataproducts.org/v4.1/schema/odps.json",
   "description": "Open Data Products Standard (ODPS) v4.1 root document (`product.*`). Authoritative JSON Schema: https://opendataproducts.org/v4.1/schema/odps.json . Loxtep platform types and mapping: platform-backend/_core/src/types/odps/ and .kiro/specs/odps-data-product-standard. Platform-specific fields live under `product.custom.loxtep` (medallion, storage, ingestion, organization_id, domain_id, project_id, workflow_id, etc.). For strict full-schema validation in toolchains that resolve remote $ref, compose with allOf + $ref to x-canonical-json-schema (requires network or bundled copy).",
   "type": "object",
-  "required": ["product"],
+  "required": [
+    "product"
+  ],
   "additionalProperties": false,
   "properties": {
     "product": {
       "type": "object",
-      "required": ["details"],
+      "required": [
+        "details"
+      ],
       "additionalProperties": true,
       "properties": {
         "details": {
@@ -19,7 +23,9 @@
           "description": "Localized product details; keys MUST be valid BCP-47 language tags (e.g. en, fr-CA). At least one locale required.",
           "additionalProperties": {
             "type": "object",
-            "required": ["name"],
+            "required": [
+              "name"
+            ],
             "additionalProperties": true,
             "properties": {
               "name": {
@@ -27,16 +33,22 @@
                 "minLength": 1,
                 "description": "Human-readable product name for this locale"
               },
-              "description": { "type": "string" },
+              "description": {
+                "type": "string"
+              },
               "status": {
                 "type": "string",
                 "description": "Lifecycle status (e.g. draft, active, deprecated, archived)"
               },
               "tags": {
                 "type": "array",
-                "items": { "type": "string" }
+                "items": {
+                  "type": "string"
+                }
               },
-              "type": { "type": "string" },
+              "type": {
+                "type": "string"
+              },
               "governanceProfile": {
                 "type": "string",
                 "description": "e.g. public, internal, confidential, restricted"
@@ -56,7 +68,9 @@
               "type": "string",
               "description": "Owner identifier (Loxtep: user_id UUID)"
             },
-            "email": { "type": "string" }
+            "email": {
+              "type": "string"
+            }
           }
         },
         "dataAccess": {
@@ -78,9 +92,14 @@
           "properties": {
             "declarative": {
               "type": "object",
-              "additionalProperties": { "type": "number" }
+              "additionalProperties": {
+                "type": "number"
+              }
             },
-            "executable": { "type": "object", "additionalProperties": true }
+            "executable": {
+              "type": "object",
+              "additionalProperties": true
+            }
           }
         },
         "SLA": {
@@ -91,37 +110,66 @@
               "type": "array",
               "items": {
                 "type": "object",
-                "required": ["dimension", "value"],
+                "required": [
+                  "dimension",
+                  "value"
+                ],
                 "additionalProperties": true,
                 "properties": {
-                  "dimension": { "type": "string" },
-                  "value": { "type": ["string", "number"] },
-                  "unit": { "type": "string" }
+                  "dimension": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "unit": {
+                    "type": "string"
+                  }
                 }
               }
             },
-            "executable": { "type": "object", "additionalProperties": true }
+            "executable": {
+              "type": "object",
+              "additionalProperties": true
+            }
           }
         },
         "contract": {
           "type": "object",
           "additionalProperties": true,
           "properties": {
-            "contractId": { "type": "string" },
-            "contractVersion": { "type": "string" },
-            "contractStatus": { "type": "string" }
+            "contractId": {
+              "type": "string"
+            },
+            "contractVersion": {
+              "type": "string"
+            },
+            "contractStatus": {
+              "type": "string"
+            }
           }
         },
         "pricingPlans": {
           "type": "array",
-          "items": { "type": "object", "additionalProperties": true }
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
         },
         "license": {
           "type": "object",
           "additionalProperties": true,
           "properties": {
-            "name": { "type": "string" },
-            "url": { "type": "string", "format": "uri" }
+            "name": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            }
           }
         },
         "productStrategy": {
@@ -130,13 +178,20 @@
           "properties": {
             "objectives": {
               "type": "array",
-              "items": { "type": "string" }
+              "items": {
+                "type": "string"
+              }
             },
             "kpis": {
               "type": "array",
-              "items": { "type": "object", "additionalProperties": true }
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              }
             },
-            "strategicAlignment": { "type": "string" }
+            "strategicAlignment": {
+              "type": "string"
+            }
           }
         },
         "custom": {

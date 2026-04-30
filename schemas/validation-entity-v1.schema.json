@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loxtep.io/schemas/entity/validation.json",
+  "$id": "https://loxtep.io/schemas/entity/validation-v1.json",
   "title": "Validation Entity",
   "description": "JSON Schema for Validation entity in customer workspace. Validations are rules that assert data quality and reject invalid events within a workflow flow. Each validation references its workflow via workflow_id and the upstream entity it applies to via upstream_entity_id.",
   "type": "object",
@@ -38,13 +38,24 @@
       "description": "Workflow this validation belongs to"
     },
     "upstream_entity_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "Reference to the upstream entity this validation applies to (connection, transformation, or data product)"
     },
     "upstream_entity_type": {
-      "type": ["string", "null"],
-      "enum": ["connections", "transformations", "data-products", null],
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "connections",
+        "transformations",
+        "data-products",
+        null
+      ],
       "description": "Entity type of the upstream entity"
     },
     "name": {
@@ -54,7 +65,10 @@
       "description": "Validation name"
     },
     "description": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "maxLength": 1000,
       "description": "Validation description"
     },
@@ -86,23 +100,36 @@
           "message": "Field must be greater than 100"
         },
         {
-          "required_fields": ["email", "name"],
+          "required_fields": [
+            "email",
+            "name"
+          ],
           "completeness_threshold": 0.95
         }
       ]
     },
     "severity": {
       "type": "string",
-      "enum": ["error", "warning", "info"],
+      "enum": [
+        "error",
+        "warning",
+        "info"
+      ],
       "description": "Severity level when validation fails"
     },
     "error_message": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "maxLength": 500,
       "description": "Custom error message when validation fails"
     },
     "order": {
-      "type": ["integer", "null"],
+      "type": [
+        "integer",
+        "null"
+      ],
       "minimum": 0,
       "description": "Default execution order when used in workflows (lower = earlier)"
     },
@@ -113,12 +140,18 @@
       "description": "Additional metadata for the validation"
     },
     "created_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who created the validation"
     },
     "updated_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who last updated the validation"
     },
@@ -133,7 +166,10 @@
       "description": "ISO 8601 timestamp when validation was last updated"
     },
     "deleted_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when validation was deleted (soft delete)"
     }

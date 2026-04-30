@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loxtep.io/schemas/entity/domain.json",
+  "$id": "https://loxtep.io/schemas/entity/domain-v1.json",
   "title": "Domain Entity",
   "description": "JSON Schema for Domain entity in customer workspace. Domains are logical, business-oriented subdivisions for organizing Data Products.",
   "type": "object",
@@ -29,17 +29,26 @@
       "description": "Domain name"
     },
     "description": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "maxLength": 1000,
       "description": "Domain description"
     },
     "owner_user_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID of the domain owner"
     },
     "parent_domain_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "Parent domain ID for hierarchical organization"
     },
@@ -65,7 +74,10 @@
       "description": "ISO 8601 timestamp when domain was last updated"
     },
     "deleted_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when domain was deleted (soft delete)"
     }

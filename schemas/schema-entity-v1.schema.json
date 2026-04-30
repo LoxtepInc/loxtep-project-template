@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loxtep.io/schemas/entity/schema.json",
+  "$id": "https://loxtep.io/schemas/entity/schema-v1.json",
   "title": "Schema Entity",
   "description": "JSON Schema for Schema entity in customer workspace. Schemas define the structural definition of events or tables in a Data Product.",
   "type": "object",
@@ -39,7 +39,10 @@
       "description": "Schema name"
     },
     "description": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "maxLength": 1000,
       "description": "Schema description"
     },
@@ -55,14 +58,23 @@
     },
     "format": {
       "type": "string",
-      "enum": ["json-schema", "avro", "protobuf", "custom"],
+      "enum": [
+        "json-schema",
+        "avro",
+        "protobuf",
+        "custom"
+      ],
       "description": "Schema format"
     },
     "fields": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "type", "required"],
+        "required": [
+          "name",
+          "type",
+          "required"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -92,17 +104,29 @@
             "default": false
           },
           "description": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "constraints": {
-            "type": ["object", "null"],
+            "type": [
+              "object",
+              "null"
+            ],
             "additionalProperties": true
           },
           "is_pii": {
-            "type": ["boolean", "null"]
+            "type": [
+              "boolean",
+              "null"
+            ]
           },
           "pii_type": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "enum": [
               "email",
               "phone",
@@ -115,14 +139,20 @@
             ]
           },
           "fields": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "$ref": "#/properties/fields/items"
             },
             "description": "Nested fields for object/array types"
           },
           "enum_values": {
-            "type": ["array", "null"],
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "type": "string"
             }
@@ -134,7 +164,10 @@
       "description": "Schema field definitions"
     },
     "raw_schema": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Original schema definition (JSON, Avro, etc.) as string"
     },
     "is_backwards_compatible": {
@@ -151,22 +184,36 @@
       "description": "List of breaking changes from previous version"
     },
     "migration_notes": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "maxLength": 2000,
       "description": "Migration notes for consumers"
     },
     "status": {
       "type": "string",
-      "enum": ["draft", "active", "deprecated", "archived"],
+      "enum": [
+        "draft",
+        "active",
+        "deprecated",
+        "archived"
+      ],
       "description": "Schema status"
     },
     "published_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when schema was published"
     },
     "deprecated_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when schema was deprecated"
     },
@@ -177,12 +224,18 @@
       "description": "Additional metadata for the schema"
     },
     "created_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who created the schema"
     },
     "updated_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who last updated the schema"
     },
@@ -197,7 +250,10 @@
       "description": "ISO 8601 timestamp when schema was last updated"
     },
     "deleted_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when schema was deleted (soft delete)"
     }

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loxtep.io/schemas/entity/contract.json",
+  "$id": "https://loxtep.io/schemas/entity/contract-v1.json",
   "title": "Contract Entity",
   "description": "JSON Schema for Contract entity in customer workspace. Contracts are versioned agreements that define guarantees (SLA/SLO) for a Data Product.",
   "type": "object",
@@ -37,7 +37,10 @@
       "description": "Contract name"
     },
     "description": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "maxLength": 2000,
       "description": "Contract description"
     },
@@ -48,11 +51,20 @@
     },
     "status": {
       "type": "string",
-      "enum": ["draft", "proposed", "active", "deprecated", "violated"],
+      "enum": [
+        "draft",
+        "proposed",
+        "active",
+        "deprecated",
+        "violated"
+      ],
       "description": "Contract status"
     },
     "schema_ref": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Reference to the schema version this contract applies to",
       "properties": {
         "schema_version_id": {
@@ -64,7 +76,12 @@
         },
         "format": {
           "type": "string",
-          "enum": ["json-schema", "avro", "protobuf", "custom"]
+          "enum": [
+            "json-schema",
+            "avro",
+            "protobuf",
+            "custom"
+          ]
         }
       },
       "additionalProperties": false
@@ -73,19 +90,31 @@
       "type": "object",
       "properties": {
         "availability": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Availability guarantee (e.g., '99.9%')"
         },
         "freshness": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Freshness guarantee (e.g., '< 5 minutes')"
         },
         "completeness": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Completeness guarantee (e.g., '99%')"
         },
         "accuracy": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Accuracy guarantee (e.g., '99.5%')"
         }
       },
@@ -96,7 +125,10 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["metric_type", "target_value"],
+        "required": [
+          "metric_type",
+          "target_value"
+        ],
         "properties": {
           "metric_type": {
             "type": "string",
@@ -113,13 +145,22 @@
             "type": "number"
           },
           "unit": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "measurement_window": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "description": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "additionalProperties": false
@@ -131,19 +172,31 @@
       "type": "object",
       "properties": {
         "response_time": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Response time SLA (e.g., '< 100ms p95')"
         },
         "throughput": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Throughput SLA (e.g., '10000 events/sec')"
         },
         "support_level": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Support level (e.g., '24x7', 'business_hours')"
         },
         "escalation_contact": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "email"
         }
       },
@@ -151,20 +204,32 @@
       "default": {}
     },
     "terms": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "properties": {
         "data_retention_days": {
-          "type": ["integer", "null"],
+          "type": [
+            "integer",
+            "null"
+          ],
           "minimum": 1
         },
         "usage_restrictions": {
-          "type": ["array", "null"],
+          "type": [
+            "array",
+            "null"
+          ],
           "items": {
             "type": "string"
           }
         },
         "compliance_requirements": {
-          "type": ["array", "null"],
+          "type": [
+            "array",
+            "null"
+          ],
           "items": {
             "type": "string"
           }
@@ -173,12 +238,18 @@
       "additionalProperties": false
     },
     "effective_date": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when contract becomes effective"
     },
     "expiration_date": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when contract expires"
     },
@@ -189,22 +260,34 @@
       "description": "Additional metadata for the contract"
     },
     "created_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who created the contract"
     },
     "updated_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who last updated the contract"
     },
     "approved_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who approved the contract"
     },
     "approved_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when contract was approved"
     },
@@ -219,7 +302,10 @@
       "description": "ISO 8601 timestamp when contract was last updated"
     },
     "deleted_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when contract was deleted (soft delete)"
     }

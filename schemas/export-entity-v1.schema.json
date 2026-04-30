@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loxtep.io/schemas/entity/export.json",
+  "$id": "https://loxtep.io/schemas/entity/export-v1.json",
   "title": "Export Entity",
   "description": "JSON Schema for Export entity in customer workspace. Exports define reusable export configurations for data products.",
   "type": "object",
@@ -38,24 +38,43 @@
       "description": "Export configuration name"
     },
     "description": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "maxLength": 1000,
       "description": "Export description"
     },
     "format": {
       "type": "string",
-      "enum": ["csv", "parquet", "json", "jsonl", "avro"],
+      "enum": [
+        "csv",
+        "parquet",
+        "json",
+        "jsonl",
+        "avro"
+      ],
       "description": "Export file format"
     },
     "compression": {
       "type": "string",
-      "enum": ["none", "gzip", "snappy", "zstd"],
+      "enum": [
+        "none",
+        "gzip",
+        "snappy",
+        "zstd"
+      ],
       "default": "none",
       "description": "Compression type"
     },
     "destination": {
       "type": "string",
-      "enum": ["download", "s3", "gcs", "azure_blob"],
+      "enum": [
+        "download",
+        "s3",
+        "gcs",
+        "azure_blob"
+      ],
       "description": "Export destination type"
     },
     "destination_config": {
@@ -80,7 +99,10 @@
       "description": "Date range filter configuration"
     },
     "schedule": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "additionalProperties": true,
       "description": "Schedule configuration for recurring exports (cron expression)"
     },
@@ -97,12 +119,18 @@
       "description": "Additional metadata for the export"
     },
     "created_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who created the export"
     },
     "updated_by": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "uuid",
       "description": "User ID who last updated the export"
     },
@@ -117,7 +145,10 @@
       "description": "ISO 8601 timestamp when export was last updated"
     },
     "deleted_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when export was deleted (soft delete)"
     }
