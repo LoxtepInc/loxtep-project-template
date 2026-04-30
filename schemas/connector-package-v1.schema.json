@@ -1,40 +1,21 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://loxtep.io/schemas/connector-v1.json",
+  "$id": "https://loxtep.io/schemas/connector-package-v1.json",
   "title": "Loxtep connector package (v1)",
   "type": "object",
-  "required": [
-    "schema_version",
-    "package_version",
-    "actions"
-  ],
+  "required": ["schema_version", "package_version", "actions"],
   "properties": {
-    "schema_version": {
-      "type": "integer",
-      "const": 1
-    },
-    "package_version": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
+    "schema_version": { "type": "integer", "const": 1 },
+    "package_version": { "type": "string" },
+    "description": { "type": "string" },
     "actions": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "key",
-          "definition_path"
-        ],
+        "required": ["key", "definition_path"],
         "properties": {
-          "key": {
-            "type": "string",
-            "pattern": "^[a-z0-9_]+$"
-          },
-          "definition_path": {
-            "type": "string"
-          }
+          "key": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "definition_path": { "type": "string" }
         }
       }
     },
@@ -43,66 +24,39 @@
       "properties": {
         "allowed_host_suffixes": {
           "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "items": { "type": "string" }
         },
         "allowed_path_patterns": {
           "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "items": { "type": "string" }
         }
       }
     },
-    "oauth_refresh": {
-      "type": "object"
-    },
+    "oauth_refresh": { "type": "object" },
     "connection_probe": {
       "type": "object",
       "description": "Declarative connection test: run an action and validate a record at records_path.",
       "properties": {
-        "action_key": {
-          "type": "string"
-        },
-        "records_path": {
-          "type": "string"
-        },
-        "required_field": {
-          "type": "string"
-        },
+        "action_key": { "type": "string" },
+        "records_path": { "type": "string" },
+        "required_field": { "type": "string" },
         "account_info_mapping": {
           "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "description": "Map account_info keys to dot paths relative to the probe record (e.g. shop_name \u2192 name)."
+          "additionalProperties": { "type": "string" },
+          "description": "Map account_info keys to dot paths relative to the probe record (e.g. shop_name → name)."
         }
       }
     },
-    "sync_plan": {
-      "type": "object"
-    },
-    "entity_catalog": {
-      "type": "object"
-    },
-    "entity_counts": {
-      "type": "object"
-    },
-    "webhook_routing": {
-      "type": "object"
-    },
+    "sync_plan": { "type": "object" },
+    "entity_catalog": { "type": "object" },
+    "entity_counts": { "type": "object" },
+    "webhook_routing": { "type": "object" },
     "platform_dependencies": {
       "type": "array",
-      "description": "Capabilities Loxtep (operators / CDK / config) must provide outside the connector JSON \u2014 e.g. OAuth client from a partner developer program.",
+      "description": "Capabilities Loxtep (operators / CDK / config) must provide outside the connector JSON — e.g. OAuth client from a partner developer program.",
       "items": {
         "type": "object",
-        "required": [
-          "id",
-          "kind",
-          "title",
-          "fulfilled_by"
-        ],
+        "required": ["id", "kind", "title", "fulfilled_by"],
         "properties": {
           "id": {
             "type": "string",
@@ -122,19 +76,11 @@
           },
           "severity": {
             "type": "string",
-            "enum": [
-              "required",
-              "required_for_webhooks",
-              "optional"
-            ],
+            "enum": ["required", "required_for_webhooks", "optional"],
             "default": "required"
           },
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
           "documentation_url": {
             "type": "string",
             "format": "uri",
@@ -143,9 +89,7 @@
           "fulfilled_by": {
             "type": "object",
             "description": "How the platform satisfies this dependency (for operators and CDK).",
-            "required": [
-              "type"
-            ],
+            "required": ["type"],
             "properties": {
               "type": {
                 "type": "string",
@@ -167,21 +111,15 @@
               },
               "expected_credential_keys": {
                 "type": "array",
-                "items": {
-                  "type": "string"
-                },
+                "items": { "type": "string" },
                 "description": "Keys expected after secret resolution, e.g. client_id, client_secret."
               },
               "expected_secret_refs": {
                 "type": "array",
-                "items": {
-                  "type": "string"
-                },
+                "items": { "type": "string" },
                 "description": "Secret / parameter names in platform-config (:::secret) or CDK outputs."
               },
-              "notes": {
-                "type": "string"
-              }
+              "notes": { "type": "string" }
             }
           }
         }

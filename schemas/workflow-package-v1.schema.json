@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loxtep.io/schemas/workflow-v1.json",
+  "$id": "https://loxtep.io/schemas/workflow-package-v1.json",
   "title": "Workflow Entity",
   "description": "JSON Schema for the root workflow entity in customer workspace. A workflow is a flow. Flow nodes (connection, transformation, validation, data product) reference the workflow via workflow_id and point upstream via upstream_entity_id; the workflow does not store node IDs. template_id identifies the flow starter template used to create this flow (e.g. blank, webhook-ingestion), distinct from connector catalog templates.",
   "type": "object",
