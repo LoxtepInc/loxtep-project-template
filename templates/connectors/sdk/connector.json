@@ -30,9 +30,10 @@
     "auth_type": "jwt",
     "oauth_config": null,
     "supported_directions": [
-      "inbound"
+      "inbound",
+      "outbound"
     ],
-    "supported_entities": [],
+    "supported_entities": ["events"],
     "supports_webhooks": false,
     "supports_polling": false,
     "required_scopes": null,
@@ -73,13 +74,17 @@
   "connector_package": {
     "schema_version": 1,
     "package_version": "1.0.0",
-    "description": "SDK connector for programmatic data ingestion. No HTTP actions \u2014 data flows through LoxtepClient.flows.get_writer() via the Stream Bus.",
+    "description": "SDK connector for programmatic data ingestion and export. Data flows through LoxtepClient.flows via the Stream Bus.",
     "follow_up_notes": [
       "Install the SDK: npm install @loxtep/sdk (Node.js) or pip install loxtep (Python)",
       "Authenticate: run `loxtep login` or set LOXTEP_AUTH_TOKEN env var",
       "Export config: run `loxtep config export --from-connector <connector_id>`",
-      "Write events: use client.flows.get_writer(flow_id, { bot_id, output_queue_name })"
+      "Write events: use client.flows.get_writer(flow_id, { bot_id, output_queue_name })",
+      "Read events: use client.flows.get_reader(flow_id, { bot_id, input_queue_name })"
     ],
-    "actions": []
+    "actions": [
+      { "key": "sdk_write_events", "definition_path": "actions/write-events/definition.json" },
+      { "key": "sdk_read_events", "definition_path": "actions/read-events/definition.json" }
+    ]
   }
 }

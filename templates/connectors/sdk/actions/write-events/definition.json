@@ -1,0 +1,43 @@
+{
+  "key": "sdk_write_events",
+  "name": "Write events",
+  "description": "Ingest events into a flow queue via the Loxtep SDK. Uses LoxtepClient.flows.get_writer(flow_id, { bot_id, output_queue_name }).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "sdk",
+    "operation": "write_events",
+    "read_only": false,
+    "destructive": false
+  },
+  "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "flow_id": {
+        "type": "string",
+        "description": "Target flow identifier."
+      },
+      "output_queue_name": {
+        "type": "string",
+        "description": "Target queue name for SDK-written events."
+      },
+      "bot_id": {
+        "type": "string",
+        "description": "Bot ID for stream bus checkpointing."
+      },
+      "events": {
+        "type": "array",
+        "description": "Array of event payloads to write.",
+        "items": { "type": "object" }
+      }
+    },
+    "required": ["flow_id", "output_queue_name", "events"]
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "sdk",
+    "operation": "write_events"
+  }
+}
