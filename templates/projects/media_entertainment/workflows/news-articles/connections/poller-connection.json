@@ -1,0 +1,60 @@
+{
+  "template_type": "trigger",
+  "slug": "news-articles-poller-connection",
+  "name": "News Articles Poller Connection",
+  "description": "API poller connection to NewsAPI for ingesting news headlines.",
+  "version": "1.0.0",
+  "tags": [
+    "poller",
+    "ingestion",
+    "media_entertainment",
+    "news"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "upstream_entity_id": null,
+    "upstream_entity_type": null,
+    "key": "news-articles-poller",
+    "name": "NewsAPI Poller",
+    "type": "poller",
+    "status": "active",
+    "configuration": {
+      "api_url": "https://newsapi.org/v2/top-headlines?country=us&category=technology",
+      "method": "GET",
+      "auth": {
+        "type": "api_key",
+        "header_name": "X-API-Key"
+      },
+      "schedule": {
+        "type": "interval",
+        "value": 3600
+      },
+      "transform": {
+        "extract_path": "$.articles[*]",
+        "map_fields": {
+          "article_id": "url",
+          "source": "source.name",
+          "title": "title",
+          "description": "description",
+          "category": "category",
+          "published_at": "publishedAt"
+        }
+      },
+      "output_queue": "{org}-demo-news-articles"
+    },
+    "metadata": {},
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "trigger_id": "{{CONNECTION_ID}}"
+  },
+  "placeholders": {
+    "{{CONNECTION_ID}}": "Generated UUID for the connection",
+    "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connection",
+    "{{PROJECT_ID}}": "Project containing this connection",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

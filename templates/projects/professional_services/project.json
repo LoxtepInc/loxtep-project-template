@@ -1,0 +1,15 @@
+{
+  "template_type": "project",
+  "slug": "professional_services",
+  "name": "Time Entry Tracker",
+  "description": "Track billable hours and utilization across projects and clients",
+  "template_slug": "templates/projects/professional_services",
+  "version": "1.0.0",
+  "tags": [
+    "professional_services",
+    "time-tracking",
+    "billable-hours",
+    "webhook",
+    "ingestion"
+  ]
+}

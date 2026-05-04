@@ -1,0 +1,53 @@
+{
+  "$schema": "https://loxtep.io/schemas/trigger-package-v1.json",
+  "template_type": "trigger",
+  "slug": "crypto-prices-poller-connection",
+  "name": "Crypto Prices Poller Connection",
+  "description": "API poller connection to CoinGecko for ingesting real-time cryptocurrency prices.",
+  "version": "1.0.0",
+  "tags": [
+    "poller",
+    "ingestion",
+    "cryptocurrency",
+    "financial_services"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "upstream_entity_id": null,
+    "upstream_entity_type": null,
+    "key": "crypto-prices-poller",
+    "name": "CoinGecko Poller",
+    "type": "poller",
+    "status": "active",
+    "configuration": {
+      "api_url": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true",
+      "method": "GET",
+      "schedule": {
+        "type": "interval",
+        "value": 300
+      },
+      "transform": {
+        "map_fields": {
+          "coin_id": "id",
+          "price_usd": "usd",
+          "change_24h": "usd_24h_change"
+        }
+      },
+      "output_queue": "{org}-demo-crypto-prices"
+    },
+    "metadata": {},
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "trigger_id": "{{CONNECTION_ID}}"
+  },
+  "placeholders": {
+    "{{CONNECTION_ID}}": "Generated UUID for the connection",
+    "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connection",
+    "{{PROJECT_ID}}": "Project containing this connection",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

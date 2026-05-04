@@ -3,21 +3,218 @@
   "description": "Loxtep project demos and reusable catalog templates for the data mesh platform.",
   "demos": [
     {
-      "slug": "onboarding",
-      "name": "Getting Started",
-      "description": "A minimal e-commerce project demonstrating core Loxtep concepts: domains, connectors, connections, workflows, and data products",
-      "path": "demos/onboarding",
-      "industry": "retail_ecommerce",
+      "slug": "technology",
+      "name": "GitHub Activity Tracker",
+      "description": "Track public GitHub events to analyze developer activity and open-source trends",
+      "path": "templates/projects/technology",
+      "industry": "technology",
       "tags": [
-        "beginner",
-        "tutorial",
-        "e-commerce"
+        "github",
+        "developer-activity",
+        "open-source",
+        "poller"
       ],
       "entities": {
-        "domains": 1,
-        "connectors": 1,
-        "connections": 1,
         "workflows": 1,
+        "connections": 1,
+        "data_products": 1
+      }
+    },
+    {
+      "slug": "financial_services",
+      "name": "Cryptocurrency Price Tracker",
+      "description": "Monitor real-time cryptocurrency prices and flag significant price movements",
+      "path": "templates/projects/financial_services",
+      "industry": "financial_services",
+      "tags": [
+        "cryptocurrency",
+        "real-time",
+        "price-monitoring",
+        "poller"
+      ],
+      "entities": {
+        "workflows": 1,
+        "connections": 1,
+        "data_products": 1
+      }
+    },
+    {
+      "slug": "healthcare",
+      "name": "Public Health Metrics Monitor",
+      "description": "Track population health trends from CDC public health data",
+      "path": "templates/projects/healthcare",
+      "industry": "healthcare",
+      "tags": [
+        "public-health",
+        "cdc",
+        "population-health",
+        "preloaded"
+      ],
+      "entities": {
+        "workflows": 1,
+        "connections": 1,
+        "data_products": 1
+      }
+    },
+    {
+      "slug": "retail_ecommerce",
+      "name": "Order Processing Workflow",
+      "description": "Process new orders with validation, inventory checks, and fulfillment notifications",
+      "path": "templates/projects/retail_ecommerce",
+      "industry": "retail_ecommerce",
+      "tags": [
+        "e-commerce",
+        "orders",
+        "fulfillment",
+        "webhook"
+      ],
+      "entities": {
+        "workflows": 1,
+        "connections": 1,
+        "data_products": 1
+      }
+    },
+    {
+      "slug": "manufacturing",
+      "name": "IoT Sensor Monitoring",
+      "description": "Monitor equipment sensors for anomalies and threshold violations",
+      "path": "templates/projects/manufacturing",
+      "industry": "manufacturing",
+      "tags": [
+        "iot",
+        "sensors",
+        "anomaly-detection",
+        "webhook"
+      ],
+      "entities": {
+        "workflows": 1,
+        "connections": 1,
+        "data_products": 1
+      }
+    },
+    {
+      "slug": "professional_services",
+      "name": "Time Entry Tracker",
+      "description": "Track billable hours and utilization across projects and clients",
+      "path": "templates/projects/professional_services",
+      "industry": "professional_services",
+      "tags": [
+        "billable-hours",
+        "utilization",
+        "time-tracking",
+        "webhook"
+      ],
+      "entities": {
+        "workflows": 1,
+        "connections": 1,
+        "data_products": 1
+      }
+    },
+    {
+      "slug": "media_entertainment",
+      "name": "News Headlines Tracker",
+      "description": "Track news articles and analyze content performance",
+      "path": "templates/projects/media_entertainment",
+      "industry": "media_entertainment",
+      "tags": [
+        "news",
+        "content-analytics",
+        "headlines",
+        "poller"
+      ],
+      "entities": {
+        "workflows": 1,
+        "connections": 1,
+        "data_products": 1
+      }
+    },
+    {
+      "slug": "education",
+      "name": "Student Activity Tracker",
+      "description": "Track student engagement and flag at-risk students",
+      "path": "templates/projects/education",
+      "industry": "education",
+      "tags": [
+        "student-engagement",
+        "learning-analytics",
+        "at-risk",
+        "webhook"
+      ],
+      "entities": {
+        "workflows": 1,
+        "connections": 1,
+        "data_products": 1
+      }
+    },
+    {
+      "slug": "real_estate",
+      "name": "Property Listings Tracker",
+      "description": "Analyze property listings and market trends",
+      "path": "templates/projects/real_estate",
+      "industry": "real_estate",
+      "tags": [
+        "property",
+        "listings",
+        "market-trends",
+        "preloaded"
+      ],
+      "entities": {
+        "workflows": 1,
+        "connections": 1,
+        "data_products": 1
+      }
+    },
+    {
+      "slug": "hospitality_travel",
+      "name": "Flight Status Tracker",
+      "description": "Track flight delays and calculate on-time performance",
+      "path": "templates/projects/hospitality_travel",
+      "industry": "hospitality_travel",
+      "tags": [
+        "flights",
+        "delays",
+        "on-time-performance",
+        "preloaded"
+      ],
+      "entities": {
+        "workflows": 1,
+        "connections": 1,
+        "data_products": 1
+      }
+    },
+    {
+      "slug": "energy_utilities",
+      "name": "Weather Impact Monitor",
+      "description": "Monitor weather conditions and correlate with energy demand",
+      "path": "templates/projects/energy_utilities",
+      "industry": "energy_utilities",
+      "tags": [
+        "weather",
+        "energy-demand",
+        "monitoring",
+        "poller"
+      ],
+      "entities": {
+        "workflows": 1,
+        "connections": 1,
+        "data_products": 1
+      }
+    },
+    {
+      "slug": "nonprofit_government",
+      "name": "Service Request Tracker",
+      "description": "Track and categorize public service requests",
+      "path": "templates/projects/nonprofit_government",
+      "industry": "nonprofit_government",
+      "tags": [
+        "service-requests",
+        "311",
+        "public-services",
+        "preloaded"
+      ],
+      "entities": {
+        "workflows": 1,
+        "connections": 1,
         "data_products": 1
       }
     }

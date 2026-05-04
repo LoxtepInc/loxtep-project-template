@@ -1,0 +1,45 @@
+{
+  "template_type": "trigger",
+  "slug": "time-entries-webhook-connection",
+  "name": "Time Entries Webhook Connection",
+  "description": "Webhook trigger connection for ingesting billable time entries.",
+  "version": "1.0.0",
+  "tags": [
+    "webhook",
+    "ingestion",
+    "professional_services",
+    "time-tracking"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "upstream_entity_id": null,
+    "upstream_entity_type": null,
+    "key": "time-entries-webhook",
+    "name": "Time Entries Webhook",
+    "type": "webhook",
+    "status": "active",
+    "configuration": {
+      "slug": "time-entries",
+      "path": "/webhooks/{instance_id}/time-entries",
+      "authentication": {
+        "type": "api_key",
+        "header_name": "X-API-Key"
+      },
+      "output_queue": "{org}-demo-time-entries-ingest"
+    },
+    "metadata": {},
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "trigger_id": "{{CONNECTION_ID}}"
+  },
+  "placeholders": {
+    "{{CONNECTION_ID}}": "Generated UUID for the connection",
+    "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connection",
+    "{{PROJECT_ID}}": "Project containing this connection",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

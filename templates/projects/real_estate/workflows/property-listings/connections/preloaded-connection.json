@@ -1,0 +1,41 @@
+{
+  "template_type": "trigger",
+  "slug": "property-listings-preloaded-connection",
+  "name": "Property Listings Preloaded Connection",
+  "description": "Preloaded data connection for property listings dataset.",
+  "version": "1.0.0",
+  "tags": [
+    "preloaded",
+    "ingestion",
+    "real_estate",
+    "property"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "upstream_entity_id": null,
+    "upstream_entity_type": null,
+    "key": "property-listings-preloaded",
+    "name": "Property Listings Preloaded",
+    "type": "preloaded",
+    "status": "active",
+    "configuration": {
+      "dataset_key": "demo-data/real-estate/listings.jsonl",
+      "queue_name": "{org}-demo-property-listings",
+      "description": "Zillow Research data pre-loaded into queue"
+    },
+    "metadata": {},
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "trigger_id": "{{CONNECTION_ID}}"
+  },
+  "placeholders": {
+    "{{CONNECTION_ID}}": "Generated UUID for the connection",
+    "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connection",
+    "{{PROJECT_ID}}": "Project containing this connection",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

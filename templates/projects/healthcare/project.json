@@ -1,0 +1,16 @@
+{
+  "$schema": "https://loxtep.io/schemas/project-package-v1.json",
+  "template_type": "project",
+  "slug": "healthcare",
+  "name": "Public Health Metrics Monitor",
+  "description": "Track population health trends from CDC public health data",
+  "template_slug": "templates/projects/healthcare",
+  "version": "1.0.0",
+  "tags": [
+    "healthcare",
+    "public-health",
+    "cdc",
+    "preloaded",
+    "ingestion"
+  ]
+}

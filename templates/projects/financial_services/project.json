@@ -1,0 +1,17 @@
+{
+  "$schema": "https://loxtep.io/schemas/project-package-v1.json",
+  "template_type": "project",
+  "slug": "financial_services",
+  "name": "Cryptocurrency Price Tracker",
+  "description": "Monitor real-time cryptocurrency prices and flag significant price movements",
+  "template_slug": "templates/projects/financial_services",
+  "version": "1.0.0",
+  "tags": [
+    "financial_services",
+    "cryptocurrency",
+    "price-monitoring",
+    "real-time",
+    "poller",
+    "ingestion"
+  ]
+}

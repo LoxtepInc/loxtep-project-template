@@ -1,0 +1,15 @@
+{
+  "template_type": "project",
+  "slug": "energy_utilities",
+  "name": "Weather Impact Monitor",
+  "description": "Monitor weather conditions and correlate with energy demand",
+  "template_slug": "templates/projects/energy_utilities",
+  "version": "1.0.0",
+  "tags": [
+    "energy_utilities",
+    "weather",
+    "monitoring",
+    "poller",
+    "ingestion"
+  ]
+}

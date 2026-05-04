@@ -1,0 +1,15 @@
+{
+  "template_type": "project",
+  "slug": "hospitality_travel",
+  "name": "Flight Status Tracker",
+  "description": "Track flight delays and calculate on-time performance",
+  "template_slug": "templates/projects/hospitality_travel",
+  "version": "1.0.0",
+  "tags": [
+    "hospitality_travel",
+    "flights",
+    "delays",
+    "preloaded",
+    "ingestion"
+  ]
+}

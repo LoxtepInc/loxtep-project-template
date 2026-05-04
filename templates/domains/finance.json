@@ -1,0 +1,98 @@
+{
+  "$schema": "../schemas/domain-package-v1.schema.json",
+  "template_type": "domain",
+  "slug": "finance",
+  "name": "Finance",
+  "description": "Financial data including revenue, expenses, invoicing, and forecasting.",
+  "version": "1.0.0",
+  "tags": [
+    "finance",
+    "revenue",
+    "invoicing",
+    "forecasting",
+    "all-industries",
+    "quickbooks",
+    "xero",
+    "netsuite",
+    "stripe",
+    "expensify",
+    "bill-com"
+  ],
+  "use_cases": [
+    "Revenue tracking and recognition by period, customer, and product",
+    "Invoice management and payment status tracking",
+    "Expense categorization and vendor payment management",
+    "Financial forecasting and variance analysis"
+  ],
+  "entity": {
+    "domain_id": "{{DOMAIN_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "name": "Finance",
+    "description": "Financial data including revenue, expenses, invoicing, and forecasting.",
+    "owner_user_id": "{{OWNER_USER_ID}}",
+    "parent_domain_id": null,
+    "is_council": false,
+    "metadata": {
+      "icon": "DollarSign",
+      "color": "green",
+      "typical_owner_role": "CFO / Controller / Head of Finance",
+      "industry_relevance": [
+        "All Industries"
+      ],
+      "common_integrations": [
+        "QuickBooks",
+        "Xero",
+        "NetSuite",
+        "Stripe",
+        "Expensify",
+        "Bill.com"
+      ],
+      "best_practices": [
+        "Close books within 5 business days of period end",
+        "Reconcile invoices with payments weekly",
+        "Update forecasts monthly with actuals",
+        "Tag all expenses with department and category",
+        "Maintain audit trail for all financial changes"
+      ],
+      "data_products": [
+        {
+          "name": "Revenue",
+          "description": "Recognized revenue by period, customer, and product."
+        },
+        {
+          "name": "Invoices",
+          "description": "Customer invoices and payment status."
+        },
+        {
+          "name": "Expenses",
+          "description": "Company expenses and vendor payments."
+        },
+        {
+          "name": "Financial Forecast",
+          "description": "Revenue and expense forecasts by period."
+        }
+      ],
+      "contracts": [
+        {
+          "name": "Budget to Operations",
+          "description": "Share budget allocations with operational teams",
+          "consumer_domain": "Operations"
+        },
+        {
+          "name": "Revenue Metrics to Executive",
+          "description": "Share key financial metrics for executive dashboards",
+          "consumer_domain": "Executive"
+        }
+      ]
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{DOMAIN_ID}}": "Generated UUID for the domain",
+    "{{ORGANIZATION_ID}}": "Organization that owns this domain",
+    "{{OWNER_USER_ID}}": "Domain owner user ID (optional)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

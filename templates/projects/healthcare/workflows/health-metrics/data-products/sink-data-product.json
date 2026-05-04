@@ -1,0 +1,75 @@
+{
+  "template_type": "data_product",
+  "slug": "health-metrics-sink",
+  "name": "Health Metrics (Sink)",
+  "description": "Population health trends. Sink data product for the health metrics ingestion workflow.",
+  "version": "1.0.0",
+  "tags": [
+    "healthcare",
+    "ingestion",
+    "health-metrics",
+    "sink",
+    "cdc"
+  ],
+  "entity": {
+    "data_product_id": "{{DATA_PRODUCT_SINK_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "upstream_entity_id": "{{CONNECTION_ID}}",
+    "upstream_entity_type": "connections",
+    "name": "health_metrics",
+    "description": "Population health trends",
+    "owner": {
+      "user_id": "{{OWNER_USER_ID}}"
+    },
+    "status": "draft",
+    "governance": {
+      "classification": "internal",
+      "pii_fields": [],
+      "compliance_requirements": [],
+      "tags": []
+    },
+    "metadata": {
+      "template_slug": "health-metrics-ingestion"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "odps_document": {
+      "product": {
+        "details": {
+          "en": {
+            "name": "Health Metrics",
+            "description": "Population health trends",
+            "status": "draft",
+            "tags": [],
+            "governanceProfile": "internal"
+          }
+        },
+        "dataHolder": {
+          "businessDomain": "{{DOMAIN_ID}}",
+          "dataProductOwner": "{{OWNER_USER_ID}}"
+        },
+        "custom": {
+          "loxtep": {
+            "organization_id": "{{ORGANIZATION_ID}}",
+            "domain_id": "{{DOMAIN_ID}}",
+            "project_id": "{{PROJECT_ID}}",
+            "workflow_id": "{{WORKFLOW_ID}}"
+          }
+        }
+      }
+    }
+  },
+  "placeholders": {
+    "{{DATA_PRODUCT_SINK_ID}}": "Generated UUID for the sink data product",
+    "{{ORGANIZATION_ID}}": "Organization that owns this data product",
+    "{{WORKFLOW_ID}}": "Workflow that produces this data product",
+    "{{PROJECT_ID}}": "Project containing the workflow",
+    "{{DOMAIN_ID}}": "Domain this data product belongs to",
+    "{{OWNER_USER_ID}}": "Owner user ID",
+    "{{CONNECTION_ID}}": "Upstream connection ID (preloaded connection)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

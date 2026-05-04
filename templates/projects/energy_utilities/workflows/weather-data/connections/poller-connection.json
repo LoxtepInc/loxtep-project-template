@@ -1,0 +1,58 @@
+{
+  "template_type": "trigger",
+  "slug": "weather-data-poller-connection",
+  "name": "Weather Data Poller Connection",
+  "description": "API poller connection to OpenWeatherMap for ingesting weather conditions.",
+  "version": "1.0.0",
+  "tags": [
+    "poller",
+    "ingestion",
+    "energy_utilities",
+    "weather"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "upstream_entity_id": null,
+    "upstream_entity_type": null,
+    "key": "weather-data-poller",
+    "name": "OpenWeatherMap Poller",
+    "type": "poller",
+    "status": "active",
+    "configuration": {
+      "api_url": "https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}",
+      "method": "GET",
+      "auth": {
+        "type": "api_key",
+        "header_name": "X-API-Key"
+      },
+      "schedule": {
+        "type": "interval",
+        "value": 1800
+      },
+      "transform": {
+        "map_fields": {
+          "location": "name",
+          "temperature_f": "main.temp",
+          "humidity": "main.humidity",
+          "wind_speed": "wind.speed",
+          "conditions": "weather[0].main"
+        }
+      },
+      "output_queue": "{org}-demo-weather-data"
+    },
+    "metadata": {},
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "trigger_id": "{{CONNECTION_ID}}"
+  },
+  "placeholders": {
+    "{{CONNECTION_ID}}": "Generated UUID for the connection",
+    "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connection",
+    "{{PROJECT_ID}}": "Project containing this connection",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "../schemas/domain-package-v1.schema.json",
+  "template_type": "domain",
+  "slug": "customer-success",
+  "name": "Customer Success",
+  "description": "Customer health, engagement, support, and retention data.",
+  "version": "1.0.0",
+  "tags": [
+    "customer-success",
+    "retention",
+    "churn",
+    "support",
+    "b2b-saas",
+    "professional-services",
+    "enterprise-software",
+    "subscription-businesses",
+    "gainsight",
+    "churnzero",
+    "zendesk",
+    "intercom",
+    "pendo",
+    "totango"
+  ],
+  "use_cases": [
+    "Customer health scores and risk indicators",
+    "Customer support tickets and resolutions",
+    "Customer product usage and feature adoption"
+  ],
+  "entity": {
+    "domain_id": "{{DOMAIN_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "name": "Customer Success",
+    "description": "Customer health, engagement, support, and retention data.",
+    "owner_user_id": "{{OWNER_USER_ID}}",
+    "parent_domain_id": null,
+    "is_council": false,
+    "metadata": {
+      "icon": "Heart",
+      "color": "pink",
+      "typical_owner_role": "VP Customer Success / Head of Customer Success / CS Operations",
+      "industry_relevance": [
+        "B2B SaaS",
+        "Professional Services",
+        "Enterprise Software",
+        "Subscription Businesses"
+      ],
+      "common_integrations": [
+        "Gainsight",
+        "ChurnZero",
+        "Zendesk",
+        "Intercom",
+        "Pendo",
+        "Totango"
+      ],
+      "best_practices": [
+        "Calculate health scores daily based on multiple signals",
+        "Respond to high-priority tickets within 4 hours",
+        "Review at-risk customers weekly in team meetings",
+        "Conduct QBRs with strategic accounts quarterly",
+        "Track and act on NPS feedback within 48 hours"
+      ],
+      "data_products": [
+        {
+          "name": "Customer Health",
+          "description": "Customer health scores and risk indicators."
+        },
+        {
+          "name": "Support Tickets",
+          "description": "Customer support tickets and resolutions."
+        },
+        {
+          "name": "Product Usage",
+          "description": "Customer product usage and feature adoption."
+        }
+      ],
+      "contracts": [
+        {
+          "name": "Health to Sales",
+          "description": "Share customer health for upsell/renewal",
+          "consumer_domain": "Sales"
+        },
+        {
+          "name": "Usage to Product",
+          "description": "Share usage data for product decisions",
+          "consumer_domain": "Product"
+        }
+      ]
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{DOMAIN_ID}}": "Generated UUID for the domain",
+    "{{ORGANIZATION_ID}}": "Organization that owns this domain",
+    "{{OWNER_USER_ID}}": "Domain owner user ID (optional)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "template_type": "workflow",
+  "slug": "news-articles-ingestion",
+  "name": "News Articles Poller Ingestion",
+  "description": "Ingest news headlines from NewsAPI via polling into the News Articles data product.",
+  "version": "1.0.0",
+  "tags": [
+    "poller",
+    "media_entertainment",
+    "ingestion",
+    "news"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "API poller ingestion flow for news headlines from NewsAPI",
+    "workflow_type": "ingestion",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": {
+        "type": "interval",
+        "value": 3600
+      },
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "news-articles-ingestion",
+      "ingestion_type": "poller"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  }
+}

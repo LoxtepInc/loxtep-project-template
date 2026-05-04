@@ -1,0 +1,15 @@
+{
+  "template_type": "project",
+  "slug": "manufacturing",
+  "name": "IoT Sensor Monitoring",
+  "description": "Monitor equipment sensors for anomalies and threshold violations",
+  "template_slug": "templates/projects/manufacturing",
+  "version": "1.0.0",
+  "tags": [
+    "manufacturing",
+    "iot",
+    "sensors",
+    "webhook",
+    "ingestion"
+  ]
+}

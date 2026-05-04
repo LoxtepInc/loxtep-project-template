@@ -1,0 +1,100 @@
+{
+  "template_type": "domain",
+  "slug": "operations",
+  "name": "Operations",
+  "description": "Operational data including orders, inventory, fulfillment, and logistics.",
+  "version": "1.0.0",
+  "tags": [
+    "operations",
+    "orders",
+    "inventory",
+    "fulfillment",
+    "logistics",
+    "e-commerce",
+    "retail",
+    "manufacturing",
+    "distribution",
+    "shopify",
+    "amazon-seller-central",
+    "shipstation",
+    "netsuite",
+    "sap",
+    "wms"
+  ],
+  "use_cases": [
+    "Order processing and fulfillment tracking",
+    "Inventory management and stock level monitoring",
+    "Shipment tracking and carrier performance"
+  ],
+  "entity": {
+    "domain_id": "{{DOMAIN_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "name": "Operations",
+    "description": "Operational data including orders, inventory, fulfillment, and logistics.",
+    "owner_user_id": "{{OWNER_USER_ID}}",
+    "parent_domain_id": null,
+    "is_council": false,
+    "metadata": {
+      "icon": "Package",
+      "color": "orange",
+      "typical_owner_role": "COO / Head of Operations / Operations Manager",
+      "industry_relevance": [
+        "E-commerce",
+        "Retail",
+        "Manufacturing",
+        "Logistics",
+        "Distribution"
+      ],
+      "common_integrations": [
+        "Shopify",
+        "Amazon Seller Central",
+        "ShipStation",
+        "NetSuite",
+        "SAP",
+        "WMS systems"
+      ],
+      "best_practices": [
+        "Update inventory in real-time with every transaction",
+        "Conduct physical inventory counts quarterly",
+        "Set reorder points based on lead time and velocity",
+        "Track carrier performance for shipping method optimization",
+        "Maintain 99%+ order accuracy rate"
+      ],
+      "data_products": [
+        {
+          "name": "Orders",
+          "description": "Customer orders and their fulfillment status."
+        },
+        {
+          "name": "Inventory",
+          "description": "Product inventory levels by location."
+        },
+        {
+          "name": "Shipments",
+          "description": "Outbound shipments and tracking."
+        }
+      ],
+      "contracts": [
+        {
+          "name": "Orders to Finance",
+          "description": "Share order data for revenue recognition",
+          "consumer_domain": "Finance"
+        },
+        {
+          "name": "Inventory to Product",
+          "description": "Share inventory levels for product planning",
+          "consumer_domain": "Product"
+        }
+      ]
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{DOMAIN_ID}}": "Generated UUID for the domain",
+    "{{ORGANIZATION_ID}}": "Organization that owns this domain",
+    "{{OWNER_USER_ID}}": "Domain owner user ID (optional)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

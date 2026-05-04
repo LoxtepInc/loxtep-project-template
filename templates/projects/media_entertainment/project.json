@@ -1,0 +1,15 @@
+{
+  "template_type": "project",
+  "slug": "media_entertainment",
+  "name": "News Headlines Tracker",
+  "description": "Track news articles and analyze content performance",
+  "template_slug": "templates/projects/media_entertainment",
+  "version": "1.0.0",
+  "tags": [
+    "media_entertainment",
+    "news",
+    "content",
+    "poller",
+    "ingestion"
+  ]
+}

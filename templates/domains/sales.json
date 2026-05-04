@@ -1,0 +1,101 @@
+{
+  "$schema": "../schemas/domain-package-v1.schema.json",
+  "template_type": "domain",
+  "slug": "sales",
+  "name": "Sales",
+  "description": "Sales pipeline, deals, contacts, and revenue data owned by the sales organization.",
+  "version": "1.0.0",
+  "tags": [
+    "sales",
+    "pipeline",
+    "crm",
+    "revenue",
+    "b2b-saas",
+    "enterprise-software",
+    "professional-services",
+    "retail",
+    "manufacturing",
+    "salesforce",
+    "hubspot-crm",
+    "pipedrive",
+    "outreach",
+    "gong",
+    "linkedin-sales-navigator"
+  ],
+  "use_cases": [
+    "Sales pipeline and deal tracking",
+    "Contact and account management",
+    "Sales activity logging and engagement"
+  ],
+  "entity": {
+    "domain_id": "{{DOMAIN_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "name": "Sales",
+    "description": "Sales pipeline, deals, contacts, and revenue data owned by the sales organization.",
+    "owner_user_id": "{{OWNER_USER_ID}}",
+    "parent_domain_id": null,
+    "is_council": false,
+    "metadata": {
+      "icon": "TrendingUp",
+      "color": "blue",
+      "typical_owner_role": "Head of Sales / VP Sales / Sales Operations",
+      "industry_relevance": [
+        "B2B SaaS",
+        "Enterprise Software",
+        "Professional Services",
+        "Retail",
+        "Manufacturing"
+      ],
+      "common_integrations": [
+        "Salesforce",
+        "HubSpot CRM",
+        "Pipedrive",
+        "Outreach",
+        "Gong",
+        "LinkedIn Sales Navigator"
+      ],
+      "best_practices": [
+        "Update deal stages daily to maintain accurate forecasting",
+        "Require valid email for all contacts to enable marketing automation",
+        "Log activities within 24 hours of occurrence",
+        "Use consistent naming conventions for deal names",
+        "Set close dates based on realistic timelines, not wishful thinking"
+      ],
+      "data_products": [
+        {
+          "name": "Workflow / Deals",
+          "description": "Active and closed sales opportunities with stages, values, and ownership."
+        },
+        {
+          "name": "Contacts",
+          "description": "Individuals associated with accounts and deals."
+        },
+        {
+          "name": "Activities",
+          "description": "Sales activities including calls, emails, meetings."
+        }
+      ],
+      "contracts": [
+        {
+          "name": "Workflow to Finance",
+          "description": "Share workflow data for revenue forecasting",
+          "consumer_domain": "Finance"
+        },
+        {
+          "name": "Deals to Marketing",
+          "description": "Share closed deal data for attribution and ROI analysis",
+          "consumer_domain": "Marketing"
+        }
+      ]
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{DOMAIN_ID}}": "Generated UUID for the domain",
+    "{{ORGANIZATION_ID}}": "Organization that owns this domain",
+    "{{OWNER_USER_ID}}": "Domain owner user ID (optional)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

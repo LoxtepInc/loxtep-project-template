@@ -1,0 +1,15 @@
+{
+  "template_type": "project",
+  "slug": "education",
+  "name": "Student Activity Tracker",
+  "description": "Track student engagement and flag at-risk students",
+  "template_slug": "templates/projects/education",
+  "version": "1.0.0",
+  "tags": [
+    "education",
+    "student-engagement",
+    "learning-analytics",
+    "webhook",
+    "ingestion"
+  ]
+}

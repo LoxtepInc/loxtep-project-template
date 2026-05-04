@@ -1,0 +1,36 @@
+{
+  "template_type": "workflow",
+  "slug": "service-requests-ingestion",
+  "name": "Service Requests Preloaded Ingestion",
+  "description": "Ingest public service requests from preloaded dataset into the Service Requests data product.",
+  "version": "1.0.0",
+  "tags": [
+    "preloaded",
+    "nonprofit_government",
+    "ingestion",
+    "service-requests"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "Preloaded ingestion flow for public service requests",
+    "workflow_type": "ingestion",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "service-requests-ingestion",
+      "ingestion_type": "preloaded"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "template_type": "project",
+  "slug": "nonprofit_government",
+  "name": "Service Request Tracker",
+  "description": "Track and categorize public service requests",
+  "template_slug": "templates/projects/nonprofit_government",
+  "version": "1.0.0",
+  "tags": [
+    "nonprofit_government",
+    "service-requests",
+    "311",
+    "preloaded",
+    "ingestion"
+  ]
+}

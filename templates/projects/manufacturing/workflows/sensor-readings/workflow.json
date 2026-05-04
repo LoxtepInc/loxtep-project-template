@@ -1,0 +1,36 @@
+{
+  "template_type": "workflow",
+  "slug": "sensor-readings-ingestion",
+  "name": "Sensor Readings Webhook Ingestion",
+  "description": "Ingest IoT sensor readings via webhook into the Sensor Readings data product.",
+  "version": "1.0.0",
+  "tags": [
+    "webhook",
+    "manufacturing",
+    "ingestion",
+    "iot"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "Webhook ingestion flow for IoT sensor readings",
+    "workflow_type": "ingestion",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "sensor-readings-ingestion",
+      "ingestion_type": "webhook"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  }
+}

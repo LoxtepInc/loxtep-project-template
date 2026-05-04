@@ -1,0 +1,15 @@
+{
+  "template_type": "project",
+  "slug": "real_estate",
+  "name": "Property Listings Tracker",
+  "description": "Analyze property listings and market trends",
+  "template_slug": "templates/projects/real_estate",
+  "version": "1.0.0",
+  "tags": [
+    "real_estate",
+    "property",
+    "listings",
+    "preloaded",
+    "ingestion"
+  ]
+}

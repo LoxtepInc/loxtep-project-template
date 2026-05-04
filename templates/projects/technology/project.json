@@ -1,0 +1,17 @@
+{
+  "$schema": "https://loxtep.io/schemas/project-package-v1.json",
+  "template_type": "project",
+  "slug": "technology",
+  "name": "GitHub Activity Tracker",
+  "description": "Track public GitHub events to analyze developer activity and open-source trends",
+  "template_slug": "templates/projects/technology",
+  "version": "1.0.0",
+  "tags": [
+    "technology",
+    "github",
+    "developer-activity",
+    "open-source",
+    "poller",
+    "ingestion"
+  ]
+}

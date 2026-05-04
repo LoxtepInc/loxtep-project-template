@@ -1,0 +1,36 @@
+{
+  "template_type": "workflow",
+  "slug": "property-listings-ingestion",
+  "name": "Property Listings Preloaded Ingestion",
+  "description": "Ingest property listings from preloaded dataset into the Property Listings data product.",
+  "version": "1.0.0",
+  "tags": [
+    "preloaded",
+    "real_estate",
+    "ingestion",
+    "property"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "Preloaded ingestion flow for property listings",
+    "workflow_type": "ingestion",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "property-listings-ingestion",
+      "ingestion_type": "preloaded"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  }
+}

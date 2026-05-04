@@ -1,0 +1,36 @@
+{
+  "template_type": "workflow",
+  "slug": "time-entries-ingestion",
+  "name": "Time Entries Webhook Ingestion",
+  "description": "Ingest time entries via webhook into the Time Entries data product.",
+  "version": "1.0.0",
+  "tags": [
+    "webhook",
+    "professional_services",
+    "ingestion",
+    "time-tracking"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "Webhook ingestion flow for billable time entries",
+    "workflow_type": "ingestion",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "time-entries-ingestion",
+      "ingestion_type": "webhook"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "template_type": "workflow",
+  "slug": "health-metrics-ingestion",
+  "name": "Health Metrics Preloaded Ingestion",
+  "description": "Ingest CDC public health metrics from preloaded dataset into the Health Metrics data product.",
+  "version": "1.0.0",
+  "tags": [
+    "preloaded",
+    "healthcare",
+    "ingestion",
+    "cdc"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "Preloaded ingestion flow for CDC public health metrics",
+    "workflow_type": "ingestion",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "health-metrics-ingestion",
+      "ingestion_type": "preloaded"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  }
+}

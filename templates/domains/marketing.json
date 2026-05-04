@@ -1,0 +1,103 @@
+{
+  "$schema": "../schemas/domain-package-v1.schema.json",
+  "template_type": "domain",
+  "slug": "marketing",
+  "name": "Marketing",
+  "description": "Marketing campaigns, leads, attribution, and content performance data.",
+  "version": "1.0.0",
+  "tags": [
+    "marketing",
+    "campaigns",
+    "leads",
+    "attribution",
+    "b2b-saas",
+    "e-commerce",
+    "consumer-goods",
+    "media",
+    "professional-services",
+    "hubspot-marketing",
+    "marketo",
+    "google-analytics",
+    "google-ads",
+    "facebook-ads",
+    "linkedin-ads",
+    "mailchimp"
+  ],
+  "use_cases": [
+    "Marketing campaign performance and spend tracking",
+    "Lead generation and qualification pipeline",
+    "Website traffic and engagement analytics"
+  ],
+  "entity": {
+    "domain_id": "{{DOMAIN_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "name": "Marketing",
+    "description": "Marketing campaigns, leads, attribution, and content performance data.",
+    "owner_user_id": "{{OWNER_USER_ID}}",
+    "parent_domain_id": null,
+    "is_council": false,
+    "metadata": {
+      "icon": "Megaphone",
+      "color": "purple",
+      "typical_owner_role": "Head of Marketing / VP Marketing / Marketing Operations",
+      "industry_relevance": [
+        "B2B SaaS",
+        "E-commerce",
+        "Consumer Goods",
+        "Media",
+        "Professional Services"
+      ],
+      "common_integrations": [
+        "HubSpot Marketing",
+        "Marketo",
+        "Google Analytics",
+        "Google Ads",
+        "Facebook Ads",
+        "LinkedIn Ads",
+        "Mailchimp"
+      ],
+      "best_practices": [
+        "Use consistent UTM parameters across all campaigns",
+        "Update lead scores based on engagement signals",
+        "Pass MQLs to sales within 1 hour of qualification",
+        "Track both first-touch and multi-touch attribution",
+        "Archive completed campaigns but retain data for YoY analysis"
+      ],
+      "data_products": [
+        {
+          "name": "Campaigns",
+          "description": "Marketing campaigns across all channels with spend and performance."
+        },
+        {
+          "name": "Leads",
+          "description": "Marketing-generated leads before sales qualification."
+        },
+        {
+          "name": "Web Analytics",
+          "description": "Website traffic and engagement metrics."
+        }
+      ],
+      "contracts": [
+        {
+          "name": "Leads to Sales",
+          "description": "Pass qualified leads to sales for follow-up",
+          "consumer_domain": "Sales"
+        },
+        {
+          "name": "Campaign Performance to Finance",
+          "description": "Share spend and ROI data for budget planning",
+          "consumer_domain": "Finance"
+        }
+      ]
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{DOMAIN_ID}}": "Generated UUID for the domain",
+    "{{ORGANIZATION_ID}}": "Organization that owns this domain",
+    "{{OWNER_USER_ID}}": "Domain owner user ID (optional)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

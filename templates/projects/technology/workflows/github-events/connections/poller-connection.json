@@ -1,0 +1,56 @@
+{
+  "$schema": "https://loxtep.io/schemas/trigger-package-v1.json",
+  "template_type": "trigger",
+  "slug": "github-events-poller-connection",
+  "name": "GitHub Events Poller Connection",
+  "description": "API poller connection to GH Archive for ingesting public GitHub events.",
+  "version": "1.0.0",
+  "tags": [
+    "poller",
+    "ingestion",
+    "github",
+    "technology"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "upstream_entity_id": null,
+    "upstream_entity_type": null,
+    "key": "github-events-poller",
+    "name": "GH Archive Poller",
+    "type": "poller",
+    "status": "active",
+    "configuration": {
+      "api_url": "https://data.gharchive.org/{date}-{hour}.json.gz",
+      "method": "GET",
+      "schedule": {
+        "type": "interval",
+        "value": 3600
+      },
+      "transform": {
+        "extract_path": "$[*]",
+        "map_fields": {
+          "type": "type",
+          "actor": "actor",
+          "repo": "repo",
+          "payload": "payload",
+          "created_at": "created_at"
+        }
+      },
+      "output_queue": "{org}-demo-github-events"
+    },
+    "metadata": {},
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "trigger_id": "{{CONNECTION_ID}}"
+  },
+  "placeholders": {
+    "{{CONNECTION_ID}}": "Generated UUID for the connection",
+    "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connection",
+    "{{PROJECT_ID}}": "Project containing this connection",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

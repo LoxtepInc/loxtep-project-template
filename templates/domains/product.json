@@ -1,0 +1,106 @@
+{
+  "template_type": "domain",
+  "slug": "product",
+  "name": "Product",
+  "description": "Product catalog, features, roadmap, and feedback data.",
+  "version": "1.0.0",
+  "tags": [
+    "product",
+    "catalog",
+    "features",
+    "roadmap",
+    "feedback",
+    "b2b-saas",
+    "e-commerce",
+    "consumer-apps",
+    "enterprise-software",
+    "digital-products",
+    "productboard",
+    "jira",
+    "linear",
+    "launchdarkly",
+    "amplitude",
+    "segment"
+  ],
+  "use_cases": [
+    "Product catalog and pricing management",
+    "Feature flag management and rollout tracking",
+    "Product roadmap planning and status tracking",
+    "Customer feedback collection and prioritization"
+  ],
+  "entity": {
+    "domain_id": "{{DOMAIN_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "name": "Product",
+    "description": "Product catalog, features, roadmap, and feedback data.",
+    "owner_user_id": "{{OWNER_USER_ID}}",
+    "parent_domain_id": null,
+    "is_council": false,
+    "metadata": {
+      "icon": "Layers",
+      "color": "indigo",
+      "typical_owner_role": "Head of Product / VP Product / Product Operations",
+      "industry_relevance": [
+        "B2B SaaS",
+        "E-commerce",
+        "Consumer Apps",
+        "Enterprise Software",
+        "Digital Products"
+      ],
+      "common_integrations": [
+        "ProductBoard",
+        "Jira",
+        "Linear",
+        "LaunchDarkly",
+        "Amplitude",
+        "Segment"
+      ],
+      "best_practices": [
+        "Keep product catalog in sync with all sales channels",
+        "Review and prioritize feedback monthly",
+        "Update roadmap status at least weekly",
+        "Document feature flags with clear descriptions",
+        "Archive discontinued products but retain historical data"
+      ],
+      "data_products": [
+        {
+          "name": "Product Catalog",
+          "description": "Products, SKUs, and pricing information."
+        },
+        {
+          "name": "Feature Flags",
+          "description": "Feature flags and rollout status."
+        },
+        {
+          "name": "Roadmap",
+          "description": "Product roadmap items and status."
+        },
+        {
+          "name": "Customer Feedback",
+          "description": "Customer feature requests and feedback."
+        }
+      ],
+      "contracts": [
+        {
+          "name": "Catalog to Operations",
+          "description": "Share product catalog for inventory",
+          "consumer_domain": "Operations"
+        },
+        {
+          "name": "Catalog to Marketing",
+          "description": "Share products for marketing campaigns",
+          "consumer_domain": "Marketing"
+        }
+      ]
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{DOMAIN_ID}}": "Generated UUID for the domain",
+    "{{ORGANIZATION_ID}}": "Organization that owns this domain",
+    "{{OWNER_USER_ID}}": "Domain owner user ID (optional)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}
