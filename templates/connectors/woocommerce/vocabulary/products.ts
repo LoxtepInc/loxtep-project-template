@@ -1,0 +1,251 @@
+/**
+ * WooCommerce Products Vocabulary Entry (Canonical Source)
+ *
+ * Community-contributable vocabulary data for WooCommerce products.
+ * Conforms to the VocabularyEntry interface defined in ../vocabulary-types.ts
+ */
+
+import type { VocabularyEntry } from '../../vocabulary-types';
+
+const SCHEMA_NS = 'https://schema.org/';
+
+export const woocommerceProducts: VocabularyEntry = {
+  connector_type: 'woocommerce',
+  sync_entity: 'products',
+  version: '1.0.0',
+  last_verified: '2025-01-15T00:00:00.000Z',
+  template_slug: 'woocommerce',
+  canonical_type_uri: `${SCHEMA_NS}Product`,
+  confidence_override: 'verified',
+  confidence_score: 0.95,
+  description: 'WooCommerce products representing items available for sale with pricing, inventory, and categorization.',
+  json_schema: {
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    type: 'object',
+    required: ['id', 'name', 'type', 'status', 'price'],
+    properties: {
+      id: { type: 'number', description: 'Unique product identifier' },
+      name: { type: 'string', description: 'Product name' },
+      type: { type: 'string', description: 'Product type (simple, grouped, external, variable)' },
+      status: { type: 'string', description: 'Product status (draft, pending, private, publish)' },
+      price: { type: 'string', description: 'Current product price' },
+      regular_price: { type: 'string', description: 'Regular (non-sale) price' },
+      sku: { type: 'string', description: 'Stock keeping unit identifier' },
+      stock_quantity: { type: 'number', description: 'Available stock quantity (null if not managed)' },
+      categories: {
+        type: 'array',
+        description: 'Product categories',
+        items: {
+          type: 'object',
+          properties: {
+            id: { type: 'number' },
+            name: { type: 'string' },
+            slug: { type: 'string' },
+          },
+        },
+      },
+    },
+  },
+  fields: [
+    {
+      name: 'id',
+      type: 'number',
+      required: true,
+      description: 'Unique product identifier',
+      canonical_property_uri: `${SCHEMA_NS}identifier`,
+    },
+    {
+      name: 'name',
+      type: 'string',
+      required: true,
+      description: 'Product name',
+      canonical_property_uri: `${SCHEMA_NS}name`,
+    },
+    {
+      name: 'type',
+      type: 'string',
+      required: true,
+      description: 'Product type (simple, grouped, external, variable)',
+      canonical_property_uri: null,
+    },
+    {
+      name: 'status',
+      type: 'string',
+      required: true,
+      description: 'Product status (draft, pending, private, publish)',
+      canonical_property_uri: null,
+    },
+    {
+      name: 'price',
+      type: 'string',
+      required: true,
+      description: 'Current product price',
+      canonical_property_uri: `${SCHEMA_NS}price`,
+    },
+    {
+      name: 'regular_price',
+      type: 'string',
+      required: false,
+      description: 'Regular (non-sale) price',
+      canonical_property_uri: null,
+    },
+    {
+      name: 'sku',
+      type: 'string',
+      required: false,
+      description: 'Stock keeping unit identifier',
+      canonical_property_uri: `${SCHEMA_NS}sku`,
+    },
+    {
+      name: 'stock_quantity',
+      type: 'number',
+      required: false,
+      description: 'Available stock quantity (null if not managed)',
+      canonical_property_uri: `${SCHEMA_NS}QuantitativeValue`,
+    },
+    {
+      name: 'categories',
+      type: 'array',
+      required: false,
+      description: 'Product categories',
+      canonical_property_uri: `${SCHEMA_NS}category`,
+    },
+  ],
+  validation_rules: [
+    {
+      rule_id: 'woocommerce-products-id-required',
+      description: 'Product ID must be present',
+      severity: 'warning',
+      constraint: { required: ['id'] },
+      target_fields: ['id'],
+    },
+    {
+      rule_id: 'woocommerce-products-name-required',
+      description: 'Product name must be present',
+      severity: 'warning',
+      constraint: { required: ['name'] },
+      target_fields: ['name'],
+    },
+    {
+      rule_id: 'woocommerce-products-price-required',
+      description: 'Product price must be present',
+      severity: 'warning',
+      constraint: { required: ['price'] },
+      target_fields: ['price'],
+    },
+    {
+      rule_id: 'woocommerce-products-price-type',
+      description: 'Product price must be a string representing a decimal number',
+      severity: 'warning',
+      constraint: { properties: { price: { type: 'string' } } },
+      target_fields: ['price'],
+    },
+  ],
+  transformation_template: {
+    steps: [
+      {
+        order: 0,
+        transform_type: 'rename-field',
+        operation_config: {
+          mappings: {
+            name: 'productName',
+            price: 'priceValue',
+            sku: 'skuIdentifier',
+            stock_quantity: 'quantitativeValue',
+            categories: 'productCategory',
+          },
+        },
+        description: 'Rename WooCommerce product fields to schema.org canonical property names',
+      },
+      {
+        order: 1,
+        transform_type: 'select-fields',
+        operation_config: {
+          fields: [
+            'id',
+            'productName',
+            'type',
+            'status',
+            'priceValue',
+            'regular_price',
+            'skuIdentifier',
+            'quantitativeValue',
+            'productCategory',
+          ],
+        },
+        description: 'Select only mapped fields for the canonical output',
+      },
+    ],
+    sample_input: [
+      {
+        id: 93,
+        name: 'Organic Green Tea',
+        type: 'simple',
+        status: 'publish',
+        price: '14.99',
+        regular_price: '14.99',
+        sku: 'OGT-100',
+        stock_quantity: 250,
+        categories: [{ id: 15, name: 'Beverages', slug: 'beverages' }],
+      },
+      {
+        id: 107,
+        name: 'Ceramic Mug Set',
+        type: 'simple',
+        status: 'publish',
+        price: '45.00',
+        regular_price: '55.00',
+        sku: 'CMS-4PK',
+        stock_quantity: 42,
+        categories: [{ id: 22, name: 'Kitchen', slug: 'kitchen' }, { id: 30, name: 'Gifts', slug: 'gifts' }],
+      },
+      {
+        id: 45,
+        name: 'Wireless Headphones',
+        type: 'variable',
+        status: 'publish',
+        price: '120.00',
+        regular_price: '150.00',
+        sku: 'WH-PRO',
+        stock_quantity: 18,
+        categories: [{ id: 10, name: 'Electronics', slug: 'electronics' }],
+      },
+    ],
+    expected_output: [
+      {
+        id: 93,
+        productName: 'Organic Green Tea',
+        type: 'simple',
+        status: 'publish',
+        priceValue: '14.99',
+        regular_price: '14.99',
+        skuIdentifier: 'OGT-100',
+        quantitativeValue: 250,
+        productCategory: [{ id: 15, name: 'Beverages', slug: 'beverages' }],
+      },
+      {
+        id: 107,
+        productName: 'Ceramic Mug Set',
+        type: 'simple',
+        status: 'publish',
+        priceValue: '45.00',
+        regular_price: '55.00',
+        skuIdentifier: 'CMS-4PK',
+        quantitativeValue: 42,
+        productCategory: [{ id: 22, name: 'Kitchen', slug: 'kitchen' }, { id: 30, name: 'Gifts', slug: 'gifts' }],
+      },
+      {
+        id: 45,
+        productName: 'Wireless Headphones',
+        type: 'variable',
+        status: 'publish',
+        priceValue: '120.00',
+        regular_price: '150.00',
+        skuIdentifier: 'WH-PRO',
+        quantitativeValue: 18,
+        productCategory: [{ id: 10, name: 'Electronics', slug: 'electronics' }],
+      },
+    ],
+  },
+  relationships: [],
+};
