@@ -56,6 +56,7 @@
     "{{DOMAIN_ID}}": "Domain UUID",
     "{{CONNECTOR_ID}}": "Connector UUID",
     "{{SYNC_ENTITY}}": "Entity type (orders, products, customers)",
+    "{{FETCH_ACTION_KEY}}": "Declarative connector action key for polling (e.g. shopify_get_orders); stored on connection ingestion_config.fetch_action_key",
     "{{OWNER_USER_ID}}": "User ID for data product owner and ODPS dataHolder.dataProductOwner",
     "{{CREATED_AT}}": "ISO 8601",
     "{{UPDATED_AT}}": "ISO 8601"

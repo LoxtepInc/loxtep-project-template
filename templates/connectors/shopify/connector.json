@@ -77,9 +77,17 @@
   },
   "connection_template": {
     "type": "api",
+    "ingestion_type": "polling",
     "configuration": {
       "shop_domain": "{{SHOP_DOMAIN}}",
       "api_version": "2024-01"
+    },
+    "ingestion_config": {
+      "schedule": "0 */15 * * * *",
+      "runtime_memory_mb": 512,
+      "fetch_action_key": "shopify_get_orders",
+      "batch_size": 250,
+      "polling_interval_ms": 500
     }
   },
   "placeholders": {
@@ -88,7 +96,9 @@
     "{{PROJECT_ID}}": "Project that contains this connector",
     "{{SHOP_DOMAIN}}": "Shopify store domain (e.g., mystore.myshopify.com)",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
-    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+    "{{UPDATED_AT}}": "ISO 8601 timestamp",
+    "{{INGESTION_SCHEDULE}}": "Optional override: LeoCron-style cron for connection bot (default in connection_template.ingestion_config.schedule)",
+    "{{RUNTIME_MEMORY_MB}}": "Optional: 256 | 512 | 1024 | 2048 for shared runtimes connector Lambda tier when instance has connection_details.runtimes_stack_identifier"
   },
   "connector_package": {
     "schema_version": 1,
@@ -188,7 +198,7 @@
       "orders": {
         "name": "Orders",
         "record_schema_path": "schemas/entities/admin-rest-resource.schema.json",
-        "description": "Shopify orders with line items, fulfillments, and refunds",
+        "description": "Shopify orders with line items, fulfillments, and refunds. Full sync / incremental pulls use shopify_get_orders (scheduled_poll). Webhooks use platform HTTPS webhook ingestion (topic routes below), not the pull action.",
         "supports_incremental": true,
         "supports_full_sync": true,
         "supports_webhook": true,
