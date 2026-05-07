@@ -1,9 +1,10 @@
 {
   "key": "shopify_get_orders",
   "name": "Get orders",
-  "description": "List orders from the Shopify Admin REST API (GET /orders.json). Supports limit, status, and incremental filter updated_at_min.",
+  "description": "List orders from the Shopify Admin REST API (GET /orders.json). Supports limit, status, and incremental filter updated_at_min. Intended for scheduled polling ingestion; configure the workflow connection `ingestion_config.schedule` (Leo cron), optional `runtime_memory_mb`, `fetch_action_key`, and ensure the instance exposes `connection_details.runtimes_stack_identifier` when using shared runtimes connector Lambdas. Webhook-based order delivery uses the platform Shopify webhook route and separate routing metadata—not this pull action.",
   "version": "1.0.0",
   "type": "action",
+  "supported_ingestion_modes": ["scheduled_poll"],
   "annotations": {
     "read_only": true,
     "destructive": false
