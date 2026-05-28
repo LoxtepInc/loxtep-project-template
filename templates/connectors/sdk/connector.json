@@ -1,10 +1,9 @@
 {
-  "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
   "slug": "sdk",
   "name": "SDK Connector",
   "description": "Programmatic data ingestion and export via the Loxtep SDK",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "sdk",
     "programmatic",
@@ -38,25 +37,19 @@
     "supports_polling": false,
     "required_scopes": null,
     "required_permissions": null,
-    "version": "1.0.0",
+    "version": "1.1.0",
     "is_beta": false,
     "metadata": {
       "template_slug": "sdk",
       "trigger_config_spec": {
         "required": [
-          "output_queue_name"
+          "data_product_name"
         ],
-        "optional": [
-          "bot_id"
-        ],
+        "optional": [],
         "fields": {
-          "output_queue_name": {
+          "data_product_name": {
             "type": "string",
-            "description": "Target queue name for SDK-written events"
-          },
-          "bot_id": {
-            "type": "string",
-            "description": "Bot ID for stream bus checkpointing"
+            "description": "Name or UUID of the target data product. The SDK resolves queue, bot ID, and bus config automatically."
           }
         }
       }
@@ -73,14 +66,14 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
-    "description": "SDK connector for programmatic data ingestion and export. Data flows through LoxtepClient.flows via the Stream Bus.",
+    "package_version": "1.1.0",
+    "description": "SDK connector for programmatic data ingestion and export. The SDK resolves all stream bus configuration (queue, bot ID, bus) from just the data product name.",
     "follow_up_notes": [
       "Install the SDK: npm install @loxtep/sdk (Node.js) or pip install loxtep (Python)",
       "Authenticate: run `loxtep login` or set LOXTEP_AUTH_TOKEN env var",
       "Export config: run `loxtep config export --from-connector <connector_id>`",
-      "Write events: use client.flows.get_writer(flow_id, { bot_id, output_queue_name })",
-      "Read events: use client.flows.get_reader(flow_id, { bot_id, input_queue_name })"
+      "Write events: use client.data_products.get_writer('data_product_name')",
+      "Read events: use client.data_products.get_reader('data_product_name')"
     ],
     "actions": [
       { "key": "sdk_write_events", "definition_path": "actions/write-events/definition.json" },

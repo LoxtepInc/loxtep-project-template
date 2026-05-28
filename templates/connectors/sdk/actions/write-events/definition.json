@@ -1,8 +1,8 @@
 {
   "key": "sdk_write_events",
   "name": "Write events",
-  "description": "Ingest events into a flow queue via the Loxtep SDK. Uses LoxtepClient.flows.get_writer(flow_id, { bot_id, output_queue_name }).",
-  "version": "1.0.0",
+  "description": "Ingest events into a data product via the Loxtep SDK. Uses LoxtepClient.data_products.get_writer(data_product_name) which resolves queue, bot, and bus config automatically.",
+  "version": "1.1.0",
   "type": "action",
   "annotations": {
     "runtime_kind": "platform_native",
@@ -15,17 +15,9 @@
     "type": "object",
     "additionalProperties": false,
     "properties": {
-      "flow_id": {
+      "data_product_name": {
         "type": "string",
-        "description": "Target flow identifier."
-      },
-      "output_queue_name": {
-        "type": "string",
-        "description": "Target queue name for SDK-written events."
-      },
-      "bot_id": {
-        "type": "string",
-        "description": "Bot ID for stream bus checkpointing."
+        "description": "Name or UUID of the target data product. The SDK resolves the output queue, bot ID, and bus config automatically from this."
       },
       "events": {
         "type": "array",
@@ -33,7 +25,7 @@
         "items": { "type": "object" }
       }
     },
-    "required": ["flow_id", "output_queue_name", "events"]
+    "required": ["data_product_name", "events"]
   },
   "execution": {
     "protocol": "platform_native",

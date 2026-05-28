@@ -1,8 +1,8 @@
 {
   "key": "sdk_read_events",
   "name": "Read events",
-  "description": "Read events from a flow queue via the Loxtep SDK. Uses LoxtepClient.flows.get_reader(flow_id, { bot_id, input_queue_name }).",
-  "version": "1.0.0",
+  "description": "Read events from a data product via the Loxtep SDK. Uses LoxtepClient.data_products.get_reader(data_product_name) which resolves queue, bot, and bus config automatically.",
+  "version": "1.1.0",
   "type": "action",
   "annotations": {
     "runtime_kind": "platform_native",
@@ -15,17 +15,9 @@
     "type": "object",
     "additionalProperties": false,
     "properties": {
-      "flow_id": {
+      "data_product_name": {
         "type": "string",
-        "description": "Source flow identifier."
-      },
-      "input_queue_name": {
-        "type": "string",
-        "description": "Queue name to read events from."
-      },
-      "bot_id": {
-        "type": "string",
-        "description": "Bot ID for stream bus checkpointing."
+        "description": "Name or UUID of the source data product. The SDK resolves the input queue, bot ID, and bus config automatically from this."
       },
       "limit": {
         "type": "integer",
@@ -35,7 +27,7 @@
         "description": "Maximum number of events to read per batch."
       }
     },
-    "required": ["flow_id", "input_queue_name"]
+    "required": ["data_product_name"]
   },
   "execution": {
     "protocol": "platform_native",
