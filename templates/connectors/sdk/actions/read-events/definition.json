@@ -17,7 +17,8 @@
     "properties": {
       "data_product_name": {
         "type": "string",
-        "description": "Name or UUID of the source data product. The SDK resolves the input queue, bot ID, and bus config automatically from this."
+        "description": "Name or UUID of the source data product. The SDK resolves the input queue, bot ID, and bus config automatically from this.",
+        "x-lookup": "data_products"
       },
       "limit": {
         "type": "integer",
