@@ -18,7 +18,8 @@
       "data_product_name": {
         "type": "string",
         "description": "Name or UUID of the target data product. The SDK resolves the output queue, bot ID, and bus config automatically from this.",
-        "x-lookup": "data_products"
+        "x-lookup": "data_products",
+        "x-lookup-params": { "kind": "source" }
       },
       "events": {
         "type": "array",
