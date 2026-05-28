@@ -5,6 +5,7 @@
   "name": "Streaming Transform Workflow",
   "description": "Apply real-time transformations to streaming data. Chain multiple transformations for data enrichment, filtering, aggregation, and format conversion.",
   "version": "1.0.0",
+  "produces_kind": "consumer",
   "tags": [
     "streaming",
     "transform",

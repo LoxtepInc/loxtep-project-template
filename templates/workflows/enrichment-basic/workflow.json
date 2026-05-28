@@ -5,6 +5,7 @@
   "name": "Basic Enrichment Workflow",
   "description": "Enrich events from an upstream source (queue or data product) with transforms and validations. Starts from an internal trigger; add connector, transforms, and optional data product output.",
   "version": "1.0.0",
+  "produces_kind": "consumer",
   "tags": [
     "enrichment",
     "transform",

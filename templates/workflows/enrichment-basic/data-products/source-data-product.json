@@ -5,6 +5,7 @@
   "domain_id": "{{DOMAIN_ID}}",
   "name": "Source data product",
   "description": "Upstream data product for enrichment (select or create in studio)",
+  "kind": "source",
   "upstream_entity_id": null,
   "upstream_entity_type": null,
   "owner": { "user_id": "{{OWNER_USER_ID}}" },

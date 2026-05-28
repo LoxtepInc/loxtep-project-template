@@ -5,6 +5,7 @@
   "name": "File Import Workflow",
   "description": "Import data from files (CSV, JSON, Parquet) stored in S3 or uploaded via API. Ideal for batch data loads, historical data imports, and data lake ingestion.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "file",
     "batch",

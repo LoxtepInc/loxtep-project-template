@@ -5,6 +5,7 @@
   "name": "Webhook Ingestion Workflow",
   "description": "Receive events via HTTP POST webhook. Ideal for e-commerce order events, payment notifications, form submissions, and real-time integrations.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "webhook",
     "http",

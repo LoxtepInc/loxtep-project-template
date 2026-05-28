@@ -1,0 +1,62 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/workflow.json",
+  "template_type": "workflow",
+  "slug": "consumption-api",
+  "name": "Consumption API Workflow",
+  "description": "Expose workflow or data product events via REST API for pull-based integrations. Configure query endpoints, pagination, and access controls.",
+  "version": "1.0.0",
+  "produces_kind": "consumer",
+  "tags": [
+    "consumption",
+    "api",
+    "rest",
+    "query",
+    "pull"
+  ],
+  "use_cases": [
+    "Expose data via REST API",
+    "Pull-based integrations",
+    "Query-based data access",
+    "Consumer API endpoints"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "REST API consumption workflow for pull-based data access",
+    "workflow_type": "consumption",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "consumption-api",
+      "consumption_type": "api"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "dependencies": {
+    "connection": {
+      "type": "api",
+      "required": true,
+      "description": "API endpoint configuration for data exposure"
+    }
+  },
+  "placeholders": {
+    "{{WORKFLOW_ID}}": "Generated UUID for the workflow",
+    "{{ORGANIZATION_ID}}": "Organization that owns this workflow",
+    "{{PROJECT_ID}}": "Project containing this workflow",
+    "{{DOMAIN_ID}}": "Domain this workflow belongs to",
+    "{{WORKFLOW_NAME}}": "User-provided name for the workflow",
+    "{{TEMPLATE_ID}}": "Stable template ID from catalog",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

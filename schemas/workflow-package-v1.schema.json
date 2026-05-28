@@ -48,6 +48,11 @@
       },
       "additionalProperties": false
     },
+    "produces_kind": {
+      "type": "string",
+      "enum": ["source", "consumer", "either"],
+      "description": "Declares what kind of data product this workflow template produces. Used by the Source and Consumer design canvases to filter offered templates by relevance."
+    },
     "dependencies": { "type": "object", "additionalProperties": true },
     "placeholders": { "type": "object", "additionalProperties": { "type": "string" } }
   },

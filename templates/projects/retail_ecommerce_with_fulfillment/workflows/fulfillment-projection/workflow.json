@@ -1,0 +1,43 @@
+{
+  "$schema": "https://loxtep.io/schemas/workflow-package-v1.json",
+  "template_type": "workflow",
+  "slug": "fulfillment-projection",
+  "name": "Fulfillment Dashboard Projection",
+  "description": "Projects orders, inventory, and shipments source data products into a unified fulfillment dashboard consumer data product.",
+  "version": "1.0.0",
+  "produces_kind": "consumer",
+  "tags": [
+    "fulfillment",
+    "projection",
+    "consumer",
+    "dashboard",
+    "e-commerce"
+  ],
+  "use_cases": [
+    "Compose a fulfillment dashboard from multiple source DPs",
+    "Track order status across inventory and shipment stages"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "Projection flow composing orders + inventory + shipments into a fulfillment dashboard",
+    "workflow_type": "enrichment",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "fulfillment-projection",
+      "workflow_type": "projection"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  }
+}

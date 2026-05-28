@@ -217,15 +217,92 @@
         "connections": 1,
         "data_products": 1
       }
+    },
+    {
+      "slug": "retail_ecommerce_with_fulfillment",
+      "name": "Ecommerce with Fulfillment Dashboard",
+      "description": "Demonstrates the source→consumer data product model. Ingests raw order events (source DP), then projects orders + inventory + shipments into a fulfillment dashboard (consumer DP).",
+      "path": "templates/projects/retail_ecommerce_with_fulfillment",
+      "industry": "retail_ecommerce",
+      "tags": [
+        "e-commerce",
+        "fulfillment",
+        "source-consumer",
+        "projection",
+        "dashboard",
+        "orders",
+        "inventory",
+        "shipments"
+      ],
+      "entities": {
+        "workflows": 2,
+        "connections": 2,
+        "data_products": 2
+      }
     }
   ],
   "templates": {
+    "data_products": [
+      {
+        "slug": "blank-source",
+        "name": "Blank Source Data Product",
+        "description": "Create a source data product from scratch. Empty atomic, domain-owned data product for custom configuration.",
+        "path": "templates/data-products/blank-source.json",
+        "kind": "source",
+        "tags": [
+          "blank",
+          "starter",
+          "source"
+        ]
+      },
+      {
+        "slug": "blank-consumer",
+        "name": "Blank Consumer Data Product",
+        "description": "Create a consumer data product from scratch. Empty composed/projected data product for custom configuration.",
+        "path": "templates/data-products/blank-consumer.json",
+        "kind": "consumer",
+        "tags": [
+          "blank",
+          "starter",
+          "consumer"
+        ]
+      },
+      {
+        "slug": "customer-360",
+        "name": "Customer 360 Data Product",
+        "description": "Unified customer profile data product aggregating identity, orders, and engagement. Use for segmentation, analytics, and real-time personalization.",
+        "path": "templates/data-products/customer-360.json",
+        "kind": "consumer",
+        "tags": [
+          "customer",
+          "profile",
+          "360",
+          "analytics",
+          "crm"
+        ]
+      },
+      {
+        "slug": "orders-analytics",
+        "name": "Orders Analytics Data Product",
+        "description": "Order and transaction data product for sales analytics, reporting, and downstream consumption. Includes validated order events with line items and totals.",
+        "path": "templates/data-products/orders-analytics.json",
+        "kind": "consumer",
+        "tags": [
+          "orders",
+          "sales",
+          "analytics",
+          "e-commerce",
+          "transactions"
+        ]
+      }
+    ],
     "workflows": [
       {
         "slug": "blank",
         "name": "Blank Workflow",
         "description": "Empty workflow. Add a connection, then transformations and data products via the flow canvas.",
         "path": "templates/workflows/blank",
+        "produces_kind": "either",
         "tags": [
           "blank",
           "empty",
@@ -237,6 +314,7 @@
         "name": "Webhook Ingestion Workflow",
         "description": "Receive events via HTTP POST webhook",
         "path": "templates/workflows/webhook-ingestion",
+        "produces_kind": "source",
         "tags": [
           "webhook",
           "http",
@@ -249,6 +327,7 @@
         "name": "Connector Ingestion Workflow",
         "description": "Auto-provisioned ingestion for connector entities (orders, products, customers). Enables graph storage for entity context.",
         "path": "templates/workflows/connector-ingestion",
+        "produces_kind": "source",
         "tags": [
           "connector",
           "api",
@@ -263,6 +342,7 @@
         "name": "API Polling Workflow",
         "description": "Poll external REST APIs on a schedule",
         "path": "templates/workflows/api-polling",
+        "produces_kind": "source",
         "tags": [
           "api",
           "polling",
@@ -275,6 +355,7 @@
         "name": "Database CDC Workflow",
         "description": "Capture database changes using Change Data Capture",
         "path": "templates/workflows/database-cdc",
+        "produces_kind": "source",
         "tags": [
           "database",
           "cdc",
@@ -287,6 +368,7 @@
         "name": "File Import Workflow",
         "description": "Import data from files (CSV, JSON, Parquet)",
         "path": "templates/workflows/file-import",
+        "produces_kind": "source",
         "tags": [
           "file",
           "batch",
@@ -295,22 +377,11 @@
         ]
       },
       {
-        "slug": "streaming-transform",
-        "name": "Streaming Transform Workflow",
-        "description": "Apply real-time transformations to streaming data",
-        "path": "templates/workflows/streaming-transform",
-        "tags": [
-          "streaming",
-          "transform",
-          "real-time",
-          "enrichment"
-        ]
-      },
-      {
         "slug": "asyncapi-import",
         "name": "Import from AsyncAPI",
         "description": "Paste an AsyncAPI 2.x or 3.x YAML spec and create data products from its channels",
         "path": "templates/workflows/asyncapi-import",
+        "produces_kind": "source",
         "tags": [
           "asyncapi",
           "import",
@@ -320,10 +391,65 @@
         ]
       },
       {
+        "slug": "sdk-ingest",
+        "name": "SDK Ingest Workflow",
+        "description": "Streaming ingestion workflow for SDK-based data ingestion. Receives events via Loxtep SDK and writes to a data product queue.",
+        "path": "templates/workflows/sdk-ingest",
+        "produces_kind": "source",
+        "tags": [
+          "sdk",
+          "streaming",
+          "ingestion",
+          "rstreams"
+        ]
+      },
+      {
+        "slug": "enrichment-basic",
+        "name": "Basic Enrichment Workflow",
+        "description": "Enrich events from an upstream source with transforms and validations (enrichment workflow type)",
+        "path": "templates/workflows/enrichment-basic",
+        "produces_kind": "consumer",
+        "tags": [
+          "enrichment",
+          "transform",
+          "internal",
+          "mesh"
+        ]
+      },
+      {
+        "slug": "consumption-webhook",
+        "name": "Consumption Webhook Workflow",
+        "description": "Expose data product events via HTTP webhook delivery. Composes with event-driven-webhook-delivery activation template.",
+        "path": "templates/workflows/consumption-webhook",
+        "produces_kind": "consumer",
+        "tags": [
+          "consumption",
+          "webhook",
+          "delivery",
+          "real-time",
+          "activation"
+        ]
+      },
+      {
+        "slug": "consumption-api",
+        "name": "Consumption API Workflow",
+        "description": "Expose workflow or data product events via REST API for pull-based integrations",
+        "path": "templates/workflows/consumption-api",
+        "produces_kind": "consumer",
+        "tags": [
+          "consumption",
+          "api",
+          "rest",
+          "query",
+          "pull"
+        ]
+      },
+      {
         "slug": "data-product-consumption",
         "name": "Data Product Consumption Workflow",
         "description": "Trigger a flow from a data product: on event or on a configurable cron schedule",
         "path": "templates/workflows/data-product-consumption",
+        "produces_kind": "consumer",
         "tags": [
           "data-product",
           "consumption",
@@ -334,41 +460,16 @@
         ]
       },
       {
-        "slug": "consumption-webhook",
-        "name": "Consumption Webhook Workflow",
-        "description": "Expose data product events via HTTP webhook delivery. Composes with event-driven-webhook-delivery activation template.",
-        "path": "templates/workflows/consumption-webhook",
+        "slug": "streaming-transform",
+        "name": "Streaming Transform Workflow",
+        "description": "Apply real-time transformations to streaming data",
+        "path": "templates/workflows/streaming-transform",
+        "produces_kind": "consumer",
         "tags": [
-          "consumption",
-          "webhook",
-          "delivery",
-          "real-time",
-          "activation"
-        ]
-      },
-      {
-        "slug": "enrichment-basic",
-        "name": "Basic Enrichment Workflow",
-        "description": "Enrich events from an upstream source with transforms and validations (enrichment workflow type)",
-        "path": "templates/workflows/enrichment-basic",
-        "tags": [
-          "enrichment",
+          "streaming",
           "transform",
-          "internal",
-          "mesh"
-        ]
-      },
-      {
-        "slug": "consumption-api",
-        "name": "Consumption API Workflow",
-        "description": "Expose workflow or data product events via REST API for pull-based integrations",
-        "path": "templates/workflows/consumption-api",
-        "tags": [
-          "consumption",
-          "api",
-          "rest",
-          "query",
-          "pull"
+          "real-time",
+          "enrichment"
         ]
       }
     ],

@@ -5,6 +5,7 @@
   "name": "Blank Workflow",
   "description": "Empty workflow. Add a connection, then transformations and data products via the flow canvas.",
   "version": "1.0.0",
+  "produces_kind": "either",
   "tags": [
     "blank",
     "empty",

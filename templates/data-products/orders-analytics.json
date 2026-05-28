@@ -24,6 +24,7 @@
     "domain_id": "{{DOMAIN_ID}}",
     "name": "{{DATA_PRODUCT_NAME}}",
     "description": "Order and transaction data for sales analytics and reporting.",
+    "kind": "consumer",
     "owner": {
       "user_id": "{{USER_ID}}"
     },

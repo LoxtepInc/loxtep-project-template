@@ -5,6 +5,7 @@
   "name": "Import from AsyncAPI",
   "description": "Paste an AsyncAPI 2.x or 3.x YAML spec and create data products from its channels. You will choose project, template, and which channels to import in the next step.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "asyncapi",
     "import",

@@ -4,6 +4,7 @@
   "name": "News Articles Poller Ingestion",
   "description": "Ingest news headlines from NewsAPI via polling into the News Articles data product.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "poller",
     "media_entertainment",

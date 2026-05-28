@@ -1,0 +1,38 @@
+{
+  "$schema": "https://loxtep.io/schemas/trigger-package-v1.json",
+  "template_type": "trigger",
+  "slug": "orders-webhook-connection",
+  "name": "Orders Webhook Connection",
+  "description": "Webhook trigger connection for ingesting order events.",
+  "version": "1.0.0",
+  "tags": [
+    "webhook",
+    "ingestion",
+    "orders"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "upstream_entity_id": null,
+    "upstream_entity_type": null,
+    "key": "orders-webhook",
+    "name": "Webhook connection",
+    "type": "webhook",
+    "status": "active",
+    "configuration": {},
+    "metadata": {},
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "trigger_id": "{{CONNECTION_ID}}"
+  },
+  "placeholders": {
+    "{{CONNECTION_ID}}": "Generated UUID for the connection",
+    "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connection",
+    "{{PROJECT_ID}}": "Project containing this connection",
+    "{{DATA_PRODUCT_ID}}": "Upstream data product ID (consumption flows)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

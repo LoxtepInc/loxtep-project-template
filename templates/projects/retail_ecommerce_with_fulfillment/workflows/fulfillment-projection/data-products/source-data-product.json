@@ -1,0 +1,84 @@
+{
+  "$schema": "https://loxtep.io/schemas/data-product-package-v1.json",
+  "template_type": "data_product",
+  "slug": "orders-upstream",
+  "name": "Orders (Upstream Source)",
+  "description": "Upstream orders source data product consumed by the fulfillment projection workflow.",
+  "version": "1.0.0",
+  "tags": [
+    "orders",
+    "source",
+    "upstream",
+    "fulfillment"
+  ],
+  "entity": {
+    "data_product_id": "{{DATA_PRODUCT_SOURCE_ID}}",
+    "kind": "source",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "Orders",
+    "description": "Upstream orders source data product for fulfillment projection",
+    "upstream_entity_id": null,
+    "upstream_entity_type": null,
+    "status": "draft",
+    "owner": {
+      "user_id": "{{OWNER_USER_ID}}"
+    },
+    "governance": {
+      "classification": "internal",
+      "pii_fields": [],
+      "compliance_requirements": [],
+      "tags": [
+        "orders"
+      ]
+    },
+    "metadata": {
+      "template_slug": "fulfillment-projection",
+      "role": "upstream-source"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "odps_document": {
+      "product": {
+        "details": {
+          "en": {
+            "name": "Orders",
+            "description": "Upstream orders source data product for fulfillment projection",
+            "status": "draft",
+            "tags": [
+              "orders",
+              "source"
+            ],
+            "governanceProfile": "internal"
+          }
+        },
+        "dataHolder": {
+          "businessDomain": "{{DOMAIN_ID}}",
+          "dataProductOwner": "{{OWNER_USER_ID}}"
+        },
+        "custom": {
+          "loxtep": {
+            "organization_id": "{{ORGANIZATION_ID}}",
+            "domain_id": "{{DOMAIN_ID}}",
+            "project_id": "{{PROJECT_ID}}",
+            "workflow_id": "{{WORKFLOW_ID}}"
+          }
+        }
+      }
+    }
+  },
+  "placeholders": {
+    "{{DATA_PRODUCT_ID}}": "Generated UUID for this data product",
+    "{{DATA_PRODUCT_SINK_ID}}": "Generated UUID for the sink data product",
+    "{{DATA_PRODUCT_SOURCE_ID}}": "Generated UUID for the source data product",
+    "{{ORGANIZATION_ID}}": "Organization that owns this data product",
+    "{{WORKFLOW_ID}}": "Workflow that produces or consumes this data product",
+    "{{PROJECT_ID}}": "Project containing the workflow",
+    "{{DOMAIN_ID}}": "Domain this data product belongs to",
+    "{{OWNER_USER_ID}}": "Owner user ID",
+    "{{CONNECTION_ID}}": "Upstream connection ID (ingestion flows)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

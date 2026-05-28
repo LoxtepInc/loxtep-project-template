@@ -4,6 +4,7 @@
   "name": "Weather Data Poller Ingestion",
   "description": "Ingest weather conditions from OpenWeatherMap API via polling into the Weather Conditions data product.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "poller",
     "energy_utilities",

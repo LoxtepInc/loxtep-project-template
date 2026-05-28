@@ -5,6 +5,7 @@
   "name": "Orders Webhook Ingestion",
   "description": "Ingest orders from external store via webhook into the Raw Orders data product.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "webhook",
     "orders",

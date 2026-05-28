@@ -5,6 +5,7 @@
   "name": "Orders Enrichment",
   "description": "Enrich raw orders (e.g. add computed fields, normalize) into Enriched Orders data product.",
   "version": "1.0.0",
+  "produces_kind": "consumer",
   "tags": [
     "enrichment",
     "orders",

@@ -44,6 +44,22 @@ def check_odps(odps: object, rel: str) -> list[str]:
     return errs
 
 
+VALID_KINDS = ("source", "consumer")
+
+
+def check_entity_kind(entity: dict, rel: str) -> list[str]:
+    """Validate that entity.kind is present and one of the allowed values."""
+    errs: list[str] = []
+    kind = entity.get("kind")
+    if kind is None:
+        errs.append(f"{rel}: missing required field entity.kind (must be 'source' or 'consumer')")
+    elif kind not in VALID_KINDS:
+        errs.append(
+            f"{rel}: invalid entity.kind value {kind!r} (must be one of {list(VALID_KINDS)})"
+        )
+    return errs
+
+
 def main() -> int:
     paths = sorted(
         set(ROOT.glob("templates/**/data-products/**/*.json"))
@@ -63,6 +79,9 @@ def main() -> int:
         entity = extract_entity(data, rel)
         if entity is None:
             continue
+
+        # Validate entity.kind (required, must be 'source' or 'consumer')
+        errors.extend(check_entity_kind(entity, rel))
 
         if "odps_document" not in entity:
             errors.append(f"{rel}: missing odps_document on data product entity")

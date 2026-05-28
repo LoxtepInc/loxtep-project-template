@@ -1,0 +1,63 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/workflow.json",
+  "template_type": "workflow",
+  "slug": "data-product-consumption",
+  "name": "Data Product Consumption Workflow",
+  "description": "Trigger a flow from a data product: on event or on a configurable cron schedule. Consume upstream data products and produce derived consumer outputs.",
+  "version": "1.0.0",
+  "produces_kind": "consumer",
+  "tags": [
+    "data-product",
+    "consumption",
+    "trigger",
+    "event",
+    "cron",
+    "mesh"
+  ],
+  "use_cases": [
+    "Consume upstream data products",
+    "Event-driven processing",
+    "Scheduled data product reads",
+    "Mesh-to-mesh composition"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "Data product consumption workflow with event or cron trigger",
+    "workflow_type": "consumption",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "data-product-consumption",
+      "consumption_type": "data-product"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "dependencies": {
+    "connection": {
+      "type": "data-product",
+      "required": true,
+      "description": "Source data product to consume events from"
+    }
+  },
+  "placeholders": {
+    "{{WORKFLOW_ID}}": "Generated UUID for the workflow",
+    "{{ORGANIZATION_ID}}": "Organization that owns this workflow",
+    "{{PROJECT_ID}}": "Project containing this workflow",
+    "{{DOMAIN_ID}}": "Domain this workflow belongs to",
+    "{{WORKFLOW_NAME}}": "User-provided name for the workflow",
+    "{{TEMPLATE_ID}}": "Stable template ID from catalog",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

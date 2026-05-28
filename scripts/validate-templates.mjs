@@ -159,12 +159,21 @@ function validateWorkflowJson(filePath) {
   // Required fields
   if (!validateRequired(data, ['template_type', 'slug', 'name', 'version', 'entity'], relPath)) return;
 
-  // Const check
-  validateConst(data.template_type, 'workflow', 'template_type', relPath);
+  // Const check — allow 'workflow' and 'asyncapi' (special workflow variant)
+  if (data.template_type !== 'workflow' && data.template_type !== 'asyncapi') {
+    errors.push(`${relPath}: Field "template_type" must be "workflow" or "asyncapi", got "${data.template_type}"`);
+  }
 
   // Pattern checks
   validatePattern(data.slug, '^[a-z0-9-]+$', 'slug', relPath);
   validatePattern(data.version, '^\\d+\\.\\d+\\.\\d+$', 'version', relPath);
+
+  // Validate produces_kind (required for workflow templates)
+  if (!('produces_kind' in data)) {
+    errors.push(`${relPath}: Missing required field "produces_kind" (must be "source", "consumer", or "either")`);
+  } else {
+    validateEnum(data.produces_kind, ['source', 'consumer', 'either'], 'produces_kind', relPath);
+  }
 
   // Entity validation
   if (data.entity) {
@@ -172,7 +181,7 @@ function validateWorkflowJson(filePath) {
     validateRequired(data.entity, entityRequired, `${relPath} (entity)`);
 
     if (data.entity.workflow_type) {
-      validateEnum(data.entity.workflow_type, ['ingestion', 'enrichment'], 'entity.workflow_type', relPath);
+      validateEnum(data.entity.workflow_type, ['ingestion', 'enrichment', 'consumption'], 'entity.workflow_type', relPath);
     }
     if (data.entity.status) {
       validateEnum(data.entity.status, ['active', 'paused', 'error', 'pending', 'inactive'], 'entity.status', relPath);
@@ -180,7 +189,7 @@ function validateWorkflowJson(filePath) {
   }
 
   // Check for additional properties at top level
-  const allowedProps = ['$schema', 'template_type', 'slug', 'name', 'description', 'version', 'tags', 'use_cases', 'entity', 'dependencies', 'placeholders'];
+  const allowedProps = ['$schema', 'template_type', 'slug', 'name', 'description', 'version', 'tags', 'use_cases', 'entity', 'produces_kind', 'dependencies', 'placeholders'];
   const extraProps = Object.keys(data).filter(k => !allowedProps.includes(k));
   if (extraProps.length > 0) {
     errors.push(`${relPath}: Additional properties not allowed: ${extraProps.join(', ')}`);
@@ -256,8 +265,13 @@ function validateDataProductJson(filePath) {
 
   // Entity validation
   if (data.entity) {
-    const entityRequired = ['data_product_id', 'organization_id', 'workflow_id', 'name', 'status', 'created_at', 'updated_at'];
+    const entityRequired = ['data_product_id', 'organization_id', 'workflow_id', 'name', 'kind', 'status', 'created_at', 'updated_at'];
     validateRequired(data.entity, entityRequired, `${relPath} (entity)`);
+
+    // Validate entity.kind (required, must be 'source' or 'consumer')
+    if ('kind' in data.entity) {
+      validateEnum(data.entity.kind, ['source', 'consumer'], 'entity.kind', relPath);
+    }
 
     if (data.entity.status) {
       validateEnum(data.entity.status, ['draft', 'active', 'deprecated', 'archived'], 'entity.status', relPath);
@@ -319,7 +333,10 @@ console.log(`   Found ${projectFiles.length} project.json files\n`);
 // 2. Validate all workflow.json files
 console.log('2. Validating workflow.json files against workflow-package-v1.schema.json');
 console.log('-'.repeat(70));
-const workflowFiles = findFiles(PROJECTS_DIR, /^workflow\.json$/);
+const WORKFLOWS_DIR = join(ROOT, 'templates', 'workflows');
+const workflowFilesInProjects = findFiles(PROJECTS_DIR, /^workflow\.json$/);
+const workflowFilesStandalone = findFiles(WORKFLOWS_DIR, /^workflow\.json$/);
+const workflowFiles = [...workflowFilesInProjects, ...workflowFilesStandalone];
 for (const f of workflowFiles) {
   validateWorkflowJson(f);
 }
@@ -337,7 +354,10 @@ console.log(`   Found ${connectionFiles.length} connection files\n`);
 // 4. Validate all data product files
 console.log('4. Validating data product files against data-product-package-v1.schema.json');
 console.log('-'.repeat(70));
-const dataProductFiles = findFiles(PROJECTS_DIR, /data-product\.json$/);
+const DATA_PRODUCTS_DIR = join(ROOT, 'templates', 'data-products');
+const dataProductFilesInProjects = findFiles(PROJECTS_DIR, /data-product\.json$/);
+const dataProductFilesStandalone = findFiles(DATA_PRODUCTS_DIR, /\.json$/);
+const dataProductFiles = [...dataProductFilesInProjects, ...dataProductFilesStandalone];
 for (const f of dataProductFiles) {
   validateDataProductJson(f);
 }

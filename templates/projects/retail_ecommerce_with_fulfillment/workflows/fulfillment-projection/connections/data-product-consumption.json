@@ -1,0 +1,57 @@
+{
+  "$schema": "https://loxtep.io/schemas/trigger-package-v1.json",
+  "template_type": "trigger",
+  "slug": "fulfillment-dp-consumption",
+  "name": "Data Product Consumption Connection",
+  "description": "Consumes events from orders, inventory, and shipments source data products to compose the fulfillment dashboard.",
+  "version": "1.0.0",
+  "tags": [
+    "data-product",
+    "consumption",
+    "fulfillment",
+    "projection"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "upstream_entity_id": "{{DATA_PRODUCT_SOURCE_ID}}",
+    "upstream_entity_type": "data-products",
+    "key": "fulfillment-consumption",
+    "name": "Source DP consumption",
+    "type": "data-product-consumption",
+    "status": "active",
+    "configuration": {
+      "source_data_products": [
+        {
+          "ref": "{{ORDERS_DP_ID}}",
+          "alias": "orders"
+        },
+        {
+          "ref": "{{INVENTORY_DP_ID}}",
+          "alias": "inventory"
+        },
+        {
+          "ref": "{{SHIPMENTS_DP_ID}}",
+          "alias": "shipments"
+        }
+      ]
+    },
+    "metadata": {},
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}",
+    "trigger_id": "{{CONNECTION_ID}}"
+  },
+  "placeholders": {
+    "{{CONNECTION_ID}}": "Generated UUID for the connection",
+    "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connection",
+    "{{PROJECT_ID}}": "Project containing this connection",
+    "{{DATA_PRODUCT_SOURCE_ID}}": "Primary upstream source data product ID",
+    "{{ORDERS_DP_ID}}": "Orders source data product ID",
+    "{{INVENTORY_DP_ID}}": "Inventory source data product ID",
+    "{{SHIPMENTS_DP_ID}}": "Shipments source data product ID",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

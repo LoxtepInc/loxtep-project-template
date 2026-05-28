@@ -1,0 +1,19 @@
+{
+  "$schema": "https://loxtep.io/schemas/project-package-v1.json",
+  "template_type": "project",
+  "slug": "retail_ecommerce_with_fulfillment",
+  "name": "Ecommerce with Fulfillment Dashboard",
+  "description": "Demonstrates the source to consumer data product model. Ingests raw order events (source DP), then projects orders + inventory + shipments into a fulfillment dashboard (consumer DP).",
+  "template_slug": "templates/projects/retail_ecommerce_with_fulfillment",
+  "version": "1.0.0",
+  "tags": [
+    "e-commerce",
+    "fulfillment",
+    "source-consumer",
+    "projection",
+    "dashboard",
+    "orders",
+    "inventory",
+    "shipments"
+  ]
+}

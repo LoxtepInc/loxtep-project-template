@@ -4,6 +4,7 @@
   "name": "Property Listings Preloaded Ingestion",
   "description": "Ingest property listings from preloaded dataset into the Property Listings data product.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "preloaded",
     "real_estate",

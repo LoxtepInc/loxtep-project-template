@@ -16,7 +16,7 @@
     "use_cases": { "type": "array", "items": { "type": "string" } },
     "entity": {
       "type": "object",
-      "required": ["data_product_id", "organization_id", "workflow_id", "name", "status", "created_at", "updated_at"],
+      "required": ["data_product_id", "organization_id", "workflow_id", "name", "kind", "status", "created_at", "updated_at"],
       "properties": {
         "data_product_id": { "type": "string" },
         "organization_id": { "type": "string" },
@@ -26,6 +26,11 @@
         "upstream_entity_type": { "type": ["string", "null"] },
         "name": { "type": "string" },
         "description": { "type": ["string", "null"] },
+        "kind": {
+          "type": "string",
+          "enum": ["source", "consumer"],
+          "description": "Discriminator indicating whether this data product is a source (atomic, domain-owned) or consumer (composed/projected) data product."
+        },
         "owner": {
           "type": "object",
           "required": ["user_id"],

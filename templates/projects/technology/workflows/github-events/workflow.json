@@ -5,6 +5,7 @@
   "name": "GitHub Events Poller Ingestion",
   "description": "Ingest public GitHub events from GH Archive via API polling into the GitHub Activity data product.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "poller",
     "github",

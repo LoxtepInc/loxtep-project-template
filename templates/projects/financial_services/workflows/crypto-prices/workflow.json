@@ -5,6 +5,7 @@
   "name": "Crypto Prices Poller Ingestion",
   "description": "Ingest real-time cryptocurrency prices from CoinGecko API via polling into the Crypto Prices data product.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "poller",
     "cryptocurrency",

@@ -5,6 +5,7 @@
   "name": "Database CDC Workflow",
   "description": "Capture database changes using Change Data Capture (CDC). Ideal for real-time data replication, event sourcing, and keeping data products in sync with operational databases.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "database",
     "cdc",

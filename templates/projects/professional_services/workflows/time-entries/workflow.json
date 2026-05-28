@@ -4,6 +4,7 @@
   "name": "Time Entries Webhook Ingestion",
   "description": "Ingest time entries via webhook into the Time Entries data product.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "webhook",
     "professional_services",

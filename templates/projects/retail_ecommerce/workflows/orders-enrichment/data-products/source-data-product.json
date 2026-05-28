@@ -13,6 +13,7 @@
   ],
   "entity": {
     "data_product_id": "{{DATA_PRODUCT_SOURCE_ID}}",
+    "kind": "source",
     "organization_id": "{{ORGANIZATION_ID}}",
     "workflow_id": "{{WORKFLOW_ID}}",
     "domain_id": "{{DOMAIN_ID}}",

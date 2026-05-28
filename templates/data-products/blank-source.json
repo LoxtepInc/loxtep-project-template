@@ -1,17 +1,18 @@
 {
   "$schema": "https://loxtep.io/schemas/data-product-package-v1.json",
   "template_type": "data_product",
-  "slug": "blank",
-  "name": "Blank Data Product",
-  "description": "Create from scratch. Empty data product for custom configuration.",
+  "slug": "blank-source",
+  "name": "Blank Source Data Product",
+  "description": "Create a source data product from scratch. Empty atomic, domain-owned data product for custom configuration.",
   "version": "1.0.0",
   "tags": [
     "blank",
-    "starter"
+    "starter",
+    "source"
   ],
   "use_cases": [
     "Start from scratch",
-    "Custom data product"
+    "Custom source data product"
   ],
   "entity": {
     "data_product_id": "{{DATA_PRODUCT_ID}}",
@@ -20,6 +21,7 @@
     "domain_id": "{{DOMAIN_ID}}",
     "name": "{{DATA_PRODUCT_NAME}}",
     "description": "",
+    "kind": "source",
     "owner": {
       "user_id": "{{USER_ID}}"
     },

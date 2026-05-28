@@ -4,6 +4,7 @@
   "name": "Health Metrics Preloaded Ingestion",
   "description": "Ingest CDC public health metrics from preloaded dataset into the Health Metrics data product.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "preloaded",
     "healthcare",

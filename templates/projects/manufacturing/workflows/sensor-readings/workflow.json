@@ -4,6 +4,7 @@
   "name": "Sensor Readings Webhook Ingestion",
   "description": "Ingest IoT sensor readings via webhook into the Sensor Readings data product.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "webhook",
     "manufacturing",

@@ -7,6 +7,7 @@
   "upstream_entity_type": "connections",
   "name": "{{DATA_PRODUCT_NAME}}",
   "description": "{{DATA_PRODUCT_DESCRIPTION}}",
+  "kind": "source",
   "owner": { "user_id": "{{OWNER_USER_ID}}" },
   "status": "draft",
   "metadata": {

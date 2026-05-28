@@ -5,6 +5,7 @@
   "domain_id": "{{DOMAIN_ID}}",
   "name": "Enriched output",
   "description": "Enriched data product output (configure in studio)",
+  "kind": "consumer",
   "upstream_entity_id": "{{DATA_PRODUCT_SOURCE_ID}}",
   "upstream_entity_type": "data-products",
   "owner": { "user_id": "{{OWNER_USER_ID}}" },

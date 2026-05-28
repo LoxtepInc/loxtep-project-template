@@ -5,6 +5,7 @@
   "name": "API Polling Workflow",
   "description": "Poll external REST APIs on a schedule to ingest data. Ideal for APIs without webhook support, data synchronization, and periodic data collection.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "api",
     "polling",

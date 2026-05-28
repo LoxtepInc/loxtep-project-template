@@ -5,6 +5,7 @@
   "name": "SDK Ingest Workflow",
   "description": "Streaming ingestion workflow for SDK-based data ingestion. Receives events via Loxtep SDK and writes to a data product queue.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "sdk",
     "streaming",

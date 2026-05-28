@@ -5,6 +5,7 @@
   "name": "Connector Ingestion Workflow",
   "description": "Auto-provisioned ingestion workflow for connector entities. Syncs data from authenticated connectors (Shopify, Stripe, etc.) to data products with graph storage enabled.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "connector",
     "api",

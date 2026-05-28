@@ -24,6 +24,7 @@
     "domain_id": "{{DOMAIN_ID}}",
     "name": "{{DATA_PRODUCT_NAME}}",
     "description": "Unified customer 360 profile with identity, orders, and engagement data.",
+    "kind": "consumer",
     "owner": {
       "user_id": "{{USER_ID}}"
     },

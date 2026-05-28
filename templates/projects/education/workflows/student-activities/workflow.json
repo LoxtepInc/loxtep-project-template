@@ -4,6 +4,7 @@
   "name": "Student Activities Webhook Ingestion",
   "description": "Ingest student activity events via webhook into the Student Activities data product.",
   "version": "1.0.0",
+  "produces_kind": "source",
   "tags": [
     "webhook",
     "education",
