@@ -13,3 +13,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate data product JSON (ODPS + workflow_id)
         run: python3 scripts/validate-data-product-templates.py
+
+  agent-scaffolding:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify AGENTS.md + default skills are up to date
+        run: node scripts/generate-template-agents.mjs --check

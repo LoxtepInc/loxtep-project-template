@@ -1,0 +1,17 @@
+# .loxtep/skills/hospitality-travel-default.yaml
+# Default skill for the "Flight Status Tracker" template.
+# Conforms to https://loxtep.io/schemas/skill-package-v1.json
+# Scoped to ONLY this template's resources; read-only by default.
+# Any resource type or operation not listed below is DENIED (fail-closed).
+name: hospitality-travel-default
+description: Read-only access scoped to the Flight Status Tracker template resources
+scope:
+  data_products: ["flight-status-sink"]
+  connectors: ["flight-status-preloaded"]
+  workflows: ["flight-status-ingestion"]
+  domains: []
+  queues: []
+permissions:
+  data_products: [read]
+  connectors: [read]
+  workflows: [read]

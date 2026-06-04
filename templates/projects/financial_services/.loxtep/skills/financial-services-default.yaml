@@ -1,0 +1,17 @@
+# .loxtep/skills/financial-services-default.yaml
+# Default skill for the "Cryptocurrency Price Tracker" template.
+# Conforms to https://loxtep.io/schemas/skill-package-v1.json
+# Scoped to ONLY this template's resources; read-only by default.
+# Any resource type or operation not listed below is DENIED (fail-closed).
+name: financial-services-default
+description: Read-only access scoped to the Cryptocurrency Price Tracker template resources
+scope:
+  data_products: ["crypto-prices-sink"]
+  connectors: ["crypto-prices-poller"]
+  workflows: ["crypto-prices-ingestion"]
+  domains: []
+  queues: []
+permissions:
+  data_products: [read]
+  connectors: [read]
+  workflows: [read]

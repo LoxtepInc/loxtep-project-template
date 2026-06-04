@@ -1,0 +1,17 @@
+# .loxtep/skills/energy-utilities-default.yaml
+# Default skill for the "Weather Impact Monitor" template.
+# Conforms to https://loxtep.io/schemas/skill-package-v1.json
+# Scoped to ONLY this template's resources; read-only by default.
+# Any resource type or operation not listed below is DENIED (fail-closed).
+name: energy-utilities-default
+description: Read-only access scoped to the Weather Impact Monitor template resources
+scope:
+  data_products: ["weather-conditions-sink"]
+  connectors: ["weather-data-poller"]
+  workflows: ["weather-data-ingestion"]
+  domains: []
+  queues: []
+permissions:
+  data_products: [read]
+  connectors: [read]
+  workflows: [read]

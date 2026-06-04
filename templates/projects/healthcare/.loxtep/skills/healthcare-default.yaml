@@ -1,0 +1,17 @@
+# .loxtep/skills/healthcare-default.yaml
+# Default skill for the "Public Health Metrics Monitor" template.
+# Conforms to https://loxtep.io/schemas/skill-package-v1.json
+# Scoped to ONLY this template's resources; read-only by default.
+# Any resource type or operation not listed below is DENIED (fail-closed).
+name: healthcare-default
+description: Read-only access scoped to the Public Health Metrics Monitor template resources
+scope:
+  data_products: ["health-metrics-sink"]
+  connectors: ["health-metrics-preloaded"]
+  workflows: ["health-metrics-ingestion"]
+  domains: []
+  queues: []
+permissions:
+  data_products: [read]
+  connectors: [read]
+  workflows: [read]

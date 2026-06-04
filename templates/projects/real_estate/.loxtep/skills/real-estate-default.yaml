@@ -1,0 +1,17 @@
+# .loxtep/skills/real-estate-default.yaml
+# Default skill for the "Property Listings Tracker" template.
+# Conforms to https://loxtep.io/schemas/skill-package-v1.json
+# Scoped to ONLY this template's resources; read-only by default.
+# Any resource type or operation not listed below is DENIED (fail-closed).
+name: real-estate-default
+description: Read-only access scoped to the Property Listings Tracker template resources
+scope:
+  data_products: ["property-listings-sink"]
+  connectors: ["property-listings-preloaded"]
+  workflows: ["property-listings-ingestion"]
+  domains: []
+  queues: []
+permissions:
+  data_products: [read]
+  connectors: [read]
+  workflows: [read]

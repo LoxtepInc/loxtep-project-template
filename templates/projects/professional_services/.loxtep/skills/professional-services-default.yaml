@@ -1,0 +1,17 @@
+# .loxtep/skills/professional-services-default.yaml
+# Default skill for the "Time Entry Tracker" template.
+# Conforms to https://loxtep.io/schemas/skill-package-v1.json
+# Scoped to ONLY this template's resources; read-only by default.
+# Any resource type or operation not listed below is DENIED (fail-closed).
+name: professional-services-default
+description: Read-only access scoped to the Time Entry Tracker template resources
+scope:
+  data_products: ["time-entries-sink"]
+  connectors: ["time-entries-webhook"]
+  workflows: ["time-entries-ingestion"]
+  domains: []
+  queues: []
+permissions:
+  data_products: [read]
+  connectors: [read]
+  workflows: [read]

@@ -1,0 +1,16 @@
+# .loxtep/skills/blank-default.yaml
+# Default skill for the "Blank Project" template.
+# Conforms to https://loxtep.io/schemas/skill-package-v1.json
+# Scoped to ONLY this template's resources; read-only by default.
+# Any resource type or operation not listed below is DENIED (fail-closed).
+name: blank-default
+description: Read-only access scoped to the Blank Project template resources
+scope:
+  data_products: []
+  connectors: []
+  workflows: []
+  domains: []
+  queues: []
+permissions:
+  data_products: [read]
+  workflows: [read]

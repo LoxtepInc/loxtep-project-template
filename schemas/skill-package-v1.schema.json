@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://loxtep.io/schemas/skill-package-v1.json",
+  "title": "Loxtep skill definition (v1)",
+  "description": "Schema for a scoped Skill definition stored at .loxtep/skills/<skill-name>.yaml. A Skill declares which platform resources (by type and identifier) an AI agent may reach within a workspace, and which operations are permitted per resource type. Any resource type or operation not explicitly listed is DENIED (fail-closed).",
+  "type": "object",
+  "required": [
+    "name",
+    "scope",
+    "permissions"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9-_]+$",
+      "description": "Unique skill name within the workspace."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable summary of what the skill grants."
+    },
+    "scope": {
+      "type": "object",
+      "description": "Permitted resource identifiers per resource type. An identifier not listed under its type is out of scope (fail-closed).",
+      "additionalProperties": false,
+      "properties": {
+        "data_products": {
+          "$ref": "#/$defs/identifierList"
+        },
+        "connectors": {
+          "$ref": "#/$defs/identifierList"
+        },
+        "workflows": {
+          "$ref": "#/$defs/identifierList"
+        },
+        "domains": {
+          "$ref": "#/$defs/identifierList"
+        },
+        "queues": {
+          "$ref": "#/$defs/identifierList"
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "description": "Allowed operations per resource type, drawn from {read, write, create, delete}. A resource type or operation not listed is DENIED (fail-closed).",
+      "additionalProperties": false,
+      "properties": {
+        "data_products": {
+          "$ref": "#/$defs/operationList"
+        },
+        "connectors": {
+          "$ref": "#/$defs/operationList"
+        },
+        "workflows": {
+          "$ref": "#/$defs/operationList"
+        },
+        "domains": {
+          "$ref": "#/$defs/operationList"
+        },
+        "queues": {
+          "$ref": "#/$defs/operationList"
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "identifierList": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "operationList": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "read",
+          "write",
+          "create",
+          "delete"
+        ]
+      },
+      "uniqueItems": true
+    }
+  }
+}

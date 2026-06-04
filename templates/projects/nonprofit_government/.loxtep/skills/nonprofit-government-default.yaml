@@ -1,0 +1,17 @@
+# .loxtep/skills/nonprofit-government-default.yaml
+# Default skill for the "Service Request Tracker" template.
+# Conforms to https://loxtep.io/schemas/skill-package-v1.json
+# Scoped to ONLY this template's resources; read-only by default.
+# Any resource type or operation not listed below is DENIED (fail-closed).
+name: nonprofit-government-default
+description: Read-only access scoped to the Service Request Tracker template resources
+scope:
+  data_products: ["service-requests-sink"]
+  connectors: ["service-requests-preloaded"]
+  workflows: ["service-requests-ingestion"]
+  domains: []
+  queues: []
+permissions:
+  data_products: [read]
+  connectors: [read]
+  workflows: [read]

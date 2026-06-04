@@ -38,6 +38,7 @@ jobs:
           cp "$TSRC/domain-package-v1.schema.json"         "$MDST/domain-package-v1.json"
           cp "$TSRC/export-package-v1.schema.json"         "$MDST/export-package-v1.json"
           cp "$TSRC/project-package-v1.schema.json"        "$MDST/project-package-v1.json"
+          cp "$TSRC/skill-package-v1.schema.json"          "$MDST/skill-package-v1.json"
           echo "Copied all schemas"
 
       - name: Check for changes

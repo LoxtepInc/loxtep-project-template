@@ -100,6 +100,46 @@ Each project/demo includes a `.loxtep/project.json` file:
 }
 ```
 
+## Agent scaffolding (`AGENTS.md` + default skill)
+
+Every project template under `templates/projects/<slug>/` ships agent-ready
+scaffolding that `loxtep init --template <slug>` materializes into the project
+root:
+
+| File | Purpose |
+|------|---------|
+| `AGENTS.md` | Per-template agent instructions describing the MCP tools, SDK methods, and the default Skill for that template type. Materialized at the scaffolded project root (R16.1). |
+| `.loxtep/skills/<slug>-default.yaml` | Default **Skill** scoped to **only** the resources the template defines (R16.2). Read-only by default; conforms to `schemas/skill-package-v1.schema.json`. |
+| `manifest.json` → `demos[].scaffold` | Scaffolding metadata `init --template` reads: the `AGENTS.md` path, the default skill name + path, and the scoped resource identifiers. |
+
+A Skill declares an **access scope** (permitted resource types + identifiers)
+and a **`permissions`** map (allowed operations per resource type, drawn from
+`read`/`write`/`create`/`delete`). Anything not listed is **denied
+(fail-closed)** — see the Loxtep `ai-first-platform-surface` spec (R5).
+
+```yaml
+# .loxtep/skills/<slug>-default.yaml
+name: <slug>-default
+scope:                 # permitted identifiers, per resource type
+  data_products: ["raw-orders-sink"]
+  connectors: ["orders-webhook"]
+  workflows: ["orders-ingestion"]
+  domains: []
+  queues: []
+permissions:           # allowed ops per type; unlisted ⇒ denied
+  data_products: [read]
+  connectors: [read]
+  workflows: [read]
+```
+
+These files are **generated** from each template's own resources — do not edit
+them by hand. Regenerate after adding/removing resources in a template:
+
+```bash
+node scripts/generate-template-agents.mjs          # write/refresh
+node scripts/generate-template-agents.mjs --check   # CI: fail on drift
+```
+
 ## Contributing
 
 ### Adding a new demo
@@ -116,6 +156,13 @@ Each project/demo includes a `.loxtep/project.json` file:
 2. Use `template_type` at the top level where applicable; use ID placeholders for entity references
 3. Update `manifest.json` under `templates` if the manifest indexes that entry
 4. Document any special requirements in this README
+
+### Adding a new project template
+
+1. Create `templates/projects/<slug>/project.json` plus the `workflows/` tree
+2. Add a `demos[]` entry to `manifest.json` with `slug`, `name`, `description`, `path`, and `entities`
+3. Run `node scripts/generate-template-agents.mjs` to generate the template's `AGENTS.md`, default scoped skill (`.loxtep/skills/<slug>-default.yaml`), and `demos[].scaffold` metadata
+4. Run `pnpm lint` and `pnpm validate`
 
 ## Validation
 

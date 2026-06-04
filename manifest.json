@@ -3,6 +3,34 @@
   "description": "Loxtep project demos and reusable catalog templates for the data mesh platform.",
   "demos": [
     {
+      "slug": "blank",
+      "name": "Blank Project",
+      "description": "Create from scratch with no pre-loaded content.",
+      "path": "templates/projects/blank",
+      "industry": "general",
+      "tags": [
+        "blank",
+        "starter"
+      ],
+      "entities": {
+        "workflows": 0,
+        "connections": 0,
+        "data_products": 0
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "blank-default",
+          "path": ".loxtep/skills/blank-default.yaml"
+        },
+        "scope": {
+          "data_products": [],
+          "connectors": [],
+          "workflows": []
+        }
+      }
+    },
+    {
       "slug": "technology",
       "name": "GitHub Activity Tracker",
       "description": "Track public GitHub events to analyze developer activity and open-source trends",
@@ -18,6 +46,24 @@
         "workflows": 1,
         "connections": 1,
         "data_products": 1
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "technology-default",
+          "path": ".loxtep/skills/technology-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "github-activity-sink"
+          ],
+          "connectors": [
+            "github-events-poller"
+          ],
+          "workflows": [
+            "github-events-ingestion"
+          ]
+        }
       }
     },
     {
@@ -36,6 +82,24 @@
         "workflows": 1,
         "connections": 1,
         "data_products": 1
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "financial-services-default",
+          "path": ".loxtep/skills/financial-services-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "crypto-prices-sink"
+          ],
+          "connectors": [
+            "crypto-prices-poller"
+          ],
+          "workflows": [
+            "crypto-prices-ingestion"
+          ]
+        }
       }
     },
     {
@@ -54,6 +118,24 @@
         "workflows": 1,
         "connections": 1,
         "data_products": 1
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "healthcare-default",
+          "path": ".loxtep/skills/healthcare-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "health-metrics-sink"
+          ],
+          "connectors": [
+            "health-metrics-preloaded"
+          ],
+          "workflows": [
+            "health-metrics-ingestion"
+          ]
+        }
       }
     },
     {
@@ -72,6 +154,27 @@
         "workflows": 1,
         "connections": 1,
         "data_products": 1
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "retail-ecommerce-default",
+          "path": ".loxtep/skills/retail-ecommerce-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "enriched-orders-sink",
+            "raw-orders-sink",
+            "raw-orders-source"
+          ],
+          "connectors": [
+            "orders-webhook"
+          ],
+          "workflows": [
+            "orders-enrichment",
+            "orders-ingestion"
+          ]
+        }
       }
     },
     {
@@ -90,6 +193,24 @@
         "workflows": 1,
         "connections": 1,
         "data_products": 1
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "manufacturing-default",
+          "path": ".loxtep/skills/manufacturing-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "sensor-readings-sink"
+          ],
+          "connectors": [
+            "sensor-readings-webhook"
+          ],
+          "workflows": [
+            "sensor-readings-ingestion"
+          ]
+        }
       }
     },
     {
@@ -108,6 +229,24 @@
         "workflows": 1,
         "connections": 1,
         "data_products": 1
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "professional-services-default",
+          "path": ".loxtep/skills/professional-services-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "time-entries-sink"
+          ],
+          "connectors": [
+            "time-entries-webhook"
+          ],
+          "workflows": [
+            "time-entries-ingestion"
+          ]
+        }
       }
     },
     {
@@ -126,6 +265,24 @@
         "workflows": 1,
         "connections": 1,
         "data_products": 1
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "media-entertainment-default",
+          "path": ".loxtep/skills/media-entertainment-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "news-articles-sink"
+          ],
+          "connectors": [
+            "news-articles-poller"
+          ],
+          "workflows": [
+            "news-articles-ingestion"
+          ]
+        }
       }
     },
     {
@@ -144,6 +301,24 @@
         "workflows": 1,
         "connections": 1,
         "data_products": 1
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "education-default",
+          "path": ".loxtep/skills/education-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "student-activities-sink"
+          ],
+          "connectors": [
+            "student-activities-webhook"
+          ],
+          "workflows": [
+            "student-activities-ingestion"
+          ]
+        }
       }
     },
     {
@@ -162,6 +337,24 @@
         "workflows": 1,
         "connections": 1,
         "data_products": 1
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "real-estate-default",
+          "path": ".loxtep/skills/real-estate-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "property-listings-sink"
+          ],
+          "connectors": [
+            "property-listings-preloaded"
+          ],
+          "workflows": [
+            "property-listings-ingestion"
+          ]
+        }
       }
     },
     {
@@ -180,6 +373,24 @@
         "workflows": 1,
         "connections": 1,
         "data_products": 1
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "hospitality-travel-default",
+          "path": ".loxtep/skills/hospitality-travel-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "flight-status-sink"
+          ],
+          "connectors": [
+            "flight-status-preloaded"
+          ],
+          "workflows": [
+            "flight-status-ingestion"
+          ]
+        }
       }
     },
     {
@@ -198,6 +409,24 @@
         "workflows": 1,
         "connections": 1,
         "data_products": 1
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "energy-utilities-default",
+          "path": ".loxtep/skills/energy-utilities-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "weather-conditions-sink"
+          ],
+          "connectors": [
+            "weather-data-poller"
+          ],
+          "workflows": [
+            "weather-data-ingestion"
+          ]
+        }
       }
     },
     {
@@ -216,6 +445,24 @@
         "workflows": 1,
         "connections": 1,
         "data_products": 1
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "nonprofit-government-default",
+          "path": ".loxtep/skills/nonprofit-government-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "service-requests-sink"
+          ],
+          "connectors": [
+            "service-requests-preloaded"
+          ],
+          "workflows": [
+            "service-requests-ingestion"
+          ]
+        }
       }
     },
     {
@@ -238,6 +485,28 @@
         "workflows": 2,
         "connections": 2,
         "data_products": 2
+      },
+      "scaffold": {
+        "agents_md": "AGENTS.md",
+        "default_skill": {
+          "name": "retail-ecommerce-with-fulfillment-default",
+          "path": ".loxtep/skills/retail-ecommerce-with-fulfillment-default.yaml"
+        },
+        "scope": {
+          "data_products": [
+            "fulfillment-dashboard",
+            "orders-source",
+            "orders-upstream"
+          ],
+          "connectors": [
+            "fulfillment-consumption",
+            "orders-webhook"
+          ],
+          "workflows": [
+            "fulfillment-projection",
+            "orders-ingestion"
+          ]
+        }
       }
     }
   ],

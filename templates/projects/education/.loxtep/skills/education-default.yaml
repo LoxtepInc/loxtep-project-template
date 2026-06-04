@@ -1,0 +1,17 @@
+# .loxtep/skills/education-default.yaml
+# Default skill for the "Student Activity Tracker" template.
+# Conforms to https://loxtep.io/schemas/skill-package-v1.json
+# Scoped to ONLY this template's resources; read-only by default.
+# Any resource type or operation not listed below is DENIED (fail-closed).
+name: education-default
+description: Read-only access scoped to the Student Activity Tracker template resources
+scope:
+  data_products: ["student-activities-sink"]
+  connectors: ["student-activities-webhook"]
+  workflows: ["student-activities-ingestion"]
+  domains: []
+  queues: []
+permissions:
+  data_products: [read]
+  connectors: [read]
+  workflows: [read]
