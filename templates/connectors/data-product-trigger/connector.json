@@ -1,0 +1,65 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "data-product-trigger",
+  "name": "Data Product Trigger",
+  "description": "Trigger an enrichment workflow from an upstream data product's event stream. Reads the referenced data product's bound queue and forwards each event to the downstream transform.",
+  "version": "1.0.0",
+  "tags": ["internal", "enrichment", "mesh", "trigger", "data-product"],
+  "use_cases": [
+    "Source an enrichment/transform workflow from an existing data product",
+    "Build staging/derived data products that read another data product's stream",
+    "Compose a data mesh: one data product feeds another via transforms"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "data-product-trigger",
+    "name": "Data Product Trigger",
+    "description": "Reads an upstream data product's bound queue and forwards events to the downstream transform chain.",
+    "category": "internal",
+    "icon_url": null,
+    "documentation_url": null,
+    "auth_type": "none",
+    "oauth_config": null,
+    "supported_directions": ["inbound"],
+    "supported_entities": ["events"],
+    "supports_webhooks": false,
+    "supports_polling": false,
+    "required_scopes": null,
+    "required_permissions": null,
+    "version": "1.0.0",
+    "is_beta": true,
+    "metadata": {
+      "template_slug": "data-product-trigger",
+      "wiring": "consumption",
+      "trigger_config_spec": {
+        "required": ["source_data_product_id"],
+        "optional": [],
+        "fields": {
+          "source_data_product_id": {
+            "type": "string",
+            "description": "Name or UUID of the upstream data product whose bound queue (its terminal/output queue) is the source of events for this enrichment workflow."
+          }
+        }
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "data-product-trigger",
+    "configuration": {
+      "source_data_product_id": "{{SOURCE_DATA_PRODUCT_ID}}"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{SOURCE_DATA_PRODUCT_ID}}": "Name or UUID of the upstream data product to read from",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "connection_id": "{{TRIGGER_CONNECTION_ID}}",
+  "workflow_id": "{{WORKFLOW_ID}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "project_id": "{{PROJECT_ID}}",
+  "name": "Data product trigger",
+  "type": "data-product-trigger",
+  "connector_type": "data-product-trigger",
+  "status": "active",
+  "configuration": {
+    "source_data_product_id": "{{SOURCE_DATA_PRODUCT_ID}}"
+  },
+  "metadata": {
+    "template_slug": "data-product-enrichment"
+  },
+  "created_at": "{{CREATED_AT}}",
+  "updated_at": "{{UPDATED_AT}}"
+}

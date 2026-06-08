@@ -1,0 +1,57 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/workflow.json",
+  "template_type": "workflow",
+  "slug": "data-product-enrichment",
+  "name": "Data Product Enrichment Workflow",
+  "description": "Enrich/transform an upstream data product's event stream into a new data product. Starts from a data-product-trigger connection (reads the upstream data product's bound queue), chains transforms, and emits a consumer data product. Replayable from the upstream's history.",
+  "version": "1.0.0",
+  "produces_kind": "consumer",
+  "tags": ["enrichment", "transform", "internal", "mesh", "data-product"],
+  "use_cases": [
+    "Build a staging/derived data product from another data product",
+    "Apply dbt-style staging transforms (rename, cast, filter) as a streaming workflow",
+    "Compose a data mesh: one data product feeds another via transforms"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "domain_id": "{{DOMAIN_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "Enrichment workflow triggered by an upstream data product",
+    "workflow_type": "enrichment",
+    "template_id": "{{TEMPLATE_ID}}",
+    "configuration": {
+      "schedule": null,
+      "batch_size": 100
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "data-product-enrichment",
+      "workflow_type": "enrichment"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "dependencies": {
+    "connection": {
+      "data-product-trigger": "data-product-trigger"
+    }
+  },
+  "placeholders": {
+    "{{WORKFLOW_ID}}": "Generated UUID for the workflow",
+    "{{ORGANIZATION_ID}}": "Organization that owns this workflow",
+    "{{PROJECT_ID}}": "Project containing this workflow",
+    "{{DOMAIN_ID}}": "Domain this workflow belongs to",
+    "{{WORKFLOW_NAME}}": "User-provided name for the workflow",
+    "{{TEMPLATE_ID}}": "Stable template ID from catalog",
+    "{{TRIGGER_CONNECTION_ID}}": "Generated UUID for the data-product-trigger source connection",
+    "{{SOURCE_DATA_PRODUCT_ID}}": "Name or UUID of the upstream data product to read from",
+    "{{DATA_PRODUCT_SINK_ID}}": "Generated UUID for the enriched (consumer) data product output",
+    "{{OWNER_USER_ID}}": "User ID for data product owner and ODPS dataHolder.dataProductOwner",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  }
+}
