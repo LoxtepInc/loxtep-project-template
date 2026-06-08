@@ -10,6 +10,11 @@
     "template",
     "string"
   ],
+  "use_cases": [
+    "Generate templated messages or labels",
+    "Build formatted output strings from multiple fields",
+    "Create human-readable summaries from event data"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

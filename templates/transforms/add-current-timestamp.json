@@ -10,6 +10,11 @@
     "timestamp",
     "enrichment"
   ],
+  "use_cases": [
+    "Record when events were processed",
+    "Add ingestion timestamps for latency tracking",
+    "Audit trail timestamping"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

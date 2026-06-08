@@ -10,6 +10,11 @@
     "schema",
     "mapping"
   ],
+  "use_cases": [
+    "Restructure events to match a target schema",
+    "Move or rename fields in bulk",
+    "dbt-style staging transforms (rename, cast, restructure)"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

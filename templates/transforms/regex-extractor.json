@@ -10,6 +10,11 @@
     "regex",
     "extract"
   ],
+  "use_cases": [
+    "Extract structured data from free-text fields",
+    "Pull phone numbers, emails, or IDs from text",
+    "Parse semi-structured log messages"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

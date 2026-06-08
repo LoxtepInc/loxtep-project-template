@@ -9,6 +9,11 @@
     "flow-control",
     "rate-limiting"
   ],
+  "use_cases": [
+    "Rate-limit outbound API calls",
+    "Throttle event processing to avoid overloading downstream",
+    "Add backpressure to high-throughput streams"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

@@ -10,6 +10,11 @@
     "fields",
     "projection"
   ],
+  "use_cases": [
+    "Project only needed fields for consumers",
+    "Minimize payload size for exports",
+    "Enforce schema contracts by selecting known fields"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

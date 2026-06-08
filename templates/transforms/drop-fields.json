@@ -10,6 +10,11 @@
     "privacy",
     "fields"
   ],
+  "use_cases": [
+    "Remove sensitive fields before external delivery",
+    "Strip internal metadata from consumer outputs",
+    "Reduce payload size by removing unused fields"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

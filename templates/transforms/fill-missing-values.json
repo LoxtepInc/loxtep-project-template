@@ -10,6 +10,11 @@
     "null",
     "defaults"
   ],
+  "use_cases": [
+    "Set default values for optional fields",
+    "Ensure downstream consumers have complete records",
+    "Replace nulls with business-appropriate defaults"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

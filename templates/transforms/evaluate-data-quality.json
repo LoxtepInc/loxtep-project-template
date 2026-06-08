@@ -10,6 +10,11 @@
     "validation",
     "rules"
   ],
+  "use_cases": [
+    "Score data quality per event (completeness, accuracy)",
+    "Flag records failing quality thresholds",
+    "Add quality metadata for downstream consumers"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

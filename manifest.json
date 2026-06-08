@@ -1,6 +1,12 @@
 {
   "version": "1.0.0",
   "description": "Loxtep project demos and reusable catalog templates for the data mesh platform.",
+  "agent_instructions": {
+    "discovery": "Use templates.AGENTS.md for the full decision tree. Match user intent against template `tags` and `use_cases` fields. Apply via MCP `loxtep_templates` → `apply_template` with `template_type` + `template_slug`.",
+    "vocabulary": "Connectors with vocabulary/ directories include semantic field mappings (schema.org URIs), pre-built transformation templates, validation rules, and entity relationships. Use these to auto-suggest transforms and quality rules.",
+    "skills": "Each project template ships a .loxtep/skills/<slug>-default.yaml defining a fail-closed scope. Agents operate within this scope unless the developer explicitly widens it.",
+    "composition": "Typical projects combine: project template (scaffold) + workflow templates (flows) + connector templates (sources) + transform templates (enrichment) + data product templates (outputs)."
+  },
   "demos": [
     {
       "slug": "blank",

@@ -10,6 +10,11 @@
     "array",
     "schema"
   ],
+  "use_cases": [
+    "Pivot array values into separate columns",
+    "Denormalize tag lists for tabular queries",
+    "Convert multi-value fields to wide format"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

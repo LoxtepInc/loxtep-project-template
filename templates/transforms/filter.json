@@ -10,6 +10,12 @@
     "filter",
     "conditions"
   ],
+  "use_cases": [
+    "Keep only active records",
+    "Route events by condition",
+    "Remove invalid or incomplete events",
+    "Apply business rules to event streams"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

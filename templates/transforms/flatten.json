@@ -10,6 +10,11 @@
     "nested",
     "structure"
   ],
+  "use_cases": [
+    "Flatten nested API responses for tabular storage",
+    "Convert deeply nested JSON to dot-notation fields",
+    "Prepare hierarchical data for analytics queries"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

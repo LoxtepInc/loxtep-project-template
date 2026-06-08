@@ -10,6 +10,11 @@
     "null",
     "filter"
   ],
+  "use_cases": [
+    "Clean up streams with empty/null payloads",
+    "Remove tombstone or heartbeat events",
+    "Filter out failed parse results"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

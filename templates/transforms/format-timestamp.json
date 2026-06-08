@@ -10,6 +10,11 @@
     "timestamp",
     "date"
   ],
+  "use_cases": [
+    "Normalize timestamps to ISO 8601",
+    "Convert between timezone formats",
+    "Standardize date formats across data sources"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

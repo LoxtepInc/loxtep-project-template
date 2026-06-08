@@ -10,6 +10,11 @@
     "batch",
     "throughput"
   ],
+  "use_cases": [
+    "Improve downstream throughput by grouping events",
+    "Batch writes to external APIs",
+    "Reduce per-event overhead for bulk operations"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

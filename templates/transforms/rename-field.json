@@ -10,6 +10,11 @@
     "rename",
     "schema"
   ],
+  "use_cases": [
+    "Map connector fields to canonical names",
+    "Align field names with data product schema",
+    "dbt-style column renaming in streaming"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

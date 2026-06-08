@@ -10,6 +10,11 @@
     "concat",
     "string"
   ],
+  "use_cases": [
+    "Build full names from first/last name fields",
+    "Create composite keys from multiple fields",
+    "Combine address parts into a single field"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

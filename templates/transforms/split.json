@@ -10,6 +10,11 @@
     "routing",
     "branch"
   ],
+  "use_cases": [
+    "Route events to different queues by priority",
+    "Branch events by type or category",
+    "Fan out a single stream to multiple consumers"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

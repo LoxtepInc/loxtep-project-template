@@ -9,6 +9,10 @@
     "blank",
     "starter"
   ],
+  "use_cases": [
+    "Start from scratch with custom transform logic",
+    "Placeholder for custom configuration"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

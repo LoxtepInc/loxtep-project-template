@@ -10,6 +10,11 @@
     "json",
     "parse"
   ],
+  "use_cases": [
+    "Parse JSON string columns into structured objects",
+    "Unwrap serialized metadata fields",
+    "Convert stringified payloads for downstream access"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

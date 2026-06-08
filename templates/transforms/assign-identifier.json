@@ -10,6 +10,11 @@
     "id",
     "uuid"
   ],
+  "use_cases": [
+    "Generate unique event IDs for deduplication",
+    "Add correlation IDs for tracing",
+    "Assign surrogate keys to records"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

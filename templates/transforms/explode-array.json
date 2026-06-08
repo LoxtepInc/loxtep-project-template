@@ -10,6 +10,11 @@
     "array",
     "expand"
   ],
+  "use_cases": [
+    "Split order line items into individual rows",
+    "Expand nested arrays for per-item analytics",
+    "Fan out multi-value events for downstream processing"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

@@ -10,6 +10,11 @@
     "pii",
     "privacy"
   ],
+  "use_cases": [
+    "Flag events containing PII before storage",
+    "GDPR/CCPA compliance scanning",
+    "Identify sensitive fields for encryption or masking"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

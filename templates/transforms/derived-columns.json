@@ -10,6 +10,11 @@
     "expression",
     "compute"
   ],
+  "use_cases": [
+    "Calculate order totals from price × quantity",
+    "Add computed fields (margins, percentages, flags)",
+    "Build derived metrics from raw event data"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

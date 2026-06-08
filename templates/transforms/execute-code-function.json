@@ -10,6 +10,11 @@
     "custom",
     "code"
   ],
+  "use_cases": [
+    "Complex business logic not covered by built-in transforms",
+    "Custom field computations or lookups",
+    "Prototype transforms before productionizing"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

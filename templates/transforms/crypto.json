@@ -10,6 +10,11 @@
     "encryption",
     "security"
   ],
+  "use_cases": [
+    "Encrypt PII fields before storage",
+    "Tokenize sensitive data for compliance",
+    "Decrypt fields for authorized consumers"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

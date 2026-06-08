@@ -10,6 +10,11 @@
     "xml",
     "json"
   ],
+  "use_cases": [
+    "Convert legacy XML feeds to JSON for processing",
+    "Parse SOAP/XML API responses",
+    "Ingest XML-based data interchange formats"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

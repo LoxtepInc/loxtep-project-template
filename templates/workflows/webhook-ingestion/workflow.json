@@ -12,6 +12,12 @@
     "real-time",
     "events"
   ],
+  "use_cases": [
+    "Receive e-commerce order events via HTTP POST",
+    "Payment notification ingestion",
+    "Form submission capture",
+    "Real-time third-party integrations"
+  ],
   "entity": {
     "workflow_id": "{{WORKFLOW_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",

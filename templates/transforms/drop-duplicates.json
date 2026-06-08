@@ -9,6 +9,11 @@
     "data-manipulation",
     "deduplication"
   ],
+  "use_cases": [
+    "Deduplicate webhook retries",
+    "Ensure idempotent event processing",
+    "Remove duplicate records from batch imports"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

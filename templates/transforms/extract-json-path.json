@@ -10,6 +10,11 @@
     "json",
     "path"
   ],
+  "use_cases": [
+    "Extract nested values from complex JSON payloads",
+    "Pull specific fields from deeply nested API responses",
+    "Create top-level fields from JSON path expressions"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

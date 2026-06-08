@@ -10,6 +10,11 @@
     "null",
     "cleanup"
   ],
+  "use_cases": [
+    "Clean sparse data by removing null fields",
+    "Reduce storage footprint for optional fields",
+    "Normalize events with inconsistent field presence"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",

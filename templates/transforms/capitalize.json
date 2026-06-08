@@ -10,6 +10,11 @@
     "string",
     "case"
   ],
+  "use_cases": [
+    "Normalize name fields to title case",
+    "Standardize string casing for consistency",
+    "Uppercase codes or identifiers"
+  ],
   "entity_type": "transformations",
   "entity": {
     "transformation_id": "{{TRANSFORMATION_ID}}",
