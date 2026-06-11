@@ -18,7 +18,7 @@ jobs:
       - name: Checkout loxtep-marketing-site
         uses: actions/checkout@v4
         with:
-          repository: Symmatiq/loxtep-marketing-site
+          repository: LoxtepInc/loxtep-marketing-site
           token: ${{ secrets.SCHEMA_SYNC_TOKEN }}
           path: marketing-site
           ref: development
@@ -63,10 +63,10 @@ jobs:
           git push origin "$BRANCH"
 
           gh pr create \
-            --repo Symmatiq/loxtep-marketing-site \
+            --repo LoxtepInc/loxtep-marketing-site \
             --base development \
             --head "$BRANCH" \
             --title "chore: sync schemas from project-template" \
-            --body "Automated schema sync from [loxtep-project-template@\`${{ github.sha }}\`](https://github.com/Symmatiq/loxtep-project-template/commit/${{ github.sha }}).
+            --body "Automated schema sync from [loxtep-project-template@\`${{ github.sha }}\`](https://github.com/LoxtepInc/loxtep-project-template/commit/${{ github.sha }}).
 
           Merge this PR to publish updated schemas to https://loxtep.io/schemas/."

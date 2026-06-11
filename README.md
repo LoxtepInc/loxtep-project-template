@@ -177,4 +177,4 @@ pnpm validate
 
 ## License
 
-Copyright 2026 Symmatiq. All rights reserved.
+Copyright 2026 Loxtep Inc. All rights reserved.
