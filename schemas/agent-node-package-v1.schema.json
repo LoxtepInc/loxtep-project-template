@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://loxtep.io/schemas/agent-node-package-v1.json",
+  "title": "Loxtep agent node package (v1)",
+  "description": "Schema for an agent node template. Defines an AI model invocation node that processes each event through a prompt template, validates output against an optional schema, and routes results to an output queue or error queue.",
+  "type": "object",
+  "required": ["template_type", "slug", "name", "version", "entity"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "template_type": { "type": "string", "const": "agent" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "use_cases": { "type": "array", "items": { "type": "string" } },
+    "entity": {
+      "type": "object",
+      "required": ["agent_node_id", "workflow_id", "name", "model_id", "prompt_template", "timeout_seconds", "output_queue_name", "updated_at"],
+      "properties": {
+        "agent_node_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique entity identifier for the agent node"
+        },
+        "workflow_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Parent workflow this node belongs to"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "description": "Human-readable name for the agent node"
+        },
+        "model_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The model identifier to invoke (e.g. bedrock model ARN or alias)"
+        },
+        "prompt_template": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Prompt template string rendered with event payload as context; supports {{key}} placeholders with dot notation"
+        },
+        "timeout_seconds": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 300,
+          "description": "Maximum seconds to wait for model response (1-300, default 30)"
+        },
+        "output_queue_name": {
+          "type": "string",
+          "description": "Output queue name for successful invocations; set at deploy time"
+        },
+        "error_queue_name": {
+          "type": ["string", "null"],
+          "description": "Queue name for failed invocations (schema validation failures, timeouts)"
+        },
+        "output_schema": {
+          "type": ["object", "null"],
+          "description": "Optional JSON Schema to validate model output; events failing validation route to error queue"
+        },
+        "upstream_entity_id": {
+          "type": ["string", "null"],
+          "format": "uuid",
+          "description": "Entity ID of the upstream node feeding events into this agent node"
+        },
+        "upstream_label": {
+          "type": ["string", "null"],
+          "enum": ["approved", "rejected", "error", null],
+          "description": "Label on the incoming edge from a branching upstream node"
+        },
+        "description": {
+          "type": ["string", "null"],
+          "description": "Optional description of the agent node's purpose"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of last modification"
+        }
+      },
+      "additionalProperties": false
+    },
+    "placeholders": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Documentation for each {{PLACEHOLDER}} used in the entity block"
+    }
+  },
+  "additionalProperties": false
+}
