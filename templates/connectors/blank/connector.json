@@ -18,7 +18,7 @@
     "organization_id": "{{ORGANIZATION_ID}}",
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "custom",
-    "name": "{{CONNECTOR_NAME}}",
+    "name": "Custom",
     "description": "",
     "category": "custom",
     "icon_url": null,
