@@ -1,0 +1,45 @@
+{
+  "key": "file_transfer_fetch_files",
+  "name": "Fetch file data",
+  "description": "Download, parse, and return records from a configured file spec entity. The entity_type must match a key in the connector's fileSpecs configuration.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "file-transfer",
+    "operation": "fetch_data",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "entity_type": {
+        "type": "string",
+        "description": "File spec entity name (key from fileSpecs, e.g., 'products', 'inventory')"
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Pagination cursor (for large files)"
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10000,
+        "description": "Maximum number of records to return (default: 1000)"
+      },
+      "full_sync": {
+        "type": "boolean",
+        "description": "If true, ignore incremental state and fetch all records"
+      }
+    },
+    "required": ["entity_type"]
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "file-transfer",
+    "operation": "fetch_data"
+  }
+}

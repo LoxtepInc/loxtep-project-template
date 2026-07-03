@@ -1,0 +1,145 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "file-transfer",
+  "name": "File Transfer",
+  "description": "Ingest files from SFTP, FTP, HTTP, local filesystem, or cloud storage (S3, GCS, Azure Blob). Protocol-discriminated configuration with entity-to-file mapping.",
+  "version": "1.0.0",
+  "tags": [
+    "sftp",
+    "ftp",
+    "http",
+    "s3",
+    "gcs",
+    "azure-blob",
+    "file",
+    "batch",
+    "cloud-storage",
+    "file-transfer",
+    "csv",
+    "tsv",
+    "parquet",
+    "json"
+  ],
+  "use_cases": [
+    "SFTP file ingestion (scheduled polling)",
+    "S3/GCS/Azure Blob cloud storage ingestion",
+    "HTTP file download (CSV, JSON, XML feeds)",
+    "Partner data exchange (EDI, flat files)",
+    "Data lake ingestion from file drops"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "file-transfer",
+    "name": "File Transfer",
+    "description": "Protocol-agnostic file ingestion: SFTP, FTP, HTTP, S3, GCS, Azure Blob, or local filesystem.",
+    "category": "file_storage",
+    "icon_url": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/files.svg",
+    "documentation_url": "https://docs.loxtep.com/connectors/file-transfer",
+    "auth_type": "custom",
+    "oauth_config": null,
+    "supported_directions": ["inbound"],
+    "supported_entities": [],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "required_permissions": [],
+    "version": "1.0.0",
+    "is_beta": true,
+    "custom_settings_schema": {
+      "transport": {
+        "type": "object",
+        "help": "Protocol-specific transport configuration. Set transport.protocol to one of: sftp, ftp, ftps, http, https, file, s3, gs, az-blob."
+      },
+      "authentication": {
+        "type": "object",
+        "help": "Authentication configuration. Set authType appropriate for the transport protocol."
+      },
+      "fileSpecs": {
+        "type": "object",
+        "help": "Map of entity name → file location and parser config. Keys become sync entities."
+      },
+      "errorHandling": {
+        "type": "object",
+        "help": "Retry strategy and limits (retryStrategy, maxRetries, initialDelayMs, maxDelayMs)."
+      },
+      "timeout": {
+        "type": "object",
+        "help": "Timeout configuration (connectTimeoutMs, transferTimeoutMs)."
+      }
+    },
+    "metadata": {
+      "template_slug": "file-transfer",
+      "supported_protocols": ["sftp", "ftp", "ftps", "http", "https", "file", "s3", "gs", "az-blob"],
+      "supports_test_connection": true,
+      "supports_file_listing": true,
+      "supports_file_preview": true,
+      "connection_config_spec": {
+        "resolution": "flexible",
+        "help": "Configuration is a structured JSON object with transport (discriminated union on protocol), authentication, fileSpecs, errorHandling, and timeout sections.",
+        "allow_driver_passthrough": false
+      },
+      "trigger_config_spec": {
+        "required": [],
+        "optional": ["schedule"],
+        "fields": {
+          "schedule": {
+            "type": "object",
+            "description": "Cron schedule for file polling",
+            "properties": {
+              "cron": { "type": "string", "description": "6-field cron expression (e.g., '0 */4 * * * *')" },
+              "timezone": { "type": "string", "description": "IANA timezone (e.g., 'America/New_York')" },
+              "enabled": { "type": "boolean", "description": "Whether the schedule is active" }
+            }
+          }
+        }
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api_poll",
+    "configuration": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "platform_native_provider": "file-transfer",
+    "description": "Multi-protocol file ingestion connector. Runtime implemented as platform-native provider (FileTransferConnector). Supports S3 natively; SFTP/FTP/HTTP require sync-processor runtime for full file download/parse.",
+    "follow_up_notes": [
+      "Runtime: FileTransferConnector in providers/file-transfer/ — uses platform_native protocol.",
+      "S3 operations (testConnection, listFiles, previewFile, fetchData) work immediately via AWS SDK.",
+      "SFTP/FTP operations require ssh2/basic-ftp packages bundled in sync-processor Lambda.",
+      "HTTP file download works for testConnection (HEAD); full fetch requires sync-processor.",
+      "Workflow integration: maps to api_poll graph node with LeoCron schedule."
+    ],
+    "actions": [
+      {
+        "key": "file_transfer_test_connection",
+        "definition_path": "actions/test-connection/definition.json"
+      },
+      {
+        "key": "file_transfer_list_files",
+        "definition_path": "actions/list-files/definition.json"
+      },
+      {
+        "key": "file_transfer_preview_file",
+        "definition_path": "actions/preview-file/definition.json"
+      },
+      {
+        "key": "file_transfer_fetch_files",
+        "definition_path": "actions/fetch-files/definition.json"
+      }
+    ]
+  }
+}

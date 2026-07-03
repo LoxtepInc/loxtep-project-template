@@ -1,0 +1,41 @@
+{
+  "key": "file_transfer_test_connection",
+  "name": "Test file transfer connection",
+  "description": "Validates transport reachability, authentication, and file access for all configured file specs. Returns per-stage results (transport, auth, files) with status: success/partial/failed.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "file-transfer",
+    "operation": "test_connection_extended",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "validate_auth": {
+        "type": "boolean",
+        "description": "Whether to validate authentication (default: true)"
+      },
+      "validate_files": {
+        "type": "boolean",
+        "description": "Whether to validate file specs exist and are readable (default: true)"
+      },
+      "preview_rows": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 100,
+        "description": "Number of preview rows to return per file spec (default: 0)"
+      }
+    },
+    "description": "Uses connector instance config. Optional overrides for validation scope."
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "file-transfer",
+    "operation": "test_connection_extended"
+  }
+}

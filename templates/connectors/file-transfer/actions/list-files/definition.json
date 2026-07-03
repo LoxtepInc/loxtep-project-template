@@ -1,0 +1,41 @@
+{
+  "key": "file_transfer_list_files",
+  "name": "List remote files",
+  "description": "Browse remote directory contents. Supported for SFTP, FTP, S3, GCS, Azure Blob, and local filesystem. Returns file metadata (name, path, type, size, lastModified).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "file-transfer",
+    "operation": "list_files",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "path": {
+        "type": "string",
+        "description": "Directory path to list (relative to transport root)"
+      },
+      "recursive": {
+        "type": "boolean",
+        "description": "If true, list recursively (default: false)"
+      },
+      "max_results": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10000,
+        "description": "Maximum number of results to return (default: 1000)"
+      }
+    },
+    "required": ["path"]
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "file-transfer",
+    "operation": "list_files"
+  }
+}
