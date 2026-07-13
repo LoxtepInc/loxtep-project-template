@@ -6,36 +6,32 @@ This repository contains **project demos**, **catalog templates** (workflows, co
 
 ```
 loxtep-project-template/
-├── demos/                      # Full project demos (complete working examples)
-│   └── onboarding/             # Getting started demo project
-│       ├── .loxtep/           # Project metadata
-│       │   └── project.json
-│       ├── domains/           # Domain definitions
-│       ├── connections/       # Connection configurations
-│       ├── workflows/         # Workflow definitions (Studio / flow graph)
-│       └── data-products/     # Data product definitions
-│
 ├── templates/                  # Catalog templates (platform-synced)
+│   ├── projects/              # Project starters (`{slug}/project.json` + `workflows/`, etc.)
+│   │   └── retail_ecommerce/  # Minimal starter reachable via `loxtep init` (see below)
 │   ├── workflows/             # Workflow templates (`{slug}/workflow.json` + optional `connections/`, etc.)
 │   ├── connectors/            # Connector templates (`{slug}.json`)
 │   ├── transforms/            # Transform templates
-│   ├── projects/              # Multi-workflow project templates
 │   ├── data-products/         # Data product templates
 │   ├── domains/               # Domain templates
 │   ├── validations/           # Validation rule templates
 │   ├── exports/               # Export templates
 │   └── consumption/           # Consumption / activation templates
 │
-└── manifest.json              # Index of demos and catalog templates
+└── manifest.json              # Index of project starters (`demos[]`) and catalog templates
 ```
+
+> **Note:** Project starters live under `templates/projects/<slug>/`. The
+> `manifest.json` key that indexes them is historically named `demos[]`; there
+> is no separate top-level `demos/` directory.
 
 ## Template types
 
-### Project demos (`demos/`)
+### Project starters (`templates/projects/`)
 
-Full project trees that can be cloned as a starting point. Each demo is a complete, working project with entity folders configured.
+Full project trees that can be cloned as a starting point. Each starter is a complete, working project with entity folders configured, indexed in `manifest.json` under the `demos[]` key.
 
-**Usage:** When creating a new project, select a demo to clone the entire structure.
+**Usage:** `loxtep init --template <slug>` materializes a starter into a new project. The **`retail_ecommerce`** starter is the recommended minimal entry — it deploys without editing.
 
 ### Catalog templates (`templates/`)
 
@@ -142,13 +138,13 @@ node scripts/generate-template-agents.mjs --check   # CI: fail on drift
 
 ## Contributing
 
-### Adding a new demo
+### Adding a new project starter
 
-1. Create a new directory under `demos/` with a descriptive name
-2. Add `.loxtep/project.json` with project metadata
-3. Add entity files in the appropriate subdirectories
-4. Update `manifest.json` under `demos`
-5. Run `pnpm lint` to validate structure
+1. Create a new directory under `templates/projects/<slug>/` with a descriptive slug
+2. Add `.loxtep/project.json` (or `project.json`) with project metadata
+3. Add entity files in the appropriate subdirectories (`workflows/`, `data-products/`, etc.)
+4. Update `manifest.json` under `demos[]`
+5. Run `pnpm lint` and `pnpm validate` to validate structure
 
 ### Adding a new catalog template
 

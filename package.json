@@ -1,0 +1,23 @@
+{
+  "name": "@loxtep/project-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Loxtep catalog templates (workflows, connectors, transforms, projects, data products) and project starters consumed by the platform and `loxtep init`.",
+  "type": "module",
+  "scripts": {
+    "lint": "ls-lint",
+    "validate": "node scripts/validate-templates.mjs && node scripts/verify-catalog-runtime-templates.mjs && python3 scripts/validate-data-product-templates.py",
+    "validate:templates": "node scripts/validate-templates.mjs",
+    "validate:connectors": "node scripts/verify-catalog-runtime-templates.mjs",
+    "validate:data-products": "python3 scripts/validate-data-product-templates.py",
+    "agents": "node scripts/generate-template-agents.mjs",
+    "agents:check": "node scripts/generate-template-agents.mjs --check"
+  },
+  "devDependencies": {
+    "@ls-lint/ls-lint": "^2.2.3"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "UNLICENSED"
+}
