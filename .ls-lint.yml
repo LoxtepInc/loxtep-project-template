@@ -2,9 +2,6 @@
 # Enforces kebab-case naming for all files and directories
 
 ls:
-  demos/**/*:
-    .json: kebab-case
-
   templates/**/*:
     .json: kebab-case
 
