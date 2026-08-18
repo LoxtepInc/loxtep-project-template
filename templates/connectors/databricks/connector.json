@@ -1,0 +1,146 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "databricks",
+  "name": "Databricks Connector",
+  "description": "Connect to a Databricks workspace for bound (not ingested) Unity Catalog discovery and governed reads. PAT or OAuth token authentication against a SQL Warehouse. Inbound only.",
+  "version": "1.0.0",
+  "tags": [
+    "databricks",
+    "unity-catalog",
+    "database",
+    "warehouse",
+    "sql",
+    "bound"
+  ],
+  "use_cases": [
+    "Register existing Databricks tables as bound data products",
+    "Discover Unity Catalog catalogs, schemas, tables, and views",
+    "Least-privilege metadata and aggregate queries via SQL Warehouse"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "databricks",
+    "name": "Databricks",
+    "description": "Databricks SQL Warehouse connector for bound Unity Catalog tables. Does not ingest rows into Loxtep storage.",
+    "category": "database",
+    "icon_url": "https://www.svgrepo.com/show/448208/databricks.svg",
+    "documentation_url": "https://docs.databricks.com/",
+    "auth_type": "custom",
+    "oauth_config": null,
+    "supported_directions": [
+      "inbound"
+    ],
+    "supported_entities": [],
+    "supports_webhooks": false,
+    "supports_polling": false,
+    "required_scopes": null,
+    "required_permissions": [
+      "USE CATALOG",
+      "USE SCHEMA",
+      "SELECT"
+    ],
+    "version": "1.0.0",
+    "is_beta": false,
+    "custom_settings_schema": {
+      "host": {
+        "type": "string",
+        "help": "Databricks workspace host (e.g. dbc-xxxx.cloud.databricks.com). No https:// prefix required."
+      },
+      "warehouse_id": {
+        "type": "string",
+        "help": "SQL Warehouse ID used for Statement Execution API calls."
+      },
+      "http_path": {
+        "type": "string",
+        "help": "Optional SQL Warehouse HTTP path (e.g. /sql/1.0/warehouses/{id}). Informational; Statement Execution uses warehouse_id."
+      },
+      "catalog": {
+        "type": "string",
+        "help": "Optional default Unity Catalog catalog for the session."
+      },
+      "schema": {
+        "type": "string",
+        "help": "Optional default schema for the session."
+      },
+      "auth_method": {
+        "type": "string",
+        "enum": ["pat", "oauth"],
+        "default": "pat",
+        "help": "pat uses the token field; oauth uses oauth_access_token."
+      },
+      "token": {
+        "type": "string",
+        "sensitive": true,
+        "help": "Personal access token (PAT). Externalized to SSM."
+      },
+      "oauth_access_token": {
+        "type": "string",
+        "sensitive": true,
+        "help": "OAuth access token for workspace auth. Externalized to SSM."
+      },
+      "statement_timeout_seconds": {
+        "type": "string",
+        "help": "Per-statement wait timeout in seconds (5–50). Default 30."
+      }
+    },
+    "metadata": {
+      "template_slug": "databricks",
+      "connection_config_spec": {
+        "resolution": "discrete",
+        "help": "Required: host, warehouse_id, plus token (PAT) or oauth_access_token."
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "database",
+    "configuration": {
+      "host": "{{DATABRICKS_HOST}}",
+      "warehouse_id": "{{DATABRICKS_WAREHOUSE_ID}}",
+      "http_path": "{{DATABRICKS_HTTP_PATH}}",
+      "catalog": "{{DATABRICKS_CATALOG}}",
+      "schema": "{{DATABRICKS_SCHEMA}}",
+      "auth_method": "pat"
+    },
+    "credential_fields": {
+      "token": "{{DATABRICKS_TOKEN}}",
+      "oauth_access_token": "{{DATABRICKS_OAUTH_ACCESS_TOKEN}}"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{DATABRICKS_HOST}}": "Workspace host without scheme",
+    "{{DATABRICKS_WAREHOUSE_ID}}": "SQL Warehouse ID",
+    "{{DATABRICKS_HTTP_PATH}}": "Optional warehouse HTTP path",
+    "{{DATABRICKS_CATALOG}}": "Optional default Unity Catalog catalog",
+    "{{DATABRICKS_SCHEMA}}": "Optional default schema",
+    "{{DATABRICKS_TOKEN}}": "PAT (encrypted)",
+    "{{DATABRICKS_OAUTH_ACCESS_TOKEN}}": "OAuth access token (encrypted)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "platform_native_provider": "databricks",
+    "description": "Bound Databricks / Unity Catalog source. Metadata and aggregates only; rows are not ingested into Loxtep. Customer UC remains source of truth.",
+    "follow_up_notes": [
+      "Runtime: platform DatabricksConnector (native). Do not set use_catalog_runtime.",
+      "Do not declare fetch_data or push_data — Databricks is bound, not ingested.",
+      "Secrets (token, oauth_access_token) are sensitive and stored in the existing SSM connector path.",
+      "Binding field database maps to Unity Catalog catalog name."
+    ],
+    "actions": [
+      {
+        "key": "databricks_test_connection",
+        "definition_path": "actions/test-connection/definition.json"
+      }
+    ]
+  }
+}
