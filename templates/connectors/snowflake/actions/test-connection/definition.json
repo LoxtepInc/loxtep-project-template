@@ -1,0 +1,25 @@
+{
+  "key": "snowflake_test_connection",
+  "name": "Test Snowflake connection",
+  "description": "Opens a short-lived session, verifies SELECT on the configured schema, and reports CURRENT_ROLE, CURRENT_WAREHOUSE, and region. Platform SnowflakeConnector.testConnection.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "snowflake",
+    "operation": "test_connection",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "snowflake",
+    "operation": "test_connection"
+  }
+}

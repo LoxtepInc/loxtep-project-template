@@ -766,12 +766,26 @@
         "slug": "postgres",
         "name": "PostgreSQL Connector",
         "description": "PostgreSQL database with CDC and query support",
-        "path": "templates/connectors/postgres.json",
+        "path": "templates/connectors/postgres/connector.json",
         "tags": [
           "postgres",
           "database",
           "cdc",
           "sql"
+        ],
+        "category": "database"
+      },
+      {
+        "slug": "snowflake",
+        "name": "Snowflake Connector",
+        "description": "Connect to Snowflake for bound table discovery (inbound, not ingested)",
+        "path": "templates/connectors/snowflake/connector.json",
+        "tags": [
+          "snowflake",
+          "database",
+          "warehouse",
+          "sql",
+          "bound"
         ],
         "category": "database"
       },

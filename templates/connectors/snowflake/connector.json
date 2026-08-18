@@ -1,0 +1,157 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "snowflake",
+  "name": "Snowflake Connector",
+  "description": "Connect to an existing Snowflake account for bound (not ingested) table discovery and governed reads. Key-pair or password authentication. Inbound only.",
+  "version": "1.0.0",
+  "tags": [
+    "snowflake",
+    "database",
+    "warehouse",
+    "sql",
+    "bound"
+  ],
+  "use_cases": [
+    "Register existing Snowflake tables as bound data products",
+    "Discover databases, schemas, tables, and views",
+    "Least-privilege metadata and aggregate queries"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "snowflake",
+    "name": "Snowflake",
+    "description": "Snowflake warehouse connector for bound tables. Does not ingest rows into Loxtep storage.",
+    "category": "database",
+    "icon_url": "https://www.svgrepo.com/show/354322/snowflake.svg",
+    "documentation_url": "https://docs.snowflake.com/",
+    "auth_type": "custom",
+    "oauth_config": null,
+    "supported_directions": [
+      "inbound"
+    ],
+    "supported_entities": [],
+    "supports_webhooks": false,
+    "supports_polling": false,
+    "required_scopes": null,
+    "required_permissions": [
+      "USAGE",
+      "SELECT"
+    ],
+    "version": "1.0.0",
+    "is_beta": false,
+    "custom_settings_schema": {
+      "account": {
+        "type": "string",
+        "help": "Snowflake account identifier (e.g. xy12345.us-east-1)."
+      },
+      "warehouse": {
+        "type": "string",
+        "help": "Warehouse used for metadata and federated queries."
+      },
+      "database": {
+        "type": "string",
+        "help": "Default database for the session."
+      },
+      "schema": {
+        "type": "string",
+        "help": "Default schema for the session."
+      },
+      "role": {
+        "type": "string",
+        "help": "Snowflake role. Prefer a SELECT-only role."
+      },
+      "username": {
+        "type": "string",
+        "help": "Snowflake user name."
+      },
+      "auth_method": {
+        "type": "string",
+        "enum": ["password", "key_pair"],
+        "default": "key_pair",
+        "help": "password uses the password field; key_pair uses private_key and optional private_key_passphrase."
+      },
+      "password": {
+        "type": "string",
+        "sensitive": true,
+        "help": "Password auth secret. Externalized to SSM."
+      },
+      "private_key": {
+        "type": "string",
+        "format": "multiline",
+        "sensitive": true,
+        "help": "PEM private key for key-pair (SNOWFLAKE_JWT) auth. Externalized to SSM."
+      },
+      "private_key_passphrase": {
+        "type": "string",
+        "sensitive": true,
+        "help": "Optional passphrase for an encrypted private key. Externalized to SSM."
+      },
+      "statement_timeout_seconds": {
+        "type": "string",
+        "help": "Per-statement timeout in seconds. Default 60."
+      }
+    },
+    "metadata": {
+      "template_slug": "snowflake",
+      "connection_config_spec": {
+        "resolution": "discrete",
+        "help": "Required: account, warehouse, database, schema, role, username, plus password or private_key."
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "database",
+    "configuration": {
+      "account": "{{SNOWFLAKE_ACCOUNT}}",
+      "warehouse": "{{SNOWFLAKE_WAREHOUSE}}",
+      "database": "{{SNOWFLAKE_DATABASE}}",
+      "schema": "{{SNOWFLAKE_SCHEMA}}",
+      "role": "{{SNOWFLAKE_ROLE}}",
+      "username": "{{SNOWFLAKE_USERNAME}}",
+      "auth_method": "key_pair"
+    },
+    "credential_fields": {
+      "password": "{{SNOWFLAKE_PASSWORD}}",
+      "private_key": "{{SNOWFLAKE_PRIVATE_KEY}}",
+      "private_key_passphrase": "{{SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}}"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{SNOWFLAKE_ACCOUNT}}": "Snowflake account identifier",
+    "{{SNOWFLAKE_WAREHOUSE}}": "Warehouse name",
+    "{{SNOWFLAKE_DATABASE}}": "Default database",
+    "{{SNOWFLAKE_SCHEMA}}": "Default schema",
+    "{{SNOWFLAKE_ROLE}}": "Least-privilege role",
+    "{{SNOWFLAKE_USERNAME}}": "Snowflake username",
+    "{{SNOWFLAKE_PASSWORD}}": "Password (encrypted, password auth)",
+    "{{SNOWFLAKE_PRIVATE_KEY}}": "PEM private key (encrypted, key-pair auth)",
+    "{{SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}}": "Optional private key passphrase (encrypted)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "platform_native_provider": "snowflake",
+    "description": "Bound Snowflake source. Metadata and aggregates only; rows are not ingested into Loxtep.",
+    "follow_up_notes": [
+      "Runtime: platform SnowflakeConnector (native). Do not set use_catalog_runtime.",
+      "Do not declare fetch_data or push_data \u2014 Snowflake is bound, not ingested.",
+      "Secrets (password, private_key, private_key_passphrase) are sensitive and stored in the existing SSM connector path."
+    ],
+    "actions": [
+      {
+        "key": "snowflake_test_connection",
+        "definition_path": "actions/test-connection/definition.json"
+      }
+    ]
+  }
+}
