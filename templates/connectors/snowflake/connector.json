@@ -3,7 +3,7 @@
   "template_type": "connector",
   "slug": "snowflake",
   "name": "Snowflake Connector",
-  "description": "Connect to an existing Snowflake account for bound (not ingested) table discovery and governed reads. Key-pair or password authentication. Inbound only.",
+  "description": "Connect to Snowflake for bound reads, warehouse-primary ingestion sinks, and governed writes. Key-pair or password authentication.",
   "version": "1.0.0",
   "tags": [
     "snowflake",
@@ -14,6 +14,7 @@
   ],
   "use_cases": [
     "Register existing Snowflake tables as bound data products",
+    "Land ingested workflow rows into customer Snowflake tables (warehouse-primary)",
     "Discover databases, schemas, tables, and views",
     "Least-privilege metadata and aggregate queries"
   ],
@@ -30,7 +31,8 @@
     "auth_type": "custom",
     "oauth_config": null,
     "supported_directions": [
-      "inbound"
+      "inbound",
+      "outbound"
     ],
     "supported_entities": [],
     "supports_webhooks": false,
@@ -38,7 +40,9 @@
     "required_scopes": null,
     "required_permissions": [
       "USAGE",
-      "SELECT"
+      "SELECT",
+      "INSERT",
+      "UPDATE"
     ],
     "version": "1.0.0",
     "is_beta": false,
@@ -141,16 +145,21 @@
     "schema_version": 1,
     "package_version": "1.0.0",
     "platform_native_provider": "snowflake",
-    "description": "Bound Snowflake source. Metadata and aggregates only; rows are not ingested into Loxtep.",
+    "description": "Snowflake connector for bound reads and warehouse-primary ingestion writes.",
     "follow_up_notes": [
       "Runtime: platform SnowflakeConnector (native). Do not set use_catalog_runtime.",
-      "Do not declare fetch_data or push_data \u2014 Snowflake is bound, not ingested.",
+      "Read-only bind uses inbound metadata/aggregates only.",
+      "Warehouse-primary sinks use push_data with dest_database, dest_schema, dest_table, sync_config.",
       "Secrets (password, private_key, private_key_passphrase) are sensitive and stored in the existing SSM connector path."
     ],
     "actions": [
       {
         "key": "snowflake_test_connection",
         "definition_path": "actions/test-connection/definition.json"
+      },
+      {
+        "key": "snowflake_push_data",
+        "definition_path": "actions/push-data/definition.json"
       }
     ]
   }
