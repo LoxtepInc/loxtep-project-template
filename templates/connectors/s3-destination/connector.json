@@ -1,6 +1,7 @@
 {
   "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
+  "catalog_visible": true,
   "slug": "s3-destination",
   "name": "S3 Destination Connector",
   "description": "Connection to Amazon S3 or S3-compatible storage for outbound writes (mesh / batch data).",
@@ -19,7 +20,7 @@
     "connector_type": "s3-destination",
     "name": "Amazon S3 Destination",
     "description": "Write data to Amazon S3 or S3-compatible storage in multiple formats with partitioning support.",
-    "category": "file_storage",
+    "category": "basic",
     "auth_type": "api_key",
     "oauth_config": null,
     "icon_url": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/amazons3.svg",

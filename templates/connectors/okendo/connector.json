@@ -1,9 +1,10 @@
 {
   "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
+  "catalog_visible": false,
   "slug": "okendo",
   "name": "Okendo Connector",
-  "description": "Connect to Okendo for reviews linked to orders and customers. 18k+ Shopify brands. Via Composio.",
+  "description": "Connect to Okendo for reviews linked to orders and customers. 18k+ Shopify brands.",
   "version": "1.0.0",
   "tags": [
     "okendo",
@@ -22,7 +23,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "okendo",
     "name": "Okendo",
-    "description": "Okendo reviews connector via Composio (reviews linked to orders and customers)",
+    "description": "Okendo reviews connector (reviews linked to orders and customers)",
     "category": "e_commerce",
     "auth_type": "api_key",
     "backend": "composio",
@@ -58,7 +59,7 @@
   "connector_package": {
     "schema_version": 1,
     "package_version": "1.0.0",
-    "description": "Composio toolkit wiring for Okendo reviews.",
+    "description": "Okendo reviews toolkit wiring.",
     "follow_up_notes": [
       "Runtime: ComposioAdapter — entity sync maps to Composio tools; not CatalogRuntimeConnector.",
       "Optional: mirror critical tools as catalog_http_* + use_catalog_runtime if a direct REST path is required without Composio."
@@ -67,7 +68,7 @@
       "connector_type": "okendo",
       "toolkit_name": "okendo",
       "name": "Okendo",
-      "description": "Okendo reviews connector via Composio (reviews linked to orders and customers)",
+      "description": "Okendo reviews connector (reviews linked to orders and customers)",
       "entity_mappings": [
         { "entity_type": "reviews", "tool_slug": "OKENDO_LIST_REVIEWS" },
         { "entity_type": "questions", "tool_slug": "OKENDO_LIST_QUESTIONS" },

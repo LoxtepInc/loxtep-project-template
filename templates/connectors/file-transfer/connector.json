@@ -1,6 +1,7 @@
 {
   "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
+  "catalog_visible": true,
   "slug": "file-transfer",
   "name": "File Transfer",
   "description": "Ingest files from SFTP, FTP, HTTP, local filesystem, or cloud storage (S3, GCS, Azure Blob). Protocol-discriminated configuration with entity-to-file mapping.",
@@ -35,7 +36,7 @@
     "connector_type": "file-transfer",
     "name": "File Transfer",
     "description": "Protocol-agnostic file ingestion: SFTP, FTP, HTTP, S3, GCS, Azure Blob, or local filesystem.",
-    "category": "file_storage",
+    "category": "basic",
     "icon_url": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/files.svg",
     "documentation_url": "https://docs.loxtep.com/connectors/file-transfer",
     "auth_type": "custom",

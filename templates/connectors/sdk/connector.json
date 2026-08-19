@@ -1,5 +1,6 @@
 {
   "template_type": "connector",
+  "catalog_visible": true,
   "slug": "sdk",
   "name": "SDK Connector",
   "description": "Programmatic data ingestion and export via the Loxtep SDK",
@@ -23,7 +24,7 @@
     "connector_type": "sdk",
     "name": "SDK Connector",
     "description": "Write and read events programmatically using @loxtep/sdk (Node.js) or loxtep (Python)",
-    "category": "custom",
+    "category": "basic",
     "icon_url": null,
     "documentation_url": "https://docs.loxtep.com/connectors/sdk",
     "auth_type": "jwt",
