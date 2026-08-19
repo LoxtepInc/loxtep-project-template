@@ -1,9 +1,10 @@
 {
   "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
+  "catalog_visible": true,
   "slug": "clickup",
   "name": "ClickUp Connector",
-  "description": "Connect to ClickUp via Composio to sync tasks, lists, folders, spaces, workspaces, and goals. Uses OAuth 2.0 for authorization.",
+  "description": "Connect to ClickUp to sync tasks, lists, folders, spaces, workspaces, and goals. Uses OAuth 2.0 for authorization.",
   "version": "1.0.0",
   "tags": [
     "clickup",
@@ -22,7 +23,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "clickup",
     "name": "ClickUp",
-    "description": "ClickUp project management via Composio (tasks, lists, folders, spaces, workspaces, goals)",
+    "description": "ClickUp project management (tasks, lists, folders, spaces, workspaces, goals)",
     "category": "productivity",
     "auth_type": "oauth2",
     "backend": "composio",
@@ -62,7 +63,7 @@
   "connector_package": {
     "schema_version": 1,
     "package_version": "1.0.0",
-    "description": "Composio toolkit wiring for ClickUp; entity → tool mapping is the source of truth for the platform ComposioAdapter.",
+    "description": "ClickUp toolkit wiring; entity → tool mapping is the source of truth for the platform adapter.",
     "follow_up_notes": [
       "Runtime: ComposioAdapter — not CatalogRuntimeConnector; keep entity_mappings aligned with shipped Composio toolkit versions.",
       "Optional: add follow-up when ClickUp exposes stable public REST suitable for a catalog-only mirror."
@@ -71,7 +72,7 @@
       "connector_type": "clickup",
       "toolkit_name": "clickup",
       "name": "ClickUp",
-      "description": "ClickUp project management via Composio (tasks, lists, folders, spaces, workspaces, goals)",
+      "description": "ClickUp project management (tasks, lists, folders, spaces, workspaces, goals)",
       "icon_url": "/images/connectors/clickup.svg",
       "entity_mappings": [
         { "entity_type": "workspaces", "tool_slug": "CLICKUP_AUTHORIZATION_GET_WORK_SPACE_LIST" },

@@ -1,9 +1,10 @@
 {
   "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
+  "catalog_visible": true,
   "slug": "netsuite",
   "name": "NetSuite Connector",
-  "description": "Connect to NetSuite ERP via Composio to sync invoices, payments, customers, and GL entries. Uses OAuth 2.0 for authorization.",
+  "description": "Connect to NetSuite ERP to sync invoices, payments, customers, and GL entries. Uses OAuth 2.0 for authorization.",
   "version": "1.0.0",
   "tags": [
     "netsuite",
@@ -22,7 +23,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "netsuite",
     "name": "NetSuite",
-    "description": "NetSuite ERP via Composio (invoices, payments, customers, GL entries)",
+    "description": "NetSuite ERP (invoices, payments, customers, GL entries)",
     "category": "finance",
     "auth_type": "oauth2",
     "backend": "composio",
@@ -59,7 +60,7 @@
   "connector_package": {
     "schema_version": 1,
     "package_version": "1.0.0",
-    "description": "Composio toolkit wiring for NetSuite ERP.",
+    "description": "NetSuite ERP toolkit wiring (invoices, payments, customers, GL entries).",
     "follow_up_notes": [
       "Runtime: ComposioAdapter — not CatalogRuntimeConnector; NetSuite complexity stays in Composio tool mappings.",
       "Optional: document which ERP record types are intentionally omitted from entity_mappings."
@@ -68,7 +69,7 @@
       "connector_type": "netsuite",
       "toolkit_name": "netsuite",
       "name": "NetSuite",
-      "description": "NetSuite ERP via Composio (invoices, payments, customers, GL entries)",
+      "description": "NetSuite ERP (invoices, payments, customers, GL entries)",
       "entity_mappings": [
         { "entity_type": "invoices", "tool_slug": "NETSUITE_LIST_INVOICES" },
         { "entity_type": "payments", "tool_slug": "NETSUITE_LIST_CUSTOMER_PAYMENTS" },

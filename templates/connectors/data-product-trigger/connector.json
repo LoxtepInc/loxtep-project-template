@@ -1,6 +1,7 @@
 {
   "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
+  "catalog_visible": true,
   "slug": "data-product-trigger",
   "name": "Data Product Trigger",
   "description": "Trigger an enrichment workflow from an upstream data product's event stream. Reads the referenced data product's bound queue and forwards each event to the downstream transform.",
@@ -18,7 +19,7 @@
     "connector_type": "data-product-trigger",
     "name": "Data Product Trigger",
     "description": "Reads an upstream data product's bound queue and forwards events to the downstream transform chain.",
-    "category": "internal",
+    "category": "basic",
     "icon_url": null,
     "documentation_url": null,
     "auth_type": "none",

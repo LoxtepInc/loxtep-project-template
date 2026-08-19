@@ -1,6 +1,7 @@
 {
   "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
+  "catalog_visible": false,
   "slug": "shipstation",
   "name": "ShipStation Connector",
   "description": "Connect to ShipStation for shipments, orders, and fulfillment. Multi-channel brands with 150+ marketplace integrations.",
@@ -22,7 +23,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "shipstation",
     "name": "ShipStation",
-    "description": "ShipStation fulfillment connector via Composio (shipments, orders, carriers)",
+    "description": "ShipStation fulfillment connector (shipments, orders, carriers)",
     "category": "fulfillment",
     "auth_type": "api_key",
     "backend": "composio",
@@ -62,7 +63,7 @@
   "connector_package": {
     "schema_version": 1,
     "package_version": "1.0.0",
-    "description": "Composio toolkit wiring for ShipStation.",
+    "description": "ShipStation toolkit wiring.",
     "follow_up_notes": [
       "Runtime: ComposioAdapter + composio_adapter.entity_mappings — not use_catalog_runtime; entity sync and auth flow are owned by Composio + platform registry.",
       "If ShipStation exposes stable REST contracts for direct catalog migration, duplicate tool mappings as catalog_http_* actions and flip runtime intentionally."
@@ -71,7 +72,7 @@
       "connector_type": "shipstation",
       "toolkit_name": "shipstation",
       "name": "ShipStation",
-      "description": "ShipStation fulfillment connector via Composio (shipments, orders, carriers)",
+      "description": "ShipStation fulfillment connector (shipments, orders, carriers)",
       "entity_mappings": [
         { "entity_type": "shipments", "tool_slug": "SHIPSTATION_LIST_SHIPMENTS" },
         { "entity_type": "orders", "tool_slug": "SHIPSTATION_LIST_ORDERS" },

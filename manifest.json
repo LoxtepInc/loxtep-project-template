@@ -800,7 +800,7 @@
           "events",
           "generic"
         ],
-        "category": "custom"
+        "category": "basic"
       },
       {
         "slug": "s3-source",
@@ -813,7 +813,7 @@
           "file",
           "batch"
         ],
-        "category": "file_storage"
+        "category": "basic"
       },
       {
         "slug": "rest-api",
@@ -826,7 +826,7 @@
           "http",
           "json"
         ],
-        "category": "custom"
+        "category": "basic"
       },
       {
         "slug": "spotify",
@@ -853,7 +853,7 @@
           "trigger",
           "mesh"
         ],
-        "category": "custom"
+        "category": "basic"
       },
       {
         "slug": "bigcommerce",

@@ -1,15 +1,16 @@
 {
   "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
+  "catalog_visible": false,
   "slug": "salesforce",
   "name": "Salesforce Connector",
-  "description": "Salesforce CRM via Composio-backed connector (toolkit configuration in platform).",
+  "description": "Salesforce CRM (contacts, accounts, opportunities, leads).",
   "version": "1.0.0",
   "tags": [
     "salesforce"
   ],
   "use_cases": [
-    "Salesforce CRM via Composio-backed connector (toolkit configuration in platform)."
+    "Salesforce CRM (contacts, accounts, opportunities, leads)."
   ],
   "entity": {
     "connector_id": "{{CONNECTOR_ID}}",
@@ -17,7 +18,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "salesforce",
     "name": "Salesforce",
-    "description": "Salesforce CRM via Composio-backed connector (toolkit configuration in platform).",
+    "description": "Salesforce CRM (contacts, accounts, opportunities, leads).",
     "category": "crm",
     "auth_type": "oauth2",
     "oauth_config": {
@@ -68,7 +69,7 @@
   "connector_package": {
     "schema_version": 1,
     "package_version": "1.0.0",
-    "description": "Composio toolkit wiring for Salesforce CRM.",
+    "description": "Salesforce CRM toolkit wiring.",
     "follow_up_notes": [
       "Runtime: ComposioAdapter — not CatalogRuntimeConnector; SOQL-heavy or custom objects belong in Composio tool mappings.",
       "Optional: expand entity_mappings with explicit tool_slug inventory as new Salesforce objects are onboarded."
@@ -77,7 +78,7 @@
       "connector_type": "salesforce",
       "toolkit_name": "salesforce",
       "name": "Salesforce",
-      "description": "Salesforce CRM via Composio (contacts, accounts, opportunities, leads)",
+      "description": "Salesforce CRM (contacts, accounts, opportunities, leads)",
       "entity_mappings": [
         { "entity_type": "contacts", "tool_slug": "SALESFORCE_LIST_CONTACTS" },
         { "entity_type": "accounts", "tool_slug": "SALESFORCE_LIST_ACCOUNTS" },

@@ -1,6 +1,7 @@
 {
   "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
+  "catalog_visible": true,
   "slug": "stripe",
   "name": "Stripe Connector",
   "description": "Sync Stripe customers, charges, payment intents, subscriptions, invoices, products, and prices.",
