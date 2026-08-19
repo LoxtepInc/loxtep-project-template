@@ -1,0 +1,29 @@
+{
+  "key": "snowflake_push_data",
+  "name": "Push records to Snowflake",
+  "description": "Outbound batch write when custom_settings.dest_table and sync_config are configured. Platform SnowflakeConnector.pushData.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "snowflake",
+    "operation": "push_data",
+    "read_only": false,
+    "destructive": true
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "entity_type": { "type": "string" },
+      "records": { "type": "array" }
+    },
+    "required": ["entity_type", "records"]
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "snowflake",
+    "operation": "push_data"
+  }
+}
