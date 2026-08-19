@@ -1,0 +1,25 @@
+{
+  "key": "databricks_test_connection",
+  "name": "Test Databricks connection",
+  "description": "Runs a short Statement Execution probe against the configured SQL Warehouse and reports current_user / catalog / schema. Platform DatabricksConnector.testConnection.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "databricks",
+    "operation": "test_connection",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "databricks",
+    "operation": "test_connection"
+  }
+}
