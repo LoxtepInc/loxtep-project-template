@@ -1,0 +1,29 @@
+{
+  "key": "databricks_push_data",
+  "name": "Push records to Databricks",
+  "description": "Outbound batch write when custom_settings.dest_table and sync_config are configured. Platform DatabricksConnector.pushData (Delta MERGE/INSERT).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "databricks",
+    "operation": "push_data",
+    "read_only": false,
+    "destructive": true
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "entity_type": { "type": "string" },
+      "records": { "type": "array" }
+    },
+    "required": ["entity_type", "records"]
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "databricks",
+    "operation": "push_data"
+  }
+}
