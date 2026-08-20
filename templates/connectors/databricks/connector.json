@@ -3,7 +3,7 @@
   "template_type": "connector",
   "slug": "databricks",
   "name": "Databricks Connector",
-  "description": "Connect to a Databricks workspace for bound (not ingested) Unity Catalog discovery and governed reads. PAT or OAuth token authentication against a SQL Warehouse. Inbound only.",
+  "description": "Connect to Databricks for bound Unity Catalog reads and warehouse-primary ingestion sinks. PAT or OAuth against a SQL Warehouse.",
   "version": "1.0.0",
   "tags": [
     "databricks",
@@ -15,6 +15,7 @@
   ],
   "use_cases": [
     "Register existing Databricks tables as bound data products",
+    "Land ingested workflow rows into Unity Catalog tables (warehouse-primary)",
     "Discover Unity Catalog catalogs, schemas, tables, and views",
     "Least-privilege metadata and aggregate queries via SQL Warehouse"
   ],
@@ -24,14 +25,15 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "databricks",
     "name": "Databricks",
-    "description": "Databricks SQL Warehouse connector for bound Unity Catalog tables. Does not ingest rows into Loxtep storage.",
+    "description": "Databricks SQL Warehouse connector for bound reads and warehouse-primary Delta writes.",
     "category": "database",
     "icon_url": "https://www.svgrepo.com/show/448208/databricks.svg",
     "documentation_url": "https://docs.databricks.com/",
     "auth_type": "custom",
     "oauth_config": null,
     "supported_directions": [
-      "inbound"
+      "inbound",
+      "outbound"
     ],
     "supported_entities": [],
     "supports_webhooks": false,
@@ -40,7 +42,8 @@
     "required_permissions": [
       "USE CATALOG",
       "USE SCHEMA",
-      "SELECT"
+      "SELECT",
+      "MODIFY"
     ],
     "version": "1.0.0",
     "is_beta": false,
@@ -129,10 +132,11 @@
     "schema_version": 1,
     "package_version": "1.0.0",
     "platform_native_provider": "databricks",
-    "description": "Bound Databricks / Unity Catalog source. Metadata and aggregates only; rows are not ingested into Loxtep. Customer UC remains source of truth.",
+    "description": "Databricks / Unity Catalog connector for bound reads and warehouse-primary Delta writes. Customer UC remains source of truth for table bytes.",
     "follow_up_notes": [
       "Runtime: platform DatabricksConnector (native). Do not set use_catalog_runtime.",
-      "Do not declare fetch_data or push_data — Databricks is bound, not ingested.",
+      "Read-only bind uses inbound metadata/aggregates only.",
+      "Warehouse-primary sinks use push_data with dest_database, dest_schema, dest_table, sync_config.",
       "Secrets (token, oauth_access_token) are sensitive and stored in the existing SSM connector path.",
       "Binding field database maps to Unity Catalog catalog name."
     ],
@@ -140,6 +144,10 @@
       {
         "key": "databricks_test_connection",
         "definition_path": "actions/test-connection/definition.json"
+      },
+      {
+        "key": "databricks_push_data",
+        "definition_path": "actions/push-data/definition.json"
       }
     ]
   }
