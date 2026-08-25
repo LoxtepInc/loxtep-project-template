@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:netsuite:entity:vendor",
+  "title": "NetSuite vendor (collection row)",
+  "description": "Element of GET /vendor `items[]`.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "entityId": { "type": ["string", "null"] },
+    "companyName": { "type": ["string", "null"] },
+    "email": { "type": ["string", "null"] },
+    "phone": { "type": ["string", "null"] },
+    "isInactive": { "type": ["boolean", "null"] },
+    "links": {
+      "type": "array",
+      "items": { "type": "object", "additionalProperties": true }
+    }
+  },
+  "additionalProperties": true
+}

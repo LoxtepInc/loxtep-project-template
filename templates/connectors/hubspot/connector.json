@@ -4,17 +4,17 @@
   "catalog_visible": false,
   "slug": "hubspot",
   "name": "HubSpot Connector",
-  "description": "Connect HubSpot CRM for contacts, companies, and deals.",
-  "version": "1.0.0",
+  "description": "Connect HubSpot CRM for contacts, companies, deals, tickets, and products.",
+  "version": "1.2.0",
   "tags": ["hubspot"],
-  "use_cases": ["Connect HubSpot CRM for contacts, companies, and deals."],
+  "use_cases": ["Connect HubSpot CRM for contacts, companies, deals, tickets, and products."],
   "entity": {
     "connector_id": "{{CONNECTOR_ID}}",
     "organization_id": "{{ORGANIZATION_ID}}",
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "hubspot",
     "name": "HubSpot",
-    "description": "Connect HubSpot CRM for contacts, companies, and deals.",
+    "description": "Connect HubSpot CRM for contacts, companies, deals, tickets, and products.",
     "category": "crm",
     "auth_type": "oauth2",
     "oauth_config": {
@@ -24,28 +24,36 @@
         "crm.objects.contacts.read",
         "crm.objects.companies.read",
         "crm.objects.deals.read",
+        "crm.objects.tickets.read",
+        "crm.objects.products.read",
         "crm.schemas.contacts.read",
         "crm.schemas.companies.read",
         "crm.schemas.deals.read",
+        "crm.schemas.tickets.read",
+        "crm.schemas.products.read",
         "oauth"
       ],
       "response_type": "code",
       "grant_type": "authorization_code"
     },
     "supported_directions": ["inbound"],
-    "supported_entities": ["contacts", "companies", "deals"],
+    "supported_entities": ["contacts", "companies", "deals", "tickets", "products"],
     "supports_webhooks": true,
     "supports_polling": true,
     "required_scopes": [
       "crm.objects.contacts.read",
       "crm.objects.companies.read",
       "crm.objects.deals.read",
+      "crm.objects.tickets.read",
+      "crm.objects.products.read",
       "crm.schemas.contacts.read",
       "crm.schemas.companies.read",
       "crm.schemas.deals.read",
+      "crm.schemas.tickets.read",
+      "crm.schemas.products.read",
       "oauth"
     ],
-    "version": "1.0.0",
+    "version": "1.2.0",
     "is_beta": false,
     "metadata": {
       "template_slug": "hubspot",
@@ -67,13 +75,12 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
+    "package_version": "1.2.0",
     "use_catalog_runtime": true,
     "description": "HubSpot CRM v3 via CatalogRuntimeConnector. Full sync uses list APIs; incremental sync uses CRM search with last modified filters. Webhook routing maps topic prefixes to entities (payload enrichment is not performed in catalog mode).",
     "follow_up_notes": [
       "Webhooks: routing only — legacy connector batch-fetched full CRM objects on propertyChange/creation; restore enrich-on-webhook if downstream needs hydrated records.",
-      "Engagements, custom objects, and non-objects APIs are out of scope for this package.",
-      "Optional: entity_catalog.record_schema_path + JSON schemas per entity for row-level CI contracts."
+      "Engagements, line items, custom objects, and non-objects APIs remain out of scope."
     ],
     "oauth_refresh": {
       "token_url_template": "https://api.hubapi.com/oauth/v1/token",
@@ -89,7 +96,11 @@
         "^/crm/v3/objects/companies$",
         "^/crm/v3/objects/companies/search$",
         "^/crm/v3/objects/deals$",
-        "^/crm/v3/objects/deals/search$"
+        "^/crm/v3/objects/deals/search$",
+        "^/crm/v3/objects/tickets$",
+        "^/crm/v3/objects/tickets/search$",
+        "^/crm/v3/objects/products$",
+        "^/crm/v3/objects/products/search$"
       ]
     },
     "connection_probe": {
@@ -108,7 +119,9 @@
       "routes": [
         { "topic_prefix": "contact.", "entity_type": "contacts" },
         { "topic_prefix": "company.", "entity_type": "companies" },
-        { "topic_prefix": "deal.", "entity_type": "deals" }
+        { "topic_prefix": "deal.", "entity_type": "deals" },
+        { "topic_prefix": "ticket.", "entity_type": "tickets" },
+        { "topic_prefix": "product.", "entity_type": "products" }
       ]
     },
     "sync_plan": {
@@ -122,7 +135,7 @@
           "id_field": "id",
           "fetch_limit_cap": 100,
           "sync_input_defaults": {
-            "properties": "email,firstname,lastname,phone,company,website,lifecyclestage,hs_lead_status,jobtitle,city,state,country,zip,address,createdate,lastmodifieddate"
+            "properties": "email,firstname,lastname,phone,mobilephone,company,website,lifecyclestage,hs_lead_status,jobtitle,department,city,state,country,zip,address,hubspot_owner_id,associatedcompanyid,hs_object_id,hs_analytics_source,hs_latest_source,hs_email_domain,createdate,lastmodifieddate"
           }
         },
         "companies": {
@@ -134,7 +147,7 @@
           "id_field": "id",
           "fetch_limit_cap": 100,
           "sync_input_defaults": {
-            "properties": "name,domain,industry,description,numberofemployees,annualrevenue,phone,city,state,country,zip,address,website,lifecyclestage,hs_lead_status,createdate,hs_lastmodifieddate"
+            "properties": "name,domain,industry,description,numberofemployees,annualrevenue,phone,city,state,country,zip,address,website,lifecyclestage,hs_lead_status,type,hubspot_owner_id,hs_object_id,timezone,hs_parent_company_id,createdate,hs_lastmodifieddate"
           }
         },
         "deals": {
@@ -146,7 +159,31 @@
           "id_field": "id",
           "fetch_limit_cap": 100,
           "sync_input_defaults": {
-            "properties": "dealname,amount,dealstage,workflow,closedate,createdate,hs_lastmodifieddate,hubspot_owner_id,description,dealtype,hs_priority,hs_deal_stage_probability,hs_forecast_amount,hs_forecast_probability,hs_closed_amount,hs_is_closed,hs_is_closed_won"
+            "properties": "dealname,amount,dealstage,pipeline,workflow,closedate,createdate,hs_lastmodifieddate,hubspot_owner_id,description,dealtype,hs_priority,hs_deal_stage_probability,hs_forecast_amount,hs_forecast_probability,hs_closed_amount,hs_is_closed,hs_is_closed_won,hs_manual_forecast_category,hs_mrr,hs_tcv"
+          }
+        },
+        "tickets": {
+          "fetch_action_key": "hubspot_list_tickets",
+          "incremental_fetch_action_key": "hubspot_search_tickets",
+          "records_path": "results",
+          "pagination": "cursor_from_body",
+          "cursor_query_param": "after",
+          "id_field": "id",
+          "fetch_limit_cap": 100,
+          "sync_input_defaults": {
+            "properties": "subject,content,hs_pipeline,hs_pipeline_stage,hs_ticket_priority,hs_ticket_category,source_type,hubspot_owner_id,hs_object_id,createdate,hs_lastmodifieddate,closed_date,hs_resolution"
+          }
+        },
+        "products": {
+          "fetch_action_key": "hubspot_list_products",
+          "incremental_fetch_action_key": "hubspot_search_products",
+          "records_path": "results",
+          "pagination": "cursor_from_body",
+          "cursor_query_param": "after",
+          "id_field": "id",
+          "fetch_limit_cap": 100,
+          "sync_input_defaults": {
+            "properties": "name,description,price,hs_sku,hs_cost_of_goods_sold,hs_recurring_billing_period,hubspot_owner_id,hs_object_id,createdate,hs_lastmodifieddate"
           }
         }
       }
@@ -154,6 +191,7 @@
     "entity_catalog": {
       "contacts": {
         "name": "Contacts",
+        "record_schema_path": "schemas/entities/crm-v3-object.schema.json",
         "supports_incremental": true,
         "supports_full_sync": true,
         "supports_webhook": true,
@@ -162,6 +200,7 @@
       },
       "companies": {
         "name": "Companies",
+        "record_schema_path": "schemas/entities/crm-v3-object.schema.json",
         "supports_incremental": true,
         "supports_full_sync": true,
         "supports_webhook": true,
@@ -170,10 +209,29 @@
       },
       "deals": {
         "name": "Deals",
+        "record_schema_path": "schemas/entities/crm-v3-object.schema.json",
         "supports_incremental": true,
         "supports_full_sync": true,
         "supports_webhook": true,
         "default_sync_interval_minutes": 5,
+        "max_batch_size": 100
+      },
+      "tickets": {
+        "name": "Tickets",
+        "record_schema_path": "schemas/entities/crm-v3-object.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      },
+      "products": {
+        "name": "Products",
+        "record_schema_path": "schemas/entities/crm-v3-object.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 1440,
         "max_batch_size": 100
       }
     },
@@ -184,7 +242,11 @@
       { "key": "hubspot_list_companies", "definition_path": "actions/list-companies/definition.json" },
       { "key": "hubspot_search_companies", "definition_path": "actions/search-companies/definition.json" },
       { "key": "hubspot_list_deals", "definition_path": "actions/list-deals/definition.json" },
-      { "key": "hubspot_search_deals", "definition_path": "actions/search-deals/definition.json" }
+      { "key": "hubspot_search_deals", "definition_path": "actions/search-deals/definition.json" },
+      { "key": "hubspot_list_tickets", "definition_path": "actions/list-tickets/definition.json" },
+      { "key": "hubspot_search_tickets", "definition_path": "actions/search-tickets/definition.json" },
+      { "key": "hubspot_list_products", "definition_path": "actions/list-products/definition.json" },
+      { "key": "hubspot_search_products", "definition_path": "actions/search-products/definition.json" }
     ]
   }
 }

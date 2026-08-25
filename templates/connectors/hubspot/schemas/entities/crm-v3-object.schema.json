@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:hubspot:entity:crm-v3-object",
+  "title": "HubSpot CRM v3 object",
+  "description": "Element of HubSpot CRM v3 list/search `results[]` (contacts, companies, deals).",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "properties": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "createdate": { "type": ["string", "null"] },
+        "lastmodifieddate": { "type": ["string", "null"] },
+        "hs_lastmodifieddate": { "type": ["string", "null"] }
+      }
+    },
+    "createdAt": { "type": ["string", "null"] },
+    "updatedAt": { "type": ["string", "null"] },
+    "archived": { "type": ["boolean", "null"] }
+  },
+  "additionalProperties": true
+}

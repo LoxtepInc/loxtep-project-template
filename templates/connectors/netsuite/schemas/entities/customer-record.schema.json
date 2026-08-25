@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:netsuite:entity:customer",
+  "title": "NetSuite customer (collection row)",
+  "description": "Element of GET /customer `items[]`. List rows are often id+links; full records share the same REST shape.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "entityId": { "type": ["string", "null"] },
+    "companyName": { "type": ["string", "null"] },
+    "email": { "type": ["string", "null"] },
+    "phone": { "type": ["string", "null"] },
+    "isInactive": { "type": ["boolean", "null"] },
+    "links": {
+      "type": "array",
+      "items": { "type": "object", "additionalProperties": true }
+    }
+  },
+  "additionalProperties": true
+}

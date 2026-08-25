@@ -1,0 +1,36 @@
+{
+  "key": "netsuite_list_purchase_orders",
+  "name": "List purchase orders",
+  "description": "GET /services/rest/record/v1/purchaseorder — NetSuite REST record collection.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number" },
+      "offset": { "type": "number" },
+      "q": { "type": "string", "description": "Optional NetSuite collection filter expression." }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://{{connection.custom_settings.account_id}}.suitetalk.api.netsuite.com",
+    "path": "/services/rest/record/v1/purchaseorder",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "limit": "input.limit",
+      "offset": "input.offset",
+      "q": "input.q"
+    },
+    "omit_empty_query": true
+  }
+}

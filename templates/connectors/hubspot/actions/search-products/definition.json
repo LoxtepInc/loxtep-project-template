@@ -1,6 +1,6 @@
 {
-  "key": "hubspot_search_contacts",
-  "name": "Search HubSpot contacts (incremental)",
+  "key": "hubspot_search_products",
+  "name": "Search HubSpot products (incremental)",
   "version": "1.0.0",
   "type": "action",
   "annotations": { "read_only": true, "destructive": false },
@@ -17,7 +17,7 @@
     "protocol": "catalog_http_post",
     "method": "POST",
     "base_url_template": "https://api.hubapi.com",
-    "path": "/crm/v3/objects/contacts/search",
+    "path": "/crm/v3/objects/products/search",
     "static_headers": { "Accept": "application/json" },
     "header_auth": {
       "header": "Authorization",
@@ -32,7 +32,7 @@
         {
           "filters": [
             {
-              "propertyName": "lastmodifieddate",
+              "propertyName": "hs_lastmodifieddate",
               "operator": "GTE",
               "value": "{{input.since_epoch_ms}}"
             }
@@ -40,33 +40,19 @@
         }
       ],
       "sorts": [
-        { "propertyName": "lastmodifieddate", "direction": "ASCENDING" }
+        { "propertyName": "hs_lastmodifieddate", "direction": "ASCENDING" }
       ],
       "properties": [
-        "email",
-        "firstname",
-        "lastname",
-        "phone",
-        "mobilephone",
-        "company",
-        "website",
-        "lifecyclestage",
-        "hs_lead_status",
-        "jobtitle",
-        "department",
-        "city",
-        "state",
-        "country",
-        "zip",
-        "address",
+        "name",
+        "description",
+        "price",
+        "hs_sku",
+        "hs_cost_of_goods_sold",
+        "hs_recurring_billing_period",
         "hubspot_owner_id",
-        "associatedcompanyid",
         "hs_object_id",
-        "hs_analytics_source",
-        "hs_latest_source",
-        "hs_email_domain",
         "createdate",
-        "lastmodifieddate"
+        "hs_lastmodifieddate"
       ],
       "limit": 100,
       "after": "{{input.after}}"
