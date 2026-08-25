@@ -1,0 +1,142 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "catalog_visible": false,
+  "slug": "mailchimp",
+  "name": "Mailchimp Connector",
+  "description": "Mailchimp Marketing API audiences (lists), campaigns, and reports via Catalog HTTP runtime.",
+  "version": "1.0.0",
+  "tags": ["mailchimp", "email", "marketing", "audiences", "campaigns"],
+  "use_cases": [
+    "Audience / list sync",
+    "Campaign inventory",
+    "Campaign report pull"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "mailchimp",
+    "name": "Mailchimp",
+    "description": "Mailchimp Marketing API connector for audiences, campaigns, and reports",
+    "category": "marketing",
+    "documentation_url": "https://mailchimp.com/developer/marketing/api/",
+    "auth_type": "api_key",
+    "supported_directions": ["inbound"],
+    "supported_entities": ["lists", "campaigns", "reports"],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": true,
+    "metadata": {
+      "template_slug": "mailchimp",
+      "api_version": "3.0"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "username": "anystring",
+      "api_key": "{{API_KEY}}",
+      "custom_settings": {
+        "server_prefix": "{{SERVER_PREFIX}}"
+      }
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{API_KEY}}": "Mailchimp Marketing API key (password for HTTP Basic)",
+    "{{SERVER_PREFIX}}": "Data-center prefix from the API key suffix (e.g. us1, us19)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Mailchimp Marketing API 3.0 via CatalogRuntimeConnector. HTTP Basic: username anystring, password = API key. Base host https://{server_prefix}.api.mailchimp.com/3.0 from connection.custom_settings.server_prefix.",
+    "follow_up_notes": [
+      "Mailchimp paginates with offset/count; this package uses pagination none + fetch_limit_cap 1000 (API max count) for lists/campaigns/reports. True multi-page offset sync can land when catalog-runtime grows an offset pagination mode.",
+      "list_members is exposed as an action (requires input.list_id) but is not in sync_plan."
+    ],
+    "execution_policy": {
+      "allowed_host_suffixes": ["api.mailchimp.com"],
+      "allowed_path_patterns": [
+        "^/3\\.0/lists$",
+        "^/3\\.0/lists/[^/]+/members$",
+        "^/3\\.0/campaigns$",
+        "^/3\\.0/reports$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "mailchimp_list_lists",
+      "records_path": "lists",
+      "required_field": "id",
+      "probe_input": { "limit": 1, "offset": 0 }
+    },
+    "sync_plan": {
+      "entities": {
+        "lists": {
+          "fetch_action_key": "mailchimp_list_lists",
+          "records_path": "lists",
+          "pagination": "none",
+          "id_field": "id",
+          "fetch_limit_cap": 1000
+        },
+        "campaigns": {
+          "fetch_action_key": "mailchimp_list_campaigns",
+          "records_path": "campaigns",
+          "pagination": "none",
+          "id_field": "id",
+          "fetch_limit_cap": 1000
+        },
+        "reports": {
+          "fetch_action_key": "mailchimp_list_reports",
+          "records_path": "reports",
+          "pagination": "none",
+          "id_field": "id",
+          "fetch_limit_cap": 1000
+        }
+      }
+    },
+    "entity_catalog": {
+      "lists": {
+        "name": "Audiences (lists)",
+        "record_schema_path": "schemas/entities/list-record.schema.json",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 1000
+      },
+      "campaigns": {
+        "name": "Campaigns",
+        "record_schema_path": "schemas/entities/campaign-record.schema.json",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 1000
+      },
+      "reports": {
+        "name": "Campaign reports",
+        "record_schema_path": "schemas/entities/report-record.schema.json",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 1000
+      }
+    },
+    "actions": [
+      { "key": "mailchimp_list_lists", "definition_path": "actions/list-lists/definition.json" },
+      { "key": "mailchimp_list_campaigns", "definition_path": "actions/list-campaigns/definition.json" },
+      { "key": "mailchimp_list_reports", "definition_path": "actions/list-reports/definition.json" },
+      { "key": "mailchimp_list_members", "definition_path": "actions/list-members/definition.json" }
+    ]
+  }
+}

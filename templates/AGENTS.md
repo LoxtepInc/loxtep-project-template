@@ -77,7 +77,7 @@ User wants to connect...
 ├── E-commerce: shopify, bigcommerce, woocommerce
 ├── Finance/Accounting: quickbooks, netsuite, stripe, paypal
 ├── Payments: stripe, paypal
-├── CRM/Marketing: hubspot, klaviyo, attentive
+├── CRM/Marketing: hubspot, klaviyo, attentive, mailchimp
 ├── Fulfillment: shipstation, shipbob, loop-returns
 ├── Support: gorgias
 ├── Analytics: northbeam, fairing, triple-whale

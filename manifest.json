@@ -895,6 +895,20 @@
         "category": "marketing"
       },
       {
+        "slug": "mailchimp",
+        "name": "Mailchimp Connector",
+        "description": "Connect to Mailchimp for audiences (lists), campaigns, and reports.",
+        "path": "templates/connectors/mailchimp/connector.json",
+        "tags": [
+          "mailchimp",
+          "email",
+          "marketing",
+          "audiences",
+          "campaigns"
+        ],
+        "category": "marketing"
+      },
+      {
         "slug": "shipstation",
         "name": "ShipStation Connector",
         "description": "Connect to ShipStation for shipments, orders, and fulfillment. Multi-channel brands.",
