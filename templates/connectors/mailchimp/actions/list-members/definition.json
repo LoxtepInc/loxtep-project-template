@@ -1,0 +1,36 @@
+{
+  "key": "mailchimp_list_members",
+  "name": "List audience members",
+  "description": "GET /3.0/lists/{list_id}/members — members for one audience. Requires input.list_id.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "required": ["list_id"],
+    "properties": {
+      "list_id": { "type": "string" },
+      "limit": { "type": "number", "description": "Mapped to count (max 1000)" },
+      "offset": { "type": "number" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://{{connection.custom_settings.server_prefix}}.api.mailchimp.com",
+    "path": "/3.0/lists/{{input.list_id}}/members",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "basic": true,
+      "basic_user_from": "username"
+    },
+    "query_mapping": {
+      "count": "input.limit",
+      "offset": "input.offset"
+    },
+    "omit_empty_query": true
+  }
+}

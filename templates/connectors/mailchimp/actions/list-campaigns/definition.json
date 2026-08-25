@@ -1,0 +1,34 @@
+{
+  "key": "mailchimp_list_campaigns",
+  "name": "List campaigns",
+  "description": "GET /3.0/campaigns — Mailchimp campaigns.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number", "description": "Mapped to count (max 1000)" },
+      "offset": { "type": "number" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://{{connection.custom_settings.server_prefix}}.api.mailchimp.com",
+    "path": "/3.0/campaigns",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "basic": true,
+      "basic_user_from": "username"
+    },
+    "query_mapping": {
+      "count": "input.limit",
+      "offset": "input.offset"
+    },
+    "omit_empty_query": true
+  }
+}

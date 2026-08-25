@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:mailchimp:entity:reports:record",
+  "title": "Mailchimp campaign report",
+  "description": "One element of GET /3.0/reports `reports[]`.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "campaign_title": { "type": ["string", "null"] },
+    "type": { "type": ["string", "null"] },
+    "list_id": { "type": ["string", "null"] },
+    "list_name": { "type": ["string", "null"] },
+    "subject_line": { "type": ["string", "null"] },
+    "emails_sent": { "type": ["number", "null"] },
+    "abuse_reports": { "type": ["number", "null"] },
+    "unsubscribed": { "type": ["number", "null"] },
+    "send_time": { "type": ["string", "null"] },
+    "bounces": { "type": ["object", "null"], "additionalProperties": true },
+    "opens": { "type": ["object", "null"], "additionalProperties": true },
+    "clicks": { "type": ["object", "null"], "additionalProperties": true }
+  },
+  "additionalProperties": true
+}

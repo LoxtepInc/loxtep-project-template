@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:mailchimp:entity:lists:record",
+  "title": "Mailchimp audience (list)",
+  "description": "One element of GET /3.0/lists `lists[]`.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": ["string", "null"] },
+    "web_id": { "type": ["number", "null"] },
+    "permission_reminder": { "type": ["string", "null"] },
+    "date_created": { "type": ["string", "null"] },
+    "list_rating": { "type": ["number", "null"] },
+    "stats": { "type": ["object", "null"], "additionalProperties": true },
+    "campaign_defaults": { "type": ["object", "null"], "additionalProperties": true },
+    "contact": { "type": ["object", "null"], "additionalProperties": true }
+  },
+  "additionalProperties": true
+}

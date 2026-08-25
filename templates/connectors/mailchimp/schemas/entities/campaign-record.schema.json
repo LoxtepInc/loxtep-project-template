@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:mailchimp:entity:campaigns:record",
+  "title": "Mailchimp campaign",
+  "description": "One element of GET /3.0/campaigns `campaigns[]`.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "web_id": { "type": ["number", "null"] },
+    "type": { "type": ["string", "null"] },
+    "create_time": { "type": ["string", "null"] },
+    "status": { "type": ["string", "null"] },
+    "emails_sent": { "type": ["number", "null"] },
+    "send_time": { "type": ["string", "null"] },
+    "recipients": { "type": ["object", "null"], "additionalProperties": true },
+    "settings": { "type": ["object", "null"], "additionalProperties": true },
+    "report_summary": { "type": ["object", "null"], "additionalProperties": true }
+  },
+  "additionalProperties": true
+}
