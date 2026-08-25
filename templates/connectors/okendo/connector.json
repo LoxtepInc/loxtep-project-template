@@ -1,17 +1,11 @@
 {
   "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
-  "catalog_visible": false,
   "slug": "okendo",
   "name": "Okendo Connector",
-  "description": "Connect to Okendo for reviews linked to orders and customers. 18k+ Shopify brands.",
-  "version": "1.0.0",
-  "tags": [
-    "okendo",
-    "reviews",
-    "e-commerce",
-    "composio"
-  ],
+  "description": "Okendo Merchant REST API for product reviews linked to orders and customers.",
+  "version": "1.1.0",
+  "tags": ["okendo", "reviews", "e-commerce"],
   "use_cases": [
     "Review sync",
     "Review-to-order attribution",
@@ -23,22 +17,15 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "okendo",
     "name": "Okendo",
-    "description": "Okendo reviews connector (reviews linked to orders and customers)",
+    "description": "Okendo Merchant REST reviews (Catalog HTTP)",
     "category": "e_commerce",
     "auth_type": "api_key",
-    "backend": "composio",
-    "supported_directions": [
-      "inbound"
-    ],
-    "supported_entities": [
-      "reviews",
-      "questions",
-      "media_reviews"
-    ],
-    "supports_webhooks": false,
+    "supported_directions": ["inbound"],
+    "supported_entities": ["reviews"],
+    "supports_webhooks": true,
     "supports_polling": true,
-    "version": "1.0.0",
-    "is_beta": false,
+    "version": "1.1.0",
+    "is_beta": true,
     "metadata": {
       "template_slug": "okendo"
     },
@@ -47,34 +34,69 @@
   },
   "connection_template": {
     "type": "api",
-    "configuration": {}
+    "configuration": {
+      "username": "{{OKENDO_USER_ID}}",
+      "api_key": "{{API_KEY}}"
+    }
   },
   "placeholders": {
     "{{CONNECTOR_ID}}": "Generated UUID for the connector",
     "{{ORGANIZATION_ID}}": "Organization that owns this connector",
     "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{OKENDO_USER_ID}}": "Okendo User ID (HTTP Basic username from integration settings)",
+    "{{API_KEY}}": "Okendo API key (HTTP Basic password, 32-character string)",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
     "{{UPDATED_AT}}": "ISO 8601 timestamp"
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
-    "description": "Okendo reviews toolkit wiring.",
+    "package_version": "1.1.0",
+    "use_catalog_runtime": true,
+    "description": "Okendo Merchant REST via CatalogRuntimeConnector (Basic auth + okendo-api-version). Replaces Composio toolkit wiring.",
     "follow_up_notes": [
-      "Runtime: ComposioAdapter — entity sync maps to Composio tools; not CatalogRuntimeConnector.",
-      "Optional: mirror critical tools as catalog_http_* + use_catalog_runtime if a direct REST path is required without Composio."
+      "Merchant API lists reviews only for inbound sync; Composio questions/media_reviews entities are not mirrored as separate list endpoints.",
+      "Pagination uses response nextUrl (links_next_query + lastEvaluated). Relative nextUrl values may need an absolute-URL resolve in the catalog runtime if vendors return path-only nextUrl.",
+      "Require header okendo-api-version: 2025-02-01 on all Merchant API calls."
     ],
-    "composio_adapter": {
-      "connector_type": "okendo",
-      "toolkit_name": "okendo",
-      "name": "Okendo",
-      "description": "Okendo reviews connector (reviews linked to orders and customers)",
-      "entity_mappings": [
-        { "entity_type": "reviews", "tool_slug": "OKENDO_LIST_REVIEWS" },
-        { "entity_type": "questions", "tool_slug": "OKENDO_LIST_QUESTIONS" },
-        { "entity_type": "media_reviews", "tool_slug": "OKENDO_LIST_MEDIA_REVIEWS" }
-      ]
+    "execution_policy": {
+      "allowed_host_suffixes": ["api.okendo.io"],
+      "allowed_path_patterns": ["^/enterprise/reviews$"]
     },
-    "actions": []
+    "connection_probe": {
+      "action_key": "okendo_list_reviews",
+      "records_path": "reviews",
+      "required_field": "reviewId",
+      "probe_input": { "limit": 1 }
+    },
+    "sync_plan": {
+      "entities": {
+        "reviews": {
+          "fetch_action_key": "okendo_list_reviews",
+          "records_path": "reviews",
+          "pagination": "links_next_query",
+          "links_next_path": "nextUrl",
+          "links_next_cursor_param": "lastEvaluated",
+          "cursor_query_param": "lastEvaluated",
+          "id_field": "reviewId"
+        }
+      }
+    },
+    "entity_catalog": {
+      "reviews": {
+        "name": "Reviews",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      {
+        "key": "okendo_list_reviews",
+        "definition_path": "actions/list-reviews/definition.json"
+      }
+    ]
   }
 }

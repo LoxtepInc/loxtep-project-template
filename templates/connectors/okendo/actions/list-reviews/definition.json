@@ -1,0 +1,40 @@
+{
+  "key": "okendo_list_reviews",
+  "name": "List reviews",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number" },
+      "lastEvaluated": { "type": "string" },
+      "orderBy": { "type": "string" },
+      "status": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.okendo.io",
+    "path": "/enterprise/reviews",
+    "static_headers": {
+      "Accept": "application/json",
+      "okendo-api-version": "2025-02-01"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "basic": true,
+      "basic_user_from": "username"
+    },
+    "query_mapping": {
+      "limit": "input.limit",
+      "lastEvaluated": "input.lastEvaluated",
+      "orderBy": "input.orderBy",
+      "status": "input.status"
+    },
+    "omit_empty_query": true
+  }
+}

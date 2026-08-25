@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:okendo:entity:sync-row",
+  "title": "Okendo review (list item)",
+  "description": "Minimal contract for Okendo Merchant API review rows. Stable id is reviewId; vendor fields are allowed.",
+  "type": "object",
+  "required": ["reviewId"],
+  "properties": {
+    "reviewId": { "type": "string" },
+    "subscriberId": { "type": "string" },
+    "productId": { "type": "string" },
+    "rating": { "type": ["number", "integer"] },
+    "status": { "type": "string" },
+    "dateCreated": { "type": "string" }
+  },
+  "additionalProperties": true
+}
