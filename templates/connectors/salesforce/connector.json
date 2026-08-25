@@ -4,13 +4,14 @@
   "catalog_visible": false,
   "slug": "salesforce",
   "name": "Salesforce Connector",
-  "description": "Salesforce CRM (contacts, accounts, opportunities, leads).",
-  "version": "1.0.0",
+  "description": "Salesforce CRM contacts, accounts, opportunities, and leads via Catalog HTTP.",
+  "version": "1.1.0",
   "tags": [
-    "salesforce"
+    "salesforce",
+    "crm"
   ],
   "use_cases": [
-    "Salesforce CRM (contacts, accounts, opportunities, leads)."
+    "Sync Salesforce CRM contacts, accounts, opportunities, and leads."
   ],
   "entity": {
     "connector_id": "{{CONNECTOR_ID}}",
@@ -18,7 +19,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "salesforce",
     "name": "Salesforce",
-    "description": "Salesforce CRM (contacts, accounts, opportunities, leads).",
+    "description": "Salesforce CRM contacts, accounts, opportunities, and leads via Catalog HTTP.",
     "category": "crm",
     "auth_type": "oauth2",
     "oauth_config": {
@@ -46,46 +47,181 @@
       "api",
       "refresh_token"
     ],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "is_beta": false,
     "metadata": {
       "template_slug": "salesforce",
-      "backend": "composio"
+      "oauth_account_display_name_field": "preferred_username",
+      "api_version": "59.0"
     },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },
   "connection_template": {
     "type": "api",
-    "configuration": {}
+    "configuration": {
+      "custom_settings": {
+        "instance_url": "{{INSTANCE_URL}}",
+        "api_version": "59.0"
+      }
+    }
   },
   "placeholders": {
     "{{CONNECTOR_ID}}": "Generated UUID for the connector",
     "{{ORGANIZATION_ID}}": "Organization that owns this connector",
     "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{INSTANCE_URL}}": "Salesforce instance URL from My Domain (e.g. https://mycompany.my.salesforce.com)",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
     "{{UPDATED_AT}}": "ISO 8601 timestamp"
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
-    "description": "Salesforce CRM toolkit wiring.",
+    "package_version": "1.1.0",
+    "use_catalog_runtime": true,
+    "description": "Salesforce REST (SOQL query) via CatalogRuntimeConnector. Pagination uses nextRecordsUrl as the next request path. Instance host comes from connection custom_settings.instance_url (My Domain).",
     "follow_up_notes": [
-      "Runtime: ComposioAdapter — not CatalogRuntimeConnector; SOQL-heavy or custom objects belong in Composio tool mappings.",
-      "Optional: expand entity_mappings with explicit tool_slug inventory as new Salesforce objects are onboarded."
+      "Provide custom_settings.instance_url (My Domain HTTPS origin) at connect time; OAuth token instance_url is not yet persisted by the platform token exchange.",
+      "Incremental sync (SystemModstamp filters) is out of scope for this package \u2014 full SOQL pages only.",
+      "Custom objects, ContentVersion, and Bulk API 2.0 are out of scope.",
+      "Sandbox orgs: use https://test.salesforce.com OAuth hosts via a future login_url setting if needed; production defaults to login.salesforce.com."
     ],
-    "composio_adapter": {
-      "connector_type": "salesforce",
-      "toolkit_name": "salesforce",
-      "name": "Salesforce",
-      "description": "Salesforce CRM (contacts, accounts, opportunities, leads)",
-      "entity_mappings": [
-        { "entity_type": "contacts", "tool_slug": "SALESFORCE_LIST_CONTACTS" },
-        { "entity_type": "accounts", "tool_slug": "SALESFORCE_LIST_ACCOUNTS" },
-        { "entity_type": "opportunities", "tool_slug": "SALESFORCE_LIST_OPPORTUNITIES" },
-        { "entity_type": "leads", "tool_slug": "SALESFORCE_LIST_LEADS" }
+    "oauth_refresh": {
+      "token_url_template": "https://login.salesforce.com/services/oauth2/token",
+      "client_id_env": "SALESFORCE_CLIENT_ID",
+      "client_secret_env": "SALESFORCE_CLIENT_SECRET"
+    },
+    "execution_policy": {
+      "allowed_host_suffixes": [
+        "salesforce.com",
+        "force.com",
+        "cloudforce.com",
+        "siteforce.com"
+      ],
+      "allowed_path_patterns": [
+        "^/services/oauth2/userinfo$",
+        "^/services/data/v[0-9]+\\.[0-9]+/query$",
+        "^/services/data/v[0-9]+\\.[0-9]+/query/.+$"
       ]
     },
-    "actions": []
+    "connection_probe": {
+      "action_key": "salesforce_get_userinfo",
+      "records_path": "",
+      "required_field": "user_id",
+      "account_info_mapping": {
+        "user_id": "user_id",
+        "organization_id": "organization_id",
+        "preferred_username": "preferred_username",
+        "name": "name",
+        "email": "email"
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "contacts": {
+          "fetch_action_key": "salesforce_query_contacts",
+          "records_path": "records",
+          "pagination": "cursor_from_body",
+          "cursor_next_path": "nextRecordsUrl",
+          "cursor_query_param": "request_path",
+          "id_field": "Id",
+          "fetch_limit_cap": 200,
+          "sync_input_defaults": {
+            "request_path": "/services/data/v59.0/query?q=SELECT+Id,FirstName,LastName,Email,Phone,AccountId,Title,MailingCity,MailingState,MailingCountry,MailingPostalCode,CreatedDate,SystemModstamp+FROM+Contact+ORDER+BY+Id"
+          }
+        },
+        "accounts": {
+          "fetch_action_key": "salesforce_query_accounts",
+          "records_path": "records",
+          "pagination": "cursor_from_body",
+          "cursor_next_path": "nextRecordsUrl",
+          "cursor_query_param": "request_path",
+          "id_field": "Id",
+          "fetch_limit_cap": 200,
+          "sync_input_defaults": {
+            "request_path": "/services/data/v59.0/query?q=SELECT+Id,Name,Type,Industry,Phone,Website,BillingCity,BillingState,BillingCountry,BillingPostalCode,CreatedDate,SystemModstamp+FROM+Account+ORDER+BY+Id"
+          }
+        },
+        "opportunities": {
+          "fetch_action_key": "salesforce_query_opportunities",
+          "records_path": "records",
+          "pagination": "cursor_from_body",
+          "cursor_next_path": "nextRecordsUrl",
+          "cursor_query_param": "request_path",
+          "id_field": "Id",
+          "fetch_limit_cap": 200,
+          "sync_input_defaults": {
+            "request_path": "/services/data/v59.0/query?q=SELECT+Id,Name,StageName,Amount,CloseDate,AccountId,Probability,Type,CreatedDate,SystemModstamp+FROM+Opportunity+ORDER+BY+Id"
+          }
+        },
+        "leads": {
+          "fetch_action_key": "salesforce_query_leads",
+          "records_path": "records",
+          "pagination": "cursor_from_body",
+          "cursor_next_path": "nextRecordsUrl",
+          "cursor_query_param": "request_path",
+          "id_field": "Id",
+          "fetch_limit_cap": 200,
+          "sync_input_defaults": {
+            "request_path": "/services/data/v59.0/query?q=SELECT+Id,FirstName,LastName,Email,Company,Status,Phone,Title,City,State,Country,PostalCode,CreatedDate,SystemModstamp+FROM+Lead+ORDER+BY+Id"
+          }
+        }
+      }
+    },
+    "entity_catalog": {
+      "contacts": {
+        "name": "Contacts",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 200
+      },
+      "accounts": {
+        "name": "Accounts",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 200
+      },
+      "opportunities": {
+        "name": "Opportunities",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 200
+      },
+      "leads": {
+        "name": "Leads",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 200
+      }
+    },
+    "actions": [
+      {
+        "key": "salesforce_get_userinfo",
+        "definition_path": "actions/get-userinfo/definition.json"
+      },
+      {
+        "key": "salesforce_query_contacts",
+        "definition_path": "actions/query-contacts/definition.json"
+      },
+      {
+        "key": "salesforce_query_accounts",
+        "definition_path": "actions/query-accounts/definition.json"
+      },
+      {
+        "key": "salesforce_query_opportunities",
+        "definition_path": "actions/query-opportunities/definition.json"
+      },
+      {
+        "key": "salesforce_query_leads",
+        "definition_path": "actions/query-leads/definition.json"
+      }
+    ]
   }
 }
