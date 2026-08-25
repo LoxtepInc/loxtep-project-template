@@ -763,6 +763,21 @@
         "category": "e_commerce"
       },
       {
+        "slug": "databricks",
+        "name": "Databricks Connector",
+        "description": "Databricks SQL Warehouse — Unity Catalog bound reads and warehouse-primary Delta writes",
+        "path": "templates/connectors/databricks/connector.json",
+        "tags": [
+          "databricks",
+          "unity-catalog",
+          "database",
+          "warehouse",
+          "sql",
+          "bound"
+        ],
+        "category": "database"
+      },
+      {
         "slug": "postgres",
         "name": "PostgreSQL Connector",
         "description": "PostgreSQL database with CDC and query support",
@@ -778,7 +793,7 @@
       {
         "slug": "snowflake",
         "name": "Snowflake Connector",
-        "description": "Connect to Snowflake for bound table discovery (inbound, not ingested)",
+        "description": "Snowflake warehouse — bound table discovery and warehouse-primary ingestion sinks",
         "path": "templates/connectors/snowflake/connector.json",
         "tags": [
           "snowflake",
