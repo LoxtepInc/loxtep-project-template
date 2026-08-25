@@ -1,0 +1,182 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "bill-com",
+  "name": "Bill.com Connector",
+  "description": "BILL (Bill.com) AP/AR \u2014 bills, vendors, and customers via Catalog HTTP (session + developer key).",
+  "version": "1.0.0",
+  "tags": [
+    "bill-com",
+    "bill.com",
+    "accounting",
+    "finance",
+    "ap",
+    "ar",
+    "bills"
+  ],
+  "use_cases": [
+    "Sync BILL AP bills and vendors",
+    "Sync BILL AR customers",
+    "Accounts payable / receivable alongside Xero and QuickBooks"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "bill-com",
+    "name": "Bill.com",
+    "description": "BILL v3 Connect API via CatalogRuntimeConnector (sessionId + devKey).",
+    "category": "finance",
+    "auth_type": "api_key",
+    "oauth_config": null,
+    "supported_directions": [
+      "inbound"
+    ],
+    "supported_entities": [
+      "bills",
+      "vendors",
+      "customers"
+    ],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "version": "1.0.0",
+    "is_beta": true,
+    "documentation_url": "https://developer.bill.com/reference/api-reference-overview",
+    "metadata": {
+      "template_slug": "bill-com"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "api_key": "{{SESSION_ID}}",
+      "dev_key": "{{DEV_KEY}}",
+      "api_host": "gateway.prod.bill.com"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{SESSION_ID}}": "BILL API sessionId from POST /v3/login (stored as api_key)",
+    "{{DEV_KEY}}": "BILL developer key (custom_settings.dev_key)",
+    "{{API_HOST}}": "gateway.prod.bill.com (production) or gateway.stage.bill.com (sandbox)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "BILL Connect v3 list APIs. Auth uses sessionId header (connection.api_key) + devKey header (custom_settings.dev_key). Host from custom_settings.api_host.",
+    "follow_up_notes": [
+      "Session IDs expire \u2014 operators must refresh via BILL /v3/login (not automated in this package). Future: catalog_http_post login action + session rotate.",
+      "Webhooks (BILL event subscriptions) not wired.",
+      "Payments / chart-of-accounts entities can be added as follow-on actions.",
+      "Organization probe skipped: GET /v3/organizations/{id} needs org id; connection_probe uses list vendors (limit 1)."
+    ],
+    "execution_policy": {
+      "allowed_host_suffixes": [
+        "bill.com"
+      ],
+      "allowed_path_patterns": [
+        "^/connect/v3/bills$",
+        "^/connect/v3/vendors$",
+        "^/connect/v3/customers$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "bill_com_list_vendors",
+      "records_path": "results",
+      "required_field": "id",
+      "probe_input": {
+        "limit": 1
+      },
+      "account_info_mapping": {
+        "sample_vendor_id": "id",
+        "sample_vendor_name": "name"
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "bills": {
+          "fetch_action_key": "bill_com_list_bills",
+          "records_path": "results",
+          "pagination": "cursor_from_body",
+          "cursor_query_param": "page",
+          "cursor_next_path": "nextPage",
+          "id_field": "id",
+          "fetch_limit_cap": 100,
+          "sync_input_defaults": {}
+        },
+        "vendors": {
+          "fetch_action_key": "bill_com_list_vendors",
+          "records_path": "results",
+          "pagination": "cursor_from_body",
+          "cursor_query_param": "page",
+          "cursor_next_path": "nextPage",
+          "id_field": "id",
+          "fetch_limit_cap": 100
+        },
+        "customers": {
+          "fetch_action_key": "bill_com_list_customers",
+          "records_path": "results",
+          "pagination": "cursor_from_body",
+          "cursor_query_param": "page",
+          "cursor_next_path": "nextPage",
+          "id_field": "id",
+          "fetch_limit_cap": 100
+        }
+      }
+    },
+    "entity_catalog": {
+      "bills": {
+        "name": "Bills",
+        "record_schema_path": "schemas/entities/bill-com-object.schema.json",
+        "description": "Accounts payable bills",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      },
+      "vendors": {
+        "name": "Vendors",
+        "record_schema_path": "schemas/entities/bill-com-object.schema.json",
+        "description": "AP vendors",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "customers": {
+        "name": "Customers",
+        "record_schema_path": "schemas/entities/bill-com-object.schema.json",
+        "description": "AR customers",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      {
+        "key": "bill_com_list_bills",
+        "definition_path": "actions/list-bills/definition.json"
+      },
+      {
+        "key": "bill_com_list_vendors",
+        "definition_path": "actions/list-vendors/definition.json"
+      },
+      {
+        "key": "bill_com_list_customers",
+        "definition_path": "actions/list-customers/definition.json"
+      }
+    ]
+  }
+}

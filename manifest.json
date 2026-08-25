@@ -972,6 +972,21 @@
           "contacts"
         ],
         "category": "finance"
+      },
+      {
+        "slug": "bill-com",
+        "name": "Bill.com Connector",
+        "description": "BILL (Bill.com) AP/AR — bills, vendors, and customers",
+        "path": "templates/connectors/bill-com/connector.json",
+        "tags": [
+          "bill-com",
+          "bill.com",
+          "accounting",
+          "finance",
+          "ap",
+          "ar"
+        ],
+        "category": "finance"
       }
     ],
     "connections": [],

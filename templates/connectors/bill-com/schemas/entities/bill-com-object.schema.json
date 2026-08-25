@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:bill-com:entity:bill-com-object",
+  "title": "BILL v3 API object (list row)",
+  "description": "Element of BILL list results[] (bills, vendors, customers). Stable id field is required.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" }
+  },
+  "additionalProperties": true
+}
