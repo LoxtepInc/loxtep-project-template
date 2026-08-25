@@ -1,0 +1,40 @@
+{
+  "key": "quickbooks_query_customers",
+  "name": "Query Customers",
+  "description": "GET /v3/company/{realmId}/query — QuickBooks Online Query API.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "QBO select statement (e.g. SELECT * FROM Customer STARTPOSITION 1 MAXRESULTS 100)."
+      },
+      "minorversion": { "type": "string", "default": "65" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://quickbooks.api.intuit.com",
+    "path": "/v3/company/{{connection.custom_settings.realm_id}}/query",
+    "static_headers": {
+      "Accept": "application/json",
+      "Content-Type": "application/text"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "query": "input.query",
+      "minorversion": "input.minorversion"
+    },
+    "omit_empty_query": true
+  }
+}

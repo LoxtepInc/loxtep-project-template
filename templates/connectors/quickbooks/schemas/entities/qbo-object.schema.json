@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:quickbooks:entity:qbo-object",
+  "title": "QuickBooks Online Query row",
+  "description": "Typical element of QueryResponse.<Entity>[] from the QBO Accounting API.",
+  "type": "object",
+  "required": ["Id"],
+  "properties": {
+    "Id": { "type": "string" },
+    "SyncToken": { "type": "string" },
+    "MetaData": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": true
+}
