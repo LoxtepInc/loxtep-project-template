@@ -1,0 +1,39 @@
+{
+  "key": "clickup_list_spaces",
+  "name": "List spaces in a workspace",
+  "description": "GET /api/v2/team/{team_id}/space \u2014 spaces in a workspace. Requires custom_settings.team_id.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "archived": {
+        "type": "boolean"
+      }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.clickup.com",
+    "path": "/api/v2/team/{{connection.custom_settings.team_id}}/space",
+    "static_headers": {
+      "Accept": "application/json"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "archived": "input.archived"
+    },
+    "omit_empty_query": true
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "key": "clickup_list_folderless_lists",
+  "name": "List folderless lists in a space",
+  "description": "GET /api/v2/space/{space_id}/list \u2014 lists not inside a folder. Requires custom_settings.space_id.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "archived": {
+        "type": "boolean"
+      }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.clickup.com",
+    "path": "/api/v2/space/{{connection.custom_settings.space_id}}/list",
+    "static_headers": {
+      "Accept": "application/json"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "archived": "input.archived"
+    },
+    "omit_empty_query": true
+  }
+}
