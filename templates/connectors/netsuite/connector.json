@@ -4,18 +4,18 @@
   "catalog_visible": true,
   "slug": "netsuite",
   "name": "NetSuite Connector",
-  "description": "Connect to NetSuite ERP to sync invoices, payments, customers, and GL entries. Uses OAuth 2.0 for authorization.",
-  "version": "1.0.0",
+  "description": "NetSuite ERP via Catalog HTTP — sync invoices, payments, customers, and journal entries (OAuth 2.0).",
+  "version": "1.1.0",
   "tags": [
     "netsuite",
-    "composio",
     "erp",
-    "finance"
+    "finance",
+    "accounting"
   ],
   "use_cases": [
     "Invoice and payment sync",
     "Customer data integration",
-    "General ledger entries"
+    "General ledger / journal entry sync"
   ],
   "entity": {
     "connector_id": "{{CONNECTOR_ID}}",
@@ -23,10 +23,19 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "netsuite",
     "name": "NetSuite",
-    "description": "NetSuite ERP (invoices, payments, customers, GL entries)",
+    "description": "NetSuite ERP via CatalogRuntimeConnector (REST record API).",
     "category": "finance",
+    "documentation_url": "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1546938079.html",
     "auth_type": "oauth2",
-    "backend": "composio",
+    "oauth_config": {
+      "authorization_url": "https://{{ACCOUNT_ID}}.app.netsuite.com/app/login/oauth2/authorize.nl",
+      "token_url": "https://{{ACCOUNT_ID}}.suitetalk.api.netsuite.com/services/rest/auth/oauth2/v1/token",
+      "scopes": [
+        "rest_webservices"
+      ],
+      "response_type": "code",
+      "grant_type": "authorization_code"
+    },
     "supported_directions": [
       "inbound"
     ],
@@ -38,45 +47,185 @@
     ],
     "supports_webhooks": false,
     "supports_polling": true,
-    "version": "1.0.0",
+    "required_scopes": [
+      "rest_webservices"
+    ],
+    "version": "1.1.0",
     "is_beta": false,
+    "custom_settings_schema": {
+      "account_id": {
+        "type": "string",
+        "help": "NetSuite account ID used in SuiteTalk hostnames (e.g. 1234567 or 1234567-sb1 for sandbox)."
+      }
+    },
     "metadata": {
-      "template_slug": "netsuite"
+      "template_slug": "netsuite",
+      "oauth_account_display_name_field": "companyName",
+      "oauth_runtime_urls": {
+        "shop_connection_config_key": "account_id",
+        "authorization_url_template": "https://{{shop}}.app.netsuite.com/app/login/oauth2/authorize.nl",
+        "token_url_template": "https://{{shop}}.suitetalk.api.netsuite.com/services/rest/auth/oauth2/v1/token"
+      }
     },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },
   "connection_template": {
     "type": "api",
-    "configuration": {}
+    "configuration": {
+      "account_id": "{{ACCOUNT_ID}}",
+      "custom_settings": {
+        "account_id": "{{ACCOUNT_ID}}"
+      }
+    }
   },
   "placeholders": {
     "{{CONNECTOR_ID}}": "Generated UUID for the connector",
     "{{ORGANIZATION_ID}}": "Organization that owns this connector",
     "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{ACCOUNT_ID}}": "NetSuite account ID (hostname segment)",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
     "{{UPDATED_AT}}": "ISO 8601 timestamp"
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
-    "description": "NetSuite ERP toolkit wiring (invoices, payments, customers, GL entries).",
+    "package_version": "1.1.0",
+    "use_catalog_runtime": true,
+    "description": "NetSuite REST record API via CatalogRuntimeConnector. account_id in custom_settings drives SuiteTalk host + OAuth URLs.",
     "follow_up_notes": [
-      "Runtime: ComposioAdapter — not CatalogRuntimeConnector; NetSuite complexity stays in Composio tool mappings.",
-      "Optional: document which ERP record types are intentionally omitted from entity_mappings."
+      "Pagination: NetSuite uses limit/offset + hasMore. Current sync_plan uses pagination none + fetch_limit_cap 1000 (first page). Add native offset pagination to CatalogRuntimeConnector for multi-page full syncs.",
+      "Collection list rows are often id+links only; hydrate via GET by id in a later package revision if consumers need full records.",
+      "OAuth: platform must register a NetSuite integration (client id/secret) and map connectors.oauth.netsuite."
     ],
-    "composio_adapter": {
-      "connector_type": "netsuite",
-      "toolkit_name": "netsuite",
-      "name": "NetSuite",
-      "description": "NetSuite ERP (invoices, payments, customers, GL entries)",
-      "entity_mappings": [
-        { "entity_type": "invoices", "tool_slug": "NETSUITE_LIST_INVOICES" },
-        { "entity_type": "payments", "tool_slug": "NETSUITE_LIST_CUSTOMER_PAYMENTS" },
-        { "entity_type": "customers", "tool_slug": "NETSUITE_LIST_RECORDS" },
-        { "entity_type": "gl_entries", "tool_slug": "NETSUITE_LIST_JOURNAL_ENTRIES" }
+    "platform_dependencies": [
+      {
+        "id": "netsuite_oauth_integration",
+        "kind": "oauth_client",
+        "severity": "required",
+        "title": "NetSuite OAuth 2.0 integration",
+        "description": "Create an Integration record in NetSuite (OAuth 2.0) and supply client id/secret to the connectors service. End users provide account_id and authorize; they do not bring Loxtep client credentials.",
+        "documentation_url": "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157771733279.html",
+        "fulfilled_by": {
+          "type": "platform_config_oauth",
+          "config_path": "connectors.oauth.netsuite",
+          "config_key": "netsuite",
+          "expected_credential_keys": ["client_id", "client_secret"]
+        }
+      }
+    ],
+    "oauth_refresh": {
+      "token_url_template": "https://{{connection.custom_settings.account_id}}.suitetalk.api.netsuite.com/services/rest/auth/oauth2/v1/token",
+      "client_id_env": "NETSUITE_CLIENT_ID",
+      "client_secret_env": "NETSUITE_CLIENT_SECRET"
+    },
+    "execution_policy": {
+      "allowed_host_suffixes": [
+        "suitetalk.api.netsuite.com"
+      ],
+      "allowed_path_patterns": [
+        "^/services/rest/record/v1/customer$",
+        "^/services/rest/record/v1/invoice$",
+        "^/services/rest/record/v1/customerpayment$",
+        "^/services/rest/record/v1/journalentry$"
       ]
     },
-    "actions": []
+    "connection_probe": {
+      "action_key": "netsuite_list_customers",
+      "records_path": "items",
+      "required_field": "id",
+      "probe_input": { "limit": 1, "offset": 0 }
+    },
+    "sync_plan": {
+      "entities": {
+        "customers": {
+          "fetch_action_key": "netsuite_list_customers",
+          "records_path": "items",
+          "pagination": "none",
+          "id_field": "id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": { "offset": 0 }
+        },
+        "invoices": {
+          "fetch_action_key": "netsuite_list_invoices",
+          "records_path": "items",
+          "pagination": "none",
+          "id_field": "id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": { "offset": 0 }
+        },
+        "payments": {
+          "fetch_action_key": "netsuite_list_payments",
+          "records_path": "items",
+          "pagination": "none",
+          "id_field": "id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": { "offset": 0 }
+        },
+        "gl_entries": {
+          "fetch_action_key": "netsuite_list_journal_entries",
+          "records_path": "items",
+          "pagination": "none",
+          "id_field": "id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": { "offset": 0 }
+        }
+      }
+    },
+    "entity_catalog": {
+      "customers": {
+        "name": "Customers",
+        "record_schema_path": "schemas/entities/record-list-item.schema.json",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 1000
+      },
+      "invoices": {
+        "name": "Invoices",
+        "record_schema_path": "schemas/entities/record-list-item.schema.json",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 1000
+      },
+      "payments": {
+        "name": "Customer payments",
+        "record_schema_path": "schemas/entities/record-list-item.schema.json",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 1000
+      },
+      "gl_entries": {
+        "name": "Journal entries",
+        "record_schema_path": "schemas/entities/record-list-item.schema.json",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 1000
+      }
+    },
+    "actions": [
+      {
+        "key": "netsuite_list_customers",
+        "definition_path": "actions/list-customers/definition.json"
+      },
+      {
+        "key": "netsuite_list_invoices",
+        "definition_path": "actions/list-invoices/definition.json"
+      },
+      {
+        "key": "netsuite_list_payments",
+        "definition_path": "actions/list-payments/definition.json"
+      },
+      {
+        "key": "netsuite_list_journal_entries",
+        "definition_path": "actions/list-journal-entries/definition.json"
+      }
+    ]
   }
 }
