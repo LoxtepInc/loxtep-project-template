@@ -1,0 +1,45 @@
+{
+  "key": "zendesk_list_tickets",
+  "name": "List tickets",
+  "description": "GET /api/v2/tickets.json (cursor pagination).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": {
+        "type": "number",
+        "description": "page[size] (max 100)"
+      },
+      "cursor": {
+        "type": "string",
+        "description": "page[after] cursor"
+      }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://{{connection.custom_settings.subdomain}}.zendesk.com",
+    "path": "/api/v2/tickets.json",
+    "static_headers": {
+      "Accept": "application/json"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "basic": true,
+      "basic_user_from": "username"
+    },
+    "query_mapping": {
+      "page[size]": "input.limit",
+      "page[after]": "input.cursor"
+    },
+    "omit_empty_query": true
+  }
+}

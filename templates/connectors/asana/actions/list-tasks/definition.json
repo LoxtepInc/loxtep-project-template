@@ -1,0 +1,55 @@
+{
+  "key": "asana_list_tasks",
+  "name": "List tasks",
+  "description": "GET /api/1.0/tasks (requires project or assignee+workspace).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": {
+        "type": "number"
+      },
+      "cursor": {
+        "type": "string"
+      },
+      "project": {
+        "type": "string"
+      },
+      "workspace": {
+        "type": "string"
+      },
+      "assignee": {
+        "type": "string"
+      }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://app.asana.com",
+    "path": "/api/1.0/tasks",
+    "static_headers": {
+      "Accept": "application/json"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "limit": "input.limit",
+      "offset": "input.cursor",
+      "project": "input.project",
+      "workspace": "input.workspace",
+      "assignee": "input.assignee"
+    },
+    "omit_empty_query": true
+  }
+}

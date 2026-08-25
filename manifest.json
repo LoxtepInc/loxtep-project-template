@@ -1043,6 +1043,58 @@
           "policies"
         ],
         "category": "finance"
+      },
+      {
+        "slug": "zendesk",
+        "name": "Zendesk Connector",
+        "description": "Zendesk Support — tickets, users, and organizations",
+        "path": "templates/connectors/zendesk/connector.json",
+        "tags": [
+          "zendesk",
+          "support",
+          "helpdesk",
+          "tickets"
+        ],
+        "category": "communication"
+      },
+      {
+        "slug": "intercom",
+        "name": "Intercom Connector",
+        "description": "Intercom — contacts, conversations, and companies",
+        "path": "templates/connectors/intercom/connector.json",
+        "tags": [
+          "intercom",
+          "support",
+          "messaging",
+          "contacts"
+        ],
+        "category": "communication"
+      },
+      {
+        "slug": "asana",
+        "name": "Asana Connector",
+        "description": "Asana — workspaces, projects, and tasks",
+        "path": "templates/connectors/asana/connector.json",
+        "tags": [
+          "asana",
+          "tasks",
+          "productivity",
+          "projects"
+        ],
+        "category": "productivity"
+      },
+      {
+        "slug": "square",
+        "name": "Square Connector",
+        "description": "Square — locations, customers, payments, and catalog",
+        "path": "templates/connectors/square/connector.json",
+        "tags": [
+          "square",
+          "payments",
+          "pos",
+          "commerce"
+        ],
+        "category": "finance"
       }
     ],
     "connections": [],

@@ -1,0 +1,32 @@
+{
+  "key": "intercom_get_me",
+  "name": "Get admin (me)",
+  "description": "GET /me \u2014 connection probe.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.intercom.io",
+    "path": "/me",
+    "static_headers": {
+      "Accept": "application/json",
+      "Intercom-Version": "2.11"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "bearer_prefix": true
+    }
+  }
+}

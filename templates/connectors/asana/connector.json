@@ -1,0 +1,173 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "catalog_visible": true,
+  "slug": "asana",
+  "name": "Asana Connector",
+  "description": "Sync Asana workspaces, projects, and tasks.",
+  "version": "1.0.0",
+  "tags": [
+    "asana",
+    "tasks",
+    "productivity"
+  ],
+  "use_cases": [
+    "Sync Asana workspaces, projects, and tasks."
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "asana",
+    "name": "Asana",
+    "description": "Sync Asana workspaces, projects, and tasks.",
+    "category": "productivity",
+    "auth_type": "api_key",
+    "oauth_config": null,
+    "supported_directions": [
+      "inbound"
+    ],
+    "supported_entities": [
+      "workspaces",
+      "projects",
+      "tasks"
+    ],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "template_slug": "asana"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "api_key": "{{PERSONAL_ACCESS_TOKEN}}",
+      "custom_settings": {
+        "workspace_gid": "{{WORKSPACE_GID}}"
+      }
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{PERSONAL_ACCESS_TOKEN}}": "Asana personal access token (Bearer)",
+    "{{WORKSPACE_GID}}": "Optional default workspace gid for project listing",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Asana REST API 1.0 via CatalogRuntimeConnector (Bearer). Fixed host app.asana.com. Sibling: clickup.",
+    "follow_up_notes": [
+      "Task list requires project or assignee+workspace; default sync uses assignee=me.",
+      "Offset pagination via next_page.offset (cursor_from_body)."
+    ],
+    "execution_policy": {
+      "allowed_host_suffixes": [
+        "app.asana.com"
+      ],
+      "allowed_path_patterns": [
+        "^/api/1\\.0/users/me$",
+        "^/api/1\\.0/workspaces$",
+        "^/api/1\\.0/projects$",
+        "^/api/1\\.0/tasks$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "asana_get_me",
+      "records_path": "data",
+      "required_field": "gid",
+      "account_info_mapping": {
+        "account_id": "gid",
+        "account_name": "name",
+        "email": "email"
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "workspaces": {
+          "fetch_action_key": "asana_list_workspaces",
+          "records_path": "data",
+          "pagination": "cursor_from_body",
+          "cursor_query_param": "cursor",
+          "cursor_next_path": "next_page.offset",
+          "id_field": "gid"
+        },
+        "projects": {
+          "fetch_action_key": "asana_list_projects",
+          "records_path": "data",
+          "pagination": "cursor_from_body",
+          "cursor_query_param": "cursor",
+          "cursor_next_path": "next_page.offset",
+          "id_field": "gid"
+        },
+        "tasks": {
+          "fetch_action_key": "asana_list_tasks",
+          "records_path": "data",
+          "pagination": "cursor_from_body",
+          "cursor_query_param": "cursor",
+          "cursor_next_path": "next_page.offset",
+          "id_field": "gid",
+          "sync_input_defaults": {
+            "assignee": "me"
+          }
+        }
+      }
+    },
+    "entity_catalog": {
+      "workspaces": {
+        "name": "Workspaces",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "projects": {
+        "name": "Projects",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      },
+      "tasks": {
+        "name": "Tasks",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      {
+        "key": "asana_get_me",
+        "definition_path": "actions/get-me/definition.json"
+      },
+      {
+        "key": "asana_list_workspaces",
+        "definition_path": "actions/list-workspaces/definition.json"
+      },
+      {
+        "key": "asana_list_projects",
+        "definition_path": "actions/list-projects/definition.json"
+      },
+      {
+        "key": "asana_list_tasks",
+        "definition_path": "actions/list-tasks/definition.json"
+      }
+    ]
+  }
+}
