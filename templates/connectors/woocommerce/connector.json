@@ -61,12 +61,12 @@
     "use_catalog_runtime": true,
     "description": "WooCommerce WC REST v3 via CatalogRuntimeConnector. Basic auth: connection.username = consumer key, connection.api_key = consumer secret. Base host from connection.custom_settings.store_url.",
     "follow_up_notes": [
-      "Merchant-hosted stores have arbitrary domains; allowed_host_suffixes is empty so the runtime must pin requests to the store_url origin (path patterns still constrain /wp-json/wc/v3/*).",
+      "Merchant-hosted stores have arbitrary domains; execution_policy.allowed_hosts_from_connection pins requests to connection.custom_settings.store_url (requires platform support in declarative-catalog-action-executor).",
       "List endpoints return bare JSON arrays; pagination uses page/per_page until an empty page (no body page meta).",
       "Incremental sync uses modified_after (ISO 8601). Webhook topic wiring is optional follow-up."
     ],
     "execution_policy": {
-      "allowed_host_suffixes": [],
+      "allowed_hosts_from_connection": ["custom_settings.store_url"],
       "allowed_path_patterns": [
         "^/wp-json/wc/v3/orders$",
         "^/wp-json/wc/v3/products$",
