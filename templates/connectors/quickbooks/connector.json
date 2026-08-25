@@ -5,7 +5,7 @@
   "slug": "quickbooks",
   "name": "QuickBooks Connector",
   "description": "QuickBooks Online accounting data via Catalog HTTP (customers, invoices, items, payments).",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "tags": [
     "quickbooks",
     "finance",
@@ -42,14 +42,17 @@
       "customers",
       "invoices",
       "items",
-      "payments"
+      "payments",
+      "vendors",
+      "bills",
+      "accounts"
     ],
     "supports_webhooks": false,
     "supports_polling": true,
     "required_scopes": [
       "com.intuit.quickbooks.accounting"
     ],
-    "version": "1.1.0",
+    "version": "1.2.0",
     "is_beta": false,
     "custom_settings_schema": {
       "realm_id": {
@@ -88,7 +91,7 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.1.0",
+    "package_version": "1.2.0",
     "use_catalog_runtime": true,
     "description": "QuickBooks Online v3 Query API via CatalogRuntimeConnector. Company realm_id lives in connection.custom_settings (Intuit returns realmId on OAuth redirect; store it before sync).",
     "follow_up_notes": [
@@ -185,6 +188,39 @@
             "query": "SELECT * FROM Payment STARTPOSITION 1 MAXRESULTS 1000",
             "minorversion": "65"
           }
+        },
+        "vendors": {
+          "fetch_action_key": "quickbooks_query_vendors",
+          "records_path": "QueryResponse.Vendor",
+          "pagination": "none",
+          "id_field": "Id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": {
+            "query": "SELECT * FROM Vendor STARTPOSITION 1 MAXRESULTS 1000",
+            "minorversion": "65"
+          }
+        },
+        "bills": {
+          "fetch_action_key": "quickbooks_query_bills",
+          "records_path": "QueryResponse.Bill",
+          "pagination": "none",
+          "id_field": "Id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": {
+            "query": "SELECT * FROM Bill STARTPOSITION 1 MAXRESULTS 1000",
+            "minorversion": "65"
+          }
+        },
+        "accounts": {
+          "fetch_action_key": "quickbooks_query_accounts",
+          "records_path": "QueryResponse.Account",
+          "pagination": "none",
+          "id_field": "Id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": {
+            "query": "SELECT * FROM Account STARTPOSITION 1 MAXRESULTS 1000",
+            "minorversion": "65"
+          }
         }
       }
     },
@@ -228,6 +264,36 @@
         "supports_webhook": false,
         "default_sync_interval_minutes": 30,
         "max_batch_size": 1000
+      },
+      "vendors": {
+        "name": "Vendors",
+        "record_schema_path": "schemas/entities/qbo-object.schema.json",
+        "description": "QBO Vendor rows from QueryResponse.Vendor",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 1440,
+        "max_batch_size": 1000
+      },
+      "bills": {
+        "name": "Bills",
+        "record_schema_path": "schemas/entities/qbo-object.schema.json",
+        "description": "QBO Bill (vendor bill / AP) rows from QueryResponse.Bill",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 1000
+      },
+      "accounts": {
+        "name": "Accounts",
+        "record_schema_path": "schemas/entities/qbo-object.schema.json",
+        "description": "QBO chart-of-accounts rows from QueryResponse.Account",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 1440,
+        "max_batch_size": 1000
       }
     },
     "actions": [
@@ -250,6 +316,18 @@
       {
         "key": "quickbooks_query_payments",
         "definition_path": "actions/query-payments/definition.json"
+      },
+      {
+        "key": "quickbooks_query_vendors",
+        "definition_path": "actions/query-vendors/definition.json"
+      },
+      {
+        "key": "quickbooks_query_bills",
+        "definition_path": "actions/query-bills/definition.json"
+      },
+      {
+        "key": "quickbooks_query_accounts",
+        "definition_path": "actions/query-accounts/definition.json"
       }
     ]
   }
