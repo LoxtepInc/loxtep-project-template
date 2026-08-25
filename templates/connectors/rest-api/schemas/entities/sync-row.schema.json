@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:rest-api:entity:sync-row",
+  "title": "Generic REST JSON row",
+  "description": "Loose object contract for records returned by rest_api_get (array body or records_path extraction).",
+  "type": "object",
+  "properties": {
+    "id": { "type": ["string", "number", "integer"] }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,42 @@
+{
+  "key": "rest_api_get",
+  "name": "GET resource",
+  "description": "HTTPS GET against connection.base_url host using custom_settings.resource_path (absolute path from host root).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number", "description": "Mapped to query limit when the API uses limit pagination." },
+      "page": { "type": "number", "description": "1-based page index when pagination is query_page." },
+      "offset": { "type": "number" },
+      "cursor": { "type": "string" },
+      "since": { "type": "string", "description": "Incremental cursor (ISO 8601 or vendor-specific)." }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "{{connection.base_url}}",
+    "path": "{{connection.custom_settings.resource_path}}",
+    "static_headers": {
+      "Accept": "application/json"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "limit": "input.limit",
+      "page": "input.page",
+      "offset": "input.offset",
+      "cursor": "input.cursor",
+      "since": "input.since"
+    },
+    "omit_empty_query": true
+  }
+}

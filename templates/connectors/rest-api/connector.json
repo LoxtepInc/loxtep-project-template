@@ -5,7 +5,7 @@
   "slug": "rest-api",
   "name": "REST API Connector",
   "description": "Generic REST API connector for polling data from any HTTP JSON API. Supports API key, bearer token, OAuth2, and basic authentication.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "rest",
     "api",
@@ -40,12 +40,14 @@
     "supported_directions": [
       "inbound"
     ],
-    "supported_entities": [],
+    "supported_entities": [
+      "records"
+    ],
     "supports_webhooks": false,
     "supports_polling": true,
     "required_scopes": null,
     "required_permissions": null,
-    "version": "1.0.0",
+    "version": "1.1.0",
     "is_beta": false,
     "metadata": {
       "template_slug": "rest-api",
@@ -75,6 +77,10 @@
       "pagination": {
         "type": "{{PAGINATION_TYPE}}",
         "page_size": 100
+      },
+      "custom_settings": {
+        "base_url": "{{BASE_URL}}",
+        "resource_path": "/"
       }
     },
     "credential_fields": {
@@ -86,7 +92,7 @@
     "{{CONNECTOR_ID}}": "Generated UUID for the connector",
     "{{ORGANIZATION_ID}}": "Organization that owns this connector",
     "{{PROJECT_ID}}": "Project that contains this connector",
-    "{{BASE_URL}}": "Base URL for the REST API (e.g., https://api.example.com/v1)",
+    "{{BASE_URL}}": "HTTPS origin for the REST API (e.g., https://api.example.com). Prefer origin-only; put versioned routes in custom_settings.resource_path.",
     "{{AUTH_TYPE}}": "Authentication type: api_key, bearer, oauth2, basic, or none",
     "{{API_KEY}}": "API key for authentication (encrypted, if using api_key auth)",
     "{{BEARER_TOKEN}}": "Bearer token for authentication (encrypted, if using bearer auth)",
@@ -98,12 +104,60 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
-    "description": "Open connector package. Declarative actions live under actions/; migrate HTTP calls from the platform provider as needed.",
+    "package_version": "1.1.0",
+    "use_catalog_runtime": true,
+    "description": "Generic REST via CatalogRuntimeConnector. Host allowlist from connection.base_url / custom_settings.base_url (allowed_hosts_from_connection). Keep platform providers/rest-api until CatalogRuntime registration + multi-scheme auth are promoted.",
     "follow_up_notes": [
-      "No built-in providers/rest-api/ — not in BUILT_IN_CONNECTORS; generic REST is a product concern.",
-      "Model per-connection flows as catalog_http_* actions + CatalogRuntimeConnector or a dedicated generic HTTP runtime; actions[] stay empty until that exists."
+      "execution_policy uses allowed_hosts_from_connection (not static allowed_host_suffixes) — requires platform LOX-1968 / PR #1997.",
+      "catalog_http path join uses URL resolution: absolute custom_settings.resource_path replaces any path on base_url. Prefer origin-only base_url and full paths like /v1/items in resource_path.",
+      "header_auth is Bearer via connection.oauth_access_token (falls back to connection.api_key). Covers bearer/oauth2 and api_key-as-bearer. Native providers/rest-api still owns basic, custom api_key header names, query-key placement, and auth none until CatalogRuntime multi-scheme passthrough exists.",
+      "connection_probe uses required_field \"\" so any JSON object (or first array element) counts as success; empty arrays still fail. Point resource_path at a probe-friendly route.",
+      "sync_plan ships a single records entity bound to custom_settings.resource_path (one resource per connection, matching native rest-api).",
+      "Platform should keep createRestApiConnector until createCatalogRuntimeConnector(\"rest-api\") is registered and the gaps above are closed.",
+      "Do not flip use_catalog_runtime on postgres/mysql/s3/file-transfer/webhooks/sdk/blank."
     ],
-    "actions": []
+    "execution_policy": {
+      "allowed_hosts_from_connection": ["base_url", "custom_settings.base_url"],
+      "allowed_path_patterns": ["^/"]
+    },
+    "connection_probe": {
+      "action_key": "rest_api_get",
+      "records_path": "",
+      "required_field": "",
+      "probe_input": {
+        "limit": 1
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "records": {
+          "fetch_action_key": "rest_api_get",
+          "records_path": "",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "since_query_param": "since",
+          "id_field": "id",
+          "fetch_limit_cap": 100
+        }
+      }
+    },
+    "entity_catalog": {
+      "records": {
+        "name": "Records",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "description": "JSON records from the configured REST request_path (array body or single object).",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      {
+        "key": "rest_api_get",
+        "definition_path": "actions/get/definition.json"
+      }
+    ]
   }
 }
