@@ -951,12 +951,11 @@
         "slug": "okendo",
         "name": "Okendo Connector",
         "description": "Connect to Okendo for reviews linked to orders and customers. 18k+ brands.",
-        "path": "templates/connectors/okendo.json",
+        "path": "templates/connectors/okendo/connector.json",
         "tags": [
           "okendo",
           "reviews",
-          "e-commerce",
-          "composio"
+          "e-commerce"
         ],
         "category": "e_commerce"
       },
