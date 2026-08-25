@@ -1,0 +1,217 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "slug": "xero",
+  "name": "Xero Connector",
+  "description": "Xero Accounting API — contacts, invoices, chart of accounts, and payments via Catalog HTTP.",
+  "version": "1.0.0",
+  "tags": ["xero", "accounting", "finance", "invoices", "contacts"],
+  "use_cases": [
+    "Sync Xero contacts, invoices, accounts, and payments into the mesh",
+    "Finance domain accounting alongside QuickBooks / NetSuite"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "xero",
+    "name": "Xero",
+    "description": "Xero Accounting API (OAuth 2.0) via CatalogRuntimeConnector.",
+    "category": "finance",
+    "auth_type": "oauth2",
+    "oauth_config": {
+      "authorization_url": "https://login.xero.com/identity/connect/authorize",
+      "token_url": "https://identity.xero.com/connect/token",
+      "scopes": [
+        "openid",
+        "profile",
+        "email",
+        "offline_access",
+        "accounting.contacts.read",
+        "accounting.invoices.read",
+        "accounting.payments.read",
+        "accounting.settings.read"
+      ],
+      "response_type": "code",
+      "grant_type": "authorization_code"
+    },
+    "supported_directions": ["inbound"],
+    "supported_entities": ["contacts", "invoices", "accounts", "payments"],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": [
+      "openid",
+      "profile",
+      "email",
+      "offline_access",
+      "accounting.contacts.read",
+      "accounting.invoices.read",
+      "accounting.payments.read",
+      "accounting.settings.read"
+    ],
+    "version": "1.0.0",
+    "is_beta": true,
+    "documentation_url": "https://developer.xero.com/documentation/api/accounting/overview",
+    "metadata": {
+      "template_slug": "xero",
+      "oauth_account_display_name_field": "organisation_name"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "tenant_id": "{{TENANT_ID}}"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{TENANT_ID}}": "Xero tenant UUID from GET /connections (required in custom_settings.tenant_id for Accounting API calls)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Xero Accounting API 2.0 via CatalogRuntimeConnector. Tenant UUID must be stored in custom_settings.tenant_id (discover via xero_list_connections). oauth_post_token_probe auto-persist is Shopify-shaped today and does not apply without a platform tweak.",
+    "follow_up_notes": [
+      "After OAuth, call xero_list_connections and set custom_settings.tenant_id to the chosen tenantId before Organisation probe / entity sync.",
+      "Optional platform improvement: static oauth_post_token_probe (no oauth_runtime_urls) to persist first connection tenantId automatically.",
+      "Webhooks (Xero signing key) not wired in this package.",
+      "Granular scopes (accounting.invoices.read / accounting.payments.read) preferred; broad accounting.transactions.read still valid until Xero deprecation window ends."
+    ],
+    "platform_dependencies": [
+      {
+        "id": "xero_oauth_app",
+        "kind": "oauth_client",
+        "severity": "required",
+        "title": "Xero OAuth app (web)",
+        "description": "Register a Xero web app and supply client id/secret to the connectors service OAuth config for connector_type xero.",
+        "documentation_url": "https://developer.xero.com/documentation/guides/oauth2/overview",
+        "fulfilled_by": {
+          "type": "platform_config_oauth",
+          "config_path": "connectors.oauth.xero",
+          "config_key": "xero",
+          "expected_credential_keys": ["client_id", "client_secret"],
+          "notes": "Redirect URI must match the Loxtep connectors OAuth callback. Request offline_access for refresh tokens."
+        }
+      }
+    ],
+    "oauth_refresh": {
+      "token_url_template": "https://identity.xero.com/connect/token",
+      "client_id_env": "XERO_CLIENT_ID",
+      "client_secret_env": "XERO_CLIENT_SECRET"
+    },
+    "execution_policy": {
+      "allowed_host_suffixes": ["api.xero.com", "identity.xero.com"],
+      "allowed_path_patterns": [
+        "^/connections$",
+        "^/api\\.xro/2\\.0/Organisation$",
+        "^/api\\.xro/2\\.0/Contacts$",
+        "^/api\\.xro/2\\.0/Invoices$",
+        "^/api\\.xro/2\\.0/Accounts$",
+        "^/api\\.xro/2\\.0/Payments$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "xero_get_organisation",
+      "records_path": "Organisations",
+      "required_field": "OrganisationID",
+      "account_info_mapping": {
+        "organisation_id": "OrganisationID",
+        "organisation_name": "Name",
+        "country_code": "CountryCode",
+        "base_currency": "BaseCurrency"
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "contacts": {
+          "fetch_action_key": "xero_list_contacts",
+          "records_path": "Contacts",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "id_field": "ContactID",
+          "fetch_limit_cap": 100
+        },
+        "invoices": {
+          "fetch_action_key": "xero_list_invoices",
+          "records_path": "Invoices",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "id_field": "InvoiceID",
+          "fetch_limit_cap": 100
+        },
+        "accounts": {
+          "fetch_action_key": "xero_list_accounts",
+          "records_path": "Accounts",
+          "pagination": "none",
+          "id_field": "AccountID",
+          "fetch_limit_cap": 100
+        },
+        "payments": {
+          "fetch_action_key": "xero_list_payments",
+          "records_path": "Payments",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "id_field": "PaymentID",
+          "fetch_limit_cap": 100
+        }
+      }
+    },
+    "entity_catalog": {
+      "contacts": {
+        "name": "Contacts",
+        "record_schema_path": "schemas/entities/xero-object.schema.json",
+        "description": "Xero customers and suppliers",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "invoices": {
+        "name": "Invoices",
+        "record_schema_path": "schemas/entities/xero-object.schema.json",
+        "description": "Xero AR/AP invoices",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      },
+      "accounts": {
+        "name": "Accounts",
+        "record_schema_path": "schemas/entities/xero-object.schema.json",
+        "description": "Chart of accounts",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 1440,
+        "max_batch_size": 100
+      },
+      "payments": {
+        "name": "Payments",
+        "record_schema_path": "schemas/entities/xero-object.schema.json",
+        "description": "Invoice payments",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      { "key": "xero_list_connections", "definition_path": "actions/list-connections/definition.json" },
+      { "key": "xero_get_organisation", "definition_path": "actions/get-organisation/definition.json" },
+      { "key": "xero_list_contacts", "definition_path": "actions/list-contacts/definition.json" },
+      { "key": "xero_list_invoices", "definition_path": "actions/list-invoices/definition.json" },
+      { "key": "xero_list_accounts", "definition_path": "actions/list-accounts/definition.json" },
+      { "key": "xero_list_payments", "definition_path": "actions/list-payments/definition.json" }
+    ]
+  }
+}

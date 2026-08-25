@@ -1,0 +1,31 @@
+{
+  "key": "xero_get_organisation",
+  "name": "Get Xero organisation",
+  "description": "GET /api.xro/2.0/Organisation — connection probe when tenant_id is set.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.xero.com",
+    "path": "/api.xro/2.0/Organisation",
+    "static_headers": {
+      "Accept": "application/json",
+      "Xero-Tenant-Id": "{{connection.custom_settings.tenant_id}}"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {},
+    "omit_empty_query": true
+  }
+}

@@ -958,6 +958,20 @@
           "zero-party"
         ],
         "category": "analytics"
+      },
+      {
+        "slug": "xero",
+        "name": "Xero Connector",
+        "description": "Xero Accounting API — contacts, invoices, accounts, and payments",
+        "path": "templates/connectors/xero/connector.json",
+        "tags": [
+          "xero",
+          "accounting",
+          "finance",
+          "invoices",
+          "contacts"
+        ],
+        "category": "finance"
       }
     ],
     "connections": [],

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:xero:entity:xero-object",
+  "title": "Xero Accounting API object (list row)",
+  "description": "Element of Xero Contacts/Invoices/Accounts/Payments arrays. IDs vary by resource (ContactID, InvoiceID, AccountID, PaymentID).",
+  "type": "object",
+  "properties": {
+    "ContactID": { "type": "string" },
+    "InvoiceID": { "type": "string" },
+    "AccountID": { "type": "string" },
+    "PaymentID": { "type": "string" }
+  },
+  "additionalProperties": true
+}
