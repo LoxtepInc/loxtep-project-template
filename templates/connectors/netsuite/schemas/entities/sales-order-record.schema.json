@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:netsuite:entity:salesorder",
+  "title": "NetSuite sales order (collection row)",
+  "description": "Element of GET /salesorder `items[]`.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "tranId": { "type": ["string", "null"] },
+    "entity": { "type": ["object", "string", "null"], "additionalProperties": true },
+    "tranDate": { "type": ["string", "null"] },
+    "status": { "type": ["string", "null"] },
+    "total": { "type": ["number", "null"] },
+    "links": {
+      "type": "array",
+      "items": { "type": "object", "additionalProperties": true }
+    }
+  },
+  "additionalProperties": true
+}

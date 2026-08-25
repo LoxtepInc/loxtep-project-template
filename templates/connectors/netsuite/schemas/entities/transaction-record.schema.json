@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:netsuite:entity:transaction",
+  "title": "NetSuite transaction (collection row)",
+  "description": "Element of invoice, customerpayment, or journalentry collection `items[]`.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "tranId": { "type": ["string", "null"] },
+    "tranDate": { "type": ["string", "null"] },
+    "status": { "type": ["string", "null"] },
+    "total": { "type": ["number", "null"] },
+    "entity": { "type": ["object", "string", "null"], "additionalProperties": true },
+    "links": {
+      "type": "array",
+      "items": { "type": "object", "additionalProperties": true }
+    }
+  },
+  "additionalProperties": true
+}

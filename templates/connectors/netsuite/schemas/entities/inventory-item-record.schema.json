@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:netsuite:entity:inventoryitem",
+  "title": "NetSuite inventory item (collection row)",
+  "description": "Element of GET /inventoryitem `items[]`.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "itemId": { "type": ["string", "null"] },
+    "displayName": { "type": ["string", "null"] },
+    "basePrice": { "type": ["number", "null"] },
+    "isInactive": { "type": ["boolean", "null"] },
+    "links": {
+      "type": "array",
+      "items": { "type": "object", "additionalProperties": true }
+    }
+  },
+  "additionalProperties": true
+}

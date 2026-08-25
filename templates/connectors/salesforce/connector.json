@@ -4,14 +4,14 @@
   "catalog_visible": false,
   "slug": "salesforce",
   "name": "Salesforce Connector",
-  "description": "Salesforce CRM contacts, accounts, opportunities, and leads via Catalog HTTP.",
-  "version": "1.1.0",
+  "description": "Salesforce CRM contacts, accounts, opportunities, leads, and cases via Catalog HTTP.",
+  "version": "1.2.0",
   "tags": [
     "salesforce",
     "crm"
   ],
   "use_cases": [
-    "Sync Salesforce CRM contacts, accounts, opportunities, and leads."
+    "Sync Salesforce CRM contacts, accounts, opportunities, leads, and cases."
   ],
   "entity": {
     "connector_id": "{{CONNECTOR_ID}}",
@@ -19,7 +19,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "salesforce",
     "name": "Salesforce",
-    "description": "Salesforce CRM contacts, accounts, opportunities, and leads via Catalog HTTP.",
+    "description": "Salesforce CRM contacts, accounts, opportunities, leads, and cases via Catalog HTTP.",
     "category": "crm",
     "auth_type": "oauth2",
     "oauth_config": {
@@ -39,7 +39,8 @@
       "contacts",
       "accounts",
       "opportunities",
-      "leads"
+      "leads",
+      "cases"
     ],
     "supports_webhooks": false,
     "supports_polling": true,
@@ -47,7 +48,7 @@
       "api",
       "refresh_token"
     ],
-    "version": "1.1.0",
+    "version": "1.2.0",
     "is_beta": false,
     "metadata": {
       "template_slug": "salesforce",
@@ -76,12 +77,12 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.1.0",
+    "package_version": "1.2.0",
     "use_catalog_runtime": true,
     "description": "Salesforce REST (SOQL query) via CatalogRuntimeConnector. Pagination uses nextRecordsUrl as the next request path. Instance host comes from connection custom_settings.instance_url (My Domain).",
     "follow_up_notes": [
       "Provide custom_settings.instance_url (My Domain HTTPS origin) at connect time; OAuth token instance_url is not yet persisted by the platform token exchange.",
-      "Incremental sync (SystemModstamp filters) is out of scope for this package \u2014 full SOQL pages only.",
+      "Incremental sync uses SystemModstamp filters via CatalogRuntimeConnector incremental request_path (same SOQL query actions as full sync).",
       "Custom objects, ContentVersion, and Bulk API 2.0 are out of scope.",
       "Sandbox orgs: use https://test.salesforce.com OAuth hosts via a future login_url setting if needed; production defaults to login.salesforce.com."
     ],
@@ -119,6 +120,7 @@
       "entities": {
         "contacts": {
           "fetch_action_key": "salesforce_query_contacts",
+          "incremental_fetch_action_key": "salesforce_query_contacts",
           "records_path": "records",
           "pagination": "cursor_from_body",
           "cursor_next_path": "nextRecordsUrl",
@@ -126,11 +128,12 @@
           "id_field": "Id",
           "fetch_limit_cap": 200,
           "sync_input_defaults": {
-            "request_path": "/services/data/v59.0/query?q=SELECT+Id,FirstName,LastName,Email,Phone,AccountId,Title,MailingCity,MailingState,MailingCountry,MailingPostalCode,CreatedDate,SystemModstamp+FROM+Contact+ORDER+BY+Id"
+            "request_path": "/services/data/v59.0/query?q=SELECT+Id,FirstName,LastName,Email,Phone,MobilePhone,AccountId,Title,Department,LeadSource,Description,OwnerId,MailingCity,MailingState,MailingCountry,MailingPostalCode,CreatedDate,SystemModstamp+FROM+Contact+ORDER+BY+Id"
           }
         },
         "accounts": {
           "fetch_action_key": "salesforce_query_accounts",
+          "incremental_fetch_action_key": "salesforce_query_accounts",
           "records_path": "records",
           "pagination": "cursor_from_body",
           "cursor_next_path": "nextRecordsUrl",
@@ -138,11 +141,12 @@
           "id_field": "Id",
           "fetch_limit_cap": 200,
           "sync_input_defaults": {
-            "request_path": "/services/data/v59.0/query?q=SELECT+Id,Name,Type,Industry,Phone,Website,BillingCity,BillingState,BillingCountry,BillingPostalCode,CreatedDate,SystemModstamp+FROM+Account+ORDER+BY+Id"
+            "request_path": "/services/data/v59.0/query?q=SELECT+Id,Name,Type,Industry,Phone,Website,NumberOfEmployees,AnnualRevenue,Description,OwnerId,ParentId,BillingCity,BillingState,BillingCountry,BillingPostalCode,CreatedDate,SystemModstamp+FROM+Account+ORDER+BY+Id"
           }
         },
         "opportunities": {
           "fetch_action_key": "salesforce_query_opportunities",
+          "incremental_fetch_action_key": "salesforce_query_opportunities",
           "records_path": "records",
           "pagination": "cursor_from_body",
           "cursor_next_path": "nextRecordsUrl",
@@ -150,11 +154,12 @@
           "id_field": "Id",
           "fetch_limit_cap": 200,
           "sync_input_defaults": {
-            "request_path": "/services/data/v59.0/query?q=SELECT+Id,Name,StageName,Amount,CloseDate,AccountId,Probability,Type,CreatedDate,SystemModstamp+FROM+Opportunity+ORDER+BY+Id"
+            "request_path": "/services/data/v59.0/query?q=SELECT+Id,Name,StageName,Amount,CloseDate,AccountId,Probability,Type,LeadSource,ForecastCategoryName,IsClosed,IsWon,OwnerId,Description,CreatedDate,SystemModstamp+FROM+Opportunity+ORDER+BY+Id"
           }
         },
         "leads": {
           "fetch_action_key": "salesforce_query_leads",
+          "incremental_fetch_action_key": "salesforce_query_leads",
           "records_path": "records",
           "pagination": "cursor_from_body",
           "cursor_next_path": "nextRecordsUrl",
@@ -162,7 +167,20 @@
           "id_field": "Id",
           "fetch_limit_cap": 200,
           "sync_input_defaults": {
-            "request_path": "/services/data/v59.0/query?q=SELECT+Id,FirstName,LastName,Email,Company,Status,Phone,Title,City,State,Country,PostalCode,CreatedDate,SystemModstamp+FROM+Lead+ORDER+BY+Id"
+            "request_path": "/services/data/v59.0/query?q=SELECT+Id,FirstName,LastName,Email,Company,Status,Phone,Title,City,State,Country,PostalCode,LeadSource,Industry,Website,OwnerId,Description,CreatedDate,SystemModstamp+FROM+Lead+ORDER+BY+Id"
+          }
+        },
+        "cases": {
+          "fetch_action_key": "salesforce_query_cases",
+          "incremental_fetch_action_key": "salesforce_query_cases",
+          "records_path": "records",
+          "pagination": "cursor_from_body",
+          "cursor_next_path": "nextRecordsUrl",
+          "cursor_query_param": "request_path",
+          "id_field": "Id",
+          "fetch_limit_cap": 200,
+          "sync_input_defaults": {
+            "request_path": "/services/data/v59.0/query?q=SELECT+Id,CaseNumber,Subject,Status,Priority,AccountId,ContactId,Origin,IsClosed,CreatedDate,SystemModstamp+FROM+Case+ORDER+BY+Id"
           }
         }
       }
@@ -170,7 +188,8 @@
     "entity_catalog": {
       "contacts": {
         "name": "Contacts",
-        "supports_incremental": false,
+        "record_schema_path": "schemas/entities/soql-record.schema.json",
+        "supports_incremental": true,
         "supports_full_sync": true,
         "supports_webhook": false,
         "default_sync_interval_minutes": 15,
@@ -178,7 +197,8 @@
       },
       "accounts": {
         "name": "Accounts",
-        "supports_incremental": false,
+        "record_schema_path": "schemas/entities/soql-record.schema.json",
+        "supports_incremental": true,
         "supports_full_sync": true,
         "supports_webhook": false,
         "default_sync_interval_minutes": 30,
@@ -186,7 +206,8 @@
       },
       "opportunities": {
         "name": "Opportunities",
-        "supports_incremental": false,
+        "record_schema_path": "schemas/entities/soql-record.schema.json",
+        "supports_incremental": true,
         "supports_full_sync": true,
         "supports_webhook": false,
         "default_sync_interval_minutes": 15,
@@ -194,7 +215,17 @@
       },
       "leads": {
         "name": "Leads",
-        "supports_incremental": false,
+        "record_schema_path": "schemas/entities/soql-record.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 200
+      },
+      "cases": {
+        "name": "Cases",
+        "record_schema_path": "schemas/entities/soql-record.schema.json",
+        "supports_incremental": true,
         "supports_full_sync": true,
         "supports_webhook": false,
         "default_sync_interval_minutes": 15,
@@ -221,6 +252,10 @@
       {
         "key": "salesforce_query_leads",
         "definition_path": "actions/query-leads/definition.json"
+      },
+      {
+        "key": "salesforce_query_cases",
+        "definition_path": "actions/query-cases/definition.json"
       }
     ]
   }

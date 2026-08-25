@@ -46,6 +46,7 @@
         "dealname",
         "amount",
         "dealstage",
+        "pipeline",
         "workflow",
         "closedate",
         "createdate",
@@ -59,7 +60,10 @@
         "hs_forecast_probability",
         "hs_closed_amount",
         "hs_is_closed",
-        "hs_is_closed_won"
+        "hs_is_closed_won",
+        "hs_manual_forecast_category",
+        "hs_mrr",
+        "hs_tcv"
       ],
       "limit": 100,
       "after": "{{input.after}}"

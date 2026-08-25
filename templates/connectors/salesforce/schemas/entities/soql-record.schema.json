@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:salesforce:entity:soql-record",
+  "title": "Salesforce SOQL record",
+  "description": "Element of Salesforce REST query `records[]`.",
+  "type": "object",
+  "required": ["Id"],
+  "properties": {
+    "Id": { "type": "string" },
+    "CreatedDate": { "type": ["string", "null"] },
+    "SystemModstamp": { "type": ["string", "null"] },
+    "attributes": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": true
+}

@@ -58,6 +58,11 @@
         "website",
         "lifecyclestage",
         "hs_lead_status",
+        "type",
+        "hubspot_owner_id",
+        "hs_object_id",
+        "timezone",
+        "hs_parent_company_id",
         "createdate",
         "hs_lastmodifieddate"
       ],

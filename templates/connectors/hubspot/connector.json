@@ -5,7 +5,7 @@
   "slug": "hubspot",
   "name": "HubSpot Connector",
   "description": "Connect HubSpot CRM for contacts, companies, and deals.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": ["hubspot"],
   "use_cases": ["Connect HubSpot CRM for contacts, companies, and deals."],
   "entity": {
@@ -45,7 +45,7 @@
       "crm.schemas.deals.read",
       "oauth"
     ],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "is_beta": false,
     "metadata": {
       "template_slug": "hubspot",
@@ -67,13 +67,12 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
+    "package_version": "1.1.0",
     "use_catalog_runtime": true,
     "description": "HubSpot CRM v3 via CatalogRuntimeConnector. Full sync uses list APIs; incremental sync uses CRM search with last modified filters. Webhook routing maps topic prefixes to entities (payload enrichment is not performed in catalog mode).",
     "follow_up_notes": [
       "Webhooks: routing only — legacy connector batch-fetched full CRM objects on propertyChange/creation; restore enrich-on-webhook if downstream needs hydrated records.",
-      "Engagements, custom objects, and non-objects APIs are out of scope for this package.",
-      "Optional: entity_catalog.record_schema_path + JSON schemas per entity for row-level CI contracts."
+      "Engagements, tickets, products, custom objects, and non-objects APIs are out of scope for this package."
     ],
     "oauth_refresh": {
       "token_url_template": "https://api.hubapi.com/oauth/v1/token",
@@ -122,7 +121,7 @@
           "id_field": "id",
           "fetch_limit_cap": 100,
           "sync_input_defaults": {
-            "properties": "email,firstname,lastname,phone,company,website,lifecyclestage,hs_lead_status,jobtitle,city,state,country,zip,address,createdate,lastmodifieddate"
+            "properties": "email,firstname,lastname,phone,mobilephone,company,website,lifecyclestage,hs_lead_status,jobtitle,department,city,state,country,zip,address,hubspot_owner_id,associatedcompanyid,hs_object_id,hs_analytics_source,hs_latest_source,hs_email_domain,createdate,lastmodifieddate"
           }
         },
         "companies": {
@@ -134,7 +133,7 @@
           "id_field": "id",
           "fetch_limit_cap": 100,
           "sync_input_defaults": {
-            "properties": "name,domain,industry,description,numberofemployees,annualrevenue,phone,city,state,country,zip,address,website,lifecyclestage,hs_lead_status,createdate,hs_lastmodifieddate"
+            "properties": "name,domain,industry,description,numberofemployees,annualrevenue,phone,city,state,country,zip,address,website,lifecyclestage,hs_lead_status,type,hubspot_owner_id,hs_object_id,timezone,hs_parent_company_id,createdate,hs_lastmodifieddate"
           }
         },
         "deals": {
@@ -146,7 +145,7 @@
           "id_field": "id",
           "fetch_limit_cap": 100,
           "sync_input_defaults": {
-            "properties": "dealname,amount,dealstage,workflow,closedate,createdate,hs_lastmodifieddate,hubspot_owner_id,description,dealtype,hs_priority,hs_deal_stage_probability,hs_forecast_amount,hs_forecast_probability,hs_closed_amount,hs_is_closed,hs_is_closed_won"
+            "properties": "dealname,amount,dealstage,pipeline,workflow,closedate,createdate,hs_lastmodifieddate,hubspot_owner_id,description,dealtype,hs_priority,hs_deal_stage_probability,hs_forecast_amount,hs_forecast_probability,hs_closed_amount,hs_is_closed,hs_is_closed_won,hs_manual_forecast_category,hs_mrr,hs_tcv"
           }
         }
       }
@@ -154,6 +153,7 @@
     "entity_catalog": {
       "contacts": {
         "name": "Contacts",
+        "record_schema_path": "schemas/entities/crm-v3-object.schema.json",
         "supports_incremental": true,
         "supports_full_sync": true,
         "supports_webhook": true,
@@ -162,6 +162,7 @@
       },
       "companies": {
         "name": "Companies",
+        "record_schema_path": "schemas/entities/crm-v3-object.schema.json",
         "supports_incremental": true,
         "supports_full_sync": true,
         "supports_webhook": true,
@@ -170,6 +171,7 @@
       },
       "deals": {
         "name": "Deals",
+        "record_schema_path": "schemas/entities/crm-v3-object.schema.json",
         "supports_incremental": true,
         "supports_full_sync": true,
         "supports_webhook": true,
