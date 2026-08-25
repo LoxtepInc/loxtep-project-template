@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:woocommerce:entity:sync-row",
+  "title": "WooCommerce WC REST v3 list row",
+  "description": "Element of the bare JSON array returned by /wp-json/wc/v3/{orders|products|customers}.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": ["number", "integer"] }
+  },
+  "additionalProperties": true
+}

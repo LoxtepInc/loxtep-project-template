@@ -869,6 +869,20 @@
         "category": "e_commerce"
       },
       {
+        "slug": "woocommerce",
+        "name": "WooCommerce Connector",
+        "description": "Connect to WooCommerce stores for orders, customers, and products via WC REST v3.",
+        "path": "templates/connectors/woocommerce/connector.json",
+        "tags": [
+          "woocommerce",
+          "e-commerce",
+          "orders",
+          "products",
+          "customers"
+        ],
+        "category": "e_commerce"
+      },
+      {
         "slug": "paypal",
         "name": "PayPal / Braintree Connector",
         "description": "Connect to PayPal and Braintree for transactions, refunds, and payment data.",

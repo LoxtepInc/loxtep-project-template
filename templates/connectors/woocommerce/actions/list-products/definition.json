@@ -1,0 +1,42 @@
+{
+  "key": "woocommerce_list_products",
+  "name": "List products",
+  "description": "GET /wp-json/wc/v3/products — paginated WooCommerce products.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "page": { "type": "number" },
+      "limit": { "type": "number", "description": "Mapped to per_page (max 100)" },
+      "modified_after": { "type": "string", "description": "ISO 8601 incremental cursor" },
+      "status": { "type": "string" },
+      "order": { "type": "string" },
+      "orderby": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "{{connection.custom_settings.store_url}}",
+    "path": "/wp-json/wc/v3/products",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "basic": true,
+      "basic_user_from": "username"
+    },
+    "query_mapping": {
+      "page": "input.page",
+      "per_page": "input.limit",
+      "modified_after": "input.modified_after",
+      "status": "input.status",
+      "order": "input.order",
+      "orderby": "input.orderby"
+    },
+    "omit_empty_query": true
+  }
+}

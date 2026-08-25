@@ -1,0 +1,160 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "catalog_visible": false,
+  "slug": "woocommerce",
+  "name": "WooCommerce Connector",
+  "description": "WooCommerce REST API v3 orders, products, and customers via catalog runtime (store URL + consumer key/secret).",
+  "version": "1.0.0",
+  "tags": ["woocommerce", "e-commerce", "orders", "products", "customers"],
+  "use_cases": [
+    "Order event streaming",
+    "Product catalog sync",
+    "Customer data integration"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "woocommerce",
+    "name": "WooCommerce",
+    "description": "WooCommerce e-commerce connector (orders, products, customers) via WP REST /wp-json/wc/v3",
+    "category": "e_commerce",
+    "documentation_url": "https://woocommerce.github.io/woocommerce-rest-api-docs/",
+    "auth_type": "api_key",
+    "supported_directions": ["inbound"],
+    "supported_entities": ["orders", "products", "customers"],
+    "supports_webhooks": true,
+    "supports_polling": true,
+    "version": "1.0.0",
+    "is_beta": true,
+    "metadata": {
+      "template_slug": "woocommerce",
+      "api_version": "v3"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "username": "{{CONSUMER_KEY}}",
+      "api_key": "{{CONSUMER_SECRET}}",
+      "custom_settings": {
+        "store_url": "{{STORE_URL}}"
+      }
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{STORE_URL}}": "WooCommerce store base URL (HTTPS origin, e.g. https://mystore.example.com)",
+    "{{CONSUMER_KEY}}": "WooCommerce REST API consumer key (HTTP Basic username)",
+    "{{CONSUMER_SECRET}}": "WooCommerce REST API consumer secret (HTTP Basic password; stored as connection.api_key)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "WooCommerce WC REST v3 via CatalogRuntimeConnector. Basic auth: connection.username = consumer key, connection.api_key = consumer secret. Base host from connection.custom_settings.store_url.",
+    "follow_up_notes": [
+      "Merchant-hosted stores have arbitrary domains; allowed_host_suffixes is empty so the runtime must pin requests to the store_url origin (path patterns still constrain /wp-json/wc/v3/*).",
+      "List endpoints return bare JSON arrays; pagination uses page/per_page until an empty page (no body page meta).",
+      "Incremental sync uses modified_after (ISO 8601). Webhook topic wiring is optional follow-up."
+    ],
+    "execution_policy": {
+      "allowed_host_suffixes": [],
+      "allowed_path_patterns": [
+        "^/wp-json/wc/v3/orders$",
+        "^/wp-json/wc/v3/products$",
+        "^/wp-json/wc/v3/customers$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "woocommerce_list_orders",
+      "records_path": "",
+      "required_field": "id",
+      "probe_input": { "limit": 1, "page": 1 }
+    },
+    "sync_plan": {
+      "entities": {
+        "orders": {
+          "fetch_action_key": "woocommerce_list_orders",
+          "records_path": "",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "since_query_param": "modified_after",
+          "id_field": "id",
+          "fetch_limit_cap": 100
+        },
+        "products": {
+          "fetch_action_key": "woocommerce_list_products",
+          "records_path": "",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "since_query_param": "modified_after",
+          "id_field": "id",
+          "fetch_limit_cap": 100
+        },
+        "customers": {
+          "fetch_action_key": "woocommerce_list_customers",
+          "records_path": "",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "since_query_param": "modified_after",
+          "id_field": "id",
+          "fetch_limit_cap": 100
+        }
+      }
+    },
+    "entity_catalog": {
+      "orders": {
+        "name": "Orders",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "description": "WooCommerce orders with line items, billing, and status",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      },
+      "products": {
+        "name": "Products",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "description": "WooCommerce products with pricing and inventory fields",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "customers": {
+        "name": "Customers",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "description": "WooCommerce customers with billing/shipping addresses",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      {
+        "key": "woocommerce_list_orders",
+        "definition_path": "actions/list-orders/definition.json"
+      },
+      {
+        "key": "woocommerce_list_products",
+        "definition_path": "actions/list-products/definition.json"
+      },
+      {
+        "key": "woocommerce_list_customers",
+        "definition_path": "actions/list-customers/definition.json"
+      }
+    ]
+  }
+}
