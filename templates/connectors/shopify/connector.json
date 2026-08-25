@@ -5,7 +5,7 @@
   "slug": "shopify",
   "name": "Shopify Connector",
   "description": "Connect to Shopify stores to ingest orders, customers, products, and inventory data. Supports both OAuth authentication and private app API keys. Catalog-defined actions run via the platform declarative executor.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": ["shopify", "e-commerce", "orders", "products"],
   "use_cases": [
     "Order event streaming",
@@ -27,7 +27,7 @@
     "oauth_config": {
       "authorization_url": "https://{{SHOP_DOMAIN}}/admin/oauth/authorize",
       "token_url": "https://{{SHOP_DOMAIN}}/admin/oauth/access_token",
-      "scopes": ["read_orders", "read_customers", "read_products", "read_inventory"],
+      "scopes": ["read_orders", "read_customers", "read_products", "read_inventory", "read_locations"],
       "response_type": "code",
       "grant_type": "authorization_code",
       "token_exchange_params": {
@@ -35,10 +35,10 @@
       }
     },
     "supported_directions": ["inbound"],
-    "supported_entities": ["orders", "customers", "products", "inventory", "fulfillments"],
+    "supported_entities": ["orders", "customers", "products", "collections", "draft_orders", "inventory_levels", "locations"],
     "supports_webhooks": true,
     "supports_polling": true,
-    "required_scopes": ["read_orders", "read_customers", "read_products", "read_inventory"],
+    "required_scopes": ["read_orders", "read_customers", "read_products", "read_inventory", "read_locations"],
     "required_permissions": null,
     "version": "2024-01",
     "is_beta": false,
@@ -103,7 +103,7 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
+    "package_version": "1.1.0",
     "use_catalog_runtime": true,
     "description": "Open connector package (Pipedream-style layout). Actions, sync, and probes are JSON-driven; runtime is CatalogRuntimeConnector in the platform.",
     "platform_dependencies": [
@@ -148,7 +148,11 @@
         "^/products\\.json$",
         "^/products/count\\.json$",
         "^/customers\\.json$",
-        "^/customers/count\\.json$"
+        "^/customers/count\\.json$",
+        "^/custom_collections\\.json$",
+        "^/draft_orders\\.json$",
+        "^/inventory_levels\\.json$",
+        "^/locations\\.json$"
       ]
     },
     "oauth_refresh": {
@@ -192,6 +196,33 @@
           "since_query_param": "updated_at_min",
           "cursor_query_param": "since_id",
           "id_field": "id"
+        },
+        "collections": {
+          "fetch_action_key": "shopify_get_collections",
+          "records_path": "custom_collections",
+          "pagination": "page_info_link",
+          "since_query_param": "updated_at_min",
+          "cursor_query_param": "page_info"
+        },
+        "draft_orders": {
+          "fetch_action_key": "shopify_get_draft_orders",
+          "records_path": "draft_orders",
+          "pagination": "page_info_link",
+          "since_query_param": "updated_at_min",
+          "cursor_query_param": "page_info"
+        },
+        "inventory_levels": {
+          "fetch_action_key": "shopify_get_inventory_levels",
+          "records_path": "inventory_levels",
+          "pagination": "page_info_link",
+          "since_query_param": "updated_at_min",
+          "cursor_query_param": "page_info"
+        },
+        "locations": {
+          "fetch_action_key": "shopify_get_locations",
+          "records_path": "locations",
+          "pagination": "none",
+          "id_field": "id"
         }
       }
     },
@@ -225,13 +256,56 @@
         "supports_webhook": true,
         "default_sync_interval_minutes": 30,
         "max_batch_size": 250
+      },
+      "collections": {
+        "name": "Collections",
+        "record_schema_path": "schemas/entities/admin-rest-resource.schema.json",
+        "description": "Shopify custom collections for product grouping",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 250
+      },
+      "draft_orders": {
+        "name": "Draft orders",
+        "record_schema_path": "schemas/entities/admin-rest-resource.schema.json",
+        "description": "Shopify draft orders before checkout completion",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 250
+      },
+      "inventory_levels": {
+        "name": "Inventory levels",
+        "record_schema_path": "schemas/entities/admin-rest-resource.schema.json",
+        "description": "Per-location inventory quantities for variants",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 250
+      },
+      "locations": {
+        "name": "Locations",
+        "record_schema_path": "schemas/entities/admin-rest-resource.schema.json",
+        "description": "Shopify store locations (warehouses, retail)",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 1440,
+        "max_batch_size": 250
       }
     },
     "webhook_routing": {
       "routes": [
         { "topic_prefix": "orders/", "entity_type": "orders" },
         { "topic_prefix": "products/", "entity_type": "products" },
-        { "topic_prefix": "customers/", "entity_type": "customers" }
+        { "topic_prefix": "customers/", "entity_type": "customers" },
+        { "topic_prefix": "collections/", "entity_type": "collections" },
+        { "topic_prefix": "draft_orders/", "entity_type": "draft_orders" },
+        { "topic_prefix": "inventory_levels/", "entity_type": "inventory_levels" }
       ]
     },
     "entity_counts": {
@@ -258,7 +332,11 @@
       { "key": "shopify_get_customers", "definition_path": "actions/get-customers/definition.json" },
       { "key": "shopify_get_orders_count", "definition_path": "actions/get-orders-count/definition.json" },
       { "key": "shopify_get_products_count", "definition_path": "actions/get-products-count/definition.json" },
-      { "key": "shopify_get_customers_count", "definition_path": "actions/get-customers-count/definition.json" }
+      { "key": "shopify_get_customers_count", "definition_path": "actions/get-customers-count/definition.json" },
+      { "key": "shopify_get_collections", "definition_path": "actions/get-collections/definition.json" },
+      { "key": "shopify_get_draft_orders", "definition_path": "actions/get-draft-orders/definition.json" },
+      { "key": "shopify_get_inventory_levels", "definition_path": "actions/get-inventory-levels/definition.json" },
+      { "key": "shopify_get_locations", "definition_path": "actions/get-locations/definition.json" }
     ]
   }
 }

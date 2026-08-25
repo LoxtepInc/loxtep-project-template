@@ -5,7 +5,7 @@
   "slug": "stripe",
   "name": "Stripe Connector",
   "description": "Sync Stripe customers, charges, payment intents, subscriptions, invoices, products, and prices.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": ["stripe"],
   "use_cases": [
     "Sync Stripe customers, charges, subscriptions, invoices, products, and prices."
@@ -28,7 +28,10 @@
       "subscriptions",
       "invoices",
       "products",
-      "prices"
+      "prices",
+      "refunds",
+      "balance_transactions",
+      "payouts"
     ],
     "supports_webhooks": true,
     "supports_polling": true,
@@ -54,7 +57,7 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
+    "package_version": "1.1.0",
     "use_catalog_runtime": true,
     "description": "Stripe REST package for CatalogRuntimeConnector (list + account probe + webhook routing).",
     "execution_policy": {
@@ -67,7 +70,10 @@
         "^/v1/subscriptions$",
         "^/v1/invoices$",
         "^/v1/products$",
-        "^/v1/prices$"
+        "^/v1/prices$",
+        "^/v1/refunds$",
+        "^/v1/balance_transactions$",
+        "^/v1/payouts$"
       ]
     },
     "connection_probe": {
@@ -133,6 +139,30 @@
         },
         "prices": {
           "fetch_action_key": "stripe_list_prices",
+          "records_path": "data",
+          "pagination": "since_id",
+          "cursor_query_param": "starting_after",
+          "id_field": "id",
+          "has_more_path": "has_more"
+        },
+        "refunds": {
+          "fetch_action_key": "stripe_list_refunds",
+          "records_path": "data",
+          "pagination": "since_id",
+          "cursor_query_param": "starting_after",
+          "id_field": "id",
+          "has_more_path": "has_more"
+        },
+        "balance_transactions": {
+          "fetch_action_key": "stripe_list_balance_transactions",
+          "records_path": "data",
+          "pagination": "since_id",
+          "cursor_query_param": "starting_after",
+          "id_field": "id",
+          "has_more_path": "has_more"
+        },
+        "payouts": {
+          "fetch_action_key": "stripe_list_payouts",
           "records_path": "data",
           "pagination": "since_id",
           "cursor_query_param": "starting_after",
@@ -211,6 +241,36 @@
         "supports_webhook": true,
         "default_sync_interval_minutes": 60,
         "max_batch_size": 100
+      },
+      "refunds": {
+        "name": "Refunds",
+        "record_schema_path": "schemas/entities/stripe-object.schema.json",
+        "description": "Stripe refunds against charges and payment intents",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      },
+      "balance_transactions": {
+        "name": "Balance transactions",
+        "record_schema_path": "schemas/entities/stripe-object.schema.json",
+        "description": "Stripe balance ledger entries for reconciliation",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "payouts": {
+        "name": "Payouts",
+        "record_schema_path": "schemas/entities/stripe-object.schema.json",
+        "description": "Stripe payouts to bank accounts",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": true,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
       }
     },
     "webhook_routing": {
@@ -222,7 +282,9 @@
         { "topic_prefix": "invoice.", "entity_type": "invoices" },
         { "topic_prefix": "product.", "entity_type": "products" },
         { "topic_prefix": "price.", "entity_type": "prices" },
-        { "topic_prefix": "customer.", "entity_type": "customers" }
+        { "topic_prefix": "customer.", "entity_type": "customers" },
+        { "topic_prefix": "refund.", "entity_type": "refunds" },
+        { "topic_prefix": "payout.", "entity_type": "payouts" }
       ]
     },
     "actions": [
@@ -233,7 +295,10 @@
       { "key": "stripe_list_subscriptions", "definition_path": "actions/list-subscriptions/definition.json" },
       { "key": "stripe_list_invoices", "definition_path": "actions/list-invoices/definition.json" },
       { "key": "stripe_list_products", "definition_path": "actions/list-products/definition.json" },
-      { "key": "stripe_list_prices", "definition_path": "actions/list-prices/definition.json" }
+      { "key": "stripe_list_prices", "definition_path": "actions/list-prices/definition.json" },
+      { "key": "stripe_list_refunds", "definition_path": "actions/list-refunds/definition.json" },
+      { "key": "stripe_list_balance_transactions", "definition_path": "actions/list-balance-transactions/definition.json" },
+      { "key": "stripe_list_payouts", "definition_path": "actions/list-payouts/definition.json" }
     ]
   }
 }
