@@ -1,0 +1,58 @@
+{
+  "key": "clickup_list_team_tasks",
+  "name": "List filtered team tasks",
+  "description": "GET /api/v2/team/{team_id}/task \u2014 workspace tasks (max 100 per page). Requires custom_settings.team_id.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "page": {
+        "type": "number"
+      },
+      "limit": {
+        "type": "number"
+      },
+      "include_closed": {
+        "type": "boolean"
+      },
+      "subtasks": {
+        "type": "boolean"
+      },
+      "order_by": {
+        "type": "string"
+      },
+      "reverse": {
+        "type": "boolean"
+      }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.clickup.com",
+    "path": "/api/v2/team/{{connection.custom_settings.team_id}}/task",
+    "static_headers": {
+      "Accept": "application/json"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "page": "input.page",
+      "include_closed": "input.include_closed",
+      "subtasks": "input.subtasks",
+      "order_by": "input.order_by",
+      "reverse": "input.reverse"
+    },
+    "omit_empty_query": true
+  }
+}
