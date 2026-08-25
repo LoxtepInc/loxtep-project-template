@@ -76,10 +76,11 @@ User wants to expose/consume data...
 User wants to connect...
 ├── E-commerce: shopify, bigcommerce, woocommerce
 ├── Finance/Accounting: quickbooks, netsuite, stripe, paypal
-├── Payments: stripe, paypal
+├── Payments: stripe, paypal, square
 ├── CRM/Marketing: hubspot, klaviyo, attentive, mailchimp
 ├── Fulfillment: shipstation, shipbob, loop-returns
-├── Support: gorgias
+├── Support: gorgias, zendesk, intercom
+├── Productivity: clickup, asana
 ├── Analytics: northbeam, fairing, triple-whale
 ├── Databases: postgres, mysql-source
 ├── Files: s3-source, s3-destination
