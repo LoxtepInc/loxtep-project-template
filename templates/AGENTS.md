@@ -75,6 +75,7 @@ User wants to expose/consume data...
 ```
 User wants to connect...
 ├── E-commerce: shopify, bigcommerce, woocommerce
+├── Finance/Accounting: quickbooks, netsuite, stripe, paypal
 ├── Payments: stripe, paypal
 ├── CRM/Marketing: hubspot, klaviyo, attentive
 ├── Fulfillment: shipstation, shipbob, loop-returns

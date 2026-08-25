@@ -4,13 +4,17 @@
   "catalog_visible": true,
   "slug": "quickbooks",
   "name": "QuickBooks Connector",
-  "description": "QuickBooks Online accounting data.",
-  "version": "1.0.0",
+  "description": "QuickBooks Online accounting data via Catalog HTTP (customers, invoices, items, payments).",
+  "version": "1.1.0",
   "tags": [
-    "quickbooks"
+    "quickbooks",
+    "finance",
+    "accounting",
+    "intuit"
   ],
   "use_cases": [
-    "QuickBooks Online accounting data."
+    "Sync QuickBooks Online customers, invoices, items, and payments",
+    "Finance reconciliation and AR pipelines"
   ],
   "entity": {
     "connector_id": "{{CONNECTOR_ID}}",
@@ -18,8 +22,9 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "quickbooks",
     "name": "QuickBooks",
-    "description": "QuickBooks Online accounting data.",
+    "description": "QuickBooks Online accounting via CatalogRuntimeConnector (Query API).",
     "category": "finance",
+    "documentation_url": "https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/customer",
     "auth_type": "oauth2",
     "oauth_config": {
       "authorization_url": "https://appcenter.intuit.com/connect/oauth2",
@@ -44,46 +49,208 @@
     "required_scopes": [
       "com.intuit.quickbooks.accounting"
     ],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "is_beta": false,
+    "custom_settings_schema": {
+      "realm_id": {
+        "type": "string",
+        "help": "QuickBooks Online company ID (realmId) from the Intuit OAuth callback or company settings. Required for Accounting API paths."
+      },
+      "minorversion": {
+        "type": "string",
+        "default": "65",
+        "help": "QBO minorversion query param (Intuit API version pin)."
+      }
+    },
     "metadata": {
       "template_slug": "quickbooks",
-      "backend": "composio"
+      "oauth_account_display_name_field": "CompanyName"
     },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
   },
   "connection_template": {
     "type": "api",
-    "configuration": {}
+    "configuration": {
+      "custom_settings": {
+        "realm_id": "{{REALM_ID}}",
+        "minorversion": "65"
+      }
+    }
   },
   "placeholders": {
     "{{CONNECTOR_ID}}": "Generated UUID for the connector",
     "{{ORGANIZATION_ID}}": "Organization that owns this connector",
     "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{REALM_ID}}": "QuickBooks Online company/realm ID",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
     "{{UPDATED_AT}}": "ISO 8601 timestamp"
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
-    "description": "QuickBooks Online toolkit wiring.",
+    "package_version": "1.1.0",
+    "use_catalog_runtime": true,
+    "description": "QuickBooks Online v3 Query API via CatalogRuntimeConnector. Company realm_id lives in connection.custom_settings (Intuit returns realmId on OAuth redirect; store it before sync).",
     "follow_up_notes": [
-      "Runtime: ComposioAdapter — not CatalogRuntimeConnector; OAuth and QBO entities flow through Composio.",
-      "Optional: add record_schema_path for exported row shapes when consumers need JSON Schema validation."
+      "Pagination: Query API STARTPOSITION/MAXRESULTS is not yet a first-class sync_plan mode; each entity fetch uses STARTPOSITION 1 MAXRESULTS capped at 1000 (QBO max). Add offset/startPosition pagination in CatalogRuntimeConnector for multi-page full syncs.",
+      "Optional: persist realmId from the OAuth callback query string into custom_settings so users need not paste Company ID.",
+      "Sandbox hosts use sandbox-quickbooks.api.intuit.com — override via a future api_host custom setting if needed."
     ],
-    "composio_adapter": {
-      "connector_type": "quickbooks",
-      "toolkit_name": "quickbooks",
-      "name": "QuickBooks",
-      "description": "QuickBooks Online (invoices, customers, items, payments)",
-      "entity_mappings": [
-        { "entity_type": "invoices", "tool_slug": "QUICKBOOKS_LIST_INVOICES" },
-        { "entity_type": "customers", "tool_slug": "QUICKBOOKS_LIST_CUSTOMERS" },
-        { "entity_type": "items", "tool_slug": "QUICKBOOKS_LIST_ITEMS" },
-        { "entity_type": "payments", "tool_slug": "QUICKBOOKS_LIST_PAYMENTS" }
+    "platform_dependencies": [
+      {
+        "id": "quickbooks_oauth_app",
+        "kind": "oauth_client",
+        "severity": "required",
+        "title": "Intuit QuickBooks Online OAuth app",
+        "description": "Register an Intuit developer app and supply OAuth client id/secret for the connectors service. End users authorize their QBO company; they do not bring Loxtep client credentials.",
+        "documentation_url": "https://developer.intuit.com/app/developer/qbo/docs/get-started",
+        "fulfilled_by": {
+          "type": "platform_config_oauth",
+          "config_path": "connectors.oauth.quickbooks",
+          "config_key": "quickbooks",
+          "expected_credential_keys": ["client_id", "client_secret"]
+        }
+      }
+    ],
+    "oauth_refresh": {
+      "token_url_template": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer",
+      "client_id_env": "QUICKBOOKS_CLIENT_ID",
+      "client_secret_env": "QUICKBOOKS_CLIENT_SECRET"
+    },
+    "execution_policy": {
+      "allowed_host_suffixes": [
+        "quickbooks.api.intuit.com",
+        "sandbox-quickbooks.api.intuit.com"
+      ],
+      "allowed_path_patterns": [
+        "^/v3/company/[^/]+/query$"
       ]
     },
-    "actions": []
+    "connection_probe": {
+      "action_key": "quickbooks_query_company_info",
+      "records_path": "QueryResponse.CompanyInfo",
+      "required_field": "CompanyName",
+      "account_info_mapping": {
+        "CompanyName": "CompanyName",
+        "Country": "Country",
+        "CompanyAddr": "CompanyAddr"
+      },
+      "probe_input": {
+        "query": "SELECT * FROM CompanyInfo",
+        "minorversion": "65"
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "customers": {
+          "fetch_action_key": "quickbooks_query_customers",
+          "records_path": "QueryResponse.Customer",
+          "pagination": "none",
+          "id_field": "Id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": {
+            "query": "SELECT * FROM Customer STARTPOSITION 1 MAXRESULTS 1000",
+            "minorversion": "65"
+          }
+        },
+        "invoices": {
+          "fetch_action_key": "quickbooks_query_invoices",
+          "records_path": "QueryResponse.Invoice",
+          "pagination": "none",
+          "id_field": "Id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": {
+            "query": "SELECT * FROM Invoice STARTPOSITION 1 MAXRESULTS 1000",
+            "minorversion": "65"
+          }
+        },
+        "items": {
+          "fetch_action_key": "quickbooks_query_items",
+          "records_path": "QueryResponse.Item",
+          "pagination": "none",
+          "id_field": "Id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": {
+            "query": "SELECT * FROM Item STARTPOSITION 1 MAXRESULTS 1000",
+            "minorversion": "65"
+          }
+        },
+        "payments": {
+          "fetch_action_key": "quickbooks_query_payments",
+          "records_path": "QueryResponse.Payment",
+          "pagination": "none",
+          "id_field": "Id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": {
+            "query": "SELECT * FROM Payment STARTPOSITION 1 MAXRESULTS 1000",
+            "minorversion": "65"
+          }
+        }
+      }
+    },
+    "entity_catalog": {
+      "customers": {
+        "name": "Customers",
+        "record_schema_path": "schemas/entities/qbo-object.schema.json",
+        "description": "QBO Customer rows from QueryResponse.Customer",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 1000
+      },
+      "invoices": {
+        "name": "Invoices",
+        "record_schema_path": "schemas/entities/qbo-object.schema.json",
+        "description": "QBO Invoice rows from QueryResponse.Invoice",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 1000
+      },
+      "items": {
+        "name": "Items",
+        "record_schema_path": "schemas/entities/qbo-object.schema.json",
+        "description": "QBO Item rows from QueryResponse.Item",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 120,
+        "max_batch_size": 1000
+      },
+      "payments": {
+        "name": "Payments",
+        "record_schema_path": "schemas/entities/qbo-object.schema.json",
+        "description": "QBO Payment rows from QueryResponse.Payment",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 1000
+      }
+    },
+    "actions": [
+      {
+        "key": "quickbooks_query_company_info",
+        "definition_path": "actions/query-company-info/definition.json"
+      },
+      {
+        "key": "quickbooks_query_customers",
+        "definition_path": "actions/query-customers/definition.json"
+      },
+      {
+        "key": "quickbooks_query_invoices",
+        "definition_path": "actions/query-invoices/definition.json"
+      },
+      {
+        "key": "quickbooks_query_items",
+        "definition_path": "actions/query-items/definition.json"
+      },
+      {
+        "key": "quickbooks_query_payments",
+        "definition_path": "actions/query-payments/definition.json"
+      }
+    ]
   }
 }
