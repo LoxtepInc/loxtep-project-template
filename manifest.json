@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "description": "Loxtep project demos and reusable catalog templates for the data mesh platform.",
   "agent_instructions": {
-    "discovery": "Use templates.AGENTS.md for the full decision tree. Match user intent against template `tags` and `use_cases` fields. Apply via MCP `loxtep_templates` \u2192 `apply_template` with `template_type` + `template_slug`.",
+    "discovery": "Use templates.AGENTS.md for the full decision tree. Match user intent against template `tags` and `use_cases` fields. Apply via MCP `loxtep_templates` → `apply_template` with `template_type` + `template_slug`.",
     "vocabulary": "Connectors with vocabulary/ directories include semantic field mappings (schema.org URIs), pre-built transformation templates, validation rules, and entity relationships. Use these to auto-suggest transforms and quality rules.",
     "skills": "Each project template ships a .loxtep/skills/<slug>-default.yaml defining a fail-closed scope. Agents operate within this scope unless the developer explicitly widens it.",
     "composition": "Typical projects combine: project template (scaffold) + workflow templates (flows) + connector templates (sources) + transform templates (enrichment) + data product templates (outputs)."
@@ -474,7 +474,7 @@
     {
       "slug": "retail_ecommerce_with_fulfillment",
       "name": "Ecommerce with Fulfillment Dashboard",
-      "description": "Demonstrates the source\u2192consumer data product model. Ingests raw order events (source DP), then projects orders + inventory + shipments into a fulfillment dashboard (consumer DP).",
+      "description": "Demonstrates the source→consumer data product model. Ingests raw order events (source DP), then projects orders + inventory + shipments into a fulfillment dashboard (consumer DP).",
       "path": "templates/projects/retail_ecommerce_with_fulfillment",
       "industry": "retail_ecommerce",
       "tags": [
@@ -1004,7 +1004,7 @@
       {
         "slug": "xero",
         "name": "Xero Connector",
-        "description": "Xero Accounting API \u2014 contacts, invoices, accounts, and payments",
+        "description": "Xero Accounting API — contacts, invoices, accounts, and payments",
         "path": "templates/connectors/xero/connector.json",
         "tags": [
           "xero",
@@ -1018,7 +1018,7 @@
       {
         "slug": "bill-com",
         "name": "Bill.com Connector",
-        "description": "BILL (Bill.com) AP/AR \u2014 bills, vendors, and customers",
+        "description": "BILL (Bill.com) AP/AR — bills, vendors, and customers",
         "path": "templates/connectors/bill-com/connector.json",
         "tags": [
           "bill-com",
@@ -1033,7 +1033,7 @@
       {
         "slug": "expensify",
         "name": "Expensify Connector",
-        "description": "Expensify Integration Server \u2014 policies and report export (form-urlencoded Catalog HTTP)",
+        "description": "Expensify Integration Server — policies and report export (form-urlencoded Catalog HTTP)",
         "path": "templates/connectors/expensify/connector.json",
         "tags": [
           "expensify",
