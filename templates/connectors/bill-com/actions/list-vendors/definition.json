@@ -1,0 +1,41 @@
+{
+  "key": "bill_com_list_vendors",
+  "name": "List BILL vendors",
+  "description": "GET /connect/v3/vendors with opaque page cursor.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "max": { "type": "number" },
+      "limit": { "type": "number" },
+      "page": { "type": "string" },
+      "filters": { "type": "string" },
+      "sort": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://{{connection.custom_settings.api_host}}",
+    "path": "/connect/v3/vendors",
+    "static_headers": {
+      "Accept": "application/json",
+      "devKey": "{{connection.custom_settings.dev_key}}"
+    },
+    "header_auth": {
+      "header": "sessionId",
+      "value_from": "connection.api_key"
+    },
+    "query_mapping": {
+      "max": "input.limit",
+      "page": "input.page",
+      "filters": "input.filters",
+      "sort": "input.sort"
+    },
+    "omit_empty_query": true
+  }
+}
