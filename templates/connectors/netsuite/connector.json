@@ -5,7 +5,7 @@
   "slug": "netsuite",
   "name": "NetSuite Connector",
   "description": "NetSuite ERP via Catalog HTTP — sync invoices, payments, customers, and journal entries (OAuth 2.0).",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "tags": [
     "netsuite",
     "erp",
@@ -46,14 +46,16 @@
       "gl_entries",
       "items",
       "vendors",
-      "sales_orders"
+      "sales_orders",
+      "purchase_orders",
+      "vendor_bills"
     ],
     "supports_webhooks": false,
     "supports_polling": true,
     "required_scopes": [
       "rest_webservices"
     ],
-    "version": "1.2.0",
+    "version": "1.3.0",
     "is_beta": false,
     "custom_settings_schema": {
       "account_id": {
@@ -92,7 +94,7 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.2.0",
+    "package_version": "1.3.0",
     "use_catalog_runtime": true,
     "description": "NetSuite REST record API via CatalogRuntimeConnector. account_id in custom_settings drives SuiteTalk host + OAuth URLs.",
     "follow_up_notes": [
@@ -133,7 +135,9 @@
         "^/services/rest/record/v1/journalentry$",
         "^/services/rest/record/v1/inventoryitem$",
         "^/services/rest/record/v1/vendor$",
-        "^/services/rest/record/v1/salesorder$"
+        "^/services/rest/record/v1/salesorder$",
+        "^/services/rest/record/v1/purchaseorder$",
+        "^/services/rest/record/v1/vendorbill$"
       ]
     },
     "connection_probe": {
@@ -194,6 +198,22 @@
         },
         "sales_orders": {
           "fetch_action_key": "netsuite_list_sales_orders",
+          "records_path": "items",
+          "pagination": "none",
+          "id_field": "id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": { "offset": 0 }
+        },
+        "purchase_orders": {
+          "fetch_action_key": "netsuite_list_purchase_orders",
+          "records_path": "items",
+          "pagination": "none",
+          "id_field": "id",
+          "fetch_limit_cap": 1000,
+          "sync_input_defaults": { "offset": 0 }
+        },
+        "vendor_bills": {
+          "fetch_action_key": "netsuite_list_vendor_bills",
           "records_path": "items",
           "pagination": "none",
           "id_field": "id",
@@ -265,6 +285,24 @@
         "supports_webhook": false,
         "default_sync_interval_minutes": 30,
         "max_batch_size": 1000
+      },
+      "purchase_orders": {
+        "name": "Purchase orders",
+        "record_schema_path": "schemas/entities/transaction-record.schema.json",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 1000
+      },
+      "vendor_bills": {
+        "name": "Vendor bills",
+        "record_schema_path": "schemas/entities/transaction-record.schema.json",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 1000
       }
     },
     "actions": [
@@ -295,6 +333,14 @@
       {
         "key": "netsuite_list_sales_orders",
         "definition_path": "actions/list-sales-orders/definition.json"
+      },
+      {
+        "key": "netsuite_list_purchase_orders",
+        "definition_path": "actions/list-purchase-orders/definition.json"
+      },
+      {
+        "key": "netsuite_list_vendor_bills",
+        "definition_path": "actions/list-vendor-bills/definition.json"
       }
     ]
   }
