@@ -899,12 +899,27 @@
         "slug": "attentive",
         "name": "Attentive Connector",
         "description": "Connect to Attentive for SMS subscribers, campaigns, and engagement. $50M+ brands.",
-        "path": "templates/connectors/attentive.json",
+        "path": "templates/connectors/attentive/connector.json",
         "tags": [
           "attentive",
           "sms",
           "marketing",
           "subscribers"
+        ],
+        "category": "marketing"
+      },
+      {
+        "slug": "klaviyo",
+        "name": "Klaviyo Connector",
+        "description": "Connect to Klaviyo for profiles, events, and metrics (email/SMS marketing automation).",
+        "path": "templates/connectors/klaviyo/connector.json",
+        "tags": [
+          "klaviyo",
+          "email",
+          "sms",
+          "marketing",
+          "profiles",
+          "events"
         ],
         "category": "marketing"
       },
