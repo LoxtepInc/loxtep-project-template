@@ -1,0 +1,49 @@
+{
+  "key": "shipstation_list_shipments",
+  "name": "List shipments",
+  "description": "GET /shipments — paginated ShipStation shipments (labels generated in ShipStation).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number", "description": "Mapped to pageSize (max 500)" },
+      "page": { "type": "number" },
+      "pageSize": { "type": "number" },
+      "createDateStart": { "type": "string" },
+      "createDateEnd": { "type": "string" },
+      "shipDateStart": { "type": "string" },
+      "shipDateEnd": { "type": "string" },
+      "includeShipmentItems": { "type": "boolean" },
+      "sortBy": { "type": "string" },
+      "sortDir": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://ssapi.shipstation.com",
+    "path": "/shipments",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "basic": true,
+      "basic_user_from": "username"
+    },
+    "query_mapping": {
+      "page": "input.page",
+      "pageSize": "input.limit",
+      "createDateStart": "input.createDateStart",
+      "createDateEnd": "input.createDateEnd",
+      "shipDateStart": "input.shipDateStart",
+      "shipDateEnd": "input.shipDateEnd",
+      "includeShipmentItems": "input.includeShipmentItems",
+      "sortBy": "input.sortBy",
+      "sortDir": "input.sortDir"
+    },
+    "omit_empty_query": true
+  }
+}

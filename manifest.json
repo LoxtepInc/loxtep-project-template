@@ -898,7 +898,7 @@
         "slug": "shipstation",
         "name": "ShipStation Connector",
         "description": "Connect to ShipStation for shipments, orders, and fulfillment. Multi-channel brands.",
-        "path": "templates/connectors/shipstation.json",
+        "path": "templates/connectors/shipstation/connector.json",
         "tags": [
           "shipstation",
           "fulfillment",
