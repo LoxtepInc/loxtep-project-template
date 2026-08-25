@@ -33,7 +33,9 @@
       "inbound",
       "outbound"
     ],
-    "supported_entities": ["events"],
+    "supported_entities": [
+      "events"
+    ],
     "supports_webhooks": false,
     "supports_polling": false,
     "required_scopes": null,
@@ -67,9 +69,10 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.1.0",
+    "package_version": "1.1.1",
     "description": "SDK connector for programmatic data ingestion and export. The SDK resolves all stream bus configuration (queue, bot ID, bus) from just the data product name.",
     "follow_up_notes": [
+      "Platform-native provider slug must match providers/sdk (generate-provider-registry).",
       "Install the SDK: npm install @loxtep/sdk (Node.js) or pip install loxtep (Python)",
       "Authenticate: run `loxtep login` or set LOXTEP_AUTH_TOKEN env var",
       "Export config: run `loxtep config export --from-connector <connector_id>`",
@@ -77,8 +80,15 @@
       "Read events: use client.data_products.get_reader('data_product_name')"
     ],
     "actions": [
-      { "key": "sdk_write_events", "definition_path": "actions/write-events/definition.json" },
-      { "key": "sdk_read_events", "definition_path": "actions/read-events/definition.json" }
-    ]
+      {
+        "key": "sdk_write_events",
+        "definition_path": "actions/write-events/definition.json"
+      },
+      {
+        "key": "sdk_read_events",
+        "definition_path": "actions/read-events/definition.json"
+      }
+    ],
+    "platform_native_provider": "sdk"
   }
 }
