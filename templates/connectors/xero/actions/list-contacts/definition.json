@@ -1,0 +1,41 @@
+{
+  "key": "xero_list_contacts",
+  "name": "List Xero contacts",
+  "description": "GET /api.xro/2.0/Contacts (paged).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "page": { "type": "number" },
+      "limit": { "type": "number", "description": "Mapped to pageSize (max 100)." },
+      "where": { "type": "string" },
+      "order": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.xero.com",
+    "path": "/api.xro/2.0/Contacts",
+    "static_headers": {
+      "Accept": "application/json",
+      "Xero-Tenant-Id": "{{connection.custom_settings.tenant_id}}"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.oauth_access_token",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "page": "input.page",
+      "pageSize": "input.limit",
+      "where": "input.where",
+      "order": "input.order"
+    },
+    "omit_empty_query": true
+  }
+}
