@@ -62,5 +62,16 @@
     "{{SOURCE_DATA_PRODUCT_ID}}": "Name or UUID of the upstream data product to read from",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
     "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "description": "Design-time enrichment trigger. Resolves an upstream data product's bound queue; no runtime bot and no declarative HTTP actions.",
+    "follow_up_notes": [
+      "Runtime: design-time only — deployment-orchestrator resolves configuration.source_data_product_id to the upstream product's bound queue; no CatalogRuntimeConnector and no native provider bot.",
+      "Test connection is the no-probe path (no external credentials).",
+      "actions[] stay empty: there is no outbound HTTP or platform_native action runner for this type."
+    ],
+    "actions": []
   }
 }

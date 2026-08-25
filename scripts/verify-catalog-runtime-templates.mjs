@@ -21,9 +21,28 @@ for (const name of fs.readdirSync(root, { withFileTypes: true })) {
   if (!fs.existsSync(p)) continue;
   const j = JSON.parse(fs.readFileSync(p, 'utf8'));
   const pkg = j.connector_package;
-  if (!pkg || typeof pkg !== 'object' || pkg.use_catalog_runtime !== true) continue;
-
   const slug = j.slug || name.name;
+
+  // GET /dataproducts/connector-packages/{slug} requires a valid package block
+  // (schema_version, package_version, actions). Empty actions is valid.
+  if (!pkg || typeof pkg !== 'object') {
+    console.error(`[${slug}] missing connector_package`);
+    errors++;
+    continue;
+  }
+  if (
+    typeof pkg.schema_version !== 'number' ||
+    typeof pkg.package_version !== 'string' ||
+    !Array.isArray(pkg.actions)
+  ) {
+    console.error(
+      `[${slug}] connector_package requires schema_version (number), package_version (string), actions (array)`
+    );
+    errors++;
+    continue;
+  }
+
+  if (pkg.use_catalog_runtime !== true) continue;
   const need = ['execution_policy', 'connection_probe', 'sync_plan', 'actions'];
   for (const k of need) {
     if (!(k in pkg) || pkg[k] === null) {
