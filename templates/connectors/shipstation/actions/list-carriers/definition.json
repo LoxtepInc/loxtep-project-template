@@ -1,0 +1,28 @@
+{
+  "key": "shipstation_list_carriers",
+  "name": "List carriers",
+  "description": "GET /carriers — shipping providers connected to the account (bare array).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://ssapi.shipstation.com",
+    "path": "/carriers",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "Authorization",
+      "basic": true,
+      "basic_user_from": "username"
+    },
+    "query_mapping": {},
+    "omit_empty_query": true
+  }
+}

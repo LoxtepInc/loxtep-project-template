@@ -1,11 +1,11 @@
 {
   "$schema": "https://loxtep.io/schemas/template/connector.json",
   "template_type": "connector",
-  "catalog_visible": false,
+  "catalog_visible": true,
   "slug": "shipstation",
   "name": "ShipStation Connector",
-  "description": "Connect to ShipStation for shipments, orders, and fulfillment. Multi-channel brands with 150+ marketplace integrations.",
-  "version": "1.0.0",
+  "description": "Connect to ShipStation for shipments, orders, carriers, and warehouses via the V1 REST API (ssapi.shipstation.com).",
+  "version": "1.1.0",
   "tags": [
     "shipstation",
     "fulfillment",
@@ -15,7 +15,7 @@
   "use_cases": [
     "Shipment tracking sync",
     "Order fulfillment data",
-    "Carrier rate and label data"
+    "Carrier and warehouse inventory of ship-from locations"
   ],
   "entity": {
     "connector_id": "{{CONNECTOR_ID}}",
@@ -23,10 +23,10 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "shipstation",
     "name": "ShipStation",
-    "description": "ShipStation fulfillment connector (shipments, orders, carriers)",
+    "description": "ShipStation fulfillment via CatalogRuntimeConnector (shipments, orders, carriers, warehouses)",
     "category": "fulfillment",
+    "documentation_url": "https://www.shipstation.com/docs/api/requirements/",
     "auth_type": "api_key",
-    "backend": "composio",
     "supported_directions": [
       "inbound"
     ],
@@ -38,10 +38,11 @@
     ],
     "supports_webhooks": false,
     "supports_polling": true,
-    "version": "1.0.0",
+    "version": "1.1.0",
     "is_beta": false,
     "metadata": {
-      "template_slug": "shipstation"
+      "template_slug": "shipstation",
+      "api_version": "v1"
     },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
@@ -49,37 +50,144 @@
   "connection_template": {
     "type": "api",
     "configuration": {
-      "api_key": "{{API_KEY}}"
+      "username": "{{API_KEY}}",
+      "api_key": "{{API_SECRET}}"
     }
   },
   "placeholders": {
     "{{CONNECTOR_ID}}": "Generated UUID for the connector",
     "{{ORGANIZATION_ID}}": "Organization that owns this connector",
     "{{PROJECT_ID}}": "Project that contains this connector",
-    "{{API_KEY}}": "ShipStation API key",
+    "{{API_KEY}}": "ShipStation API Key (HTTP Basic username)",
+    "{{API_SECRET}}": "ShipStation API Secret (HTTP Basic password; stored as connection.api_key)",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
     "{{UPDATED_AT}}": "ISO 8601 timestamp"
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
-    "description": "ShipStation toolkit wiring.",
+    "package_version": "1.1.0",
+    "use_catalog_runtime": true,
+    "description": "ShipStation API V1 via CatalogRuntimeConnector. Basic auth: connection.username = API Key, connection.api_key = API Secret. Host ssapi.shipstation.com.",
     "follow_up_notes": [
-      "Runtime: ComposioAdapter + composio_adapter.entity_mappings — not use_catalog_runtime; entity sync and auth flow are owned by Composio + platform registry.",
-      "If ShipStation exposes stable REST contracts for direct catalog migration, duplicate tool mappings as catalog_http_* actions and flip runtime intentionally."
+      "ShipStation V1 page/pageSize responses expose top-level page and pages; carriers and warehouses return bare arrays (pagination none).",
+      "Optional: add stores/customers/products list actions if product scope expands beyond fulfillment entities.",
+      "V2 Shipping/Inventory APIs (docs.shipstation.com) are out of scope for this package."
     ],
-    "composio_adapter": {
-      "connector_type": "shipstation",
-      "toolkit_name": "shipstation",
-      "name": "ShipStation",
-      "description": "ShipStation fulfillment connector (shipments, orders, carriers)",
-      "entity_mappings": [
-        { "entity_type": "shipments", "tool_slug": "SHIPSTATION_LIST_SHIPMENTS" },
-        { "entity_type": "orders", "tool_slug": "SHIPSTATION_LIST_ORDERS" },
-        { "entity_type": "carriers", "tool_slug": "SHIPSTATION_LIST_CARRIERS" },
-        { "entity_type": "warehouses", "tool_slug": "SHIPSTATION_LIST_WAREHOUSES" }
+    "execution_policy": {
+      "allowed_host_suffixes": [
+        "ssapi.shipstation.com"
+      ],
+      "allowed_path_patterns": [
+        "^/warehouses$",
+        "^/shipments$",
+        "^/orders$",
+        "^/carriers$"
       ]
     },
-    "actions": []
+    "connection_probe": {
+      "action_key": "shipstation_list_warehouses",
+      "records_path": "",
+      "required_field": "warehouseId",
+      "account_info_mapping": {
+        "warehouse_id": "warehouseId",
+        "warehouse_name": "warehouseName"
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "shipments": {
+          "fetch_action_key": "shipstation_list_shipments",
+          "records_path": "shipments",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "page_meta_current_path": "page",
+          "page_meta_total_pages_path": "pages",
+          "id_field": "shipmentId",
+          "fetch_limit_cap": 500
+        },
+        "orders": {
+          "fetch_action_key": "shipstation_list_orders",
+          "records_path": "orders",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "page_meta_current_path": "page",
+          "page_meta_total_pages_path": "pages",
+          "id_field": "orderId",
+          "fetch_limit_cap": 500
+        },
+        "carriers": {
+          "fetch_action_key": "shipstation_list_carriers",
+          "records_path": "",
+          "pagination": "none",
+          "id_field": "code"
+        },
+        "warehouses": {
+          "fetch_action_key": "shipstation_list_warehouses",
+          "records_path": "",
+          "pagination": "none",
+          "id_field": "warehouseId"
+        }
+      }
+    },
+    "entity_catalog": {
+      "shipments": {
+        "name": "Shipments",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "description": "ShipStation shipments (labels generated in ShipStation)",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 500
+      },
+      "orders": {
+        "name": "Orders",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "description": "ShipStation orders",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 500
+      },
+      "carriers": {
+        "name": "Carriers",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "description": "Connected shipping providers",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 1440,
+        "max_batch_size": 100
+      },
+      "warehouses": {
+        "name": "Warehouses",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "description": "Ship From Locations (warehouses)",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 1440,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      {
+        "key": "shipstation_list_warehouses",
+        "definition_path": "actions/list-warehouses/definition.json"
+      },
+      {
+        "key": "shipstation_list_shipments",
+        "definition_path": "actions/list-shipments/definition.json"
+      },
+      {
+        "key": "shipstation_list_orders",
+        "definition_path": "actions/list-orders/definition.json"
+      },
+      {
+        "key": "shipstation_list_carriers",
+        "definition_path": "actions/list-carriers/definition.json"
+      }
+    ]
   }
 }
