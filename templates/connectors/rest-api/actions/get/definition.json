@@ -26,9 +26,7 @@
       "Accept": "application/json"
     },
     "header_auth": {
-      "header": "Authorization",
-      "value_from": "connection.oauth_access_token",
-      "bearer_prefix": true
+      "from_connection": "rest_api"
     },
     "query_mapping": {
       "limit": "input.limit",

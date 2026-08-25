@@ -106,14 +106,14 @@
     "schema_version": 1,
     "package_version": "1.1.0",
     "use_catalog_runtime": true,
-    "description": "Generic REST via CatalogRuntimeConnector. Host allowlist from connection.base_url / custom_settings.base_url (allowed_hosts_from_connection). Keep platform providers/rest-api until CatalogRuntime registration + multi-scheme auth are promoted.",
+    "description": "Generic REST via CatalogRuntimeConnector. Host allowlist from connection.base_url / custom_settings.base_url (allowed_hosts_from_connection). Platform registers createCatalogRuntimeConnector(\"rest-api\") (LOX-1970); native providers/rest-api remains for OAuth helpers + post-auth ingest only.",
     "follow_up_notes": [
       "execution_policy uses allowed_hosts_from_connection (not static allowed_host_suffixes) — requires platform LOX-1968 / PR #1997.",
       "catalog_http path join uses URL resolution: absolute custom_settings.resource_path replaces any path on base_url. Prefer origin-only base_url and full paths like /v1/items in resource_path.",
-      "header_auth is Bearer via connection.oauth_access_token (falls back to connection.api_key). Covers bearer/oauth2 and api_key-as-bearer. Native providers/rest-api still owns basic, custom api_key header names, query-key placement, and auth none until CatalogRuntime multi-scheme passthrough exists.",
+      "header_auth.from_connection rest_api maps connection custom_settings.auth_type (none/api_key/bearer/basic/oauth2) plus extras — parity with native providers/rest-api/auth.ts.",
+      "OAuth2 client_credentials token exchange still runs in native RestApiConnector paths (authorize/test helpers); CatalogRuntime uses a stored access token for oauth2/bearer.",
       "connection_probe uses required_field \"\" so any JSON object (or first array element) counts as success; empty arrays still fail. Point resource_path at a probe-friendly route.",
       "sync_plan ships a single records entity bound to custom_settings.resource_path (one resource per connection, matching native rest-api).",
-      "Platform should keep createRestApiConnector until createCatalogRuntimeConnector(\"rest-api\") is registered and the gaps above are closed.",
       "Do not flip use_catalog_runtime on postgres/mysql/s3/file-transfer/webhooks/sdk/blank."
     ],
     "execution_policy": {
