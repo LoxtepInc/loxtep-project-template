@@ -1,0 +1,32 @@
+{
+  "key": "square_list_locations",
+  "name": "List locations",
+  "description": "GET /v2/locations \u2014 connection probe (first location).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://connect.squareup.com",
+    "path": "/v2/locations",
+    "static_headers": {
+      "Accept": "application/json",
+      "Square-Version": "2024-01-18"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "bearer_prefix": true
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "key": "zendesk_get_me",
+  "name": "Get current user",
+  "description": "GET /api/v2/users/me.json \u2014 connection probe.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://{{connection.custom_settings.subdomain}}.zendesk.com",
+    "path": "/api/v2/users/me.json",
+    "static_headers": {
+      "Accept": "application/json"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "basic": true,
+      "basic_user_from": "username"
+    }
+  }
+}

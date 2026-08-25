@@ -1,0 +1,45 @@
+{
+  "key": "intercom_list_contacts",
+  "name": "List contacts",
+  "description": "GET /contacts",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": {
+        "type": "number"
+      },
+      "cursor": {
+        "type": "string",
+        "description": "starting_after"
+      }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.intercom.io",
+    "path": "/contacts",
+    "static_headers": {
+      "Accept": "application/json",
+      "Intercom-Version": "2.11"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "per_page": "input.limit",
+      "starting_after": "input.cursor"
+    },
+    "omit_empty_query": true
+  }
+}

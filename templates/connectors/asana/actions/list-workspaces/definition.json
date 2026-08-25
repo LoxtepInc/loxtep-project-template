@@ -1,0 +1,44 @@
+{
+  "key": "asana_list_workspaces",
+  "name": "List workspaces",
+  "description": "GET /api/1.0/workspaces",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": {
+        "type": "number"
+      },
+      "cursor": {
+        "type": "string",
+        "description": "offset token"
+      }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://app.asana.com",
+    "path": "/api/1.0/workspaces",
+    "static_headers": {
+      "Accept": "application/json"
+    },
+    "header_auth": {
+      "header": "Authorization",
+      "value_from": "connection.api_key",
+      "bearer_prefix": true
+    },
+    "query_mapping": {
+      "limit": "input.limit",
+      "offset": "input.cursor"
+    },
+    "omit_empty_query": true
+  }
+}

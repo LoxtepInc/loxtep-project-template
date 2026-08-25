@@ -1,0 +1,165 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "catalog_visible": true,
+  "slug": "intercom",
+  "name": "Intercom Connector",
+  "description": "Sync Intercom contacts, conversations, and companies.",
+  "version": "1.0.0",
+  "tags": [
+    "intercom",
+    "support",
+    "messaging"
+  ],
+  "use_cases": [
+    "Sync Intercom contacts, conversations, and companies."
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "intercom",
+    "name": "Intercom",
+    "description": "Sync Intercom contacts, conversations, and companies.",
+    "category": "communication",
+    "auth_type": "api_key",
+    "oauth_config": null,
+    "supported_directions": [
+      "inbound"
+    ],
+    "supported_entities": [
+      "contacts",
+      "conversations",
+      "companies"
+    ],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "version": "1.0.0",
+    "is_beta": false,
+    "metadata": {
+      "template_slug": "intercom"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "api_key": "{{ACCESS_TOKEN}}"
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{ACCESS_TOKEN}}": "Intercom access token (Bearer)",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "use_catalog_runtime": true,
+    "description": "Intercom REST via CatalogRuntimeConnector (Bearer). Fixed host api.intercom.io. Sibling: gorgias (support).",
+    "follow_up_notes": [
+      "Pagination uses pages.next.starting_after (cursor_from_body)."
+    ],
+    "execution_policy": {
+      "allowed_host_suffixes": [
+        "api.intercom.io"
+      ],
+      "allowed_path_patterns": [
+        "^/me$",
+        "^/contacts$",
+        "^/conversations$",
+        "^/companies$"
+      ]
+    },
+    "connection_probe": {
+      "action_key": "intercom_get_me",
+      "records_path": "",
+      "required_field": "id",
+      "account_info_mapping": {
+        "account_id": "id",
+        "account_name": "name",
+        "email": "email"
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "contacts": {
+          "fetch_action_key": "intercom_list_contacts",
+          "records_path": "data",
+          "pagination": "cursor_from_body",
+          "cursor_query_param": "cursor",
+          "cursor_next_path": "pages.next.starting_after",
+          "id_field": "id"
+        },
+        "conversations": {
+          "fetch_action_key": "intercom_list_conversations",
+          "records_path": "conversations",
+          "pagination": "cursor_from_body",
+          "cursor_query_param": "cursor",
+          "cursor_next_path": "pages.next.starting_after",
+          "id_field": "id"
+        },
+        "companies": {
+          "fetch_action_key": "intercom_list_companies",
+          "records_path": "data",
+          "pagination": "cursor_from_body",
+          "cursor_query_param": "cursor",
+          "cursor_next_path": "pages.next.starting_after",
+          "id_field": "id"
+        }
+      }
+    },
+    "entity_catalog": {
+      "contacts": {
+        "name": "Contacts",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 150
+      },
+      "conversations": {
+        "name": "Conversations",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 150
+      },
+      "companies": {
+        "name": "Companies",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 150
+      }
+    },
+    "actions": [
+      {
+        "key": "intercom_get_me",
+        "definition_path": "actions/get-me/definition.json"
+      },
+      {
+        "key": "intercom_list_contacts",
+        "definition_path": "actions/list-contacts/definition.json"
+      },
+      {
+        "key": "intercom_list_conversations",
+        "definition_path": "actions/list-conversations/definition.json"
+      },
+      {
+        "key": "intercom_list_companies",
+        "definition_path": "actions/list-companies/definition.json"
+      }
+    ]
+  }
+}
