@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:expensify:entity:policy",
+  "title": "Expensify policy (policyList row)",
+  "description": "Element of Expensify policyList[] from get/policyList.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "outputCurrency": { "type": "string" },
+    "owner": { "type": "string" },
+    "role": { "type": "string" },
+    "type": { "type": "string" }
+  },
+  "additionalProperties": true
+}

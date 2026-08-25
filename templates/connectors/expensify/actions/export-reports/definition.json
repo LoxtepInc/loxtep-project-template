@@ -1,0 +1,58 @@
+{
+  "key": "expensify_export_reports",
+  "name": "Export Expensify reports",
+  "description": "POST Integration Server file/combinedReportData export. Returns a generated filename when onReceive.immediateResponse includes returnRandomFileName. Supply start_date/end_date (YYYY-MM-DD); optional report_state and limit.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "required": ["start_date", "end_date"],
+    "properties": {
+      "start_date": { "type": "string", "description": "YYYY-MM-DD" },
+      "end_date": { "type": "string", "description": "YYYY-MM-DD" },
+      "report_state": {
+        "type": "string",
+        "description": "Comma-separated states, e.g. APPROVED,REIMBURSED"
+      },
+      "limit": { "type": "string", "description": "Max reports to export" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_post",
+    "method": "POST",
+    "base_url_template": "https://integrations.expensify.com",
+    "path": "/Integration-Server/ExpensifyIntegrations",
+    "static_headers": {
+      "Accept": "application/json, text/plain, */*"
+    },
+    "omit_empty_form_strings": true,
+    "form_body": {
+      "requestJobDescription": {
+        "type": "file",
+        "credentials": {
+          "partnerUserID": "{{connection.custom_settings.partner_user_id}}",
+          "partnerUserSecret": "{{connection.api_key}}"
+        },
+        "onReceive": {
+          "immediateResponse": ["returnRandomFileName"]
+        },
+        "inputSettings": {
+          "type": "combinedReportData",
+          "reportState": "{{input.report_state}}",
+          "limit": "{{input.limit}}",
+          "filters": {
+            "startDate": "{{input.start_date}}",
+            "endDate": "{{input.end_date}}"
+          }
+        },
+        "outputSettings": {
+          "fileExtension": "csv"
+        }
+      },
+      "template": "<#if addHeader == true>\nMerchant,Amount,Category,ReportID<#lt>\n</#if>\n<#list reports as report>\n<#list report.transactionList as expense>\n${expense.merchant},${expense.amount},${expense.category},${report.reportID}<#lt>\n</#list>\n</#list>\n"
+    }
+  }
+}

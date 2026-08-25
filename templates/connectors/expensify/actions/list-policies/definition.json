@@ -1,0 +1,41 @@
+{
+  "key": "expensify_list_policies",
+  "name": "List Expensify policies",
+  "description": "POST Integration Server get/policyList (form-urlencoded requestJobDescription).",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "admin_only": { "type": "boolean" },
+      "user_email": { "type": "string" }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_post",
+    "method": "POST",
+    "base_url_template": "https://integrations.expensify.com",
+    "path": "/Integration-Server/ExpensifyIntegrations",
+    "static_headers": {
+      "Accept": "application/json"
+    },
+    "omit_empty_form_strings": true,
+    "form_body": {
+      "requestJobDescription": {
+        "type": "get",
+        "credentials": {
+          "partnerUserID": "{{connection.custom_settings.partner_user_id}}",
+          "partnerUserSecret": "{{connection.api_key}}"
+        },
+        "inputSettings": {
+          "type": "policyList",
+          "adminOnly": true,
+          "userEmail": "{{input.user_email}}"
+        }
+      }
+    }
+  }
+}

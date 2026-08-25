@@ -1029,6 +1029,20 @@
           "ar"
         ],
         "category": "finance"
+      },
+      {
+        "slug": "expensify",
+        "name": "Expensify Connector",
+        "description": "Expensify Integration Server — policies and report export (form-urlencoded Catalog HTTP)",
+        "path": "templates/connectors/expensify/connector.json",
+        "tags": [
+          "expensify",
+          "accounting",
+          "finance",
+          "expenses",
+          "policies"
+        ],
+        "category": "finance"
       }
     ],
     "connections": [],
