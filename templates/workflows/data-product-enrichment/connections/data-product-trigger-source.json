@@ -8,7 +8,10 @@
   "connector_type": "data-product-trigger",
   "status": "active",
   "configuration": {
-    "source_data_product_id": "{{SOURCE_DATA_PRODUCT_ID}}"
+    "source_data_product_id": "{{SOURCE_DATA_PRODUCT_ID}}",
+    "trigger_mode": "{{TRIGGER_MODE}}",
+    "checkpoint_start": "{{CHECKPOINT_START}}",
+    "schedule": "{{TRIGGER_SCHEDULE}}"
   },
   "metadata": {
     "template_slug": "data-product-enrichment"

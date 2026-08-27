@@ -25,7 +25,7 @@
     "auth_type": "none",
     "oauth_config": null,
     "supported_directions": ["inbound"],
-    "supported_entities": ["events"],
+    "supported_entities": [],
     "supports_webhooks": false,
     "supports_polling": false,
     "required_scopes": null,
@@ -37,11 +37,25 @@
       "wiring": "consumption",
       "trigger_config_spec": {
         "required": ["source_data_product_id"],
-        "optional": [],
+        "optional": ["trigger_mode", "checkpoint_start", "schedule"],
         "fields": {
           "source_data_product_id": {
             "type": "string",
             "description": "Name or UUID of the upstream data product whose bound queue (its terminal/output queue) is the source of events for this enrichment workflow."
+          },
+          "trigger_mode": {
+            "type": "string",
+            "enum": ["on_event", "schedule", "manual"],
+            "default": "on_event",
+            "description": "on_event: wired directly into the downstream node's bot, no schedule (default). schedule: a relay bot reads a batch from the bound queue on `schedule`. manual: same relay bot, invoked on demand only."
+          },
+          "checkpoint_start": {
+            "type": "string",
+            "description": "Where to start reading the bound queue the first time this trigger deploys: 'earliest', 'now' (default), or an ISO-8601 timestamp. Ignored after the first successful deploy — later deploys keep the existing read position."
+          },
+          "schedule": {
+            "type": "string",
+            "description": "Cron expression or interval string (e.g. 'every 15m'); required when trigger_mode is 'schedule', ignored otherwise."
           }
         }
       }
@@ -52,7 +66,10 @@
   "connection_template": {
     "type": "data-product-trigger",
     "configuration": {
-      "source_data_product_id": "{{SOURCE_DATA_PRODUCT_ID}}"
+      "source_data_product_id": "{{SOURCE_DATA_PRODUCT_ID}}",
+      "trigger_mode": "{{TRIGGER_MODE}}",
+      "checkpoint_start": "{{CHECKPOINT_START}}",
+      "schedule": "{{TRIGGER_SCHEDULE}}"
     }
   },
   "placeholders": {
@@ -60,6 +77,9 @@
     "{{ORGANIZATION_ID}}": "Organization that owns this connector",
     "{{PROJECT_ID}}": "Project that contains this connector",
     "{{SOURCE_DATA_PRODUCT_ID}}": "Name or UUID of the upstream data product to read from",
+    "{{TRIGGER_MODE}}": "on_event (default, no bot) | schedule | manual",
+    "{{CHECKPOINT_START}}": "earliest | now (default) | ISO-8601 timestamp — first-deploy only",
+    "{{TRIGGER_SCHEDULE}}": "Cron/interval string; required when TRIGGER_MODE is schedule",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
     "{{UPDATED_AT}}": "ISO 8601 timestamp"
   }
