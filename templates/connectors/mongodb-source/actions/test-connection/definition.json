@@ -1,0 +1,25 @@
+{
+  "key": "mongodb_source_test_connection",
+  "name": "Test MongoDB connection",
+  "description": "Probes topology, permissions, and server version. Platform MongoDBSourceConnector.testConnection.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "mongodb-source",
+    "operation": "test_connection",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "mongodb-source",
+    "operation": "test_connection"
+  }
+}
