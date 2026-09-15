@@ -135,10 +135,9 @@
     "platform_native_provider": "mongodb-source",
     "description": "Native MongoDB inbound connector using official change streams.",
     "follow_up_notes": [
-      "Requires replica set or sharded cluster (standalone unsupported for CDC).",
-      "Default CDC startup_mode is now; invalid resume tokens fail explicitly.",
-      "full_document is configurable — do not force updateLookup for high-churn collections.",
-      "Backfill is independent of the live CDC checkpoint."
+      "Runtime: mongodb-source native engine (change streams). Variants with the same platform_native_provider can be template-only via NativeRecipeConnector.",
+      "custom_settings_schema mirrors MongoDBSourceConfig for UX/docs; zod/runtime validation in platform TypeScript.",
+      "connector_package.actions use execution.protocol platform_native."
     ],
     "actions": [
       {
