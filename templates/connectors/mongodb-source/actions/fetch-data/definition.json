@@ -1,0 +1,31 @@
+{
+  "key": "mongodb_source_fetch_data",
+  "name": "Fetch collection data",
+  "description": "Snapshot, backfill, or CDC fetch for a collection entity. Platform MongoDBSourceConnector.fetchData.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "mongodb-source",
+    "operation": "fetch_data",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "entity_type": { "type": "string" },
+      "cursor": { "type": "string" },
+      "limit": { "type": "integer", "minimum": 1 },
+      "full_sync": { "type": "boolean" }
+    },
+    "required": ["entity_type"]
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "mongodb-source",
+    "operation": "fetch_data"
+  }
+}
