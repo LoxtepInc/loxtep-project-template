@@ -50,7 +50,10 @@
         "type": "string",
         "help": "primary | primaryPreferred | secondary | secondaryPreferred | nearest"
       },
-      "connectTimeoutMS": { "type": "string", "help": "Driver connect timeout in ms." },
+      "connectTimeoutMS": {
+        "type": "string",
+        "help": "Driver connect timeout in ms."
+      },
       "serverSelectionTimeoutMS": {
         "type": "string",
         "help": "Driver server selection timeout in ms."
@@ -67,7 +70,10 @@
         "type": "string",
         "help": "JSON string array deny-list of collection names."
       },
-      "batch_size": { "type": "string", "help": "Integer batch size; default 500." },
+      "batch_size": {
+        "type": "string",
+        "help": "Integer batch size; default 500."
+      },
       "cdc": {
         "type": "string",
         "help": "JSON: enabled, full_document (default|updateLookup|whenAvailable|required), startup_mode (now|resume|timestamp), start_at_operation_time."
@@ -100,12 +106,19 @@
       },
       "trigger_config_spec": {
         "required": [],
-        "optional": ["sync_mode", "schedule"],
+        "optional": [
+          "sync_mode",
+          "schedule"
+        ],
         "fields": {
           "sync_mode": {
             "type": "string",
             "description": "cdc (live change stream), backfill (ISO-date bounded), or snapshot",
-            "enum": ["cdc", "backfill", "snapshot"],
+            "enum": [
+              "cdc",
+              "backfill",
+              "snapshot"
+            ],
             "default": "cdc"
           },
           "schedule": {
@@ -143,6 +156,14 @@
       {
         "key": "mongodb_source_test_connection",
         "definition_path": "actions/test-connection/definition.json"
+      },
+      {
+        "key": "mongodb_source_list_collections",
+        "definition_path": "actions/list-collections/definition.json"
+      },
+      {
+        "key": "mongodb_source_capture_samples",
+        "definition_path": "actions/capture-samples/definition.json"
       },
       {
         "key": "mongodb_source_fetch_data",
