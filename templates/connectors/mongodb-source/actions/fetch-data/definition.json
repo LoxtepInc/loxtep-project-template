@@ -1,7 +1,7 @@
 {
   "key": "mongodb_source_fetch_data",
   "name": "Fetch collection data",
-  "description": "Snapshot, backfill, or CDC fetch for a collection entity. Platform MongoDBSourceConnector.fetchData.",
+  "description": "Ingest primitive (snapshot/backfill/CDC) for a collection. Catalog UI maps this to a bounded sample on connectors-private-512; full ingest requires a deployed workflow. entity_type is the collection name from list_collections.",
   "version": "1.0.0",
   "type": "action",
   "annotations": {

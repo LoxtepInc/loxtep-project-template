@@ -1,0 +1,27 @@
+{
+  "key": "mongodb_source_list_collections",
+  "name": "List collections",
+  "description": "Discover authorized MongoDB collection names (entity_type values) without starting ingestion.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "mongodb-source",
+    "operation": "list_collections",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "instance_id": { "type": "string", "description": "Required when the org has more than one instance." }
+    }
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "mongodb-source",
+    "operation": "list_collections"
+  }
+}
