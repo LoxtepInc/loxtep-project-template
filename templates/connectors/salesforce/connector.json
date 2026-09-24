@@ -55,7 +55,32 @@
     "metadata": {
       "template_slug": "salesforce",
       "oauth_account_display_name_field": "preferred_username",
-      "api_version": "59.0"
+      "api_version": "59.0",
+      "trigger_config_spec": {
+        "required": ["sync_entity"],
+        "optional": ["filter"],
+        "fields": {
+          "sync_entity": {
+            "type": "string",
+            "description": "Salesforce CRM object this connection syncs via SOQL.",
+            "enum": [
+              "contacts",
+              "accounts",
+              "opportunities",
+              "leads",
+              "cases",
+              "products",
+              "users"
+            ],
+            "default": "contacts"
+          },
+          "filter": {
+            "type": "string",
+            "description": "Optional free-form filter hint for polling (use 'all' for no extra filter).",
+            "default": "all"
+          }
+        }
+      }
     },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"

@@ -42,7 +42,28 @@
     "is_beta": false,
     "metadata": {
       "template_slug": "shipstation",
-      "api_version": "v1"
+      "api_version": "v1",
+      "trigger_config_spec": {
+        "required": ["sync_entity"],
+        "optional": ["order_status", "filter"],
+        "fields": {
+          "sync_entity": {
+            "type": "string",
+            "description": "ShipStation entity this connection syncs.",
+            "enum": ["shipments", "orders", "carriers", "warehouses"],
+            "default": "shipments"
+          },
+          "order_status": {
+            "type": "string",
+            "description": "Order status filter when sync_entity is orders (ShipStation orderStatus query param)."
+          },
+          "filter": {
+            "type": "string",
+            "description": "Optional free-form filter hint for polling (use 'all' for no extra filter).",
+            "default": "all"
+          }
+        }
+      }
     },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
