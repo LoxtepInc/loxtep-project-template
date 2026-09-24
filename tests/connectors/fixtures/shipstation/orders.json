@@ -1,0 +1,23 @@
+{
+  "entity": "orders",
+  "action_key": "shipstation_list_orders",
+  "input": {
+    "limit": 2,
+    "page": 1,
+    "orderStatus": "awaiting_shipment"
+  },
+  "response": {
+    "orders": [
+      {
+        "orderId": 8001,
+        "orderNumber": "SS-1001",
+        "orderStatus": "awaiting_shipment",
+        "orderDate": "2026-09-01T15:00:00.0000000",
+        "orderTotal": 42
+      }
+    ],
+    "total": 1,
+    "page": 1,
+    "pages": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "entity": "prices",
+  "action_key": "stripe_list_prices",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "object": "list",
+    "data": [
+      {
+        "id": "price_sample001",
+        "object": "price",
+        "created": 1725148800,
+        "livemode": false,
+        "unit_amount": 4200,
+        "currency": "usd",
+        "active": true
+      }
+    ],
+    "has_more": false,
+    "url": "/v1/prices"
+  }
+}

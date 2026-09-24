@@ -1,0 +1,25 @@
+{
+  "entity": "contacts",
+  "action_key": "salesforce_query_contacts",
+  "input": {
+    "request_path": "/services/data/v59.0/query?q=SELECT+Id+FROM+Contact+LIMIT+1"
+  },
+  "response": {
+    "totalSize": 1,
+    "done": true,
+    "records": [
+      {
+        "attributes": {
+          "type": "Contact",
+          "url": "/services/data/v59.0/sobjects/Contact/003xx000004TmiQAAS"
+        },
+        "Id": "003xx000004TmiQAAS",
+        "CreatedDate": "2026-08-01T12:00:00.000+0000",
+        "SystemModstamp": "2026-09-01T12:00:00.000+0000",
+        "FirstName": "Ada",
+        "LastName": "Lovelace",
+        "Email": "ada@example.com"
+      }
+    ]
+  }
+}

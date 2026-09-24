@@ -1,0 +1,23 @@
+{
+  "entity": "payment_intents",
+  "action_key": "stripe_list_payment_intents",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "object": "list",
+    "data": [
+      {
+        "id": "pi_sample001",
+        "object": "payment_intent",
+        "created": 1725148800,
+        "livemode": false,
+        "amount": 4200,
+        "currency": "usd",
+        "status": "succeeded"
+      }
+    ],
+    "has_more": false,
+    "url": "/v1/payment_intents"
+  }
+}

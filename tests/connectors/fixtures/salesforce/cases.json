@@ -1,0 +1,25 @@
+{
+  "entity": "cases",
+  "action_key": "salesforce_query_cases",
+  "input": {
+    "request_path": "/services/data/v59.0/query?q=SELECT+Id+FROM+Case+LIMIT+1"
+  },
+  "response": {
+    "totalSize": 1,
+    "done": true,
+    "records": [
+      {
+        "attributes": {
+          "type": "Case",
+          "url": "/services/data/v59.0/sobjects/Case/500xx000001cdeAAA"
+        },
+        "Id": "500xx000001cdeAAA",
+        "CreatedDate": "2026-08-01T12:00:00.000+0000",
+        "SystemModstamp": "2026-09-01T12:00:00.000+0000",
+        "CaseNumber": "00001001",
+        "Subject": "Login issue",
+        "Status": "New"
+      }
+    ]
+  }
+}

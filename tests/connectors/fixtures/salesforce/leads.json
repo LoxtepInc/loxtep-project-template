@@ -1,0 +1,26 @@
+{
+  "entity": "leads",
+  "action_key": "salesforce_query_leads",
+  "input": {
+    "request_path": "/services/data/v59.0/query?q=SELECT+Id+FROM+Lead+LIMIT+1"
+  },
+  "response": {
+    "totalSize": 1,
+    "done": true,
+    "records": [
+      {
+        "attributes": {
+          "type": "Lead",
+          "url": "/services/data/v59.0/sobjects/Lead/00Qxx000001xyzAAA"
+        },
+        "Id": "00Qxx000001xyzAAA",
+        "CreatedDate": "2026-08-01T12:00:00.000+0000",
+        "SystemModstamp": "2026-09-01T12:00:00.000+0000",
+        "FirstName": "Sam",
+        "LastName": "Prospect",
+        "Company": "Prospect Co",
+        "Status": "Open"
+      }
+    ]
+  }
+}

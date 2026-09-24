@@ -1,0 +1,21 @@
+{
+  "entity": "users",
+  "action_key": "zendesk_list_users",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "users": [
+      {
+        "id": 201,
+        "name": "Casey Customer",
+        "email": "casey@example.com",
+        "role": "end-user",
+        "created_at": "2026-08-01T00:00:00Z"
+      }
+    ],
+    "meta": {
+      "has_more": false
+    }
+  }
+}

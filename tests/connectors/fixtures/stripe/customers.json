@@ -1,0 +1,21 @@
+{
+  "entity": "customers",
+  "action_key": "stripe_list_customers",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "object": "list",
+    "data": [
+      {
+        "id": "cus_sample001",
+        "object": "customer",
+        "created": 1725148800,
+        "livemode": false,
+        "email": "payer@example.com"
+      }
+    ],
+    "has_more": false,
+    "url": "/v1/customers"
+  }
+}

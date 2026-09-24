@@ -23,3 +23,15 @@ jobs:
           node-version: 22
       - name: Verify AGENTS.md + default skills are up to date
         run: node scripts/generate-template-agents.mjs --check
+
+  connector-contract-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Catalog runtime package checks
+        run: node scripts/verify-catalog-runtime-templates.mjs
+      - name: Site-named connector contract tests (W10.2)
+        run: node --test tests/connectors/*.test.mjs

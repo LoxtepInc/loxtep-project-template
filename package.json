@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "lint": "ls-lint",
-    "validate": "node scripts/validate-templates.mjs && node scripts/verify-catalog-runtime-templates.mjs && python3 scripts/validate-data-product-templates.py",
+    "test": "node --test tests/**/*.test.mjs",
+    "test:connectors": "node --test tests/connectors/*.test.mjs",
+    "validate": "node scripts/validate-templates.mjs && node scripts/verify-catalog-runtime-templates.mjs && python3 scripts/validate-data-product-templates.py && node --test tests/connectors/*.test.mjs",
     "validate:templates": "node scripts/validate-templates.mjs",
     "validate:connectors": "node scripts/verify-catalog-runtime-templates.mjs",
     "validate:data-products": "python3 scripts/validate-data-product-templates.py",

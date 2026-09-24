@@ -1,0 +1,19 @@
+{
+  "entity": "customers",
+  "action_key": "shopify_get_customers",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "customers": [
+      {
+        "id": 333,
+        "email": "customer@example.com",
+        "first_name": "Ada",
+        "last_name": "Lovelace",
+        "orders_count": 3,
+        "total_spent": "126.00"
+      }
+    ]
+  }
+}

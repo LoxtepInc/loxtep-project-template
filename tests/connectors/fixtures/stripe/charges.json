@@ -1,0 +1,23 @@
+{
+  "entity": "charges",
+  "action_key": "stripe_list_charges",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "object": "list",
+    "data": [
+      {
+        "id": "ch_sample001",
+        "object": "charge",
+        "created": 1725148800,
+        "livemode": false,
+        "amount": 4200,
+        "currency": "usd",
+        "status": "succeeded"
+      }
+    ],
+    "has_more": false,
+    "url": "/v1/charges"
+  }
+}

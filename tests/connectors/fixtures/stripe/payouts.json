@@ -1,0 +1,23 @@
+{
+  "entity": "payouts",
+  "action_key": "stripe_list_payouts",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "object": "list",
+    "data": [
+      {
+        "id": "po_sample001",
+        "object": "payout",
+        "created": 1725148800,
+        "livemode": false,
+        "amount": 10000,
+        "currency": "usd",
+        "status": "paid"
+      }
+    ],
+    "has_more": false,
+    "url": "/v1/payouts"
+  }
+}
