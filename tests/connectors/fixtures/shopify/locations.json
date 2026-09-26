@@ -1,0 +1,18 @@
+{
+  "entity": "locations",
+  "action_key": "shopify_get_locations",
+  "input": {
+    "limit": 50
+  },
+  "response": {
+    "locations": [
+      {
+        "id": 777,
+        "name": "Main Warehouse",
+        "address1": "1 Market St",
+        "city": "SF",
+        "country": "US"
+      }
+    ]
+  }
+}

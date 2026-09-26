@@ -1,0 +1,22 @@
+{
+  "entity": "shipments",
+  "action_key": "shipstation_list_shipments",
+  "input": {
+    "limit": 2,
+    "page": 1
+  },
+  "response": {
+    "shipments": [
+      {
+        "shipmentId": 9001,
+        "orderId": 8001,
+        "trackingNumber": "1Z999AA10123456784",
+        "carrierCode": "ups",
+        "shipDate": "2026-09-02"
+      }
+    ],
+    "total": 1,
+    "page": 1,
+    "pages": 1
+  }
+}

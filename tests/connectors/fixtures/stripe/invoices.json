@@ -1,0 +1,23 @@
+{
+  "entity": "invoices",
+  "action_key": "stripe_list_invoices",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "object": "list",
+    "data": [
+      {
+        "id": "in_sample001",
+        "object": "invoice",
+        "created": 1725148800,
+        "livemode": false,
+        "amount_due": 4200,
+        "currency": "usd",
+        "status": "paid"
+      }
+    ],
+    "has_more": false,
+    "url": "/v1/invoices"
+  }
+}

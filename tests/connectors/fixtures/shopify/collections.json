@@ -1,0 +1,17 @@
+{
+  "entity": "collections",
+  "action_key": "shopify_get_collections",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "custom_collections": [
+      {
+        "id": 444,
+        "title": "Summer",
+        "handle": "summer",
+        "published_at": "2026-06-01T00:00:00Z"
+      }
+    ]
+  }
+}

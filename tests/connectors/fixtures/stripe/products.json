@@ -1,0 +1,22 @@
+{
+  "entity": "products",
+  "action_key": "stripe_list_products",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "object": "list",
+    "data": [
+      {
+        "id": "prod_sample001",
+        "object": "product",
+        "created": 1725148800,
+        "livemode": false,
+        "name": "Pro Plan",
+        "active": true
+      }
+    ],
+    "has_more": false,
+    "url": "/v1/products"
+  }
+}

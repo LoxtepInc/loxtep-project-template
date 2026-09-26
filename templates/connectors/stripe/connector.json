@@ -39,7 +39,35 @@
     "version": "1.0.0",
     "is_beta": false,
     "metadata": {
-      "template_slug": "stripe"
+      "template_slug": "stripe",
+      "trigger_config_spec": {
+        "required": ["sync_entity"],
+        "optional": ["filter"],
+        "fields": {
+          "sync_entity": {
+            "type": "string",
+            "description": "Stripe object type this connection syncs.",
+            "enum": [
+              "customers",
+              "charges",
+              "payment_intents",
+              "subscriptions",
+              "invoices",
+              "products",
+              "prices",
+              "refunds",
+              "balance_transactions",
+              "payouts"
+            ],
+            "default": "customers"
+          },
+          "filter": {
+            "type": "string",
+            "description": "Optional free-form filter hint for polling (use 'all' for no extra filter).",
+            "default": "all"
+          }
+        }
+      }
     },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"

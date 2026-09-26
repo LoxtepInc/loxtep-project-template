@@ -1,0 +1,25 @@
+{
+  "entity": "products",
+  "action_key": "shopify_get_products",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "products": [
+      {
+        "id": 111,
+        "title": "Classic Tee",
+        "vendor": "Acme",
+        "product_type": "Apparel",
+        "status": "active",
+        "variants": [
+          {
+            "id": 222,
+            "sku": "TEE-S",
+            "price": "42.00"
+          }
+        ]
+      }
+    ]
+  }
+}

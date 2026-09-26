@@ -1,0 +1,31 @@
+{
+  "entity": "orders",
+  "action_key": "shopify_get_orders",
+  "input": {
+    "limit": 2,
+    "status": "any"
+  },
+  "response": {
+    "orders": [
+      {
+        "id": 5678901234,
+        "name": "#1001",
+        "email": "buyer@example.com",
+        "financial_status": "paid",
+        "fulfillment_status": null,
+        "created_at": "2026-09-01T12:00:00-04:00",
+        "updated_at": "2026-09-01T12:05:00-04:00",
+        "total_price": "42.00",
+        "currency": "USD",
+        "line_items": [
+          {
+            "id": 1,
+            "title": "Tee",
+            "quantity": 1,
+            "price": "42.00"
+          }
+        ]
+      }
+    ]
+  }
+}

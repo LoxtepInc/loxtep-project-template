@@ -1,0 +1,25 @@
+{
+  "entity": "products",
+  "action_key": "salesforce_query_products",
+  "input": {
+    "request_path": "/services/data/v59.0/query?q=SELECT+Id+FROM+Product2+LIMIT+1"
+  },
+  "response": {
+    "totalSize": 1,
+    "done": true,
+    "records": [
+      {
+        "attributes": {
+          "type": "Product2",
+          "url": "/services/data/v59.0/sobjects/Product2/01txx000001fghAAA"
+        },
+        "Id": "01txx000001fghAAA",
+        "CreatedDate": "2026-08-01T12:00:00.000+0000",
+        "SystemModstamp": "2026-09-01T12:00:00.000+0000",
+        "Name": "Widget Pro",
+        "ProductCode": "WPRO",
+        "IsActive": true
+      }
+    ]
+  }
+}

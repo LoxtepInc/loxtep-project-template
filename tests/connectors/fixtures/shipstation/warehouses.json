@@ -1,0 +1,12 @@
+{
+  "entity": "warehouses",
+  "action_key": "shipstation_list_warehouses",
+  "input": {},
+  "response": [
+    {
+      "warehouseId": 1,
+      "warehouseName": "Primary",
+      "isDefault": true
+    }
+  ]
+}

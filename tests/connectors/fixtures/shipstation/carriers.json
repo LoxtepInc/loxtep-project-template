@@ -1,0 +1,12 @@
+{
+  "entity": "carriers",
+  "action_key": "shipstation_list_carriers",
+  "input": {},
+  "response": [
+    {
+      "code": "stamps_com",
+      "name": "Stamps.com",
+      "accountNumber": "ACCT-001"
+    }
+  ]
+}

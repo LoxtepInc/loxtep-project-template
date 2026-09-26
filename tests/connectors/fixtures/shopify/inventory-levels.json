@@ -1,0 +1,18 @@
+{
+  "entity": "inventory_levels",
+  "action_key": "shopify_get_inventory_levels",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "inventory_levels": [
+      {
+        "inventory_item_id": 666,
+        "location_id": 777,
+        "available": 12,
+        "updated_at": "2026-09-01T00:00:00Z",
+        "id": "666:777"
+      }
+    ]
+  }
+}

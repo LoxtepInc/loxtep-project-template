@@ -71,6 +71,37 @@
         "persist_to_custom_settings": {
           "shop_domain": "myshopify_domain"
         }
+      },
+      "trigger_config_spec": {
+        "required": ["sync_entity"],
+        "optional": ["status", "filter"],
+        "fields": {
+          "sync_entity": {
+            "type": "string",
+            "description": "Shopify entity this connection syncs (orders, products, customers, …).",
+            "enum": [
+              "orders",
+              "products",
+              "customers",
+              "collections",
+              "draft_orders",
+              "inventory_levels",
+              "locations"
+            ],
+            "default": "orders"
+          },
+          "status": {
+            "type": "string",
+            "description": "Order status filter when sync_entity is orders (Shopify Admin REST).",
+            "enum": ["open", "closed", "cancelled", "any"],
+            "default": "any"
+          },
+          "filter": {
+            "type": "string",
+            "description": "Optional free-form filter hint for polling (use 'all' for no extra filter).",
+            "default": "all"
+          }
+        }
       }
     },
     "created_at": "{{CREATED_AT}}",
