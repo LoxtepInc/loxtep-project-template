@@ -1,0 +1,18 @@
+{
+  "entity": "draft_orders",
+  "action_key": "shopify_get_draft_orders",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "draft_orders": [
+      {
+        "id": 555,
+        "name": "#D1001",
+        "status": "open",
+        "total_price": "10.00",
+        "currency": "USD"
+      }
+    ]
+  }
+}

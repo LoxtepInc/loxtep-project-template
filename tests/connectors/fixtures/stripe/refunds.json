@@ -1,0 +1,23 @@
+{
+  "entity": "refunds",
+  "action_key": "stripe_list_refunds",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "object": "list",
+    "data": [
+      {
+        "id": "re_sample001",
+        "object": "refund",
+        "created": 1725148800,
+        "livemode": false,
+        "amount": 100,
+        "currency": "usd",
+        "status": "succeeded"
+      }
+    ],
+    "has_more": false,
+    "url": "/v1/refunds"
+  }
+}

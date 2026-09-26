@@ -1,0 +1,23 @@
+{
+  "entity": "balance_transactions",
+  "action_key": "stripe_list_balance_transactions",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "object": "list",
+    "data": [
+      {
+        "id": "txn_sample001",
+        "object": "balance_transaction",
+        "created": 1725148800,
+        "livemode": false,
+        "amount": 4200,
+        "currency": "usd",
+        "type": "charge"
+      }
+    ],
+    "has_more": false,
+    "url": "/v1/balance_transactions"
+  }
+}

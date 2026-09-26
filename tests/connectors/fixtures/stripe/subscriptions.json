@@ -1,0 +1,21 @@
+{
+  "entity": "subscriptions",
+  "action_key": "stripe_list_subscriptions",
+  "input": {
+    "limit": 2
+  },
+  "response": {
+    "object": "list",
+    "data": [
+      {
+        "id": "sub_sample001",
+        "object": "subscription",
+        "created": 1725148800,
+        "livemode": false,
+        "status": "active"
+      }
+    ],
+    "has_more": false,
+    "url": "/v1/subscriptions"
+  }
+}
