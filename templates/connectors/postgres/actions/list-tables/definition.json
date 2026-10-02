@@ -1,0 +1,30 @@
+{
+  "key": "postgres_list_tables",
+  "name": "List tables",
+  "description": "Discover authorized PostgreSQL table names (entity_type values) without starting ingestion. On customer_vpc uses postgres-private-probe/1.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "postgres",
+    "operation": "list_collections",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "instance_id": {
+        "type": "string",
+        "description": "Required when the org has more than one instance."
+      }
+    }
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "postgres",
+    "operation": "list_collections"
+  }
+}

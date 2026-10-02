@@ -3,8 +3,8 @@
   "template_type": "workflow",
   "slug": "database-cdc",
   "name": "Database CDC Workflow",
-  "description": "Capture database changes using Change Data Capture (CDC). Ideal for real-time data replication, event sourcing, and keeping data products in sync with operational databases.",
-  "version": "1.0.0",
+  "description": "Capture database changes using Change Data Capture (CDC). Prefer the managed postgres connector path (test → list_connector_entities → confirm_connector_entity_selection) over this starter template for platform-managed ingestion.",
+  "version": "1.0.1",
   "produces_kind": "source",
   "tags": [
     "database",
@@ -36,6 +36,7 @@
       "template_slug": "database-cdc",
       "ingestion_type": "database_cdc",
       "connection_ref": "Reference to database connection (add via flow canvas)",
+      "managed_ingest_note": "For PostgreSQL, prefer connector entity selection (Mongo-parity path) rather than this template.",
       "cdc_config": {
         "tables": "{{CDC_TABLES}}",
         "include_schema_changes": false,
