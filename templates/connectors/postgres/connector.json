@@ -125,9 +125,31 @@
         "13",
         "14",
         "15",
-        "16"
+        "16",
+        "17"
       ],
       "cdc_method": "logical_replication",
+      "ingest_modes": {
+        "incremental": {
+          "description": "Cursor/watermark SELECT; works with wal_level=replica",
+          "requires_logical_replication": false
+        },
+        "snapshot": {
+          "description": "One-time full table read",
+          "requires_logical_replication": false
+        },
+        "cdc": {
+          "description": "Logical replication (publication + slot)",
+          "requires_logical_replication": true,
+          "prerequisites": [
+            "wal_level=logical (Aurora/RDS: rds.logical_replication=1 and reboot)",
+            "REPLICATION privilege on the connector role",
+            "Permission to CREATE PUBLICATION and pg_create_logical_replication_slot"
+          ]
+        }
+      },
+      "private_probe_contract": "postgres-private-probe/1",
+      "managed_ingest_path": "list_connector_entities → confirm_connector_entity_selection (connector-ingestion PKO); not the database-cdc workflow template",
       "connection_config_spec": {
         "resolution": "flexible",
         "help": "Use either a single connection_string for the driver or discrete host/database/credentials; optional pg_pool_options merges into the pg Pool (safelisted keys only).",
@@ -176,6 +198,7 @@
     ],
     "actions": [
       { "key": "postgres_test_connection", "definition_path": "actions/test-connection/definition.json" },
+      { "key": "postgres_list_tables", "definition_path": "actions/list-tables/definition.json" },
       { "key": "postgres_fetch_data", "definition_path": "actions/fetch-data/definition.json" },
       { "key": "postgres_push_data", "definition_path": "actions/push-data/definition.json" }
     ]
