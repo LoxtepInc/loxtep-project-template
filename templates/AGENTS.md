@@ -8,7 +8,7 @@
 ## What this catalog is
 
 This directory contains **reusable templates** for every entity type in the
-Loxtep data mesh platform. Templates are the building blocks agents use to
+Loxtep data layer. Templates are the building blocks agents use to
 scaffold projects, add workflows, connect data sources, apply transformations,
 and model data products — without constructing JSON from scratch.
 
@@ -16,7 +16,7 @@ and model data products — without constructing JSON from scratch.
 
 | Category | Path | Purpose | When to use |
 |----------|------|---------|-------------|
-| **Projects** | `projects/` | Full project scaffolds with workflows, connections, and data products | User says "create a project", "start from scratch", "new data mesh" |
+| **Projects** | `projects/` | Full project scaffolds with workflows, connections, and data products | User says "create a project", "start from scratch" |
 | **Workflows** | `workflows/` | Flow definitions (ingestion, enrichment, consumption) | User says "add a workflow", "ingest data", "enrich", "consume", "expose API" |
 | **Connectors** | `connectors/` | Connector type packages with actions, schemas, vocabulary | User says "connect Shopify", "add a connector", "sync from Stripe" |
 | **Data Products** | `data-products/` | Data product definitions (source or consumer) | User says "create a data product", "model orders", "customer 360" |
