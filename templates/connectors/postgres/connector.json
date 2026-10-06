@@ -65,18 +65,43 @@
         "help": "Also accepted on connector credentials."
       },
       "schema": { "type": "string", "help": "Default search_path schema; default public." },
-      "ssl_mode": [
-        "disable",
-        "allow",
-        "prefer",
-        "require",
-        "verify-ca",
-        "verify-full"
-      ],
-      "ssl_ca": { "type": "string", "help": "CA PEM for verify-* modes." },
-      "cdc": {
+      "ssl_mode": {
         "type": "string",
-        "help": "JSON object: enabled, replication_slot, publication, plugin (pgoutput|test_decoding|wal2json)."
+        "enum": ["disable", "allow", "prefer", "require", "verify-ca", "verify-full"],
+        "default": "require",
+        "help": "Remote hosts default to require. verify-ca and verify-full need ssl_ca (PEM)."
+      },
+      "ssl_ca": {
+        "type": "string",
+        "format": "multiline",
+        "sensitive": true,
+        "help": "CA PEM for verify-ca / verify-full. Externalized like password."
+      },
+      "network_binding": {
+        "type": "string",
+        "enum": ["customer_vpc", "public"],
+        "help": "customer_vpc tests and ingests from connectors-private-512 in the instance VPC. Stored on connector metadata."
+      },
+      "instance_id": {
+        "type": "string",
+        "help": "Runtime instance whose private subnets and CustomerConnectorSecurityGroup reach the database."
+      },
+      "cdc": {
+        "type": "object",
+        "help": "Logical CDC: enabled, publication, replication_slot, plugin=pgoutput."
+      },
+      "cdc_enabled": {
+        "type": "string",
+        "enum": ["true", "false"],
+        "help": "Enable pgoutput CDC after wal_level=logical."
+      },
+      "cdc_publication": {
+        "type": "string",
+        "help": "Existing publication (table owner CREATE PUBLICATION … FOR TABLE)."
+      },
+      "cdc_replication_slot": {
+        "type": "string",
+        "help": "Logical slot name; created on first CDC run when the role has rds_replication."
       },
       "tables": {
         "type": "string",
