@@ -1,8 +1,8 @@
 {
   "key": "postgres_test_connection",
-  "name": "Test PostgreSQL connection",
-  "description": "Opens a short-lived connection using configured credentials. Platform PostgresConnector.testConnection.",
-  "version": "1.0.0",
+  "name": "Test connection",
+  "description": "Verify credentials, TLS, and (for customer_vpc) private-runtime reachability via postgres-private-probe/1. Reports authorized tables and CDC readiness. Does not start ingestion.",
+  "version": "1.1.0",
   "type": "action",
   "annotations": {
     "runtime_kind": "platform_native",
@@ -15,7 +15,12 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "additionalProperties": false,
-    "properties": {}
+    "properties": {
+      "instance_id": {
+        "type": "string",
+        "description": "Required when the org has more than one instance."
+      }
+    }
   },
   "execution": {
     "protocol": "platform_native",
