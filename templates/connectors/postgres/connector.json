@@ -41,9 +41,9 @@
     "required_scopes": null,
     "required_permissions": [
       "SELECT",
-      "REPLICATION"
+      "REPLICATION (CDC only — not required for discovery, preview, or snapshot/incremental sample)"
     ],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "is_beta": false,
     "custom_settings_schema": {
       "connection_string": {
@@ -205,7 +205,7 @@
     "{{PROJECT_ID}}": "Project that contains this connector",
     "{{DB_HOST}}": "PostgreSQL host address",
     "{{DB_NAME}}": "Database name",
-    "{{DB_USERNAME}}": "Database username with SELECT and REPLICATION permissions",
+    "{{DB_USERNAME}}": "Database username with SELECT on target tables (REPLICATION only if using CDC)",
     "{{DB_PASSWORD}}": "Database password (encrypted)",
     "{{REPLICATION_SLOT}}": "Logical replication slot name for CDC",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
@@ -213,17 +213,19 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
+    "package_version": "1.1.0",
     "platform_native_provider": "postgres",
-    "description": "A connector is a connection to a third party (here: your Postgres); actions describe operations once a native action runner exists.",
+    "description": "Native PostgreSQL connector: private-VPC probe, table discovery, bounded preview/sample, and optional CDC when logical replication is ready.",
     "follow_up_notes": [
-      "Runtime: platform PostgresConnector (native) — CDC, replication, and SQL paths are not expressible as catalog_http_*; do not set use_catalog_runtime for this connector until a dedicated DB runtime exists.",
+      "Runtime: platform PostgresConnector (native) + connectors-private-512 for customer_vpc probe/sample (postgres-private-probe/1, postgres-private-sample/1).",
       "custom_settings_schema documents PostgresConnectorCustomSettings for UX/docs; runtime validation is in platform TypeScript.",
-      "connector_package.actions use execution.protocol platform_native (not catalog_http_*); dispatcher TBD."
+      "Discovery and sampling need SELECT only. CDC needs wal_level=logical (or rds.logical_replication=1) plus REPLICATION / publication+slot privileges.",
+      "Actions: test_connection, list_collections (tables), capture_samples (persist), fetch_data (preview-only), push_data. Listing/preview/sample never start ingestion."
     ],
     "actions": [
       { "key": "postgres_test_connection", "definition_path": "actions/test-connection/definition.json" },
       { "key": "postgres_list_tables", "definition_path": "actions/list-tables/definition.json" },
+      { "key": "postgres_capture_samples", "definition_path": "actions/capture-samples/definition.json" },
       { "key": "postgres_fetch_data", "definition_path": "actions/fetch-data/definition.json" },
       { "key": "postgres_push_data", "definition_path": "actions/push-data/definition.json" }
     ]

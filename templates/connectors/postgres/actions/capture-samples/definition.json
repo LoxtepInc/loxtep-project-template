@@ -1,13 +1,13 @@
 {
-  "key": "postgres_fetch_data",
-  "name": "Preview table rows",
-  "description": "Bounded preview of table rows on connectors-private-512 (postgres-private-sample/1). Does not save samples, create semantic assets, or start ingestion. Use Pull table sample to persist sample_payloads. Full ingest requires a deployed workflow.",
+  "key": "postgres_capture_samples",
+  "name": "Pull table sample",
+  "description": "Bounded SELECT (1–25 rows) from one table on connectors-private-512 (postgres-private-sample/1). Saves to connector sample_payloads. Does not start CDC or ingest. Use Preview table rows for preview-only.",
   "version": "1.1.0",
   "type": "action",
   "annotations": {
     "runtime_kind": "platform_native",
     "provider_slug": "postgres",
-    "operation": "fetch_data",
+    "operation": "capture_samples",
     "read_only": true,
     "destructive": false
   },
@@ -20,20 +20,11 @@
         "type": "string",
         "description": "Table name from postgres_list_tables or GET /entities (e.g. public.workflow_node_runs)."
       },
-      "cursor": {
-        "type": "string",
-        "description": "Optional incremental cursor (ignored for bounded private preview)."
-      },
       "limit": {
         "type": "integer",
         "minimum": 1,
         "maximum": 25,
-        "default": 5,
-        "description": "Max rows to preview (capped at 25)."
-      },
-      "full_sync": {
-        "type": "boolean",
-        "description": "Accepted for catalog form parity; private preview always uses a bounded SELECT LIMIT."
+        "default": 5
       },
       "instance_id": {
         "type": "string",
@@ -45,6 +36,6 @@
   "execution": {
     "protocol": "platform_native",
     "provider": "postgres",
-    "operation": "fetch_data"
+    "operation": "capture_samples"
   }
 }

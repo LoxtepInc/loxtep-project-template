@@ -1,8 +1,8 @@
 {
   "key": "postgres_list_tables",
   "name": "List tables",
-  "description": "Discover authorized PostgreSQL table names (entity_type values) without starting ingestion. On customer_vpc uses postgres-private-probe/1.",
-  "version": "1.0.0",
+  "description": "Discover tables the account can read, intersected with the configured allowlist (entity_type values). Does not invent the full database inventory or start ingestion. On customer_vpc uses postgres-private-probe/1.",
+  "version": "1.1.0",
   "type": "action",
   "annotations": {
     "runtime_kind": "platform_native",
