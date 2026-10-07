@@ -205,7 +205,7 @@
     "{{PROJECT_ID}}": "Project that contains this connector",
     "{{DB_HOST}}": "PostgreSQL host address",
     "{{DB_NAME}}": "Database name",
-    "{{DB_USERNAME}}": "Database username with SELECT and REPLICATION permissions",
+    "{{DB_USERNAME}}": "Database username with SELECT on target tables (REPLICATION only if using CDC)",
     "{{DB_PASSWORD}}": "Database password (encrypted)",
     "{{REPLICATION_SLOT}}": "Logical replication slot name for CDC",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
