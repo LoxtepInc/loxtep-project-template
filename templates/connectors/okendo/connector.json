@@ -19,6 +19,7 @@
     "name": "Okendo",
     "description": "Okendo Merchant REST reviews (Catalog HTTP)",
     "category": "e_commerce",
+    "icon_url": "https://www.google.com/s2/favicons?domain=okendo.io&sz=128",
     "auth_type": "api_key",
     "supported_directions": ["inbound"],
     "supported_entities": ["reviews"],

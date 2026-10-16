@@ -18,6 +18,7 @@
     "name": "Xero",
     "description": "Xero Accounting API (OAuth 2.0) via CatalogRuntimeConnector.",
     "category": "finance",
+    "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-xero/icon.svg",
     "auth_type": "oauth2",
     "oauth_config": {
       "authorization_url": "https://login.xero.com/identity/connect/authorize",

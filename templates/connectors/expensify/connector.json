@@ -25,6 +25,7 @@
     "name": "Expensify",
     "description": "Expensify Integration Server via CatalogRuntimeConnector (partnerUserID + partnerUserSecret, form-urlencoded POST).",
     "category": "finance",
+    "icon_url": "https://cdn.simpleicons.org/expensify",
     "auth_type": "api_key",
     "oauth_config": null,
     "supported_directions": [

@@ -20,6 +20,7 @@
     "name": "WooCommerce",
     "description": "WooCommerce e-commerce connector (orders, products, customers) via WP REST /wp-json/wc/v3",
     "category": "e_commerce",
+    "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-woocommerce/icon.svg",
     "documentation_url": "https://woocommerce.github.io/woocommerce-rest-api-docs/",
     "auth_type": "api_key",
     "supported_directions": ["inbound"],

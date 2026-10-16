@@ -20,7 +20,7 @@
     "name": "Data Product Trigger",
     "description": "Reads an upstream data product's bound queue and forwards events to the downstream transform chain.",
     "category": "basic",
-    "icon_url": null,
+    "icon_url": "https://cdn.jsdelivr.net/npm/lucide-static@0.544.0/icons/workflow.svg",
     "documentation_url": null,
     "auth_type": "none",
     "oauth_config": null,

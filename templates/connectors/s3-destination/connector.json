@@ -23,7 +23,7 @@
     "category": "basic",
     "auth_type": "api_key",
     "oauth_config": null,
-    "icon_url": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/amazons3.svg",
+    "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-s3/icon.svg",
     "documentation_url": "https://docs.loxtep.com/connectors/s3-destination",
     "supported_directions": [
       "outbound"

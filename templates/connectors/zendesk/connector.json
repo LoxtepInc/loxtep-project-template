@@ -22,6 +22,7 @@
     "name": "Zendesk",
     "description": "Sync Zendesk Support tickets, users, and organizations.",
     "category": "communication",
+    "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-zendesk-support/icon.svg",
     "auth_type": "api_key",
     "oauth_config": null,
     "supported_directions": [

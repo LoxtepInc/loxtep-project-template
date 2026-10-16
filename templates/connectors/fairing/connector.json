@@ -20,6 +20,7 @@
     "name": "Fairing",
     "description": "Fairing post-purchase survey connector attributed to orders",
     "category": "analytics",
+    "icon_url": "https://www.google.com/s2/favicons?domain=fairing.co&sz=128",
     "auth_type": "api_key",
     "supported_directions": ["inbound"],
     "supported_entities": ["surveys", "responses", "attributed_orders"],

@@ -21,6 +21,7 @@
     "name": "Triple Whale",
     "description": "Triple Whale marketing analytics (ad attribution, ROAS, cohort LTV, creative stats)",
     "category": "analytics",
+    "icon_url": "https://www.google.com/s2/favicons?domain=triplewhale.com&sz=128",
     "auth_type": "api_key",
     "supported_directions": ["inbound"],
     "supported_entities": ["ad_attribution", "blended_roas", "cohort_ltv", "creative_stats"],

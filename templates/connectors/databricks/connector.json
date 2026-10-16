@@ -28,7 +28,7 @@
     "name": "Databricks",
     "description": "Databricks SQL Warehouse connector for bound reads and warehouse-primary Delta writes.",
     "category": "database",
-    "icon_url": "https://www.svgrepo.com/show/448208/databricks.svg",
+    "icon_url": "https://cdn.simpleicons.org/databricks",
     "documentation_url": "https://docs.databricks.com/",
     "auth_type": "custom",
     "oauth_config": null,

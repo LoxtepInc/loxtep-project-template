@@ -32,7 +32,7 @@
     "supports_polling": true,
     "required_scopes": null,
     "documentation_url": "https://docs.loxtep.com/connectors/mysql-source",
-    "icon_url": "https://www.mysql.com/common/logos/logo-mysql-170x115.png",
+    "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-mysql/icon.svg",
     "custom_settings_schema": {
       "connection_string": {
         "type": "string",

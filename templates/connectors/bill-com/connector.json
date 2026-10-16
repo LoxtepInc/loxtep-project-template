@@ -27,6 +27,7 @@
     "name": "Bill.com",
     "description": "BILL v3 Connect API via CatalogRuntimeConnector (sessionId + devKey).",
     "category": "finance",
+    "icon_url": "https://www.google.com/s2/favicons?domain=bill.com&sz=128",
     "auth_type": "api_key",
     "oauth_config": null,
     "supported_directions": [

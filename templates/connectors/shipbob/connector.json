@@ -16,6 +16,7 @@
     "name": "ShipBob",
     "description": "ShipBob fulfillment and inventory.",
     "category": "fulfillment",
+    "icon_url": "https://www.google.com/s2/favicons?domain=shipbob.com&sz=128",
     "auth_type": "api_key",
     "oauth_config": null,
     "supported_directions": ["inbound"],

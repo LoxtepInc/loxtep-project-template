@@ -16,6 +16,7 @@
     "name": "Loop Returns",
     "description": "Loop Returns warehouse return list (catalog runtime).",
     "category": "e_commerce",
+    "icon_url": "https://www.google.com/s2/favicons?domain=loopreturns.com&sz=128",
     "auth_type": "api_key",
     "supported_directions": ["inbound"],
     "supported_entities": ["returns"],

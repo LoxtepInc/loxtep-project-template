@@ -25,6 +25,7 @@
     "name": "ShipStation",
     "description": "ShipStation fulfillment via CatalogRuntimeConnector (shipments, orders, carriers, warehouses)",
     "category": "fulfillment",
+    "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-shipstation/icon.svg",
     "documentation_url": "https://www.shipstation.com/docs/api/requirements/",
     "auth_type": "api_key",
     "supported_directions": [

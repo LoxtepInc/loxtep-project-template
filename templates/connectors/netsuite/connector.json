@@ -25,6 +25,7 @@
     "name": "NetSuite",
     "description": "NetSuite ERP via CatalogRuntimeConnector (REST record API).",
     "category": "finance",
+    "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-netsuite/icon.svg",
     "documentation_url": "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_1546938079.html",
     "auth_type": "oauth2",
     "oauth_config": {

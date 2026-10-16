@@ -16,6 +16,7 @@
     "name": "Re:do",
     "description": "Re:do returns platform connector (returns list sync)",
     "category": "e_commerce",
+    "icon_url": "https://www.google.com/s2/favicons?domain=getredo.com&sz=128",
     "auth_type": "api_key",
     "supported_directions": ["inbound"],
     "supported_entities": ["returns"],

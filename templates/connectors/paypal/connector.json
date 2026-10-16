@@ -16,6 +16,7 @@
     "name": "PayPal / Braintree",
     "description": "PayPal reporting API (transactions) via catalog runtime.",
     "category": "finance",
+    "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-paypal-transaction/icon.svg",
     "auth_type": "oauth2",
     "supported_directions": ["inbound"],
     "supported_entities": ["transactions"],

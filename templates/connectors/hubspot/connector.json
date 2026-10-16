@@ -16,6 +16,7 @@
     "name": "HubSpot",
     "description": "Connect HubSpot CRM for contacts, companies, deals, tickets, and products.",
     "category": "crm",
+    "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-hubspot/icon.svg",
     "auth_type": "oauth2",
     "oauth_config": {
       "authorization_url": "https://app.hubspot.com/oauth/authorize",
