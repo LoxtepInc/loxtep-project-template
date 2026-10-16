@@ -27,7 +27,7 @@
     "name": "Snowflake",
     "description": "Snowflake warehouse connector for bound tables. Does not ingest rows into Loxtep storage.",
     "category": "database",
-    "icon_url": "https://www.svgrepo.com/show/354322/snowflake.svg",
+    "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-snowflake/icon.svg",
     "documentation_url": "https://docs.snowflake.com/",
     "auth_type": "custom",
     "oauth_config": null,

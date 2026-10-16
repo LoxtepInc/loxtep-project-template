@@ -25,7 +25,7 @@
     "name": "SDK Connector",
     "description": "Write and read events programmatically using @loxtep/sdk (Node.js) or loxtep (Python)",
     "category": "basic",
-    "icon_url": null,
+    "icon_url": "https://cdn.jsdelivr.net/npm/lucide-static@0.544.0/icons/code.svg",
     "documentation_url": "https://docs.loxtep.com/connectors/sdk",
     "auth_type": "jwt",
     "oauth_config": null,

@@ -20,6 +20,7 @@
     "name": "Mailchimp",
     "description": "Mailchimp Marketing API connector for audiences, campaigns, and reports",
     "category": "marketing",
+    "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-mailchimp/icon.svg",
     "documentation_url": "https://mailchimp.com/developer/marketing/api/",
     "auth_type": "api_key",
     "supported_directions": ["inbound"],

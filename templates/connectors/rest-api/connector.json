@@ -27,7 +27,7 @@
     "name": "REST API",
     "description": "Generic REST API connector for pulling data from HTTP JSON endpoints",
     "category": "basic",
-    "icon_url": null,
+    "icon_url": "/images/connectors/rest-api.svg",
     "documentation_url": "https://docs.loxtep.com/connectors/rest-api",
     "auth_type": "{{AUTH_TYPE}}",
     "oauth_config": {

@@ -16,6 +16,7 @@
     "name": "Northbeam",
     "description": "Northbeam attribution connector for multi-touch attribution and ad analytics",
     "category": "analytics",
+    "icon_url": "https://www.google.com/s2/favicons?domain=northbeam.io&sz=128",
     "auth_type": "api_key",
     "supported_directions": ["inbound"],
     "supported_entities": ["attribution", "ad_spend", "conversions", "channels"],

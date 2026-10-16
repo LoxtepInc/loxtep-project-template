@@ -37,7 +37,7 @@
     "name": "File Transfer",
     "description": "Protocol-agnostic file ingestion: SFTP, FTP, HTTP, S3, GCS, Azure Blob, or local filesystem.",
     "category": "basic",
-    "icon_url": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/files.svg",
+    "icon_url": "https://cdn.jsdelivr.net/npm/simple-icons@16.35.0/icons/files.svg",
     "documentation_url": "https://docs.loxtep.com/connectors/file-transfer",
     "auth_type": "custom",
     "oauth_config": null,

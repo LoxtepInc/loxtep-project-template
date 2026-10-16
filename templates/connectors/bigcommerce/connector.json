@@ -16,6 +16,7 @@
     "name": "BigCommerce",
     "description": "BigCommerce e-commerce connector (orders, customers, products)",
     "category": "e_commerce",
+    "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-bigcommerce/icon.svg",
     "auth_type": "oauth2",
     "supported_directions": ["inbound"],
     "supported_entities": ["orders", "customers", "products"],

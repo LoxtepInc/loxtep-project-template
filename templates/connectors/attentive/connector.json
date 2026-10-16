@@ -16,6 +16,7 @@
     "name": "Attentive",
     "description": "Attentive SMS marketing connector for subscribers, campaigns, and engagement",
     "category": "marketing",
+    "icon_url": "https://www.google.com/s2/favicons?domain=attentive.com&sz=128",
     "auth_type": "api_key",
     "supported_directions": ["inbound"],
     "supported_entities": ["subscribers", "campaigns", "events", "signups"],
