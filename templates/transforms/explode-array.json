@@ -4,7 +4,7 @@
   "slug": "explode-array",
   "name": "Explode Array",
   "description": "Converts array elements into separate events/rows",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "data-manipulation",
     "array",
@@ -25,7 +25,8 @@
     "transform_type": "explode_array",
     "operation_config": {
       "field": "items",
-      "include_original": true
+      "include_original": true,
+      "on_empty": "drop"
     },
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}"
