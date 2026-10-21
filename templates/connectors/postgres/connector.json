@@ -41,7 +41,8 @@
     "required_scopes": null,
     "required_permissions": [
       "SELECT",
-      "REPLICATION (CDC only — not required for discovery, preview, or snapshot/incremental sample)"
+      "REPLICATION (CDC only — not required for discovery, preview, or snapshot/incremental sample)",
+      "auth_mode=iam: the runtime principal needs rds-db:connect on arn:aws:rds-db:REGION:ACCOUNT:dbuser:PROXY_RESOURCE_ID/DB_USERNAME. The database user needs the rds_iam role, and the RDS Proxy must have IAM authentication enabled. Do not store the auth token."
     ],
     "version": "1.1.0",
     "is_beta": false,
@@ -57,7 +58,17 @@
       "database": { "type": "string", "help": "Database name." },
       "username": {
         "type": "string",
-        "help": "Also accepted on connector credentials; required for non-localhost discrete mode."
+        "help": "Database user. For auth_mode=iam this is the rds_iam user."
+      },
+      "auth_mode": {
+        "type": "string",
+        "enum": ["password", "iam"],
+        "default": "password",
+        "help": "password uses a stored secret. iam signs a fresh RDS auth token for each physical connection (RDS Proxy). Requires ssl_mode=verify-full, ssl_ca, and rds-db:connect. No password and no connection_string."
+      },
+      "aws_region": {
+        "type": "string",
+        "help": "Region of the RDS Proxy or database. Required for auth_mode=iam when it differs from the runtime AWS_REGION."
       },
       "password": {
         "type": "string",
@@ -218,6 +229,7 @@
     "description": "Native PostgreSQL connector: private-VPC probe, table discovery, bounded preview/sample, and optional CDC when logical replication is ready.",
     "follow_up_notes": [
       "Runtime: platform PostgresConnector (native) + connectors-private-512 for customer_vpc probe/sample (postgres-private-probe/1, postgres-private-sample/1).",
+      "auth_mode=iam applies to private probe, discovery, sample, and query ingestion. It rejects connection_string, a stored password, pg_pool_options password/ssl overrides, and CDC. Tokens are signed per connection and never stored or logged. The runtime principal needs rds-db:connect.",
       "custom_settings_schema documents PostgresConnectorCustomSettings for UX/docs; runtime validation is in platform TypeScript.",
       "Discovery and sampling need SELECT only. CDC needs wal_level=logical (or rds.logical_replication=1) plus REPLICATION / publication+slot privileges.",
       "Actions: test_connection, list_collections (tables), capture_samples (persist), fetch_data (preview-only), push_data. Listing/preview/sample never start ingestion."
