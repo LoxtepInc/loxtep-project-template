@@ -40,7 +40,8 @@
       "url": {
         "type": "string",
         "format": "uri",
-        "help": "Required. Target URL; mirrors WebhookDestinationConfigSchema."
+        "help": "Required. Target URL; mirrors WebhookDestinationConfigSchema.",
+        "x-direction": "connection"
       },
       "method": {
         "type": "string",
@@ -49,7 +50,8 @@
           "PUT",
           "PATCH"
         ],
-        "help": "HTTP method; default POST."
+        "help": "HTTP method; default POST.",
+        "x-direction": "outbound"
       },
       "content_type": {
         "type": "string",
@@ -58,7 +60,8 @@
           "application/x-www-form-urlencoded",
           "text/plain"
         ],
-        "help": "Request body content type."
+        "help": "Request body content type.",
+        "x-direction": "outbound"
       },
       "auth_method": {
         "type": "string",
@@ -69,83 +72,102 @@
           "api_key",
           "custom_header"
         ],
-        "help": "Outbound auth style."
+        "help": "Outbound auth style.",
+        "x-direction": "connection"
       },
       "bearer_token": {
         "type": "string",
         "sensitive": true,
-        "help": "When auth_method=bearer."
+        "help": "When auth_method=bearer.",
+        "x-direction": "connection"
       },
       "basic_username": {
         "type": "string",
-        "help": "When auth_method=basic."
+        "help": "When auth_method=basic.",
+        "x-direction": "connection"
       },
       "basic_password": {
         "type": "string",
         "sensitive": true,
-        "help": "When auth_method=basic."
+        "help": "When auth_method=basic.",
+        "x-direction": "connection"
       },
       "api_key_header": {
         "type": "string",
-        "help": "Header name when auth_method=api_key."
+        "help": "Header name when auth_method=api_key.",
+        "x-direction": "connection"
       },
       "api_key_value": {
         "type": "string",
         "sensitive": true,
-        "help": "Header value when auth_method=api_key."
+        "help": "Header value when auth_method=api_key.",
+        "x-direction": "connection"
       },
       "custom_header_name": {
         "type": "string",
-        "help": "When auth_method=custom_header."
+        "help": "When auth_method=custom_header.",
+        "x-direction": "connection"
       },
       "custom_header_value": {
         "type": "string",
         "sensitive": true,
-        "help": "When auth_method=custom_header."
+        "help": "When auth_method=custom_header.",
+        "x-direction": "connection"
       },
       "headers": {
         "type": "string",
-        "help": "Extra headers as JSON object string→string."
+        "help": "Extra headers as JSON object string\u2192string.",
+        "x-direction": "outbound"
       },
       "timeout_ms": {
         "type": "string",
-        "help": "Request timeout ms (1000–300000); default 30000."
+        "help": "Request timeout ms (1000\u2013300000); default 30000.",
+        "x-direction": "outbound"
       },
       "batch_size": {
         "type": "string",
-        "help": "Records per HTTP request (1–1000); default 1."
+        "help": "Records per HTTP request (1\u20131000); default 1.",
+        "x-direction": "outbound"
       },
       "wrap_single_record": {
         "type": "string",
-        "help": "Boolean JSON when batching single record as array."
+        "help": "Boolean JSON when batching single record as array.",
+        "x-direction": "outbound"
       },
       "max_retries": {
         "type": "string",
-        "help": "0–10; default 3."
+        "help": "0\u201310; default 3.",
+        "x-direction": "outbound"
       },
       "retry_delay_ms": {
         "type": "string",
-        "help": "Initial backoff ms; default 1000."
+        "help": "Initial backoff ms; default 1000.",
+        "x-direction": "outbound"
       },
       "max_retry_delay_ms": {
         "type": "string",
-        "help": "Backoff cap ms; default 30000."
+        "help": "Backoff cap ms; default 30000.",
+        "x-direction": "outbound"
       },
       "retry_on_status": {
         "type": "string",
-        "help": "JSON array of HTTP status codes to retry (default 429,5xx subset in runtime)."
+        "help": "JSON array of HTTP status codes to retry (default 429,5xx subset in runtime).",
+        "x-direction": "outbound"
       },
       "body_template": {
         "type": "string",
-        "help": "Optional template; use {{records}} placeholder per runtime."
+        "help": "Optional template; use {{records}} placeholder per runtime.",
+        "x-direction": "outbound"
       },
       "verify_ssl": {
         "type": "string",
-        "help": "Boolean JSON; default true."
+        "help": "Boolean JSON; default true.",
+        "x-direction": "outbound"
       },
       "success_status_codes": {
         "type": "string",
-        "help": "Optional JSON array of ints; default 200–299."
+        "help": "Optional JSON array of ints; default 200\u2013299.",
+        "x-direction": "outbound"
       }
     },
     "metadata": {
@@ -176,7 +198,7 @@
     "platform_native_provider": "webhook-destination",
     "description": "Connector = connection to a user-controlled HTTP endpoint; outbound delivery is implemented in the platform native provider.",
     "follow_up_notes": [
-      "Runtime: WebhookDestinationConnector — not CatalogRuntimeConnector; retries and signing stay in platform-backend until a declarative outbound HTTP runner ships.",
+      "Runtime: WebhookDestinationConnector \u2014 not CatalogRuntimeConnector; retries and signing stay in platform-backend until a declarative outbound HTTP runner ships.",
       "custom_settings_schema mirrors WebhookDestinationConfigSchema for UX/docs; zod in platform-backend remains the runtime validator.",
       "actions/*.json document platform_native operations; execution.protocol platform_native is not executed by CatalogRuntimeConnector."
     ],

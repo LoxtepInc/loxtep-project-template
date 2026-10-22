@@ -51,43 +51,95 @@
     "custom_settings_schema": {
       "host": {
         "type": "string",
-        "help": "Databricks workspace host (e.g. dbc-xxxx.cloud.databricks.com). No https:// prefix required."
+        "help": "Databricks workspace host (e.g. dbc-xxxx.cloud.databricks.com). No https:// prefix required.",
+        "x-direction": "connection"
       },
       "warehouse_id": {
         "type": "string",
-        "help": "SQL Warehouse ID used for Statement Execution API calls."
+        "help": "SQL Warehouse ID used for Statement Execution API calls.",
+        "x-direction": "connection"
       },
       "http_path": {
         "type": "string",
-        "help": "Optional SQL Warehouse HTTP path (e.g. /sql/1.0/warehouses/{id}). Informational; Statement Execution uses warehouse_id."
+        "help": "Optional SQL Warehouse HTTP path (e.g. /sql/1.0/warehouses/{id}). Informational; Statement Execution uses warehouse_id.",
+        "x-direction": "connection"
       },
       "catalog": {
         "type": "string",
-        "help": "Optional default Unity Catalog catalog for the session."
+        "help": "Optional default Unity Catalog catalog for the session.",
+        "x-direction": "connection"
       },
       "schema": {
         "type": "string",
-        "help": "Optional default schema for the session."
+        "help": "Optional default schema for the session.",
+        "x-direction": "connection"
       },
       "auth_method": {
         "type": "string",
-        "enum": ["pat", "oauth"],
+        "enum": [
+          "pat",
+          "oauth"
+        ],
         "default": "pat",
-        "help": "pat uses the token field; oauth uses oauth_access_token."
+        "help": "pat uses the token field; oauth uses oauth_access_token.",
+        "x-direction": "connection"
       },
       "token": {
         "type": "string",
         "sensitive": true,
-        "help": "Personal access token (PAT). Externalized to SSM."
+        "help": "Personal access token (PAT). Externalized to SSM.",
+        "x-direction": "connection"
       },
       "oauth_access_token": {
         "type": "string",
         "sensitive": true,
-        "help": "OAuth access token for workspace auth. Externalized to SSM."
+        "help": "OAuth access token for workspace auth. Externalized to SSM.",
+        "x-direction": "connection"
       },
       "statement_timeout_seconds": {
         "type": "string",
-        "help": "Per-statement wait timeout in seconds (5–50). Default 30."
+        "help": "Per-statement wait timeout in seconds (5\u201350). Default 30.",
+        "x-direction": "connection"
+      },
+      "dest_catalog": {
+        "type": "string",
+        "help": "Outbound: Unity Catalog catalog for pushData.",
+        "x-direction": "outbound"
+      },
+      "dest_database": {
+        "type": "string",
+        "help": "Outbound: destination database/schema namespace for pushData.",
+        "x-direction": "outbound"
+      },
+      "dest_schema": {
+        "type": "string",
+        "help": "Outbound: destination schema for pushData.",
+        "x-direction": "outbound"
+      },
+      "dest_table": {
+        "type": "string",
+        "help": "Outbound: destination table for pushData.",
+        "x-direction": "outbound"
+      },
+      "write_mode": {
+        "type": "string",
+        "enum": [
+          "append",
+          "upsert",
+          "replace"
+        ],
+        "help": "Outbound write mode.",
+        "x-direction": "outbound"
+      },
+      "primary_key": {
+        "type": "string",
+        "help": "Outbound: JSON string array of PK columns for upsert.",
+        "x-direction": "outbound"
+      },
+      "sync_config": {
+        "type": "string",
+        "help": "Outbound: JSON sync_config object for warehouse pushData.",
+        "x-direction": "outbound"
       }
     },
     "metadata": {

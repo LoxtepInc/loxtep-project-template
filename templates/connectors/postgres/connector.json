@@ -41,7 +41,7 @@
     "required_scopes": null,
     "required_permissions": [
       "SELECT",
-      "REPLICATION (CDC only — not required for discovery, preview, or snapshot/incremental sample)",
+      "REPLICATION (CDC only \u2014 not required for discovery, preview, or snapshot/incremental sample)",
       "auth_mode=iam: the runtime principal needs rds-db:connect on arn:aws:rds-db:REGION:ACCOUNT:dbuser:PROXY_RESOURCE_ID/DB_USERNAME. The database user needs the rds_iam role, and the RDS Proxy must have IAM authentication enabled. Do not store the auth token."
     ],
     "version": "1.1.0",
@@ -51,108 +51,189 @@
         "type": "string",
         "format": "multiline",
         "sensitive": true,
-        "help": "Optional postgres:// URL; with resolution flexible, passed to pg as connectionString when set."
+        "help": "Optional postgres:// URL; with resolution flexible, passed to pg as connectionString when set.",
+        "x-direction": "connection"
       },
-      "host": { "type": "string", "help": "Discrete host when not using connection_string." },
-      "port": { "type": "string", "help": "Integer port; default 5432." },
-      "database": { "type": "string", "help": "Database name." },
+      "host": {
+        "type": "string",
+        "help": "Discrete host when not using connection_string.",
+        "x-direction": "connection"
+      },
+      "port": {
+        "type": "string",
+        "help": "Integer port; default 5432.",
+        "x-direction": "connection"
+      },
+      "database": {
+        "type": "string",
+        "help": "Database name.",
+        "x-direction": "connection"
+      },
       "username": {
         "type": "string",
-        "help": "Database user. For auth_mode=iam this is the rds_iam user."
+        "help": "Database user. For auth_mode=iam this is the rds_iam user.",
+        "x-direction": "connection"
       },
       "auth_mode": {
         "type": "string",
-        "enum": ["password", "iam"],
+        "enum": [
+          "password",
+          "iam"
+        ],
         "default": "password",
-        "help": "password uses a stored secret. iam signs a fresh RDS auth token for each physical connection (RDS Proxy). Requires ssl_mode=verify-full, ssl_ca, and rds-db:connect. No password and no connection_string."
+        "help": "password uses a stored secret. iam signs a fresh RDS auth token for each physical connection (RDS Proxy). Requires ssl_mode=verify-full, ssl_ca, and rds-db:connect. No password and no connection_string.",
+        "x-direction": "connection"
       },
       "aws_region": {
         "type": "string",
-        "help": "Region of the RDS Proxy or database. Required for auth_mode=iam when it differs from the runtime AWS_REGION."
+        "help": "Region of the RDS Proxy or database. Required for auth_mode=iam when it differs from the runtime AWS_REGION.",
+        "x-direction": "connection"
       },
       "password": {
         "type": "string",
         "sensitive": true,
-        "help": "Also accepted on connector credentials."
+        "help": "Also accepted on connector credentials.",
+        "x-direction": "connection"
       },
-      "schema": { "type": "string", "help": "Default search_path schema; default public." },
+      "schema": {
+        "type": "string",
+        "help": "Default search_path schema; default public.",
+        "x-direction": "connection"
+      },
       "ssl_mode": {
         "type": "string",
-        "enum": ["disable", "allow", "prefer", "require", "verify-ca", "verify-full"],
+        "enum": [
+          "disable",
+          "allow",
+          "prefer",
+          "require",
+          "verify-ca",
+          "verify-full"
+        ],
         "default": "require",
-        "help": "Remote hosts default to require. verify-ca and verify-full need ssl_ca (PEM)."
+        "help": "Remote hosts default to require. verify-ca and verify-full need ssl_ca (PEM).",
+        "x-direction": "connection"
       },
       "ssl_ca": {
         "type": "string",
         "format": "multiline",
         "sensitive": true,
-        "help": "CA PEM for verify-ca / verify-full. Externalized like password."
+        "help": "CA PEM for verify-ca / verify-full. Externalized like password.",
+        "x-direction": "connection"
       },
       "network_binding": {
         "type": "string",
-        "enum": ["customer_vpc", "public"],
-        "help": "customer_vpc tests and ingests from connectors-private-512 in the instance VPC. Stored on connector metadata."
+        "enum": [
+          "customer_vpc",
+          "public"
+        ],
+        "help": "customer_vpc tests and ingests from connectors-private-512 in the instance VPC. Stored on connector metadata.",
+        "x-direction": "connection"
       },
       "instance_id": {
         "type": "string",
-        "help": "Runtime instance whose private subnets and CustomerConnectorSecurityGroup reach the database."
+        "help": "Runtime instance whose private subnets and CustomerConnectorSecurityGroup reach the database.",
+        "x-direction": "connection"
       },
       "cdc": {
         "type": "object",
-        "help": "Logical CDC: enabled, publication, replication_slot, plugin=pgoutput."
+        "help": "Logical CDC: enabled, publication, replication_slot, plugin=pgoutput.",
+        "x-direction": "inbound"
       },
       "cdc_enabled": {
         "type": "string",
-        "enum": ["true", "false"],
-        "help": "Enable pgoutput CDC after wal_level=logical."
+        "enum": [
+          "true",
+          "false"
+        ],
+        "help": "Enable pgoutput CDC after wal_level=logical.",
+        "x-direction": "inbound"
       },
       "cdc_publication": {
         "type": "string",
-        "help": "Existing publication (table owner CREATE PUBLICATION … FOR TABLE)."
+        "help": "Existing publication (table owner CREATE PUBLICATION \u2026 FOR TABLE).",
+        "x-direction": "inbound"
       },
       "cdc_replication_slot": {
         "type": "string",
-        "help": "Logical slot name; created on first CDC run when the role has rds_replication."
+        "help": "Logical slot name; created on first CDC run when the role has rds_replication.",
+        "x-direction": "inbound"
       },
       "tables": {
         "type": "string",
-        "help": "JSON string array of table names to include (inbound filter)."
+        "help": "JSON string array of table names to include (inbound filter).",
+        "x-direction": "inbound"
       },
       "exclude_tables": {
         "type": "string",
-        "help": "JSON string array to exclude."
+        "help": "JSON string array to exclude.",
+        "x-direction": "inbound"
       },
-      "batch_size": { "type": "string", "help": "Integer fetch batch; default 1000." },
-      "pool_size": { "type": "string", "help": "Integer pool size; default 5." },
+      "batch_size": {
+        "type": "string",
+        "help": "Integer fetch batch; default 1000.",
+        "x-direction": "inbound"
+      },
+      "pool_size": {
+        "type": "string",
+        "help": "Integer pool size; default 5.",
+        "x-direction": "connection"
+      },
       "pg_pool_options": {
         "type": "object",
-        "help": "Optional pg Pool keys safelisted in runtime (max, connectionTimeoutMillis, application_name, …)."
+        "help": "Optional pg Pool keys safelisted in runtime (max, connectionTimeoutMillis, application_name, \u2026).",
+        "x-direction": "connection"
       },
       "table": {
         "type": "string",
-        "help": "Outbound: destination table name for pushData when set with other dest fields."
+        "help": "Outbound: destination table name for pushData when set with other dest fields.",
+        "x-direction": "outbound"
       },
       "write_mode": {
         "type": "string",
-        "enum": ["append", "upsert", "replace"],
-        "help": "Outbound write mode."
+        "enum": [
+          "append",
+          "upsert",
+          "replace"
+        ],
+        "help": "Outbound write mode.",
+        "x-direction": "outbound"
       },
       "primary_key": {
         "type": "string",
-        "help": "JSON string array of PK columns for upsert."
+        "help": "JSON string array of PK columns for upsert.",
+        "x-direction": "outbound"
       },
       "update_columns": {
         "type": "string",
-        "help": "JSON string array of columns to update on upsert."
+        "help": "JSON string array of columns to update on upsert.",
+        "x-direction": "outbound"
       },
-      "statement_timeout": { "type": "string", "help": "Outbound statement timeout ms." },
-      "auto_create_table": { "type": "string", "help": "Boolean JSON." },
+      "statement_timeout": {
+        "type": "string",
+        "help": "Outbound statement timeout ms.",
+        "x-direction": "outbound"
+      },
+      "auto_create_table": {
+        "type": "string",
+        "help": "Boolean JSON.",
+        "x-direction": "outbound"
+      },
       "column_mapping": {
         "type": "string",
-        "help": "JSON object map source→dest column names."
+        "help": "JSON object map source\u2192dest column names.",
+        "x-direction": "outbound"
       },
-      "exclude_columns": { "type": "string", "help": "JSON string array." },
-      "truncate_before_write": { "type": "string", "help": "Boolean JSON." }
+      "exclude_columns": {
+        "type": "string",
+        "help": "JSON string array.",
+        "x-direction": "outbound"
+      },
+      "truncate_before_write": {
+        "type": "string",
+        "help": "Boolean JSON.",
+        "x-direction": "outbound"
+      }
     },
     "metadata": {
       "template_slug": "postgres",
@@ -185,7 +266,7 @@
         }
       },
       "private_probe_contract": "postgres-private-probe/1",
-      "managed_ingest_path": "list_connector_entities → confirm_connector_entity_selection (connector-ingestion PKO); not the database-cdc workflow template",
+      "managed_ingest_path": "list_connector_entities \u2192 confirm_connector_entity_selection (connector-ingestion PKO); not the database-cdc workflow template",
       "connection_config_spec": {
         "resolution": "flexible",
         "help": "Use either a single connection_string for the driver or discrete host/database/credentials; optional pg_pool_options merges into the pg Pool (safelisted keys only).",
@@ -235,11 +316,26 @@
       "Actions: test_connection, list_collections (tables), capture_samples (persist), fetch_data (preview-only), push_data. Listing/preview/sample never start ingestion."
     ],
     "actions": [
-      { "key": "postgres_test_connection", "definition_path": "actions/test-connection/definition.json" },
-      { "key": "postgres_list_tables", "definition_path": "actions/list-tables/definition.json" },
-      { "key": "postgres_capture_samples", "definition_path": "actions/capture-samples/definition.json" },
-      { "key": "postgres_fetch_data", "definition_path": "actions/fetch-data/definition.json" },
-      { "key": "postgres_push_data", "definition_path": "actions/push-data/definition.json" }
+      {
+        "key": "postgres_test_connection",
+        "definition_path": "actions/test-connection/definition.json"
+      },
+      {
+        "key": "postgres_list_tables",
+        "definition_path": "actions/list-tables/definition.json"
+      },
+      {
+        "key": "postgres_capture_samples",
+        "definition_path": "actions/capture-samples/definition.json"
+      },
+      {
+        "key": "postgres_fetch_data",
+        "definition_path": "actions/fetch-data/definition.json"
+      },
+      {
+        "key": "postgres_push_data",
+        "definition_path": "actions/push-data/definition.json"
+      }
     ]
   }
 }
