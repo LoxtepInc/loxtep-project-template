@@ -50,53 +50,102 @@
     "custom_settings_schema": {
       "account": {
         "type": "string",
-        "help": "Snowflake account identifier (e.g. xy12345.us-east-1)."
+        "help": "Snowflake account identifier (e.g. xy12345.us-east-1).",
+        "x-direction": "connection"
       },
       "warehouse": {
         "type": "string",
-        "help": "Warehouse used for metadata and federated queries."
+        "help": "Warehouse used for metadata and federated queries.",
+        "x-direction": "connection"
       },
       "database": {
         "type": "string",
-        "help": "Default database for the session."
+        "help": "Default database for the session.",
+        "x-direction": "connection"
       },
       "schema": {
         "type": "string",
-        "help": "Default schema for the session."
+        "help": "Default schema for the session.",
+        "x-direction": "connection"
       },
       "role": {
         "type": "string",
-        "help": "Snowflake role. Prefer a SELECT-only role."
+        "help": "Snowflake role. Prefer a SELECT-only role.",
+        "x-direction": "connection"
       },
       "username": {
         "type": "string",
-        "help": "Snowflake user name."
+        "help": "Snowflake user name.",
+        "x-direction": "connection"
       },
       "auth_method": {
         "type": "string",
-        "enum": ["password", "key_pair"],
+        "enum": [
+          "password",
+          "key_pair"
+        ],
         "default": "key_pair",
-        "help": "password uses the password field; key_pair uses private_key and optional private_key_passphrase."
+        "help": "password uses the password field; key_pair uses private_key and optional private_key_passphrase.",
+        "x-direction": "connection"
       },
       "password": {
         "type": "string",
         "sensitive": true,
-        "help": "Password auth secret. Externalized to SSM."
+        "help": "Password auth secret. Externalized to SSM.",
+        "x-direction": "connection"
       },
       "private_key": {
         "type": "string",
         "format": "multiline",
         "sensitive": true,
-        "help": "PEM private key for key-pair (SNOWFLAKE_JWT) auth. Externalized to SSM."
+        "help": "PEM private key for key-pair (SNOWFLAKE_JWT) auth. Externalized to SSM.",
+        "x-direction": "connection"
       },
       "private_key_passphrase": {
         "type": "string",
         "sensitive": true,
-        "help": "Optional passphrase for an encrypted private key. Externalized to SSM."
+        "help": "Optional passphrase for an encrypted private key. Externalized to SSM.",
+        "x-direction": "connection"
       },
       "statement_timeout_seconds": {
         "type": "string",
-        "help": "Per-statement timeout in seconds. Default 60."
+        "help": "Per-statement timeout in seconds. Default 60.",
+        "x-direction": "connection"
+      },
+      "dest_database": {
+        "type": "string",
+        "help": "Outbound: destination database for pushData.",
+        "x-direction": "outbound"
+      },
+      "dest_schema": {
+        "type": "string",
+        "help": "Outbound: destination schema for pushData.",
+        "x-direction": "outbound"
+      },
+      "dest_table": {
+        "type": "string",
+        "help": "Outbound: destination table for pushData.",
+        "x-direction": "outbound"
+      },
+      "write_mode": {
+        "type": "string",
+        "enum": [
+          "append",
+          "upsert",
+          "replace"
+        ],
+        "help": "Outbound write mode.",
+        "x-direction": "outbound"
+      },
+      "primary_key": {
+        "type": "string",
+        "help": "Outbound: JSON string array of PK columns for upsert.",
+        "x-direction": "outbound"
+      },
+      "sync_config": {
+        "type": "string",
+        "help": "Outbound: JSON sync_config object for warehouse pushData.",
+        "x-direction": "outbound"
       }
     },
     "metadata": {

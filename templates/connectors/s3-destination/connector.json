@@ -39,15 +39,18 @@
     "custom_settings_schema": {
       "bucket": {
         "type": "string",
-        "help": "Required. S3 bucket name (3–63 chars); mirrors S3DestinationConfigSchema."
+        "help": "Required. S3 bucket name (3\u201363 chars); mirrors S3DestinationConfigSchema.",
+        "x-direction": "connection"
       },
       "prefix": {
         "type": "string",
-        "help": "Object key prefix inside the bucket; default \"\"."
+        "help": "Object key prefix inside the bucket; default \"\".",
+        "x-direction": "outbound"
       },
       "region": {
         "type": "string",
-        "help": "AWS region; default us-east-1."
+        "help": "AWS region; default us-east-1.",
+        "x-direction": "connection"
       },
       "format": {
         "type": "string",
@@ -57,7 +60,8 @@
           "csv",
           "parquet"
         ],
-        "help": "Output file format."
+        "help": "Output file format.",
+        "x-direction": "outbound"
       },
       "compression": {
         "type": "string",
@@ -66,7 +70,8 @@
           "gzip",
           "snappy"
         ],
-        "help": "Compression; snappy applies to parquet path."
+        "help": "Compression; snappy applies to parquet path.",
+        "x-direction": "outbound"
       },
       "partitioning": {
         "type": "string",
@@ -78,58 +83,71 @@
           "hourly",
           "custom"
         ],
-        "help": "Partition layout under prefix."
+        "help": "Partition layout under prefix.",
+        "x-direction": "outbound"
       },
       "partition_columns": {
         "type": "string",
-        "help": "For partitioning=custom: array of column names in JSON (see runtime schema)."
+        "help": "For partitioning=custom: array of column names in JSON (see runtime schema).",
+        "x-direction": "outbound"
       },
       "access_key_id": {
         "type": "string",
         "sensitive": true,
-        "help": "Optional if using IAM role on the worker; else often supplied via connector api_key."
+        "help": "Optional if using IAM role on the worker; else often supplied via connector api_key.",
+        "x-direction": "connection"
       },
       "secret_access_key": {
         "type": "string",
         "sensitive": true,
-        "help": "Optional; often supplied via connector api_secret."
+        "help": "Optional; often supplied via connector api_secret.",
+        "x-direction": "connection"
       },
       "role_arn": {
         "type": "string",
-        "help": "Optional assume-role ARN."
+        "help": "Optional assume-role ARN.",
+        "x-direction": "connection"
       },
       "endpoint_url": {
         "type": "string",
         "format": "uri",
-        "help": "S3-compatible API base URL (MinIO, etc.)."
+        "help": "S3-compatible API base URL (MinIO, etc.).",
+        "x-direction": "connection"
       },
       "force_path_style": {
         "type": "string",
-        "help": "Boolean in JSON for path-style addressing."
+        "help": "Boolean in JSON for path-style addressing.",
+        "x-direction": "outbound"
       },
       "max_file_size": {
         "type": "string",
-        "help": "Integer bytes; 0 = unlimited."
+        "help": "Integer bytes; 0 = unlimited.",
+        "x-direction": "outbound"
       },
       "max_records_per_file": {
         "type": "string",
-        "help": "Integer cap per file; 0 = unlimited."
+        "help": "Integer cap per file; 0 = unlimited.",
+        "x-direction": "outbound"
       },
       "file_name_pattern": {
         "type": "string",
-        "help": "Pattern with placeholders {entity}, {timestamp}, {uuid}, {partition}."
+        "help": "Pattern with placeholders {entity}, {timestamp}, {uuid}, {partition}.",
+        "x-direction": "outbound"
       },
       "csv_options": {
         "type": "string",
-        "help": "Object: delimiter, quote, header, escape, null_value (JSON)."
+        "help": "Object: delimiter, quote, header, escape, null_value (JSON).",
+        "x-direction": "outbound"
       },
       "json_options": {
         "type": "string",
-        "help": "Object: pretty, array_wrapper (JSON)."
+        "help": "Object: pretty, array_wrapper (JSON).",
+        "x-direction": "outbound"
       },
       "parquet_options": {
         "type": "string",
-        "help": "Object: row_group_size, page_size (JSON)."
+        "help": "Object: row_group_size, page_size (JSON).",
+        "x-direction": "outbound"
       }
     },
     "metadata": {
@@ -160,7 +178,7 @@
     "platform_native_provider": "s3-destination",
     "description": "Connector = connection to object storage; outbound write behavior is implemented in the platform native provider (AWS SDK). Entity, auth, and custom_settings_schema are the declarative contract from this repo.",
     "follow_up_notes": [
-      "Runtime: S3DestinationConnector — not CatalogRuntimeConnector; write/streaming logic stays in platform-backend until a native recipe runner exists.",
+      "Runtime: S3DestinationConnector \u2014 not CatalogRuntimeConnector; write/streaming logic stays in platform-backend until a native recipe runner exists.",
       "custom_settings_schema mirrors S3DestinationConfigSchema for UX/docs; zod in platform-backend remains the runtime validator.",
       "actions/*.json document platform_native operations (not catalog_http_*); dispatcher wiring is future work."
     ],
