@@ -1,0 +1,62 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/workflow.json",
+  "template_type": "workflow",
+  "slug": "connector-delivery",
+  "name": "Connector Delivery Workflow",
+  "description": "Deliver a published data product to an outbound connector target: data-product trigger → transform → outbound connection. Inverse of connector-ingestion.",
+  "version": "1.0.0",
+  "produces_kind": "consumer",
+  "tags": [
+    "connector",
+    "delivery",
+    "outbound",
+    "activate",
+    "postgres",
+    "webhook"
+  ],
+  "use_cases": [
+    "Push a published data product into a customer PostgreSQL table",
+    "Deliver product events to webhook / S3 destination connectors",
+    "Scaffold Activate-stage delivery flows from the project template"
+  ],
+  "dependencies": [
+    "Requires an existing published data product and an org connector (auth/transport)"
+  ],
+  "entity": {
+    "workflow_id": "{{WORKFLOW_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "name": "{{WORKFLOW_NAME}}",
+    "description": "{{WORKFLOW_DESCRIPTION}}",
+    "template_id": "{{TEMPLATE_ID}}",
+    "workflow_type": "delivery",
+    "domain_id": "{{DOMAIN_ID}}",
+    "configuration": {
+      "activation": "event"
+    },
+    "deployment": null,
+    "status": "inactive",
+    "metrics": {},
+    "metadata": {
+      "template_slug": "connector-delivery",
+      "stage": "delivery",
+      "upstream_data_product": "{{SOURCE_DATA_PRODUCT_NAME}}",
+      "transform_id": "{{TRANSFORM_ID}}"
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "placeholders": {
+    "{{WORKFLOW_ID}}": "Generated UUID",
+    "{{ORGANIZATION_ID}}": "Organization ID",
+    "{{PROJECT_ID}}": "Project ID",
+    "{{WORKFLOW_NAME}}": "e.g. Publish accounts to Postgres",
+    "{{WORKFLOW_DESCRIPTION}}": "Delivery workflow for outbound connector target",
+    "{{TEMPLATE_ID}}": "Stable template ID for connector-delivery (00000000-0000-4000-8000-0000000000a3)",
+    "{{DOMAIN_ID}}": "Domain UUID",
+    "{{SOURCE_DATA_PRODUCT_NAME}}": "Upstream published data product name",
+    "{{TRANSFORM_ID}}": "Transform UUID between trigger and target",
+    "{{CREATED_AT}}": "ISO 8601",
+    "{{UPDATED_AT}}": "ISO 8601"
+  }
+}

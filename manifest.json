@@ -613,6 +613,21 @@
         ]
       },
       {
+        "slug": "connector-delivery",
+        "name": "Connector Delivery Workflow",
+        "description": "Deliver a published data product to an outbound connector: data-product trigger → transform → outbound connection. Inverse of connector-ingestion.",
+        "path": "templates/workflows/connector-delivery",
+        "produces_kind": "consumer",
+        "tags": [
+          "connector",
+          "delivery",
+          "outbound",
+          "activate",
+          "postgres",
+          "webhook"
+        ]
+      },
+      {
         "slug": "api-polling",
         "name": "API Polling Workflow",
         "description": "Poll external REST APIs on a schedule",

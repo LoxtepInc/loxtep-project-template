@@ -64,8 +64,9 @@ User wants to transform/enrich data...
 ├── Generic enrichment with transforms → enrichment-basic
 └── Real-time stream processing → streaming-transform
 
-User wants to expose/consume data...
-├── Outbound webhook delivery → consumption-webhook
+User wants to expose/consume / deliver data...
+├── Published DP → transform → outbound connector (Postgres/webhook/S3) → connector-delivery
+├── Outbound webhook delivery (legacy) → consumption-webhook
 ├── REST API for pull access → consumption-api
 └── Trigger from data product events/cron → data-product-consumption
 ```

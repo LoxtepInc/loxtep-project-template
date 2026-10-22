@@ -1,0 +1,20 @@
+{
+  "connection_id": "{{TRIGGER_CONNECTION_ID}}",
+  "workflow_id": "{{WORKFLOW_ID}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "project_id": "{{PROJECT_ID}}",
+  "key": "data-product-source",
+  "name": "From {{SOURCE_DATA_PRODUCT_NAME}}",
+  "type": "data-product-trigger",
+  "connector_type": "data-product-trigger",
+  "status": "active",
+  "configuration": {
+    "source_data_product_name": "{{SOURCE_DATA_PRODUCT_NAME}}"
+  },
+  "metadata": {
+    "template_slug": "connector-delivery",
+    "role": "source"
+  },
+  "created_at": "{{CREATED_AT}}",
+  "updated_at": "{{UPDATED_AT}}"
+}

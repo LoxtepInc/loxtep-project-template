@@ -1,0 +1,35 @@
+{
+  "connection_id": "{{TARGET_CONNECTION_ID}}",
+  "workflow_id": "{{WORKFLOW_ID}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "project_id": "{{PROJECT_ID}}",
+  "connector_id": "{{CONNECTOR_ID}}",
+  "key": "delivery-target",
+  "name": "Delivery Target",
+  "type": "{{CONNECTOR_TYPE}}",
+  "connector_type": "{{CONNECTOR_TYPE}}",
+  "status": "active",
+  "connector_mode": "outbound",
+  "configuration": {
+    "direction": "outbound",
+    "role": "target",
+    "table": "{{DESTINATION_TABLE}}",
+    "schema": "{{DESTINATION_SCHEMA}}",
+    "write_mode": "upsert",
+    "primary_key": ["{{PRIMARY_KEY}}"],
+    "batch_size": 100,
+    "insert_batch_size": 1000,
+    "conflict_update": {
+      "default": "excluded"
+    }
+  },
+  "upstream_entity_id": "{{TRANSFORMATION_ID}}",
+  "upstream_entity_type": "transformations",
+  "metadata": {
+    "template_slug": "connector-delivery",
+    "role": "target",
+    "notes": "Auth/transport come from the org connector. Write policy (table, batch sizes, conflict_update) lives on this connection."
+  },
+  "created_at": "{{CREATED_AT}}",
+  "updated_at": "{{UPDATED_AT}}"
+}
