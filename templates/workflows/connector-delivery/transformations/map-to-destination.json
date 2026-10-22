@@ -1,0 +1,19 @@
+{
+  "transformation_id": "{{TRANSFORMATION_ID}}",
+  "organization_id": "{{ORGANIZATION_ID}}",
+  "project_id": "{{PROJECT_ID}}",
+  "workflow_id": "{{WORKFLOW_ID}}",
+  "name": "Map to destination columns",
+  "transform_type": "select_fields",
+  "operation_config": {
+    "fields": []
+  },
+  "upstream_entity_id": "{{TRIGGER_CONNECTION_ID}}",
+  "upstream_entity_type": "connections",
+  "metadata": {
+    "template_slug": "connector-delivery",
+    "notes": "Author field→column mapping here (select/rename/change-schema). Outbound bot expects a flat destination-shaped row."
+  },
+  "created_at": "{{CREATED_AT}}",
+  "updated_at": "{{UPDATED_AT}}"
+}
