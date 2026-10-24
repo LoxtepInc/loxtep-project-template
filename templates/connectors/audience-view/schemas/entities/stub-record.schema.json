@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:audience-view:entity:stub-record",
+  "title": "AudienceView stub record",
+  "description": "Loose row for the stub load action. id is the placeholder cursor field. Additional properties are unknown until the subscriber spec arrives. Do not add card or PAN fields.",
+  "type": "object",
+  "properties": {
+    "id": { "type": ["string", "number", "integer"] }
+  },
+  "additionalProperties": true
+}
