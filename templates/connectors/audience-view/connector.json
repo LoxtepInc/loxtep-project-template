@@ -1,0 +1,243 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "catalog_visible": false,
+  "slug": "audience-view",
+  "name": "AudienceView Unlimited (stub)",
+  "description": "STUB. Ingestion-only AudienceView Unlimited catalog connector. Every URL path and every JSON field name inside set except the documented wrapper is a placeholder. Test connection and sync will not succeed against a live Unlimited host until the subscriber spec replaces /STUB.",
+  "version": "0.1.0",
+  "tags": ["audience-view", "audienceview", "ticketing", "stub"],
+  "use_cases": [
+    "Hold the catalog shape for an Unlimited session-cookie ingest until the subscriber Web API spec names the real paths."
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "audience-view",
+    "name": "AudienceView Unlimited (stub)",
+    "description": "Session-cookie HTTP ingest. Paths under /STUB are not Unlimited Web API URLs.",
+    "category": "custom",
+    "icon_url": "https://www.audienceview.com/favicon.ico",
+    "documentation_url": "https://audienceview.com/legal/services-descriptions/unlimited/",
+    "auth_type": "basic",
+    "oauth_config": null,
+    "supported_directions": ["inbound"],
+    "supported_entities": [
+      "customers",
+      "orders",
+      "admissions",
+      "performances",
+      "gifts"
+    ],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "required_permissions": [
+      "Ingestion only. Do not map card numbers, PAN, or other payment secrets."
+    ],
+    "version": "0.1.0",
+    "is_beta": true,
+    "custom_settings_schema": {
+      "base_url": {
+        "type": "string",
+        "help": "HTTPS origin only, with no path. Example shape: https://tickets.example.com. Leave this blank until /STUB paths in this package are replaced. Do not point Test connection at a live Unlimited host while the paths are still placeholders.",
+        "x-direction": "connection"
+      },
+      "role": {
+        "type": "string",
+        "help": "Unlimited user role for this login. The value is sent inside the login set object. The JSON key for it is still STUB_role.",
+        "x-direction": "connection"
+      }
+    },
+    "metadata": {
+      "template_slug": "audience-view",
+      "stub": true,
+      "trigger_config_spec": {
+        "required": ["sync_entity"],
+        "optional": [],
+        "fields": {
+          "sync_entity": {
+            "type": "string",
+            "description": "Planned ingest label. These names are not confirmed Unlimited object names.",
+            "enum": ["customers", "orders", "admissions", "performances", "gifts"],
+            "default": "customers"
+          }
+        }
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {
+      "auth_type": "basic",
+      "custom_settings": {
+        "base_url": "{{BASE_URL}}",
+        "role": "{{ROLE}}"
+      }
+    }
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{BASE_URL}}": "HTTPS origin of the Unlimited site. No path. Do not fill this while the package still calls /STUB.",
+    "{{ROLE}}": "Unlimited role for the API user. The login JSON key is still a stub.",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "0.1.0",
+    "use_catalog_runtime": true,
+    "description": "STUB AudienceView Unlimited package. Catalog HTTP session auth logs in with the cookie kept in memory for the run. Replace every /STUB path and every STUB_ field from the subscriber JSON v2 spec before any sync.",
+    "follow_up_notes": [
+      "This package is a stub. catalog_visible is false so a template sync does not offer it in the Add Connector wizard.",
+      "Do not treat /STUB/session or /STUB/load as Unlimited URLs. The subscriber spec is unpublished. The 2012 Drupal av client paths were not copied.",
+      "Documented and used: POST bodies use a set element (Unlimited 7.27.1, AV-1411). An expired session is HTTP 200 with errorCode 99 (AV-1181). load returns a return array (AV-1588). records_path return is that load note, not a confirmed search envelope.",
+      "Not documented, so invented as obvious placeholders: login path, load path, cookie name (cookie_names is omitted), and every key inside set (STUB_username, STUB_password, STUB_role, STUB_object, STUB_after_id, STUB_limit).",
+      "Entity keys customers, orders, admissions, performances, and gifts are planned labels. cursor_field id is a placeholder monotonic field. The fetch must be replaced with a request ordered by the real cursor field and filtered to records newer than {{input.cursor}}.",
+      "Password is {{connection.password}} inside the login JSON body, never the URL. No write-back and no card or PAN fields.",
+      "Test connection runs audience_view_stub_load after session login. It fails until a real host and real paths replace this stub. Session auth itself ships with the connectors deploy and is not in production yet."
+    ],
+    "execution_policy": {
+      "allowed_hosts_from_connection": ["base_url", "custom_settings.base_url"],
+      "allowed_path_patterns": ["^/STUB/session$", "^/STUB/load$"]
+    },
+    "session_auth": {
+      "login": {
+        "method": "POST",
+        "base_url_template": "{{connection.base_url}}",
+        "path": "/STUB/session",
+        "static_headers": {
+          "Accept": "application/json"
+        },
+        "json_body": {
+          "set": {
+            "STUB_username": "{{connection.username}}",
+            "STUB_password": "{{connection.password}}",
+            "STUB_role": "{{connection.custom_settings.role}}"
+          }
+        }
+      },
+      "expired": {
+        "status": 200,
+        "body_path": "errorCode",
+        "equals": "99"
+      }
+    },
+    "connection_probe": {
+      "action_key": "audience_view_stub_load",
+      "records_path": "return",
+      "required_field": "id",
+      "probe_input": {
+        "entity_type": "customers",
+        "limit": 1
+      }
+    },
+    "sync_plan": {
+      "entities": {
+        "customers": {
+          "fetch_action_key": "audience_view_stub_load",
+          "records_path": "return",
+          "pagination": "since_id",
+          "cursor_field": "id",
+          "id_field": "id",
+          "fetch_limit_cap": 100
+        },
+        "orders": {
+          "fetch_action_key": "audience_view_stub_load",
+          "records_path": "return",
+          "pagination": "since_id",
+          "cursor_field": "id",
+          "id_field": "id",
+          "fetch_limit_cap": 100
+        },
+        "admissions": {
+          "fetch_action_key": "audience_view_stub_load",
+          "records_path": "return",
+          "pagination": "since_id",
+          "cursor_field": "id",
+          "id_field": "id",
+          "fetch_limit_cap": 100
+        },
+        "performances": {
+          "fetch_action_key": "audience_view_stub_load",
+          "records_path": "return",
+          "pagination": "since_id",
+          "cursor_field": "id",
+          "id_field": "id",
+          "fetch_limit_cap": 100
+        },
+        "gifts": {
+          "fetch_action_key": "audience_view_stub_load",
+          "records_path": "return",
+          "pagination": "since_id",
+          "cursor_field": "id",
+          "id_field": "id",
+          "fetch_limit_cap": 100
+        }
+      }
+    },
+    "entity_catalog": {
+      "customers": {
+        "name": "Customers (planned)",
+        "record_schema_path": "schemas/entities/stub-record.schema.json",
+        "description": "Planned label. Not a confirmed Unlimited object name. No card or PAN fields.",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      },
+      "orders": {
+        "name": "Orders (planned)",
+        "record_schema_path": "schemas/entities/stub-record.schema.json",
+        "description": "Planned label. Not a confirmed Unlimited object name. No card or PAN fields.",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      },
+      "admissions": {
+        "name": "Admissions (planned)",
+        "record_schema_path": "schemas/entities/stub-record.schema.json",
+        "description": "Planned label. Not a confirmed Unlimited object name.",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 30,
+        "max_batch_size": 100
+      },
+      "performances": {
+        "name": "Performances (planned)",
+        "record_schema_path": "schemas/entities/stub-record.schema.json",
+        "description": "Planned label. Not a confirmed Unlimited object name.",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      },
+      "gifts": {
+        "name": "Gifts (planned)",
+        "record_schema_path": "schemas/entities/stub-record.schema.json",
+        "description": "Planned label. Not a confirmed Unlimited object name.",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 60,
+        "max_batch_size": 100
+      }
+    },
+    "actions": [
+      {
+        "key": "audience_view_stub_load",
+        "definition_path": "actions/stub-load/definition.json"
+      }
+    ]
+  }
+}

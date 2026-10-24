@@ -1,0 +1,44 @@
+{
+  "key": "audience_view_stub_load",
+  "name": "Stub load",
+  "description": "STUB POST /STUB/load. Not an Unlimited URL. The set wrapper is the documented POST body element. Keys inside set are placeholders. records are read from return, which release notes describe for load only.",
+  "version": "0.1.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "entity_type": {
+        "type": "string",
+        "description": "Planned entity label. Sent as STUB_object. Not a confirmed Unlimited object name."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Lower bound from the per-entity watermark. Sent as STUB_after_id. The real request must filter to records newer than this value and return them ordered by cursor_field."
+      },
+      "limit": {
+        "type": "number",
+        "description": "Page size requested by the sync runtime."
+      }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_post",
+    "method": "POST",
+    "base_url_template": "{{connection.base_url}}",
+    "path": "/STUB/load",
+    "static_headers": {
+      "Accept": "application/json"
+    },
+    "omit_empty_json_strings": true,
+    "json_body": {
+      "set": {
+        "STUB_object": "{{input.entity_type}}",
+        "STUB_after_id": "{{input.cursor}}",
+        "STUB_limit": "{{input.limit}}"
+      }
+    }
+  }
+}
