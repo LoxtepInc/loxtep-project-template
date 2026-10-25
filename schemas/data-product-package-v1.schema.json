@@ -62,6 +62,22 @@
           "description": "ODPS v4.1 document. See https://loxtep.io/schemas/entity/odps-product-v1.json",
           "additionalProperties": true
         },
+        "published_access_methods": {
+          "type": "array",
+          "description": "Design-time permitted consumption methods (D3). Baseline event_stream (data product trigger) is always effective when omitted.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "event_stream",
+              "sql",
+              "api_endpoint",
+              "webhook",
+              "export",
+              "bi_connect"
+            ]
+          },
+          "uniqueItems": true
+        },
         "metadata": { "type": "object", "additionalProperties": true },
         "created_at": { "type": "string" },
         "updated_at": { "type": "string" }
