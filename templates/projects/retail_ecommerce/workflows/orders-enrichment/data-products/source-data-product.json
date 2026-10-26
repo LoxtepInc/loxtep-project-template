@@ -4,7 +4,7 @@
   "slug": "raw-orders-source",
   "name": "Raw Orders (Source)",
   "description": "Upstream raw orders data product consumed by the enrichment workflow.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "orders",
     "enrichment",
@@ -17,7 +17,7 @@
     "organization_id": "{{ORGANIZATION_ID}}",
     "workflow_id": "{{WORKFLOW_ID}}",
     "domain_id": "{{DOMAIN_ID}}",
-    "name": "Raw Orders",
+    "name": "Raw Orders (Upstream)",
     "description": "Upstream raw orders data product for enrichment",
     "upstream_entity_id": null,
     "upstream_entity_type": null,
@@ -40,7 +40,7 @@
       "product": {
         "details": {
           "en": {
-            "name": "Raw Orders",
+            "name": "Raw Orders (Upstream)",
             "description": "Upstream raw orders data product for enrichment",
             "status": "draft",
             "tags": [],

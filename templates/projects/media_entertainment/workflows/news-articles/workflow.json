@@ -3,7 +3,7 @@
   "slug": "news-articles-ingestion",
   "name": "News Articles Poller Ingestion",
   "description": "Ingest news headlines from NewsAPI via polling into the News Articles data product.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "produces_kind": "source",
   "tags": [
     "poller",
@@ -19,12 +19,9 @@
     "name": "{{WORKFLOW_NAME}}",
     "description": "API poller ingestion flow for news headlines from NewsAPI",
     "workflow_type": "ingestion",
-    "template_id": "{{TEMPLATE_ID}}",
+    "template_id": "7f80057c-4218-501f-8b41-281f06e2b196",
     "configuration": {
-      "schedule": {
-        "type": "interval",
-        "value": 3600
-      },
+      "schedule": "0 * * * *",
       "batch_size": 100
     },
     "deployment": null,

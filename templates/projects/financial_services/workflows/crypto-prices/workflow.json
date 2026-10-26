@@ -4,7 +4,7 @@
   "slug": "crypto-prices-ingestion",
   "name": "Crypto Prices Poller Ingestion",
   "description": "Ingest real-time cryptocurrency prices from CoinGecko API via polling into the Crypto Prices data product.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "produces_kind": "source",
   "tags": [
     "poller",
@@ -20,12 +20,9 @@
     "name": "{{WORKFLOW_NAME}}",
     "description": "API poller ingestion flow for cryptocurrency prices from CoinGecko",
     "workflow_type": "ingestion",
-    "template_id": "{{TEMPLATE_ID}}",
+    "template_id": "e70891e2-ebfc-51c6-aa56-a0aed55681d7",
     "configuration": {
-      "schedule": {
-        "type": "interval",
-        "value": 300
-      },
+      "schedule": "*/5 * * * *",
       "batch_size": 100
     },
     "deployment": null,

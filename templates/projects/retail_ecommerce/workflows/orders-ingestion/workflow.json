@@ -4,7 +4,7 @@
   "slug": "orders-ingestion",
   "name": "Orders Webhook Ingestion",
   "description": "Ingest orders from external store via webhook into the Raw Orders data product.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "produces_kind": "source",
   "tags": [
     "webhook",
@@ -20,7 +20,7 @@
     "name": "{{WORKFLOW_NAME}}",
     "description": "Webhook ingestion flow for order events",
     "workflow_type": "ingestion",
-    "template_id": "{{TEMPLATE_ID}}",
+    "template_id": "9ebd49dd-ed82-5b3a-88ca-f2552ddb66a5",
     "configuration": {
       "schedule": null,
       "batch_size": 100

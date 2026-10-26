@@ -3,7 +3,7 @@
   "slug": "student-activities-ingestion",
   "name": "Student Activities Webhook Ingestion",
   "description": "Ingest student activity events via webhook into the Student Activities data product.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "produces_kind": "source",
   "tags": [
     "webhook",
@@ -19,7 +19,7 @@
     "name": "{{WORKFLOW_NAME}}",
     "description": "Webhook ingestion flow for student activity events",
     "workflow_type": "ingestion",
-    "template_id": "{{TEMPLATE_ID}}",
+    "template_id": "0ba79b05-501d-555d-9ca8-e573205056fa",
     "configuration": {
       "schedule": null,
       "batch_size": 100

@@ -3,7 +3,7 @@
   "slug": "time-entries-ingestion",
   "name": "Time Entries Webhook Ingestion",
   "description": "Ingest time entries via webhook into the Time Entries data product.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "produces_kind": "source",
   "tags": [
     "webhook",
@@ -19,7 +19,7 @@
     "name": "{{WORKFLOW_NAME}}",
     "description": "Webhook ingestion flow for billable time entries",
     "workflow_type": "ingestion",
-    "template_id": "{{TEMPLATE_ID}}",
+    "template_id": "22d18efe-5ba2-5416-97c8-b10f96fa09f4",
     "configuration": {
       "schedule": null,
       "batch_size": 100

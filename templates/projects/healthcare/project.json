@@ -5,7 +5,7 @@
   "name": "Public Health Metrics Monitor",
   "description": "Track population health trends from CDC public health data",
   "template_slug": "templates/projects/healthcare",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "healthcare",
     "public-health",

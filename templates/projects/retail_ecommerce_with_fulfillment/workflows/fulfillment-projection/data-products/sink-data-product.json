@@ -3,8 +3,8 @@
   "template_type": "data_product",
   "slug": "fulfillment-dashboard",
   "name": "Fulfillment Dashboard (Consumer)",
-  "description": "Consumer data product that projects orders, inventory, and shipments into a unified fulfillment dashboard view.",
-  "version": "1.0.0",
+  "description": "Consumer data product that projects the orders source into a fulfillment dashboard.",
+  "version": "1.1.0",
   "tags": [
     "fulfillment",
     "dashboard",
@@ -19,7 +19,7 @@
     "workflow_id": "{{WORKFLOW_ID}}",
     "domain_id": "{{DOMAIN_ID}}",
     "name": "Fulfillment Dashboard",
-    "description": "Composed view projecting orders + inventory + shipments for fulfillment operations",
+    "description": "Composed view projecting the orders source into a fulfillment dashboard",
     "upstream_entity_id": "{{DATA_PRODUCT_SOURCE_ID}}",
     "upstream_entity_type": "data-products",
     "status": "draft",
@@ -39,9 +39,7 @@
     "metadata": {
       "template_slug": "fulfillment-projection",
       "projection_sources": [
-        "orders",
-        "inventory",
-        "shipments"
+        "orders"
       ]
     },
     "created_at": "{{CREATED_AT}}",
@@ -51,7 +49,7 @@
         "details": {
           "en": {
             "name": "Fulfillment Dashboard",
-            "description": "Composed view projecting orders + inventory + shipments for fulfillment operations",
+            "description": "Composed view projecting the orders source into a fulfillment dashboard",
             "status": "draft",
             "tags": [
               "fulfillment",

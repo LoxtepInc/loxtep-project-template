@@ -3,7 +3,7 @@
   "slug": "service-requests-ingestion",
   "name": "Service Requests Preloaded Ingestion",
   "description": "Ingest public service requests from preloaded dataset into the Service Requests data product.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "produces_kind": "source",
   "tags": [
     "preloaded",
@@ -19,7 +19,7 @@
     "name": "{{WORKFLOW_NAME}}",
     "description": "Preloaded ingestion flow for public service requests",
     "workflow_type": "ingestion",
-    "template_id": "{{TEMPLATE_ID}}",
+    "template_id": "e8085adc-b1ea-58ce-a9ec-6d07cdc0a568",
     "configuration": {
       "schedule": null,
       "batch_size": 100

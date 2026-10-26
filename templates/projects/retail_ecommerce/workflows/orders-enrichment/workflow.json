@@ -4,7 +4,7 @@
   "slug": "orders-enrichment",
   "name": "Orders Enrichment",
   "description": "Enrich raw orders (e.g. add computed fields, normalize) into Enriched Orders data product.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "produces_kind": "consumer",
   "tags": [
     "enrichment",
@@ -23,7 +23,7 @@
     "name": "{{WORKFLOW_NAME}}",
     "description": "Enrichment flow for raw orders to enriched orders",
     "workflow_type": "enrichment",
-    "template_id": "{{TEMPLATE_ID}}",
+    "template_id": "8dad679f-b948-57b3-9579-5e92d349a319",
     "configuration": {
       "schedule": null,
       "batch_size": 100

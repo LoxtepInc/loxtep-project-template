@@ -3,7 +3,7 @@
   "slug": "property-listings-ingestion",
   "name": "Property Listings Preloaded Ingestion",
   "description": "Ingest property listings from preloaded dataset into the Property Listings data product.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "produces_kind": "source",
   "tags": [
     "preloaded",
@@ -19,7 +19,7 @@
     "name": "{{WORKFLOW_NAME}}",
     "description": "Preloaded ingestion flow for property listings",
     "workflow_type": "ingestion",
-    "template_id": "{{TEMPLATE_ID}}",
+    "template_id": "68a37866-638f-57b5-8e80-f6a04dc39935",
     "configuration": {
       "schedule": null,
       "batch_size": 100

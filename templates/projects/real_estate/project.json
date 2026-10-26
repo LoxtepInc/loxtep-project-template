@@ -4,7 +4,7 @@
   "name": "Property Listings Tracker",
   "description": "Analyze property listings and market trends",
   "template_slug": "templates/projects/real_estate",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "real_estate",
     "property",

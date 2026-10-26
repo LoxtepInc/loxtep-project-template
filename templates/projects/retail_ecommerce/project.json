@@ -5,7 +5,7 @@
   "name": "Full-Mesh Ecommerce Demo",
   "description": "Ecommerce sample with ingestion (webhook \u2192 raw orders), enrichment (raw \u2192 enriched orders), and consumption (enriched orders \u2192 partner webhook). Demonstrates all three workflow types.",
   "template_slug": "templates/projects/retail_ecommerce",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "beginner",
     "tutorial",

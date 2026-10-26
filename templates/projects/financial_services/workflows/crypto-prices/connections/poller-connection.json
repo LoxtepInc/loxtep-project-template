@@ -4,7 +4,7 @@
   "slug": "crypto-prices-poller-connection",
   "name": "Crypto Prices Poller Connection",
   "description": "API poller connection to CoinGecko for ingesting real-time cryptocurrency prices.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "poller",
     "ingestion",
@@ -24,10 +24,7 @@
     "configuration": {
       "api_url": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true",
       "method": "GET",
-      "schedule": {
-        "type": "interval",
-        "value": 300
-      },
+      "schedule": "*/5 * * * *",
       "transform": {
         "map_fields": {
           "coin_id": "id",
@@ -40,10 +37,12 @@
     "metadata": {},
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}",
-    "trigger_id": "{{CONNECTION_ID}}"
+    "connection_id": "{{CONNECTION_ID}}",
+    "connector_id": "{{CONNECTOR_ID}}"
   },
   "placeholders": {
     "{{CONNECTION_ID}}": "Generated UUID for the connection",
+    "{{CONNECTOR_ID}}": "UUID of the org connector this connection uses. Project clone does not fill {{CONNECTOR_ID}}; webhook connections require a webhook connector in the target org.",
     "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
     "{{ORGANIZATION_ID}}": "Organization that owns this connection",
     "{{PROJECT_ID}}": "Project containing this connection",

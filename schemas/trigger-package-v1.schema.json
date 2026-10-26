@@ -16,13 +16,13 @@
     "use_cases": { "type": "array", "items": { "type": "string" } },
     "entity": {
       "type": "object",
-      "required": ["trigger_id", "organization_id", "project_id", "key", "name", "type", "status"],
+      "required": ["connection_id", "connector_id", "organization_id", "project_id", "key", "name", "type", "status"],
       "properties": {
-        "trigger_id": { "type": "string", "description": "Unique identifier for the trigger/connection" },
+        "connection_id": { "type": "string", "description": "Unique identifier for the connection (SDK entity field connection_id)" },
+        "connector_id": { "type": "string", "description": "Org connector this connection instantiates. Placeholder {{CONNECTOR_ID}} until apply time." },
         "organization_id": { "type": "string" },
         "project_id": { "type": "string" },
         "workflow_id": { "type": ["string", "null"] },
-        "connector_id": { "type": ["string", "null"] },
         "upstream_entity_id": { "type": ["string", "null"] },
         "upstream_entity_type": {
           "type": ["string", "null"],

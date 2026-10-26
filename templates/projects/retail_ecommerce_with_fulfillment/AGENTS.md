@@ -8,7 +8,7 @@
 
 ## What this project is
 
-Demonstrates the source to consumer data product model. Ingests raw order events (source DP), then projects orders + inventory + shipments into a fulfillment dashboard (consumer DP).
+Demonstrates the source to consumer data product model. Ingests raw order events into an Orders source data product, then projects that orders source into a fulfillment dashboard consumer data product.
 
 This project was scaffolded from the **retail_ecommerce_with_fulfillment** template. It defines
 7 resources across data
