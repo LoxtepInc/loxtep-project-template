@@ -4,7 +4,7 @@
   "slug": "github-events-poller-connection",
   "name": "GitHub Events Poller Connection",
   "description": "API poller connection to GH Archive for ingesting public GitHub events.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "tags": [
     "poller",
     "ingestion",
@@ -25,8 +25,11 @@
       "api_url": "https://data.gharchive.org/{date}-{hour}.json.gz",
       "method": "GET",
       "schedule": "0 * * * *",
+      "response": {
+        "compression": "gzip",
+        "format": "jsonl"
+      },
       "transform": {
-        "extract_path": "$[*]",
         "map_fields": {
           "type": "type",
           "actor": "actor",
