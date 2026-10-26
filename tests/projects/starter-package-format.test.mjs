@@ -92,6 +92,48 @@ function collectPlaceholders(value, found) {
   }
 }
 
+function appliedShapeFieldCount(entity) {
+  const schema = entity && entity.schema;
+  if (!schema || typeof schema !== 'object' || Array.isArray(schema)) return 0;
+  return Array.isArray(schema.fields) ? schema.fields.length : 0;
+}
+
+function objectHasKey(value, key) {
+  if (Array.isArray(value)) return value.some((item) => objectHasKey(item, key));
+  if (value && typeof value === 'object') {
+    if (Object.prototype.hasOwnProperty.call(value, key)) return true;
+    return Object.values(value).some((item) => objectHasKey(item, key));
+  }
+  return false;
+}
+
+/**
+ * Push refuses caller governance.pii_fields when the data product has no applied
+ * Shape (schema.fields). The server derives pii_fields from those fields.
+ * ODPS product.custom must not carry pii_fields either.
+ */
+function assertPushGovernance(entity, where) {
+  const governance = entity.governance;
+  const sendsPii =
+    governance &&
+    typeof governance === 'object' &&
+    !Array.isArray(governance) &&
+    Object.prototype.hasOwnProperty.call(governance, 'pii_fields');
+  if (sendsPii && appliedShapeFieldCount(entity) === 0) {
+    throw new Error(
+      `${where}: governance.pii_fields cannot be sent without schema.fields ` +
+        '(server derives pii_fields from the applied Shape)'
+    );
+  }
+  const custom =
+    entity.odps_document &&
+    entity.odps_document.product &&
+    entity.odps_document.product.custom;
+  if (custom && objectHasKey(custom, 'pii_fields')) {
+    throw new Error(`${where}: ODPS custom reintroduces pii_fields`);
+  }
+}
+
 function replacePlaceholders(value, map, where) {
   if (typeof value === 'string') {
     return value.replace(/\{\{([A-Z0-9_]+)\}\}/g, (token, key) => {
@@ -180,6 +222,9 @@ test('materialized project starters pass @loxtep/sdk 0.11.0 lint', async () => {
             throw new Error(`${src}: missing entity object`);
           }
           const entity = replacePlaceholders(pkg.entity, map, relative(ROOT, src));
+          if (src.includes('/data-products/')) {
+            assertPushGovernance(entity, relative(ROOT, src));
+          }
           mkdirSync(join(dest, '..'), { recursive: true });
           writeFileSync(dest, JSON.stringify(entity, null, 2));
         };

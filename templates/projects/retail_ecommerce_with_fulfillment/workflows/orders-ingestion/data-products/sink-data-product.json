@@ -27,10 +27,6 @@
     "status": "draft",
     "governance": {
       "classification": "internal",
-      "pii_fields": [
-        "customer_email",
-        "shipping_address"
-      ],
       "compliance_requirements": [],
       "tags": [
         "orders",
