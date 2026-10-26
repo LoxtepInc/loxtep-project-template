@@ -14,7 +14,7 @@
         "type": "string",
         "description": "QBO select statement (e.g. SELECT * FROM Customer STARTPOSITION 1 MAXRESULTS 100)."
       },
-      "minorversion": { "type": "string", "default": "65" }
+      "minorversion": { "type": "string", "default": "75" }
     }
   },
   "execution": {

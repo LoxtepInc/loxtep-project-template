@@ -1,7 +1,7 @@
 {
-  "$comment": "Shared constants for Shopify Admin REST actions (data-only; Pipedream-style common/).",
+  "$comment": "Shared constants for Shopify Admin REST actions (data-only; Pipedream-style common/). default_api_version 2026-10 is the current stable Admin API version (stable until at least 2027-10-01). 2024-01 is outside the supported window 2026-01 through 2026-10; Shopify falls forward when an unsupported version is sent. 2026-10 removes GraphQL PriceRule types and DraftOrderDiscountNotAppliedWarning.priceRule (use discountTitle and discountCode). These REST actions do not query those fields.",
   "admin_api_path_prefix_template": "/admin/api/{{api_version}}",
-  "default_api_version": "2024-01",
+  "default_api_version": "2026-10",
   "max_orders_per_request": 250,
   "allowed_path_prefixes": ["/admin/api/"]
 }

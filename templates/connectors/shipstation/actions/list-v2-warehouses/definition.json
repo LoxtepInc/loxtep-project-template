@@ -1,0 +1,27 @@
+{
+  "key": "shipstation_list_v2_warehouses",
+  "name": "List warehouses (V2)",
+  "description": "GET https://api.shipstation.com/v2/warehouses. Auth header is API-Key (connection.api_key). The response is {warehouses: [...]} with warehouse_id. It is not paginated and it is not the V1 bare array. This action is not the connection probe. The probe stays on V1 list warehouses.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.shipstation.com",
+    "path": "/v2/warehouses",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "API-Key",
+      "value_from": "connection.api_key"
+    },
+    "query_mapping": {},
+    "omit_empty_query": true
+  }
+}

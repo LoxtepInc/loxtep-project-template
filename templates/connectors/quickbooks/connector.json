@@ -5,7 +5,7 @@
   "slug": "quickbooks",
   "name": "QuickBooks Connector",
   "description": "QuickBooks Online accounting data via Catalog HTTP (customers, invoices, items, payments).",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "tags": [
     "quickbooks",
     "finance",
@@ -53,7 +53,7 @@
     "required_scopes": [
       "com.intuit.quickbooks.accounting"
     ],
-    "version": "1.2.0",
+    "version": "1.3.0",
     "is_beta": false,
     "custom_settings_schema": {
       "realm_id": {
@@ -62,8 +62,8 @@
       },
       "minorversion": {
         "type": "string",
-        "default": "65",
-        "help": "QBO minorversion query param (Intuit API version pin)."
+        "default": "75",
+        "help": "QBO minorversion query param. Pinned to 75. Since 2025-08-01 Intuit ignores values below 75 and treats them as 75."
       }
     },
     "metadata": {
@@ -78,7 +78,7 @@
     "configuration": {
       "custom_settings": {
         "realm_id": "{{REALM_ID}}",
-        "minorversion": "65"
+        "minorversion": "75"
       }
     }
   },
@@ -92,9 +92,9 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.2.0",
+    "package_version": "1.3.0",
     "use_catalog_runtime": true,
-    "description": "QuickBooks Online v3 Query API via CatalogRuntimeConnector. Company realm_id lives in connection.custom_settings (Intuit returns realmId on OAuth redirect; store it before sync).",
+    "description": "QuickBooks Online v3 Query API via CatalogRuntimeConnector. Company realm_id lives in connection.custom_settings (Intuit returns realmId on OAuth redirect; store it before sync). minorversion is pinned to 75. Since 2025-08-01 Intuit ignores a minorversion below 75 and treats the request as 75.",
     "follow_up_notes": [
       "Pagination: Query API STARTPOSITION/MAXRESULTS is not yet a first-class sync_plan mode; each entity fetch uses STARTPOSITION 1 MAXRESULTS capped at 1000 (QBO max). Add offset/startPosition pagination in CatalogRuntimeConnector for multi-page full syncs.",
       "Optional: persist realmId from the OAuth callback query string into custom_settings so users need not paste Company ID.",
@@ -141,7 +141,7 @@
       },
       "probe_input": {
         "query": "SELECT * FROM CompanyInfo",
-        "minorversion": "65"
+        "minorversion": "75"
       }
     },
     "sync_plan": {
@@ -154,7 +154,7 @@
           "fetch_limit_cap": 1000,
           "sync_input_defaults": {
             "query": "SELECT * FROM Customer STARTPOSITION 1 MAXRESULTS 1000",
-            "minorversion": "65"
+            "minorversion": "75"
           }
         },
         "invoices": {
@@ -165,7 +165,7 @@
           "fetch_limit_cap": 1000,
           "sync_input_defaults": {
             "query": "SELECT * FROM Invoice STARTPOSITION 1 MAXRESULTS 1000",
-            "minorversion": "65"
+            "minorversion": "75"
           }
         },
         "items": {
@@ -176,7 +176,7 @@
           "fetch_limit_cap": 1000,
           "sync_input_defaults": {
             "query": "SELECT * FROM Item STARTPOSITION 1 MAXRESULTS 1000",
-            "minorversion": "65"
+            "minorversion": "75"
           }
         },
         "payments": {
@@ -187,7 +187,7 @@
           "fetch_limit_cap": 1000,
           "sync_input_defaults": {
             "query": "SELECT * FROM Payment STARTPOSITION 1 MAXRESULTS 1000",
-            "minorversion": "65"
+            "minorversion": "75"
           }
         },
         "vendors": {
@@ -198,7 +198,7 @@
           "fetch_limit_cap": 1000,
           "sync_input_defaults": {
             "query": "SELECT * FROM Vendor STARTPOSITION 1 MAXRESULTS 1000",
-            "minorversion": "65"
+            "minorversion": "75"
           }
         },
         "bills": {
@@ -209,7 +209,7 @@
           "fetch_limit_cap": 1000,
           "sync_input_defaults": {
             "query": "SELECT * FROM Bill STARTPOSITION 1 MAXRESULTS 1000",
-            "minorversion": "65"
+            "minorversion": "75"
           }
         },
         "accounts": {
@@ -220,7 +220,7 @@
           "fetch_limit_cap": 1000,
           "sync_input_defaults": {
             "query": "SELECT * FROM Account STARTPOSITION 1 MAXRESULTS 1000",
-            "minorversion": "65"
+            "minorversion": "75"
           }
         }
       }

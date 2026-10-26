@@ -1,5 +1,8 @@
 /**
  * ShipStation Vocabulary Entries (Canonical Source — Mapping Only)
+ *
+ * These entries describe V1 list rows (shipmentId, orderId). V2 rows use
+ * shipment_id and are not mapped here. V1 has no published sunset.
  */
 import type { VocabularyEntry } from '../../vocabulary-types';
 

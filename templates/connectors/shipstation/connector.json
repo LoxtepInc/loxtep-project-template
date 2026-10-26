@@ -4,8 +4,8 @@
   "catalog_visible": true,
   "slug": "shipstation",
   "name": "ShipStation Connector",
-  "description": "Connect to ShipStation for shipments, orders, carriers, and warehouses via the V1 REST API (ssapi.shipstation.com).",
-  "version": "1.1.0",
+  "description": "Connect to ShipStation for shipments, carriers, and warehouses. New connections use API v2 (https://api.shipstation.com, API-Key header). V1 (ssapi.shipstation.com, HTTP Basic) stays available and has no published sunset.",
+  "version": "1.2.0",
   "tags": [
     "shipstation",
     "fulfillment",
@@ -23,15 +23,18 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "shipstation",
     "name": "ShipStation",
-    "description": "ShipStation fulfillment via CatalogRuntimeConnector (shipments, orders, carriers, warehouses)",
+    "description": "ShipStation fulfillment via CatalogRuntimeConnector. V2 (recommended) lists shipments, carriers, and warehouses. V1 still lists shipments, orders, carriers, and warehouses.",
     "category": "fulfillment",
     "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-shipstation/icon.svg",
-    "documentation_url": "https://www.shipstation.com/docs/api/requirements/",
+    "documentation_url": "https://docs.shipstation.com/apis/openapi",
     "auth_type": "api_key",
     "supported_directions": [
       "inbound"
     ],
     "supported_entities": [
+      "v2_shipments",
+      "v2_carriers",
+      "v2_warehouses",
       "shipments",
       "orders",
       "carriers",
@@ -39,24 +42,37 @@
     ],
     "supports_webhooks": false,
     "supports_polling": true,
-    "version": "1.1.0",
+    "version": "1.2.0",
     "is_beta": false,
+    "custom_settings_schema": {
+      "api_generation": {
+        "type": "string",
+        "enum": ["v2", "v1"],
+        "enum_labels": {
+          "v2": "V2 (recommended) — api.shipstation.com, API-Key header",
+          "v1": "V1 legacy — ssapi.shipstation.com, HTTP Basic (no published sunset)"
+        },
+        "default": "v2",
+        "help": "Records which ShipStation API generation this connection intends to use. It does not rewrite the request. The sync_entity action does. v2_shipments, v2_carriers, and v2_warehouses call https://api.shipstation.com/v2 with header API-Key set from connection.api_key. shipments, orders, carriers, and warehouses call https://ssapi.shipstation.com with HTTP Basic (username = V1 API key, api_key = V1 API secret). One api_key cannot hold both generations. A mismatch fails the call. There is no fallback. V1 has no published sunset. There is no V2 orders list under /v2 (sales orders are /v-beta and are not in this package).",
+        "x-direction": "connection"
+      }
+    },
     "metadata": {
       "template_slug": "shipstation",
-      "api_version": "v1",
+      "api_version": "v2",
       "trigger_config_spec": {
         "required": ["sync_entity"],
         "optional": ["order_status", "filter"],
         "fields": {
           "sync_entity": {
             "type": "string",
-            "description": "ShipStation entity this connection syncs.",
-            "enum": ["shipments", "orders", "carriers", "warehouses"],
-            "default": "shipments"
+            "description": "ShipStation entity this connection syncs. v2_* entities are API v2 and are the default for new connections. Unprefixed names are V1 and stay valid (no published sunset).",
+            "enum": ["v2_shipments", "v2_carriers", "v2_warehouses", "shipments", "orders", "carriers", "warehouses"],
+            "default": "v2_shipments"
           },
           "order_status": {
             "type": "string",
-            "description": "Order status filter when sync_entity is orders (ShipStation orderStatus query param)."
+            "description": "Order status filter when sync_entity is orders (V1 orderStatus query param). V2 has no orders entity in this package."
           },
           "filter": {
             "type": "string",
@@ -72,38 +88,46 @@
   "connection_template": {
     "type": "api",
     "configuration": {
-      "username": "{{API_KEY}}",
-      "api_key": "{{API_SECRET}}"
+      "api_key": "{{API_KEY}}",
+      "custom_settings": {
+        "api_generation": "v2"
+      }
     }
   },
   "placeholders": {
     "{{CONNECTOR_ID}}": "Generated UUID for the connector",
     "{{ORGANIZATION_ID}}": "Organization that owns this connector",
     "{{PROJECT_ID}}": "Project that contains this connector",
-    "{{API_KEY}}": "ShipStation API Key (HTTP Basic username)",
-    "{{API_SECRET}}": "ShipStation API Secret (HTTP Basic password; stored as connection.api_key)",
+    "{{API_KEY}}": "ShipStation V2 API key, sent as the API-Key header. For a V1 connection, store the V1 API Secret here, set username to the V1 API Key, set custom_settings.api_generation to v1, and set sync_entity to shipments, orders, carriers, or warehouses. One connection cannot hold both generations in api_key.",
+    "{{API_SECRET}}": "V1 API Secret name kept for existing setup notes. New connections put the V2 API key in {{API_KEY}}, which is stored as connection.api_key. V1 basic auth still reads the secret from connection.api_key and the key from connection.username.",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
     "{{UPDATED_AT}}": "ISO 8601 timestamp"
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.1.0",
+    "package_version": "1.2.0",
     "use_catalog_runtime": true,
-    "description": "ShipStation API V1 via CatalogRuntimeConnector. Basic auth: connection.username = API Key, connection.api_key = API Secret. Host ssapi.shipstation.com.",
+    "description": "ShipStation via CatalogRuntimeConnector. New connections use API v2: host api.shipstation.com, header API-Key, connection.api_key. V1 stays: host ssapi.shipstation.com, HTTP Basic, connection.username = API Key, connection.api_key = API Secret. custom_settings.api_generation records intent and does not switch the request. The sync_entity action does. Connection test still calls V1 list warehouses (basic auth, warehouseId). A V2-only key fails that test. There is no second probe and no fallback.",
     "follow_up_notes": [
-      "ShipStation V1 page/pageSize responses expose top-level page and pages; carriers and warehouses return bare arrays (pagination none).",
-      "Optional: add stores/customers/products list actions if product scope expands beyond fulfillment entities.",
-      "V2 Shipping/Inventory APIs (docs.shipstation.com) are out of scope for this package."
+      "V1 page/pageSize responses expose top-level page and pages. V1 carriers and warehouses return bare arrays (pagination none).",
+      "V2 list shipments and list carriers return shipments or carriers plus total, page, pages, and links, and take page and page_size. V2 list warehouses returns {warehouses} and is not paginated.",
+      "V1 orders stay on GET /orders. There is no GA GET /v2/orders. V2 purchase orders and /v-beta/sales_orders are not in this package.",
+      "V1 has no published sunset. Docs recommend V2 for new integrations (https://docs.shipstation.com/apis/openapi). V1 reference: https://www.shipstation.com/docs/api/requirements/.",
+      "Optional: add stores/customers/products list actions if product scope expands beyond fulfillment entities."
     ],
     "execution_policy": {
       "allowed_host_suffixes": [
-        "ssapi.shipstation.com"
+        "ssapi.shipstation.com",
+        "api.shipstation.com"
       ],
       "allowed_path_patterns": [
         "^/warehouses$",
         "^/shipments$",
         "^/orders$",
-        "^/carriers$"
+        "^/carriers$",
+        "^/v2/shipments$",
+        "^/v2/carriers$",
+        "^/v2/warehouses$"
       ]
     },
     "connection_probe": {
@@ -148,6 +172,32 @@
           "records_path": "",
           "pagination": "none",
           "id_field": "warehouseId"
+        },
+        "v2_shipments": {
+          "fetch_action_key": "shipstation_list_v2_shipments",
+          "records_path": "shipments",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "page_meta_current_path": "page",
+          "page_meta_total_pages_path": "pages",
+          "id_field": "shipment_id",
+          "fetch_limit_cap": 100
+        },
+        "v2_carriers": {
+          "fetch_action_key": "shipstation_list_v2_carriers",
+          "records_path": "carriers",
+          "pagination": "query_page",
+          "page_query_param": "page",
+          "page_meta_current_path": "page",
+          "page_meta_total_pages_path": "pages",
+          "id_field": "carrier_id",
+          "fetch_limit_cap": 100
+        },
+        "v2_warehouses": {
+          "fetch_action_key": "shipstation_list_v2_warehouses",
+          "records_path": "warehouses",
+          "pagination": "none",
+          "id_field": "warehouse_id"
         }
       }
     },
@@ -185,7 +235,37 @@
       "warehouses": {
         "name": "Warehouses",
         "record_schema_path": "schemas/entities/sync-row.schema.json",
-        "description": "Ship From Locations (warehouses)",
+        "description": "V1 Ship From Locations (warehouses). Bare array. Identity field warehouseId.",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 1440,
+        "max_batch_size": 100
+      },
+      "v2_shipments": {
+        "name": "Shipments (V2)",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "description": "API v2 shipments (GET /v2/shipments). Identity field shipment_id.",
+        "supports_incremental": true,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 15,
+        "max_batch_size": 100
+      },
+      "v2_carriers": {
+        "name": "Carriers (V2)",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "description": "API v2 carriers (GET /v2/carriers). Identity field carrier_id.",
+        "supports_incremental": false,
+        "supports_full_sync": true,
+        "supports_webhook": false,
+        "default_sync_interval_minutes": 1440,
+        "max_batch_size": 100
+      },
+      "v2_warehouses": {
+        "name": "Warehouses (V2)",
+        "record_schema_path": "schemas/entities/sync-row.schema.json",
+        "description": "API v2 warehouses (GET /v2/warehouses). Identity field warehouse_id. Response is an object, not a bare array.",
         "supports_incremental": false,
         "supports_full_sync": true,
         "supports_webhook": false,
@@ -209,6 +289,18 @@
       {
         "key": "shipstation_list_carriers",
         "definition_path": "actions/list-carriers/definition.json"
+      },
+      {
+        "key": "shipstation_list_v2_shipments",
+        "definition_path": "actions/list-v2-shipments/definition.json"
+      },
+      {
+        "key": "shipstation_list_v2_carriers",
+        "definition_path": "actions/list-v2-carriers/definition.json"
+      },
+      {
+        "key": "shipstation_list_v2_warehouses",
+        "definition_path": "actions/list-v2-warehouses/definition.json"
       }
     ]
   }

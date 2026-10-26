@@ -1,7 +1,8 @@
 {
   "key": "klaviyo_list_metrics",
   "name": "List metrics",
-  "version": "1.0.0",
+  "description": "GET /api/metrics. Revision 2026-10-15 accepts page[cursor] and does not accept page[size]; the API returns at most 200 metrics per page. limit is not sent.",
+  "version": "1.1.0",
   "type": "action",
   "annotations": { "read_only": true, "destructive": false },
   "input_schema": {
@@ -9,8 +10,10 @@
     "type": "object",
     "additionalProperties": true,
     "properties": {
-      "limit": { "type": "number" },
-      "page[cursor]": { "type": "string" }
+      "page[cursor]": {
+        "type": "string",
+        "description": "JSON:API cursor from links.next. page[size] is not a parameter on revision 2026-10-15."
+      }
     }
   },
   "execution": {
@@ -19,8 +22,8 @@
     "base_url_template": "https://a.klaviyo.com",
     "path": "/api/metrics",
     "static_headers": {
-      "revision": "2023-09-15",
-      "Accept": "application/json"
+      "revision": "2026-10-15",
+      "Accept": "application/vnd.api+json"
     },
     "header_auth": {
       "header": "Authorization",
@@ -28,7 +31,6 @@
       "prefix": "Klaviyo-API-Key "
     },
     "query_mapping": {
-      "page[size]": "input.limit",
       "page[cursor]": "input.page[cursor]"
     },
     "omit_empty_query": true

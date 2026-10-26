@@ -1,0 +1,21 @@
+{
+  "entity": "v2_shipments",
+  "action_key": "shipstation_list_v2_shipments",
+  "input": {
+    "limit": 2,
+    "page": 1
+  },
+  "response": {
+    "shipments": [
+      {
+        "shipment_id": "se-2102034",
+        "carrier_id": "se-28529731",
+        "shipment_status": "pending",
+        "ship_date": "2024-07-25T05:00:00.000Z"
+      }
+    ],
+    "total": 1,
+    "page": 1,
+    "pages": 1
+  }
+}

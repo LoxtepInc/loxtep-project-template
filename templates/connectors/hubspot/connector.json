@@ -5,7 +5,7 @@
   "slug": "hubspot",
   "name": "HubSpot Connector",
   "description": "Connect HubSpot CRM for contacts, companies, deals, tickets, and products.",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "tags": ["hubspot"],
   "use_cases": ["Connect HubSpot CRM for contacts, companies, deals, tickets, and products."],
   "entity": {
@@ -20,7 +20,7 @@
     "auth_type": "oauth2",
     "oauth_config": {
       "authorization_url": "https://app.hubspot.com/oauth/authorize",
-      "token_url": "https://api.hubapi.com/oauth/v1/token",
+      "token_url": "https://api.hubapi.com/oauth/2026-03/token",
       "scopes": [
         "crm.objects.contacts.read",
         "crm.objects.companies.read",
@@ -54,8 +54,24 @@
       "crm.schemas.products.read",
       "oauth"
     ],
-    "version": "1.2.0",
+    "version": "1.3.0",
     "is_beta": false,
+    "custom_settings_schema": {
+      "oauth_token_url": {
+        "type": "string",
+        "enum": [
+          "https://api.hubapi.com/oauth/2026-03/token",
+          "https://api.hubapi.com/oauth/v1/token"
+        ],
+        "enum_labels": {
+          "https://api.hubapi.com/oauth/2026-03/token": "2026-03 (default)",
+          "https://api.hubapi.com/oauth/v1/token": "v1 legacy (removed 2027-02-16)"
+        },
+        "default": "https://api.hubapi.com/oauth/2026-03/token",
+        "help": "Token URL for OAuth refresh. New installs and the default use https://api.hubapi.com/oauth/2026-03/token. https://api.hubapi.com/oauth/v1/token stays valid until HubSpot removes it on 2027-02-16, then that URL errors. Both URLs take the same form body (grant_type, code or refresh_token, redirect_uri, client_id, client_secret). Refresh reads this field and fails when it is missing. There is no fallback URL. The initial authorize-code exchange uses the connector oauth_config token URL (2026-03), not this field.",
+        "x-direction": "connection"
+      }
+    },
     "metadata": {
       "template_slug": "hubspot",
       "oauth_account_display_name_field": "company_name"
@@ -65,7 +81,11 @@
   },
   "connection_template": {
     "type": "api",
-    "configuration": {}
+    "configuration": {
+      "custom_settings": {
+        "oauth_token_url": "https://api.hubapi.com/oauth/2026-03/token"
+      }
+    }
   },
   "placeholders": {
     "{{CONNECTOR_ID}}": "Generated UUID for the connector",
@@ -76,17 +96,20 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.2.0",
+    "package_version": "1.3.0",
     "use_catalog_runtime": true,
-    "description": "HubSpot CRM v3 via CatalogRuntimeConnector. Full sync uses list APIs; incremental sync uses CRM search with last modified filters. Webhook routing maps topic prefixes to entities (payload enrichment is not performed in catalog mode).",
+    "description": "HubSpot CRM v3 via CatalogRuntimeConnector. Full sync uses list APIs; incremental sync uses CRM search with last modified filters. Webhook routing maps topic prefixes to entities (payload enrichment is not performed in catalog mode). OAuth refresh posts to connection.custom_settings.oauth_token_url. The default is https://api.hubapi.com/oauth/2026-03/token. https://api.hubapi.com/oauth/v1/token remains a selectable legacy URL until HubSpot removes it on 2027-02-16. A missing oauth_token_url fails refresh. There is no fallback.",
     "follow_up_notes": [
       "Webhooks: routing only — legacy connector batch-fetched full CRM objects on propertyChange/creation; restore enrich-on-webhook if downstream needs hydrated records.",
-      "Engagements, line items, custom objects, and non-objects APIs remain out of scope."
+      "Engagements, line items, custom objects, and non-objects APIs remain out of scope.",
+      "OAuth authorization stays https://app.hubspot.com/oauth/authorize. New authorize-code exchanges use https://api.hubapi.com/oauth/2026-03/token. Refresh uses custom_settings.oauth_token_url. Legacy https://api.hubapi.com/oauth/v1/token is removed on 2027-02-16."
     ],
     "oauth_refresh": {
-      "token_url_template": "https://api.hubapi.com/oauth/v1/token",
+      "token_url_template": "{{connection.custom_settings.oauth_token_url}}",
       "client_id_env": "HUBSPOT_CLIENT_ID",
-      "client_secret_env": "HUBSPOT_CLIENT_SECRET"
+      "client_secret_env": "HUBSPOT_CLIENT_SECRET",
+      "legacy_token_url": "https://api.hubapi.com/oauth/v1/token",
+      "legacy_sunset": "2027-02-16"
     },
     "execution_policy": {
       "allowed_host_suffixes": ["hubapi.com"],

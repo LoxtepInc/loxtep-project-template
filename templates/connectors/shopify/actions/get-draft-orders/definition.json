@@ -1,7 +1,7 @@
 {
   "key": "shopify_get_draft_orders",
   "name": "Get draft orders",
-  "description": "List draft orders from the Shopify Admin REST API (GET /draft_orders.json).",
+  "description": "List draft orders from the Shopify Admin REST API (GET /draft_orders.json). Admin API 2026-10 removes GraphQL PriceRule and DraftOrderDiscountNotAppliedWarning.priceRule (use discountTitle and discountCode). This REST list does not select those fields.",
   "version": "1.0.0",
   "type": "action",
   "supported_ingestion_modes": ["scheduled_poll"],

@@ -68,7 +68,9 @@ const PLATFORM_STUBS = [
     auth_type: 'oauth2',
     oauth_config: {
       authorization_url: 'https://app.hubspot.com/oauth/authorize',
-      token_url: 'https://api.hubapi.com/oauth/v1/token',
+      // Default token URL. The shipped hubspot package also keeps
+      // https://api.hubapi.com/oauth/v1/token as a legacy option until 2027-02-16.
+      token_url: 'https://api.hubapi.com/oauth/2026-03/token',
       scopes: [
         'crm.objects.contacts.read',
         'crm.objects.companies.read',

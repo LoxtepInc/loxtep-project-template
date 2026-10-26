@@ -1,0 +1,21 @@
+{
+  "entity": "v2_carriers",
+  "action_key": "shipstation_list_v2_carriers",
+  "input": {
+    "limit": 1,
+    "page": 1
+  },
+  "response": {
+    "carriers": [
+      {
+        "carrier_id": "se-28529731",
+        "carrier_code": "stamps_com",
+        "friendly_name": "Stamps.com",
+        "name": "Stamps.com"
+      }
+    ],
+    "total": 1,
+    "page": 1,
+    "pages": 1
+  }
+}
