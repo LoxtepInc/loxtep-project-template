@@ -5,7 +5,7 @@
   "slug": "shopify",
   "name": "Shopify Connector",
   "description": "Connect to Shopify stores to ingest orders, customers, products, and inventory data. Supports both OAuth authentication and private app API keys. Catalog-defined actions run via the platform declarative executor.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "tags": ["shopify", "e-commerce", "orders", "products"],
   "use_cases": [
     "Order event streaming",
@@ -40,14 +40,22 @@
     "supports_polling": true,
     "required_scopes": ["read_orders", "read_customers", "read_products", "read_inventory", "read_locations"],
     "required_permissions": null,
-    "version": "2024-01",
+    "version": "2026-10",
     "is_beta": false,
+    "custom_settings_schema": {
+      "api_version": {
+        "type": "string",
+        "default": "2026-10",
+        "help": "Shopify Admin API version sent in the REST path. This package pins 2026-10. Supported versions are 2026-01 through 2026-10; 2024-01 is unsupported. Shopify falls forward when an unsupported version is sent, so a stored 2024-01 still returns data and does not error. 2026-10 removes GraphQL PriceRule types and DraftOrderDiscountNotAppliedWarning.priceRule (use discountTitle and discountCode). These REST list actions do not select those fields. The request uses connection.custom_settings.api_version. When that field is omitted, the platform still injects 2024-01.",
+        "x-direction": "connection"
+      }
+    },
     "metadata": {
       "template_slug": "shopify",
       "oauth_shop_field_label": "Shop domain",
       "oauth_shop_placeholder": "mystore (for mystore.myshopify.com)",
       "oauth_shop_help": "Enter your store subdomain only, e.g. mystore",
-      "api_version": "2024-01",
+      "api_version": "2026-10",
       "oauth_urls_use_runtime_shop": true,
       "oauth_account_display_name_field": "shop_name",
       "oauth_runtime_urls": {
@@ -112,7 +120,10 @@
     "ingestion_type": "polling",
     "configuration": {
       "shop_domain": "{{SHOP_DOMAIN}}",
-      "api_version": "2024-01"
+      "api_version": "2026-10",
+      "custom_settings": {
+        "api_version": "2026-10"
+      }
     },
     "ingestion_config": {
       "schedule": "0 */15 * * * *",
@@ -134,9 +145,12 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.1.0",
+    "package_version": "1.2.0",
     "use_catalog_runtime": true,
-    "description": "Open connector package (Pipedream-style layout). Actions, sync, and probes are JSON-driven; runtime is CatalogRuntimeConnector in the platform.",
+    "description": "Open connector package (Pipedream-style layout). Actions, sync, and probes are JSON-driven; runtime is CatalogRuntimeConnector in the platform. Admin REST API version is pinned to 2026-10 (supported window 2026-01 through 2026-10). 2024-01 is unsupported; Shopify falls forward instead of rejecting it. 2026-10 removes GraphQL PriceRule types and DraftOrderDiscountNotAppliedWarning.priceRule; use discountTitle and discountCode. This package's REST list actions, including GET /draft_orders.json, do not select those fields.",
+    "follow_up_notes": [
+      "2026-10 GraphQL removals (PriceRule, DraftOrderDiscountNotAppliedWarning.priceRule) do not apply to these REST list queries. A later action that selects draft-order discount fields must use discountTitle and discountCode."
+    ],
     "platform_dependencies": [
       {
         "id": "shopify_oauth_custom_app",

@@ -11,7 +11,7 @@
     "additionalProperties": true,
     "properties": {
       "query": { "type": "string" },
-      "minorversion": { "type": "string", "default": "65" }
+      "minorversion": { "type": "string", "default": "75" }
     }
   },
   "execution": {

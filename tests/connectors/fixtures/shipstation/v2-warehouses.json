@@ -1,0 +1,14 @@
+{
+  "entity": "v2_warehouses",
+  "action_key": "shipstation_list_v2_warehouses",
+  "input": {},
+  "response": {
+    "warehouses": [
+      {
+        "warehouse_id": "se-28529731",
+        "name": "Primary",
+        "is_default": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "key": "shipstation_list_v2_shipments",
+  "name": "List shipments (V2)",
+  "description": "GET https://api.shipstation.com/v2/shipments. Auth header is API-Key (connection.api_key), not HTTP Basic. Query params are page and page_size. Response records are shipments with shipment_id. There is no V1 pageSize param.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": { "type": "number", "description": "Sent as page_size. This package caps sync fetches at 100." },
+      "page": { "type": "number" },
+      "page_size": { "type": "number", "minimum": 1, "maximum": 100 }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_get",
+    "method": "GET",
+    "base_url_template": "https://api.shipstation.com",
+    "path": "/v2/shipments",
+    "static_headers": { "Accept": "application/json" },
+    "header_auth": {
+      "header": "API-Key",
+      "value_from": "connection.api_key"
+    },
+    "query_mapping": {
+      "page": "input.page",
+      "page_size": "input.limit"
+    },
+    "omit_empty_query": true
+  }
+}

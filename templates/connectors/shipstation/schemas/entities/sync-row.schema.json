@@ -2,14 +2,17 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:loxtep:connector:shipstation:entity:sync-row",
   "title": "ShipStation API resource (list item)",
-  "description": "Minimal contract for ShipStation V1 list rows (shipments, orders, carriers, warehouses). Vendor fields allowed; identity fields vary by entity (shipmentId, orderId, code, warehouseId).",
+  "description": "Minimal contract for ShipStation list rows. V1 rows use shipmentId, orderId, code, and warehouseId. V2 rows (v2_shipments, v2_carriers, v2_warehouses) use shipment_id, carrier_id, and warehouse_id. Vendor fields are allowed.",
   "type": "object",
   "properties": {
     "shipmentId": { "type": ["string", "number", "integer"] },
     "orderId": { "type": ["string", "number", "integer"] },
     "warehouseId": { "type": ["string", "number", "integer"] },
     "code": { "type": "string" },
-    "name": { "type": "string" }
+    "name": { "type": "string" },
+    "shipment_id": { "type": "string" },
+    "carrier_id": { "type": "string" },
+    "warehouse_id": { "type": "string" }
   },
   "additionalProperties": true
 }

@@ -5,7 +5,7 @@
   "slug": "klaviyo",
   "name": "Klaviyo Connector",
   "description": "Klaviyo profiles, lists, and events.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": ["klaviyo"],
   "use_cases": ["Klaviyo profiles, lists, and events."],
   "entity": {
@@ -24,7 +24,7 @@
     "supports_webhooks": false,
     "supports_polling": true,
     "required_scopes": null,
-    "version": "1.0.0",
+    "version": "1.1.0",
     "is_beta": false,
     "metadata": { "template_slug": "klaviyo" },
     "created_at": "{{CREATED_AT}}",
@@ -44,9 +44,9 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
+    "package_version": "1.1.0",
     "use_catalog_runtime": true,
-    "description": "Klaviyo REST (JSON:API) via CatalogRuntimeConnector. Synced row shapes are documented under schemas/entities/*.schema.json (see entity_catalog.record_schema_path); lineage from legacy Zod in platform-backend/connectors/providers/klaviyo/schemas.",
+    "description": "Klaviyo REST (JSON:API) via CatalogRuntimeConnector. Revision header is 2026-10-15 (GA, confirmed 2026-10-26 against the Klaviyo changelog and the stable OpenAPI for Get Profiles, Get Events, and Get Metrics). Revision 2023-09-15 retired on 2025-09-15; retired revisions are not served and removed endpoints return 410. GET /api/profiles and GET /api/events still take page[size] and page[cursor]. GET /api/metrics on this revision takes page[cursor] only (no page[size]; the API pages at most 200). Profiles page[size] is 1-100. Events page[size] is 1-1000. Synced row shapes are documented under schemas/entities/*.schema.json (see entity_catalog.record_schema_path); lineage from legacy Zod in platform-backend/connectors/providers/klaviyo/schemas.",
     "execution_policy": {
       "allowed_host_suffixes": ["a.klaviyo.com"],
       "allowed_path_patterns": ["^/api/profiles$", "^/api/events$", "^/api/metrics$"]

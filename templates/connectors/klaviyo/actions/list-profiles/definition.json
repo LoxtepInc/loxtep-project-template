@@ -1,7 +1,7 @@
 {
   "key": "klaviyo_list_profiles",
   "name": "List profiles",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "action",
   "annotations": { "read_only": true, "destructive": false },
   "input_schema": {
@@ -9,7 +9,12 @@
     "type": "object",
     "additionalProperties": true,
     "properties": {
-      "limit": { "type": "number" },
+      "limit": {
+        "type": "number",
+        "minimum": 1,
+        "maximum": 100,
+        "description": "Sent as page[size]. Revision 2026-10-15 allows 1-100 (default 20)."
+      },
       "page[cursor]": { "type": "string" }
     }
   },
@@ -19,8 +24,8 @@
     "base_url_template": "https://a.klaviyo.com",
     "path": "/api/profiles",
     "static_headers": {
-      "revision": "2023-09-15",
-      "Accept": "application/json"
+      "revision": "2026-10-15",
+      "Accept": "application/vnd.api+json"
     },
     "header_auth": {
       "header": "Authorization",
