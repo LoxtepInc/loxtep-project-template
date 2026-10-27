@@ -4,7 +4,7 @@
   "slug": "crypto-prices-poller-connection",
   "name": "Crypto Prices Poller Connection",
   "description": "API poller connection to CoinGecko for ingesting real-time cryptocurrency prices.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "tags": [
     "poller",
     "ingestion",
@@ -26,8 +26,9 @@
       "method": "GET",
       "schedule": "*/5 * * * *",
       "transform": {
+        "extract_path": "$.*",
         "map_fields": {
-          "coin_id": "id",
+          "coin_id": "$key",
           "price_usd": "usd",
           "change_24h": "usd_24h_change"
         }
