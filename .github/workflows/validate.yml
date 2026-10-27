@@ -35,3 +35,15 @@ jobs:
         run: node scripts/verify-catalog-runtime-templates.mjs
       - name: Site-named connector contract tests (W10.2)
         run: node --test tests/connectors/*.test.mjs
+
+  project-starter-package-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install @loxtep/sdk 0.11.0
+        run: mkdir -p /tmp/sdk011 && cd /tmp/sdk011 && npm i @loxtep/sdk@0.11.0 --no-fund --no-audit
+      - name: Lint materialized project starters
+        run: node --test tests/projects/starter-package-format.test.mjs

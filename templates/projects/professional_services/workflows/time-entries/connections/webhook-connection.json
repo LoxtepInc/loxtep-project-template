@@ -3,7 +3,7 @@
   "slug": "time-entries-webhook-connection",
   "name": "Time Entries Webhook Connection",
   "description": "Webhook trigger connection for ingesting billable time entries.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "webhook",
     "ingestion",
@@ -32,10 +32,12 @@
     "metadata": {},
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}",
-    "trigger_id": "{{CONNECTION_ID}}"
+    "connection_id": "{{CONNECTION_ID}}",
+    "connector_id": "{{CONNECTOR_ID}}"
   },
   "placeholders": {
     "{{CONNECTION_ID}}": "Generated UUID for the connection",
+    "{{CONNECTOR_ID}}": "UUID of the org connector this connection uses. Project clone does not fill {{CONNECTOR_ID}}; webhook connections require a webhook connector in the target org.",
     "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
     "{{ORGANIZATION_ID}}": "Organization that owns this connection",
     "{{PROJECT_ID}}": "Project containing this connection",

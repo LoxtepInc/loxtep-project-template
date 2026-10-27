@@ -3,8 +3,8 @@
   "template_type": "trigger",
   "slug": "fulfillment-dp-consumption",
   "name": "Data Product Consumption Connection",
-  "description": "Consumes events from orders, inventory, and shipments source data products to compose the fulfillment dashboard.",
-  "version": "1.0.0",
+  "description": "Consumes events from the orders source data product to compose the fulfillment dashboard.",
+  "version": "1.1.0",
   "tags": [
     "data-product",
     "consumption",
@@ -24,33 +24,24 @@
     "configuration": {
       "source_data_products": [
         {
-          "ref": "{{ORDERS_DP_ID}}",
+          "ref": "{{DATA_PRODUCT_SOURCE_ID}}",
           "alias": "orders"
-        },
-        {
-          "ref": "{{INVENTORY_DP_ID}}",
-          "alias": "inventory"
-        },
-        {
-          "ref": "{{SHIPMENTS_DP_ID}}",
-          "alias": "shipments"
         }
       ]
     },
     "metadata": {},
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}",
-    "trigger_id": "{{CONNECTION_ID}}"
+    "connection_id": "{{CONNECTION_ID}}",
+    "connector_id": "{{CONNECTOR_ID}}"
   },
   "placeholders": {
     "{{CONNECTION_ID}}": "Generated UUID for the connection",
+    "{{CONNECTOR_ID}}": "UUID of the org connector this connection uses. Project clone does not fill {{CONNECTOR_ID}}; webhook connections require a webhook connector in the target org.",
     "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
     "{{ORGANIZATION_ID}}": "Organization that owns this connection",
     "{{PROJECT_ID}}": "Project containing this connection",
     "{{DATA_PRODUCT_SOURCE_ID}}": "Primary upstream source data product ID",
-    "{{ORDERS_DP_ID}}": "Orders source data product ID",
-    "{{INVENTORY_DP_ID}}": "Inventory source data product ID",
-    "{{SHIPMENTS_DP_ID}}": "Shipments source data product ID",
     "{{CREATED_AT}}": "ISO 8601 timestamp",
     "{{UPDATED_AT}}": "ISO 8601 timestamp"
   }

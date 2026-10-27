@@ -3,7 +3,7 @@
   "slug": "weather-data-poller-connection",
   "name": "Weather Data Poller Connection",
   "description": "API poller connection to OpenWeatherMap for ingesting weather conditions.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "poller",
     "ingestion",
@@ -27,10 +27,7 @@
         "type": "api_key",
         "header_name": "X-API-Key"
       },
-      "schedule": {
-        "type": "interval",
-        "value": 1800
-      },
+      "schedule": "*/30 * * * *",
       "transform": {
         "map_fields": {
           "location": "name",
@@ -45,10 +42,12 @@
     "metadata": {},
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}",
-    "trigger_id": "{{CONNECTION_ID}}"
+    "connection_id": "{{CONNECTION_ID}}",
+    "connector_id": "{{CONNECTOR_ID}}"
   },
   "placeholders": {
     "{{CONNECTION_ID}}": "Generated UUID for the connection",
+    "{{CONNECTOR_ID}}": "UUID of the org connector this connection uses. Project clone does not fill {{CONNECTOR_ID}}; webhook connections require a webhook connector in the target org.",
     "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
     "{{ORGANIZATION_ID}}": "Organization that owns this connection",
     "{{PROJECT_ID}}": "Project containing this connection",

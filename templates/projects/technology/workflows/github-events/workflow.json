@@ -4,7 +4,7 @@
   "slug": "github-events-ingestion",
   "name": "GitHub Events Poller Ingestion",
   "description": "Ingest public GitHub events from GH Archive via API polling into the GitHub Activity data product.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "produces_kind": "source",
   "tags": [
     "poller",
@@ -20,12 +20,9 @@
     "name": "{{WORKFLOW_NAME}}",
     "description": "API poller ingestion flow for GitHub events from GH Archive",
     "workflow_type": "ingestion",
-    "template_id": "{{TEMPLATE_ID}}",
+    "template_id": "d44c21de-0cba-55dc-be73-03c961b24dba",
     "configuration": {
-      "schedule": {
-        "type": "interval",
-        "value": 3600
-      },
+      "schedule": "0 * * * *",
       "batch_size": 100
     },
     "deployment": null,

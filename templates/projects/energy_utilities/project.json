@@ -4,7 +4,7 @@
   "name": "Weather Impact Monitor",
   "description": "Monitor weather conditions and correlate with energy demand",
   "template_slug": "templates/projects/energy_utilities",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "energy_utilities",
     "weather",

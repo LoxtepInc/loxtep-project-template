@@ -4,7 +4,7 @@
   "slug": "fulfillment-projection",
   "name": "Fulfillment Dashboard Projection",
   "description": "Projects orders, inventory, and shipments source data products into a unified fulfillment dashboard consumer data product.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "produces_kind": "consumer",
   "tags": [
     "fulfillment",
@@ -25,7 +25,7 @@
     "name": "{{WORKFLOW_NAME}}",
     "description": "Projection flow composing orders + inventory + shipments into a fulfillment dashboard",
     "workflow_type": "enrichment",
-    "template_id": "{{TEMPLATE_ID}}",
+    "template_id": "6d72f142-a754-5ad8-8ed8-d9635ecbe074",
     "configuration": {
       "schedule": null,
       "batch_size": 100

@@ -28,7 +28,6 @@
     "status": "draft",
     "governance": {
       "classification": "internal",
-      "pii_fields": [],
       "compliance_requirements": [],
       "tags": []
     },

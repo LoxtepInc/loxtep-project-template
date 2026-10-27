@@ -4,7 +4,7 @@
   "name": "News Headlines Tracker",
   "description": "Track news articles and analyze content performance",
   "template_slug": "templates/projects/media_entertainment",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "media_entertainment",
     "news",

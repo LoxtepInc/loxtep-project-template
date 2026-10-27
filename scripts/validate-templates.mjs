@@ -181,10 +181,14 @@ function validateWorkflowJson(filePath) {
     validateRequired(data.entity, entityRequired, `${relPath} (entity)`);
 
     if (data.entity.workflow_type) {
-      validateEnum(data.entity.workflow_type, ['ingestion', 'enrichment', 'consumption'], 'entity.workflow_type', relPath);
+      validateEnum(data.entity.workflow_type, ['ingestion', 'enrichment', 'delivery', 'consumption'], 'entity.workflow_type', relPath);
     }
     if (data.entity.status) {
       validateEnum(data.entity.status, ['active', 'paused', 'error', 'pending', 'inactive'], 'entity.status', relPath);
+    }
+    const schedule = data.entity.configuration && data.entity.configuration.schedule;
+    if (schedule !== undefined && schedule !== null && typeof schedule !== 'string') {
+      errors.push(`${relPath}: entity.configuration.schedule must be a string or null`);
     }
   }
 
@@ -221,7 +225,7 @@ function validateTriggerJson(filePath) {
 
   // Entity validation
   if (data.entity) {
-    const entityRequired = ['trigger_id', 'organization_id', 'project_id', 'key', 'name', 'type', 'status'];
+    const entityRequired = ['connection_id', 'connector_id', 'organization_id', 'project_id', 'key', 'name', 'type', 'status'];
     validateRequired(data.entity, entityRequired, `${relPath} (entity)`);
 
     if (data.entity.key) {
@@ -345,7 +349,7 @@ console.log(`   Found ${workflowFiles.length} workflow.json files\n`);
 // 3. Validate all connection files (trigger schema)
 console.log('3. Validating connection files against trigger-package-v1.schema.json');
 console.log('-'.repeat(70));
-const connectionFiles = findFiles(PROJECTS_DIR, /connection\.json$/);
+const connectionFiles = findFiles(PROJECTS_DIR, /\.json$/).filter((file) => file.includes('/connections/'));
 for (const f of connectionFiles) {
   validateTriggerJson(f);
 }

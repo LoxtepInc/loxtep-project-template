@@ -3,9 +3,9 @@
   "template_type": "project",
   "slug": "retail_ecommerce_with_fulfillment",
   "name": "Ecommerce with Fulfillment Dashboard",
-  "description": "Demonstrates the source to consumer data product model. Ingests raw order events (source DP), then projects orders + inventory + shipments into a fulfillment dashboard (consumer DP).",
+  "description": "Demonstrates the source to consumer data product model. Ingests raw order events into an Orders source data product, then projects that orders source into a fulfillment dashboard consumer data product.",
   "template_slug": "templates/projects/retail_ecommerce_with_fulfillment",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "e-commerce",
     "fulfillment",

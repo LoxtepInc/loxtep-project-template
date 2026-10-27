@@ -5,7 +5,7 @@
   "name": "GitHub Activity Tracker",
   "description": "Track public GitHub events to analyze developer activity and open-source trends",
   "template_slug": "templates/projects/technology",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "technology",
     "github",

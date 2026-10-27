@@ -4,7 +4,7 @@
   "name": "Time Entry Tracker",
   "description": "Track billable hours and utilization across projects and clients",
   "template_slug": "templates/projects/professional_services",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": [
     "professional_services",
     "time-tracking",
