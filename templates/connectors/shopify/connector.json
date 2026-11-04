@@ -4,7 +4,7 @@
   "catalog_visible": true,
   "slug": "shopify",
   "name": "Shopify Connector",
-  "description": "Connect to Shopify stores to ingest orders, customers, products, and inventory data. Supports both OAuth authentication and private app API keys. Catalog-defined actions run via the platform declarative executor.",
+  "description": "Connect to Shopify stores to ingest orders, customers, products, and inventory data. Supports both OAuth authentication and private app API keys.",
   "version": "1.2.0",
   "tags": ["shopify", "e-commerce", "orders", "products"],
   "use_cases": [

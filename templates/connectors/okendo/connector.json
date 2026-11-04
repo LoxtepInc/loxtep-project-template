@@ -3,7 +3,7 @@
   "template_type": "connector",
   "slug": "okendo",
   "name": "Okendo Connector",
-  "description": "Okendo Merchant REST API for product reviews linked to orders and customers.",
+  "description": "Sync Okendo product reviews linked to orders and customers.",
   "version": "1.1.0",
   "tags": ["okendo", "reviews", "e-commerce"],
   "use_cases": [
@@ -17,7 +17,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "okendo",
     "name": "Okendo",
-    "description": "Okendo Merchant REST reviews (Catalog HTTP)",
+    "description": "Sync Okendo product reviews linked to orders and customers.",
     "category": "e_commerce",
     "icon_url": "https://www.google.com/s2/favicons?domain=okendo.io&sz=128",
     "auth_type": "api_key",

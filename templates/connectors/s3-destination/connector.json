@@ -4,7 +4,7 @@
   "catalog_visible": true,
   "slug": "s3-destination",
   "name": "S3 Destination Connector",
-  "description": "Connection to Amazon S3 or S3-compatible storage for outbound writes (mesh / batch data).",
+  "description": "Write records to Amazon S3 or S3-compatible storage.",
   "version": "1.0.0",
   "tags": [
     "s3-destination"

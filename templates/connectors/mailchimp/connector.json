@@ -4,7 +4,7 @@
   "catalog_visible": false,
   "slug": "mailchimp",
   "name": "Mailchimp Connector",
-  "description": "Mailchimp Marketing API audiences (lists), campaigns, and reports via Catalog HTTP runtime.",
+  "description": "Sync Mailchimp audiences, campaigns, and reports.",
   "version": "1.0.0",
   "tags": ["mailchimp", "email", "marketing", "audiences", "campaigns"],
   "use_cases": [

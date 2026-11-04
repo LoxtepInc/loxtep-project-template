@@ -4,7 +4,7 @@
   "catalog_visible": true,
   "slug": "clickup",
   "name": "ClickUp Connector",
-  "description": "Connect to ClickUp to sync tasks, lists, folders, spaces, workspaces, and goals via the public REST API (OAuth 2.0).",
+  "description": "Sync ClickUp tasks, lists, folders, spaces, workspaces, and goals.",
   "version": "1.1.0",
   "tags": [
     "clickup",
@@ -24,7 +24,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "clickup",
     "name": "ClickUp",
-    "description": "ClickUp project management via CatalogRuntimeConnector (tasks, lists, folders, spaces, workspaces, goals)",
+    "description": "Sync ClickUp tasks, lists, folders, spaces, workspaces, and goals.",
     "category": "productivity",
     "auth_type": "oauth2",
     "icon_url": "/images/connectors/clickup.svg",
