@@ -3,7 +3,7 @@
   "template_type": "connector",
   "slug": "bill-com",
   "name": "Bill.com Connector",
-  "description": "BILL (Bill.com) AP/AR \u2014 bills, vendors, and customers via Catalog HTTP (session + developer key).",
+  "description": "Sync BILL (Bill.com) bills, vendors, and customers.",
   "version": "1.0.0",
   "tags": [
     "bill-com",
@@ -25,7 +25,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "bill-com",
     "name": "Bill.com",
-    "description": "BILL v3 Connect API via CatalogRuntimeConnector (sessionId + devKey).",
+    "description": "Sync BILL (Bill.com) bills, vendors, and customers.",
     "category": "finance",
     "icon_url": "https://www.google.com/s2/favicons?domain=bill.com&sz=128",
     "auth_type": "api_key",

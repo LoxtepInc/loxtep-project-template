@@ -4,7 +4,7 @@
   "catalog_visible": false,
   "slug": "woocommerce",
   "name": "WooCommerce Connector",
-  "description": "WooCommerce REST API v3 orders, products, and customers via catalog runtime (store URL + consumer key/secret).",
+  "description": "Sync WooCommerce orders, products, and customers.",
   "version": "1.0.0",
   "tags": ["woocommerce", "e-commerce", "orders", "products", "customers"],
   "use_cases": [
@@ -18,7 +18,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "woocommerce",
     "name": "WooCommerce",
-    "description": "WooCommerce e-commerce connector (orders, products, customers) via WP REST /wp-json/wc/v3",
+    "description": "Sync WooCommerce orders, products, and customers.",
     "category": "e_commerce",
     "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-woocommerce/icon.svg",
     "documentation_url": "https://woocommerce.github.io/woocommerce-rest-api-docs/",

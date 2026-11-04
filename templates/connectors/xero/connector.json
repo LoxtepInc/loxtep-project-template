@@ -3,7 +3,7 @@
   "template_type": "connector",
   "slug": "xero",
   "name": "Xero Connector",
-  "description": "Xero Accounting API — contacts, invoices, chart of accounts, and payments via Catalog HTTP.",
+  "description": "Sync Xero contacts, invoices, chart of accounts, and payments.",
   "version": "1.0.0",
   "tags": ["xero", "accounting", "finance", "invoices", "contacts"],
   "use_cases": [
@@ -16,7 +16,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "xero",
     "name": "Xero",
-    "description": "Xero Accounting API (OAuth 2.0) via CatalogRuntimeConnector.",
+    "description": "Sync Xero contacts, invoices, chart of accounts, and payments.",
     "category": "finance",
     "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-xero/icon.svg",
     "auth_type": "oauth2",

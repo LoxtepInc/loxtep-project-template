@@ -4,7 +4,7 @@
   "catalog_visible": false,
   "slug": "bigcommerce",
   "name": "BigCommerce Connector",
-  "description": "BigCommerce Store API v3 orders, customers, and catalog products via catalog runtime.",
+  "description": "Sync BigCommerce orders, customers, and catalog products.",
   "version": "1.0.0",
   "tags": ["bigcommerce", "e-commerce", "orders", "products"],
   "use_cases": ["Order event streaming", "Product catalog sync", "Customer data integration"],

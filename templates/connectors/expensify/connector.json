@@ -3,7 +3,7 @@
   "template_type": "connector",
   "slug": "expensify",
   "name": "Expensify Connector",
-  "description": "Expensify Integration Server — expense policies and report export via Catalog HTTP (form-urlencoded).",
+  "description": "Export Expensify expense policies and reports.",
   "version": "1.0.0",
   "tags": [
     "expensify",
@@ -23,7 +23,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "expensify",
     "name": "Expensify",
-    "description": "Expensify Integration Server via CatalogRuntimeConnector (partnerUserID + partnerUserSecret, form-urlencoded POST).",
+    "description": "Export Expensify expense policies and reports.",
     "category": "finance",
     "icon_url": "https://cdn.simpleicons.org/expensify",
     "auth_type": "api_key",

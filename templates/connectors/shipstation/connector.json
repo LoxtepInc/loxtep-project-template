@@ -4,7 +4,7 @@
   "catalog_visible": true,
   "slug": "shipstation",
   "name": "ShipStation Connector",
-  "description": "Connect to ShipStation for shipments, carriers, and warehouses. New connections use API v2 (https://api.shipstation.com, API-Key header). V1 (ssapi.shipstation.com, HTTP Basic) stays available and has no published sunset.",
+  "description": "Sync ShipStation shipments, carriers, and warehouses.",
   "version": "1.2.0",
   "tags": [
     "shipstation",
@@ -23,7 +23,7 @@
     "project_id": "{{PROJECT_ID}}",
     "connector_type": "shipstation",
     "name": "ShipStation",
-    "description": "ShipStation fulfillment via CatalogRuntimeConnector. V2 (recommended) lists shipments, carriers, and warehouses. V1 still lists shipments, orders, carriers, and warehouses.",
+    "description": "Sync ShipStation shipments, carriers, and warehouses.",
     "category": "fulfillment",
     "icon_url": "https://raw.githubusercontent.com/airbytehq/airbyte/019e8d5ea5b82fa13de8989e2fe6b3c56c16fa1b/airbyte-integrations/connectors/source-shipstation/icon.svg",
     "documentation_url": "https://docs.shipstation.com/apis/openapi",
