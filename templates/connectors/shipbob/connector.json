@@ -5,7 +5,7 @@
   "slug": "shipbob",
   "name": "ShipBob Connector",
   "description": "ShipBob fulfillment and inventory.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tags": ["shipbob", "fulfillment", "3pl"],
   "use_cases": ["ShipBob fulfillment and inventory."],
   "entity": {
@@ -24,7 +24,7 @@
     "supports_webhooks": true,
     "supports_polling": true,
     "required_scopes": null,
-    "version": "1.0.0",
+    "version": "1.1.0",
     "is_beta": true,
     "metadata": { "template_slug": "shipbob" },
     "created_at": "{{CREATED_AT}}",
@@ -48,21 +48,27 @@
   },
   "connector_package": {
     "schema_version": 1,
-    "package_version": "1.0.0",
+    "package_version": "1.1.0",
     "use_catalog_runtime": true,
-    "description": "ShipBob REST lists and channel probe via CatalogRuntimeConnector.",
+    "description": "ShipBob REST API 2026-07 (orders, inventory, channel probe) via CatalogRuntimeConnector. Partial migration from retired /1.0 (410 Gone since 2026-08-29). Bulk shipment listing is not migrated; see follow_up_notes.",
+    "follow_up_notes": [
+      "Orders: GET /2026-07/order still takes Page and Limit and returns a bare array. sync_plan stays query_page with page_query_param Page and records_path \"\". Auth header is unchanged (Authorization: Bearer).",
+      "Channel probe: GET /2026-07/channel returns { items, next, prev }. connection_probe.records_path is \"items\" so required_field id and account_info_mapping read a channel object. The action accepts optional RecordsPerPage (default 50) and Cursor; the probe calls the first page only and does not follow next. Documented next/prev values are URLs (example: \"/2026-07/channel?cursor=...\"), so the existing pagination type that matches is links_next_query (links_next_path \"next\", links_next_cursor_param \"cursor\", cursor_query_param \"Cursor\") — the same next-link-plus-named-query-param shape as Spotify/Okendo, not cursor_from_body (that would resend the whole URL as the Cursor value). Channel is not a sync_plan entity, so no sync pagination block was added.",
+      "Inventory: GET /2026-07/inventory returns { items, first, next, prev, last } and takes PageSize instead of Page/Limit. records_path is \"items\". pagination is links_next_query (next link in the body; same type as Spotify, Klaviyo, and Okendo — not page_info_link, which reads a Link header, and not query_page). PageSize is mapped from input.limit. The inventory docs show next as a URL but the example value is the placeholder \"string\"; channel next URLs and ShipBob SDK paging hrefs use a cursor query param, so links_next_cursor_param and cursor_query_param are \"cursor\". Confirm that param name on a sandbox response before relying on multi-page inventory sync. Published InventoryResponse identifies rows with inventory_id, not id; id_field is inventory_id. schemas/entities/sync-row.schema.json still requires id and is shared with orders and shipments, so inventory row validation against that schema is not confirmed.",
+      "OPEN — shipments bulk list is not fixed. GET /2026-07/shipment/{shipmentId} fetches one shipment and is not a list. There is no documented bulk /shipment list on API 2026-07; shipment rows are nested on each GET /order element as shipments[]. Grep of templates/connectors/*/connector.json shows records_path is only a single dotted path (for example \"items\", \"data\", \"artists.items\"). CatalogRuntimeConnector has no precedent for flattening shipments[] out of every order into its own synced entity. sync_plan.shipments pagination is \"none\" so this package does not keep calling the retired Page/Limit list contract; that is not a bulk sync. Decision for Nate / the connector platform owner: add multi-path records_path flattening, or remove shipments as an independently synced entity and surface shipments[] on orders. Do not treat the shipments entity as resolved."
+    ],
     "execution_policy": {
       "allowed_host_suffixes": ["api.shipbob.com"],
       "allowed_path_patterns": [
-        "^/1\\.0/channel$",
-        "^/1\\.0/order$",
-        "^/1\\.0/shipment$",
-        "^/1\\.0/inventory$"
+        "^/2026-07/channel$",
+        "^/2026-07/order$",
+        "^/2026-07/inventory$",
+        "^/2026-07/shipment/[^/]+$"
       ]
     },
     "connection_probe": {
       "action_key": "shipbob_get_channel",
-      "records_path": "",
+      "records_path": "items",
       "required_field": "id",
       "account_info_mapping": {
         "channel_id": "id",
@@ -81,16 +87,18 @@
         "shipments": {
           "fetch_action_key": "shipbob_list_shipments",
           "records_path": "",
-          "pagination": "query_page",
-          "page_query_param": "Page",
-          "id_field": "id"
+          "pagination": "none",
+          "id_field": "id",
+          "open_design_question": "Not fixed. GET /2026-07/shipment/{shipmentId} requires a shipment id and does not bulk-list. Shipment data is nested under GET /2026-07/order shipments[]. CatalogRuntimeConnector records_path cannot flatten that nested array into this entity. Needs a platform decision (multi-path flattening, or drop independent shipment sync and keep shipments on the order). pagination none only stops the retired Page loop; it does not sync shipments."
         },
         "inventory": {
           "fetch_action_key": "shipbob_list_inventory",
-          "records_path": "",
-          "pagination": "query_page",
-          "page_query_param": "Page",
-          "id_field": "id"
+          "records_path": "items",
+          "pagination": "links_next_query",
+          "links_next_path": "next",
+          "links_next_cursor_param": "cursor",
+          "cursor_query_param": "cursor",
+          "id_field": "inventory_id"
         }
       }
     },
@@ -111,7 +119,8 @@
         "supports_full_sync": true,
         "supports_webhook": true,
         "default_sync_interval_minutes": 15,
-        "max_batch_size": 250
+        "max_batch_size": 250,
+        "open_design_question": "Bulk shipment sync is unresolved. See actions/list-shipments/definition.json description and connector_package.follow_up_notes. Shipment rows are nested on orders (shipments[]) and this runtime cannot flatten them into a separate entity."
       },
       "inventory": {
         "name": "Inventory",

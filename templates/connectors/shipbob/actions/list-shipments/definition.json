@@ -1,6 +1,7 @@
 {
   "key": "shipbob_list_shipments",
   "name": "List shipments",
+  "description": "OPEN DESIGN QUESTION — not a working bulk shipment sync. GET /2026-07/shipment/{shipmentId} returns one shipment and requires shipmentId. API 2026-07 has no bulk GET /shipment list (the retired /1.0/shipment list path is not on the current documented surface). Shipment data is nested on GET /2026-07/order as shipments[] on each order. CatalogRuntimeConnector sync_plan only supports a single dotted records_path into one response (for example \"items\" or \"artists.items\") and has no precedent for flattening an array inside every element of another array. Bulk shipment sync needs a framework decision from Nate / the connector platform owner before this entity can be considered fixed: either add multi-path records_path flattening to CatalogRuntimeConnector, or stop syncing shipments as its own entity and surface shipments[] as a nested field on orders. Do not treat this action as resolved.",
   "version": "1.0.0",
   "type": "action",
   "annotations": { "read_only": true, "destructive": false },
@@ -9,15 +10,18 @@
     "type": "object",
     "additionalProperties": true,
     "properties": {
-      "limit": { "type": "number" },
-      "Page": { "type": "number" }
-    }
+      "shipmentId": {
+        "type": ["number", "integer", "string"],
+        "description": "Required path id. There is no bulk-list query (no Page/Limit) on GET /2026-07/shipment/{shipmentId}."
+      }
+    },
+    "required": ["shipmentId"]
   },
   "execution": {
     "protocol": "catalog_http_get",
     "method": "GET",
     "base_url_template": "https://api.shipbob.com",
-    "path": "/1.0/shipment",
+    "path": "/2026-07/shipment/{{input.shipmentId}}",
     "header_auth": {
       "header": "Authorization",
       "value_from": "connection.api_key",
@@ -26,10 +30,7 @@
     "static_headers": {
       "shipbob_channel_id": "{{connection.custom_settings.channel_id}}"
     },
-    "query_mapping": {
-      "Page": "input.Page",
-      "Limit": "input.limit"
-    },
+    "query_mapping": {},
     "omit_empty_query": true
   }
 }
