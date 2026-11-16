@@ -870,10 +870,10 @@
         "category": "custom"
       },
       {
-        "slug": "data-product-consumption",
-        "name": "Data Product Consumption Connector",
+        "slug": "data-product-trigger",
+        "name": "Data Product Trigger",
         "description": "Consume a data product as the flow trigger (on event or cron)",
-        "path": "templates/connectors/data-product-consumption.json",
+        "path": "templates/connectors/data-product-trigger/connector.json",
         "tags": [
           "data-product",
           "consumption",
