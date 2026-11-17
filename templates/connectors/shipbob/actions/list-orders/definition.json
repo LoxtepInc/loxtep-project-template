@@ -17,7 +17,7 @@
     "protocol": "catalog_http_get",
     "method": "GET",
     "base_url_template": "https://api.shipbob.com",
-    "path": "/1.0/order",
+    "path": "/2026-07/order",
     "header_auth": {
       "header": "Authorization",
       "value_from": "connection.api_key",

@@ -1,20 +1,30 @@
 {
   "key": "shipbob_get_channel",
   "name": "Get channel",
+  "description": "GET /2026-07/channel. Cursor page: optional RecordsPerPage (default 50) and Cursor. Response is { items, next, prev }; next/prev are URLs such as /2026-07/channel?cursor=... . Connection probe reads the first page only.",
   "version": "1.0.0",
   "type": "action",
   "annotations": { "read_only": true, "destructive": false },
   "input_schema": {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
-    "additionalProperties": false,
-    "properties": {}
+    "additionalProperties": true,
+    "properties": {
+      "RecordsPerPage": {
+        "type": "number",
+        "description": "Page size. ShipBob default is 50 when omitted."
+      },
+      "Cursor": {
+        "type": "string",
+        "description": "Cursor query value taken from the next or prev URL (query param cursor). Not the URL itself."
+      }
+    }
   },
   "execution": {
     "protocol": "catalog_http_get",
     "method": "GET",
     "base_url_template": "https://api.shipbob.com",
-    "path": "/1.0/channel",
+    "path": "/2026-07/channel",
     "header_auth": {
       "header": "Authorization",
       "value_from": "connection.api_key",
@@ -23,7 +33,10 @@
     "static_headers": {
       "shipbob_channel_id": "{{connection.custom_settings.channel_id}}"
     },
-    "query_mapping": {},
+    "query_mapping": {
+      "RecordsPerPage": "input.RecordsPerPage",
+      "Cursor": "input.Cursor"
+    },
     "omit_empty_query": true
   }
 }

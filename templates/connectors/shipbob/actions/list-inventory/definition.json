@@ -1,6 +1,7 @@
 {
   "key": "shipbob_list_inventory",
   "name": "List inventory",
+  "description": "GET /2026-07/inventory. Page size is PageSize (from input.limit). Continuation is the body next URL (links_next_query), not a Page index. Response envelope is { items, first, next, prev, last }.",
   "version": "1.0.0",
   "type": "action",
   "annotations": { "read_only": true, "destructive": false },
@@ -9,15 +10,21 @@
     "type": "object",
     "additionalProperties": true,
     "properties": {
-      "limit": { "type": "number" },
-      "Page": { "type": "number" }
+      "limit": {
+        "type": "number",
+        "description": "Sent as PageSize. 2026-07 inventory has no Page or Limit query param."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Continuation value extracted from the next URL query param cursor."
+      }
     }
   },
   "execution": {
     "protocol": "catalog_http_get",
     "method": "GET",
     "base_url_template": "https://api.shipbob.com",
-    "path": "/1.0/inventory",
+    "path": "/2026-07/inventory",
     "header_auth": {
       "header": "Authorization",
       "value_from": "connection.api_key",
@@ -27,8 +34,8 @@
       "shipbob_channel_id": "{{connection.custom_settings.channel_id}}"
     },
     "query_mapping": {
-      "Page": "input.Page",
-      "Limit": "input.limit"
+      "PageSize": "input.limit",
+      "cursor": "input.cursor"
     },
     "omit_empty_query": true
   }
