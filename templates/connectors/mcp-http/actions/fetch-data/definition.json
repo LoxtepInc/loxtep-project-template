@@ -1,0 +1,36 @@
+{
+  "key": "mcp_http_fetch_data",
+  "name": "Fetch MCP data",
+  "description": "Read via resources/read or an allowlisted tool call. Does not start continuous ingest.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "mcp-http",
+    "operation": "fetch_data",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "entity_type": {
+        "type": "string",
+        "description": "Resource URI, sanitized resource slug, or tool:<name>"
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "Optional max records"
+      }
+    },
+    "required": ["entity_type"]
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "mcp-http",
+    "operation": "fetch_data"
+  }
+}

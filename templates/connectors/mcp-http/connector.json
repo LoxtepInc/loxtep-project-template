@@ -1,0 +1,142 @@
+{
+  "$schema": "https://loxtep.io/schemas/template/connector.json",
+  "template_type": "connector",
+  "catalog_visible": true,
+  "slug": "mcp-http",
+  "name": "MCP HTTP Relay",
+  "description": "Relay to a customer-hosted MCP server over Streamable HTTP or SSE using organization credentials.",
+  "version": "1.0.0",
+  "tags": ["mcp", "http", "sse", "relay", "ai", "tools"],
+  "use_cases": [
+    "Connect a hosted MCP (Streamable HTTP / SSE) so Studio and discovery can test and list resources",
+    "Org-scoped credentials for generic MCP servers that are not first-party SaaS connectors",
+    "Discovery --apply target for unmatched HTTP/SSE MCPs (loxtep-sdk mcp-http)"
+  ],
+  "entity": {
+    "connector_id": "{{CONNECTOR_ID}}",
+    "organization_id": "{{ORGANIZATION_ID}}",
+    "project_id": "{{PROJECT_ID}}",
+    "connector_type": "mcp-http",
+    "name": "MCP HTTP Relay",
+    "description": "Speak MCP to a remote URL with Loxtep-stored credentials. Distinct from Loxtep’s outbound hosted MCP server.",
+    "category": "basic",
+    "icon_url": "https://cdn.jsdelivr.net/npm/lucide-static@0.544.0/icons/radio-tower.svg",
+    "documentation_url": "https://docs.loxtep.io/docs/connectors/mcp-http",
+    "auth_type": "api_key",
+    "oauth_config": null,
+    "supported_directions": ["inbound"],
+    "supported_entities": [],
+    "supports_webhooks": false,
+    "supports_polling": true,
+    "required_scopes": null,
+    "required_permissions": null,
+    "version": "1.0.0",
+    "is_beta": true,
+    "custom_settings_schema": {
+      "mcp_url": {
+        "type": "string",
+        "format": "uri",
+        "help": "Required. MCP Streamable HTTP endpoint or SSE URL."
+      },
+      "transport": {
+        "type": "string",
+        "help": "http | sse | auto (default auto: try Streamable HTTP, fall back to SSE)."
+      },
+      "auth_type": {
+        "type": "string",
+        "help": "none | api_key | bearer | oauth2. Credentials stored in Loxtep only — never copy IDE vault tokens by default."
+      },
+      "api_key_header": {
+        "type": "string",
+        "help": "Header name when auth_type=api_key (default X-API-Key)."
+      },
+      "headers": {
+        "type": "string",
+        "help": "Optional extra headers as JSON object or key: value lines."
+      },
+      "resource_allowlist": {
+        "type": "string",
+        "help": "Optional JSON array of MCP resource URIs to expose as entities."
+      },
+      "tool_allowlist": {
+        "type": "string",
+        "help": "Optional JSON array of read-shaped tool names used when the server has no resources."
+      },
+      "timeout_ms": {
+        "type": "string",
+        "help": "Request timeout in milliseconds (default 15000)."
+      }
+    },
+    "metadata": {
+      "template_slug": "mcp-http",
+      "relay_kind": "mcp_http",
+      "connection_config_spec": {
+        "resolution": "flexible",
+        "help": "mcp_url + auth in custom_settings / connector secrets. Runtime uses platform native McpHttpConnector.",
+        "allow_driver_passthrough": false
+      },
+      "trigger_config_spec": {
+        "required": ["mcp_url"],
+        "optional": ["transport", "auth_type", "resource_allowlist", "tool_allowlist"],
+        "fields": {
+          "mcp_url": {
+            "type": "string",
+            "description": "Hosted MCP Streamable HTTP or SSE URL"
+          },
+          "transport": {
+            "type": "string",
+            "enum": ["auto", "http", "sse"],
+            "default": "auto",
+            "description": "MCP transport"
+          },
+          "auth_type": {
+            "type": "string",
+            "enum": ["none", "api_key", "bearer", "oauth2"],
+            "default": "none",
+            "description": "Auth scheme for the remote MCP"
+          }
+        }
+      }
+    },
+    "created_at": "{{CREATED_AT}}",
+    "updated_at": "{{UPDATED_AT}}"
+  },
+  "connection_template": {
+    "type": "api",
+    "configuration": {}
+  },
+  "placeholders": {
+    "{{CONNECTOR_ID}}": "Generated UUID for the connector",
+    "{{ORGANIZATION_ID}}": "Organization that owns this connector",
+    "{{PROJECT_ID}}": "Project that contains this connector",
+    "{{CREATED_AT}}": "ISO 8601 timestamp",
+    "{{UPDATED_AT}}": "ISO 8601 timestamp"
+  },
+  "connector_package": {
+    "schema_version": 1,
+    "package_version": "1.0.0",
+    "platform_native_provider": "mcp-http",
+    "description": "Org-scoped MCP relay. Speaks MCP tools/list, resources/list, and resources/read against a customer URL. Not rest-api and not the Loxtep outbound MCP server.",
+    "follow_up_notes": [
+      "Connect ≠ ingest: test and entity discovery only until a Products workflow is authorized.",
+      "Do not map generic MCP to rest-api.",
+      "Stdio MCP is out of scope for this connector type.",
+      "Relay vs first-party: first-party SaaS maps (Shopify, GitHub, …) stay dedicated types; mcp-http is for unmatched hosted HTTP/SSE MCPs.",
+      "Relay vs action-only: write-only toolsets should stay action_only in discovery, not Connect ingest connectors."
+    ],
+    "actions": [
+      {
+        "key": "mcp_http_test_connection",
+        "definition_path": "actions/test-connection/definition.json"
+      },
+      {
+        "key": "mcp_http_list_entities",
+        "definition_path": "actions/list-entities/definition.json"
+      },
+      {
+        "key": "mcp_http_fetch_data",
+        "definition_path": "actions/fetch-data/definition.json"
+      }
+    ]
+  }
+}

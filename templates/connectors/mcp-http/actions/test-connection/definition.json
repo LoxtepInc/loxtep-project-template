@@ -1,0 +1,26 @@
+{
+  "key": "mcp_http_test_connection",
+  "name": "Test MCP connection",
+  "description": "MCP initialize plus tools/list and/or resources/list using organization credentials. Implemented by McpHttpConnector.testConnection.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "mcp-http",
+    "operation": "test_connection",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {},
+    "description": "Uses connector instance config only; no extra inputs."
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "mcp-http",
+    "operation": "test_connection"
+  }
+}
