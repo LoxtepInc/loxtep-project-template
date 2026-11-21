@@ -1,0 +1,25 @@
+{
+  "key": "mcp_http_list_entities",
+  "name": "List MCP entities",
+  "description": "Map MCP resources (preferred) or allowlisted read-shaped tools to entity definitions.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": {
+    "runtime_kind": "platform_native",
+    "provider_slug": "mcp-http",
+    "operation": "get_available_entities",
+    "read_only": true,
+    "destructive": false
+  },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "execution": {
+    "protocol": "platform_native",
+    "provider": "mcp-http",
+    "operation": "get_available_entities"
+  }
+}
