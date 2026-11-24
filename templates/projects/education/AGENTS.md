@@ -53,14 +53,25 @@ data-products/            # data product definitions
 
 ## MCP tools (hosted at `mcp.loxtep.io`)
 
-When this workspace is connected, the hosted MCP server scopes tool calls to
-this project's `project_id` + `instance_id` and exposes a
-`loxtep_workspace_context` resource projecting the project's data products,
-connectors, domains, queues, flows, and workflows (plus the bound repository
-when set). Tool calls that carry a skill name are checked against that skill's
-scope **before** execution; an out-of-scope resource is rejected with
-`SCOPE_VIOLATION` and a denied operation is rejected without mutating any
-resource (fail-closed).
+Connect the hosted MCP server (`https://mcp.loxtep.io/ai/mcp/stream`, OAuth 2.1).
+**Tools do not inherit scope from the workspace root** — every project-scoped
+`tools/call` must include explicit `project_id` and `instance_id` (and any
+other parameters the tool requires).
+
+### Resource — `loxtep://workspace_context`
+
+`resources/list` includes `loxtep://workspace_context`. Read it with both query
+params required:
+
+`loxtep://workspace_context?project_id=<uuid>&instance_id=<uuid>`
+
+The JSON projection lists design-time entity ids/names, org connectors, and the
+target instance's `environment_key`. This resource is **read-only context**; it
+does **not** auto-inject `project_id` / `instance_id` into tool calls.
+
+Optional `_metadata.skill_name` on tool calls is checked against
+`.loxtep/skills/*.yaml` before execution (`SCOPE_VIOLATION` when out of scope;
+fail-closed).
 
 ## Skill scope
 

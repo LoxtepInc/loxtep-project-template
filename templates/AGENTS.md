@@ -35,6 +35,11 @@ and model data products — without constructing JSON from scratch.
 { "operation": "apply_template", "project_id": "<id>", "template_type": "<type>", "template_slug": "<slug>" }
 ```
 
+`resources/list` includes `loxtep://workspace_context`. Read with **both**
+query params: `loxtep://workspace_context?project_id=<uuid>&instance_id=<uuid>`.
+MCP tools still require explicit `project_id` / `instance_id` on every call — the
+resource does not auto-scope tools from the workspace root.
+
 ### Via manifest.json (offline / pre-flight)
 
 The root `manifest.json` indexes all demos and catalog templates with:
@@ -243,6 +248,23 @@ Use vocabulary data to:
 1. Apply `sdk-ingest` workflow template
 2. Apply `blank-source` data product template
 3. Deploy → write events via `@loxtep/sdk`
+
+## Promote & environment bindings (ADR 0013)
+
+Runtime scope is an **Instance** (optional `metadata.environment_key` on the
+instance for stage/prod segregation — not a separate Environment entity).
+Multi-env project packages declare:
+
+- Connection credentials: per-connection `bindings[]` (prefer `environment_key`)
+  and/or `.loxtep/connection-bindings.json`
+- Data-product runtime: `runtime_slots[]` on the entity and/or
+  `.loxtep/data-product-runtime-slots.json`
+
+Deploy applies those declarations per target instance and **fails closed** when
+the target `environment_key` is undeclared (no silent stage→prod credential or
+runtime copy). See the `loxtep-deployments` and `data-workflows` product skills
+and ADR 0013 (`design-runtime-global-bindings`) in the main Loxtep repo.
+`retail_ecommerce` includes stage + prod examples.
 
 ## Related skills
 

@@ -225,8 +225,23 @@ function validateTriggerJson(filePath) {
 
   // Entity validation
   if (data.entity) {
-    const entityRequired = ['connection_id', 'connector_id', 'organization_id', 'project_id', 'key', 'name', 'type', 'status'];
+    const entityRequired = [
+      'connection_id',
+      'organization_id',
+      'project_id',
+      'key',
+      'name',
+      'type',
+      'status',
+    ];
     validateRequired(data.entity, entityRequired, `${relPath} (entity)`);
+    const hasBindings =
+      Array.isArray(data.entity.bindings) && data.entity.bindings.length > 0;
+    if (!hasBindings && !data.entity.connector_id) {
+      errors.push(
+        `${relPath} (entity): connector_id required when bindings[] is absent`,
+      );
+    }
 
     if (data.entity.key) {
       validatePattern(data.entity.key, '^[a-z0-9-_]+$', 'entity.key', relPath);

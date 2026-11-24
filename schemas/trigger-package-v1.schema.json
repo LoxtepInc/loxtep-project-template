@@ -16,10 +16,30 @@
     "use_cases": { "type": "array", "items": { "type": "string" } },
     "entity": {
       "type": "object",
-      "required": ["connection_id", "connector_id", "organization_id", "project_id", "key", "name", "type", "status"],
+      "required": ["connection_id", "organization_id", "project_id", "key", "name", "type", "status"],
       "properties": {
         "connection_id": { "type": "string", "description": "Unique identifier for the connection (SDK entity field connection_id)" },
-        "connector_id": { "type": "string", "description": "Org connector this connection instantiates. Placeholder {{CONNECTOR_ID}} until apply time." },
+        "connector_id": {
+          "type": "string",
+          "description": "Legacy home-instance default org connector. Prefer bindings[] for multi-env (ADR 0013)."
+        },
+        "bindings": {
+          "type": "array",
+          "description": "Declared per-environment (or per-instance) connector bindings. Prefer environment_key.",
+          "items": {
+            "type": "object",
+            "required": ["connector_id"],
+            "properties": {
+              "environment_key": { "type": "string", "minLength": 1, "maxLength": 64 },
+              "instance_id": { "type": "string", "format": "uuid" },
+              "connector_id": { "type": "string" },
+              "delivery_config": { "type": ["object", "null"], "additionalProperties": true },
+              "connector_vpc_id": { "type": ["string", "null"], "minLength": 1, "maxLength": 255 }
+            },
+            "additionalProperties": false,
+            "anyOf": [{ "required": ["environment_key"] }, { "required": ["instance_id"] }]
+          }
+        },
         "organization_id": { "type": "string" },
         "project_id": { "type": "string" },
         "workflow_id": { "type": ["string", "null"] },

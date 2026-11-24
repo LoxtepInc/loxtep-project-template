@@ -25,11 +25,23 @@
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}",
     "connection_id": "{{CONNECTION_ID}}",
-    "connector_id": "{{CONNECTOR_ID}}"
+    "connector_id": "{{CONNECTOR_ID}}",
+    "bindings": [
+      {
+        "environment_key": "stage",
+        "connector_id": "{{CONNECTOR_ID_STAGE}}"
+      },
+      {
+        "environment_key": "prod",
+        "connector_id": "{{CONNECTOR_ID_PROD}}"
+      }
+    ]
   },
   "placeholders": {
     "{{CONNECTION_ID}}": "Generated UUID for the connection",
-    "{{CONNECTOR_ID}}": "UUID of the org connector this connection uses. Project clone does not fill {{CONNECTOR_ID}}; webhook connections require a webhook connector in the target org.",
+    "{{CONNECTOR_ID}}": "Legacy home-instance default only (ADR 0013). Prefer bindings[] per environment_key; see .loxtep/connection-bindings.json.",
+    "{{CONNECTOR_ID_STAGE}}": "Org webhook-catch connector UUID for the stage environment_key.",
+    "{{CONNECTOR_ID_PROD}}": "Org webhook-catch connector UUID for the prod environment_key.",
     "{{WORKFLOW_ID}}": "Workflow this connection belongs to",
     "{{ORGANIZATION_ID}}": "Organization that owns this connection",
     "{{PROJECT_ID}}": "Project containing this connection",
