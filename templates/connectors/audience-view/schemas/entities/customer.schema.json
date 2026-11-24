@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loxtep:connector:audience-view:entity:customer",
+  "title": "AudienceView customer search row",
+  "description": "Loose row from WebAPI search (object customer). Live Unlimited responses may nest triad values (standard/input/display) or use return.Result maps — adjust ResultMembers after first probe. No card or PAN fields.",
+  "type": "object",
+  "properties": {
+    "customer_id": { "type": ["string", "number"] },
+    "customer_number": { "type": ["string", "number"] }
+  },
+  "additionalProperties": true
+}

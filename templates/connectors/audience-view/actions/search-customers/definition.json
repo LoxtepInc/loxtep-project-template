@@ -1,0 +1,62 @@
+{
+  "key": "audience_view_search_customers",
+  "name": "Search customers",
+  "description": "POST /app/WebAPI/v2/search — Query.object customer, method search, page via Query.current_page (max page_size 1000). Session cookie from session_auth.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": {
+        "type": "number",
+        "description": "Query.page_size (capped at 1000 by Unlimited)."
+      },
+      "page": {
+        "type": ["number", "string"],
+        "description": "1-based Query.current_page from sync_plan query_page pagination."
+      }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_post",
+    "method": "POST",
+    "base_url_template": "{{connection.base_url}}",
+    "path": "/app/WebAPI/v2/search",
+    "static_headers": {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    "query_mapping": {
+      "api_key": "connection.custom_settings.api_key"
+    },
+    "omit_empty_query": true,
+    "omit_empty_json_strings": true,
+    "json_body": {
+      "set": {
+        "Query": {
+          "object": "customer",
+          "page_size": "{{input.limit}}",
+          "current_page": "{{input.page}}",
+          "ResultMember": {
+            "1": { "Name": "Customer::customer_id", "Order": "1" },
+            "2": { "Name": "Customer::customer_number", "Order": "2" },
+            "3": { "Name": "Customer::Contacts::first_name", "Order": "3" },
+            "4": { "Name": "Customer::Contacts::last_name", "Order": "4" },
+            "5": { "Name": "Customer::Contacts::email", "Order": "5" }
+          }
+        }
+      },
+      "actions": [
+        {
+          "method": "search",
+          "acceptWarnings": [4276]
+        }
+      ],
+      "get": ["Query::total_records", "Result"],
+      "release": "Object"
+    }
+  }
+}
