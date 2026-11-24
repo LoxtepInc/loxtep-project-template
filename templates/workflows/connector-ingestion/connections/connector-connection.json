@@ -8,6 +8,16 @@
   "type": "api",
   "status": "active",
   "connector_id": "{{CONNECTOR_ID}}",
+  "bindings": [
+    {
+      "environment_key": "stage",
+      "connector_id": "{{CONNECTOR_ID_STAGE}}"
+    },
+    {
+      "environment_key": "prod",
+      "connector_id": "{{CONNECTOR_ID_PROD}}"
+    }
+  ],
   "sync_entity": "{{SYNC_ENTITY}}",
   "ingestion_type": "polling",
   "configuration": {},

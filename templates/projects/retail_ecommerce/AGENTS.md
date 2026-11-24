@@ -20,6 +20,7 @@ products, connectors/connections, and workflows (listed under
 ```
 .loxtep/
   project.json            # project config (id, instance binding, repository)
+  connection-bindings.json  # stage + prod connection bindings (ADR 0013 example)
   skills/retail-ecommerce-default.yaml  # default scoped Skill (see "Skill scope" below)
   generated/index.ts      # typed constants from loxtep generate (after attach)
 domains/                  # domain definitions
@@ -53,14 +54,25 @@ data-products/            # data product definitions
 
 ## MCP tools (hosted at `mcp.loxtep.io`)
 
-When this workspace is connected, the hosted MCP server scopes tool calls to
-this project's `project_id` + `instance_id` and exposes a
-`loxtep_workspace_context` resource projecting the project's data products,
-connectors, domains, queues, flows, and workflows (plus the bound repository
-when set). Tool calls that carry a skill name are checked against that skill's
-scope **before** execution; an out-of-scope resource is rejected with
-`SCOPE_VIOLATION` and a denied operation is rejected without mutating any
-resource (fail-closed).
+Connect the hosted MCP server (`https://mcp.loxtep.io/ai/mcp/stream`, OAuth 2.1).
+**Tools do not inherit scope from the workspace root** — every project-scoped
+`tools/call` must include explicit `project_id` and `instance_id` (and any
+other parameters the tool requires).
+
+### Resource — `loxtep://workspace_context`
+
+`resources/list` includes `loxtep://workspace_context`. Read it with both query
+params required:
+
+`loxtep://workspace_context?project_id=<uuid>&instance_id=<uuid>`
+
+The JSON projection lists design-time entity ids/names, org connectors, and the
+target instance's `environment_key`. This resource is **read-only context**; it
+does **not** auto-inject `project_id` / `instance_id` into tool calls.
+
+Optional `_metadata.skill_name` on tool calls is checked against
+`.loxtep/skills/*.yaml` before execution (`SCOPE_VIOLATION` when out of scope;
+fail-closed).
 
 ## Skill scope
 
@@ -105,6 +117,7 @@ their template slugs until `loxtep generate` resolves them to platform ids):
 
 ## Conventions for agents
 
+- Multi-env deploy: set each Instance's `metadata.environment_key` (`stage`, `prod`, …) and fill `bindings[]` / `runtime_slots[]` (or `.loxtep/connection-bindings.json`) with the org connector UUIDs for that env — legacy scalar `connector_id` is home-instance default only.
 - Prefer `toolbox` (deterministic) calls for predictable work; use `agent()` only for reasoning/classification, always with an explicit `skills` allowlist.
 - Never widen a skill's scope or permissions silently — surface the change to the developer.
 - Reference resources by their generated typed constants (after `loxtep generate`) rather than hardcoding ids.

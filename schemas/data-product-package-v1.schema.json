@@ -79,6 +79,24 @@
           "uniqueItems": true
         },
         "metadata": { "type": "object", "additionalProperties": true },
+        "runtime_slots": {
+          "type": "array",
+          "description": "Declared per-environment runtime slots (queues/bots/storage). Prefer environment_key (ADR 0013).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "environment_key": { "type": "string", "minLength": 1, "maxLength": 64 },
+              "instance_id": { "type": "string", "format": "uuid" },
+              "queue_name": { "type": ["string", "null"], "minLength": 1, "maxLength": 512 },
+              "bot_id": { "type": ["string", "null"], "minLength": 1, "maxLength": 512 },
+              "microservice_id": { "type": ["string", "null"], "minLength": 1, "maxLength": 255 },
+              "storage": { "type": ["object", "null"], "additionalProperties": true },
+              "role": { "type": ["string", "null"], "minLength": 1, "maxLength": 64 }
+            },
+            "additionalProperties": false,
+            "anyOf": [{ "required": ["environment_key"] }, { "required": ["instance_id"] }]
+          }
+        },
         "created_at": { "type": "string" },
         "updated_at": { "type": "string" }
       },

@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "connections": [
+    {
+      "connection_key": "orders-webhook",
+      "bindings": [
+        {
+          "environment_key": "stage",
+          "connector_id": "{{CONNECTOR_ID_STAGE}}"
+        },
+        {
+          "environment_key": "prod",
+          "connector_id": "{{CONNECTOR_ID_PROD}}"
+        }
+      ]
+    }
+  ]
+}

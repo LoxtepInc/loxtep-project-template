@@ -33,6 +33,10 @@
     "metadata": {
       "template_slug": "orders-ingestion"
     },
+    "runtime_slots": [
+      { "environment_key": "stage" },
+      { "environment_key": "prod" }
+    ],
     "created_at": "{{CREATED_AT}}",
     "updated_at": "{{UPDATED_AT}}",
     "odps_document": {
