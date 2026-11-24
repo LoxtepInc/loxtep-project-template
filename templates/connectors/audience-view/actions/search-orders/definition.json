@@ -1,0 +1,62 @@
+{
+  "key": "audience_view_search_orders",
+  "name": "Search orders",
+  "description": "POST /app/WebAPI/v2/search — Query.object order, method search, page via Query.current_page. Includes OrderAdmission result members when available.",
+  "version": "1.0.0",
+  "type": "action",
+  "annotations": { "read_only": true, "destructive": false },
+  "input_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {
+      "limit": {
+        "type": "number",
+        "description": "Query.page_size (capped at 1000 by Unlimited)."
+      },
+      "page": {
+        "type": ["number", "string"],
+        "description": "1-based Query.current_page from sync_plan query_page pagination."
+      }
+    }
+  },
+  "execution": {
+    "protocol": "catalog_http_post",
+    "method": "POST",
+    "base_url_template": "{{connection.base_url}}",
+    "path": "/app/WebAPI/v2/search",
+    "static_headers": {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    "query_mapping": {
+      "api_key": "connection.custom_settings.api_key"
+    },
+    "omit_empty_query": true,
+    "omit_empty_json_strings": true,
+    "json_body": {
+      "set": {
+        "Query": {
+          "object": "order",
+          "page_size": "{{input.limit}}",
+          "current_page": "{{input.page}}",
+          "ResultMember": {
+            "1": { "Name": "Order::order_id", "Order": "1" },
+            "2": { "Name": "Order::order_number", "Order": "2" },
+            "3": { "Name": "Order::order_status", "Order": "3" },
+            "4": { "Name": "Order::Customer::customer_number", "Order": "4" },
+            "5": { "Name": "Order::create_date", "Order": "5" }
+          }
+        }
+      },
+      "actions": [
+        {
+          "method": "search",
+          "acceptWarnings": [4276]
+        }
+      ],
+      "get": ["Query::total_records", "Result"],
+      "release": "Object"
+    }
+  }
+}
